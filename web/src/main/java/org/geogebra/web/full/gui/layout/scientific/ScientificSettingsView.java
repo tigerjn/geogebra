@@ -9,6 +9,7 @@ import org.geogebra.common.properties.factory.PropertiesArray;
 import org.geogebra.common.properties.factory.ScientificPropertiesFactory;
 import org.geogebra.web.full.gui.HeaderView;
 import org.geogebra.web.full.gui.components.CompDropDown;
+import org.geogebra.web.full.gui.components.ComponentCombobox;
 import org.geogebra.web.full.gui.components.ComponentDropDown;
 import org.geogebra.web.full.gui.layout.panels.AnimatingPanel;
 import org.geogebra.web.html5.gui.util.Dom;
@@ -86,6 +87,9 @@ public class ScientificSettingsView extends AnimatingPanel implements FastClickH
 		// change to test disabled state
 		// dropDown.setDisabled(true);
 		panel.add(dropDown);
+
+		ComponentCombobox combobox = new ComponentCombobox(app, "Label", properties.getProperties()[0]);
+		panel.add(combobox);
 	}
 
 	private void updateGUI() {

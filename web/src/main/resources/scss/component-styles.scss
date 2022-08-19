@@ -889,4 +889,17 @@
 			}
 		}
 	}
+
+	.combobox {
+		.inputTextField.focusState,
+		 .inputTextField.focusState:hover  {
+			.inputLabel {
+				color: colors.$mow_dark;
+			}
+
+			.AutoCompleteTextFieldW {
+				border-bottom: 2px solid colors.$mow_dark;
+			}
+		}
+	}
 }
