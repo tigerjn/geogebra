@@ -891,15 +891,81 @@
 	}
 
 	.combobox {
-		.inputTextField.focusState,
+		margin-top: 40px;
+		width: fit-content;
+
+		.inputLabel {
+			font-size: 75%;
+			color: colors.$text-secondary;
+			height: 12px;
+			line-height: 100%;
+			display: block;
+		}
+
+		.inputPanel {
+			display: flex;
+			margin-top: 8px;
+			box-sizing: border-box;
+			border-bottom: 1px solid colors.$black-42;
+
+			.AutoCompleteTextFieldW {
+				margin-bottom: 8px;
+				border: none;
+
+            	input[type="text"] {
+            		height: 20px;
+            		margin: 0;
+            		padding: 0;
+            	}
+
+            	.TextField {
+            		border: none;
+            		box-shadow: none;
+            	}
+
+            	.arrow {
+            		cursor: pointer;
+            		opacity: 0.54;
+            	}
+            }
+		}
+
+		&:hover {
+			.inputLabel {
+				color: colors.$text-primary;
+			}
+
+			.inputPanel {
+				border-bottom: 2px solid colors.$text-primary;
+			}
+
+			.arrow {
+				opacity: 0.87;
+			}
+		}
+
+		&.active, &.active:hover {
+		    .inputLabel {
+        		color: colors.$mow_dark;
+        	}
+
+        	.inputPanel {
+        		border-bottom: 2px solid colors.$mow_dark;
+        	}
+
+			.arrow {
+				opacity: 0.87;
+        	}
+       	}
+
+
+		/*.inputTextField.focusState,
 		 .inputTextField.focusState:hover  {
 			.inputLabel {
 				color: colors.$mow_dark;
 			}
 
-			.AutoCompleteTextFieldW {
-				border-bottom: 2px solid colors.$mow_dark;
-			}
-		}
+			border-bottom: 2px solid colors.$mow_dark;
+		}*/
 	}
 }

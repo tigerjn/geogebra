@@ -14,6 +14,7 @@ import org.geogebra.web.full.gui.view.algebra.InputPanelW;
 import org.geogebra.web.html5.gui.inputfield.AutoCompleteTextFieldW;
 import org.geogebra.web.html5.gui.util.AriaMenuItem;
 import org.geogebra.web.html5.gui.util.ClickStartHandler;
+import org.geogebra.web.html5.gui.util.Dom;
 import org.geogebra.web.html5.gui.util.FormLabel;
 import org.geogebra.web.html5.main.AppW;
 
@@ -45,7 +46,7 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 
 	private void buildGUI() {
 		contentPanel = new FlowPanel();
-		contentPanel.setStyleName("inputTextField");
+		contentPanel.setStyleName("inputPanel");
 
 		inputTextField = new AutoCompleteTextFieldW(-1, appW, false, null, false);
 		inputTextField.addStyleName("textField");
@@ -53,26 +54,26 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		if (labelTextKey != null) {
 			labelText = new FormLabel().setFor(inputTextField);
 			labelText.setStyleName("inputLabel");
-			contentPanel.add(labelText);
+			add(labelText);
 		}
-
-		contentPanel.add(inputTextField);
-		add(contentPanel);
 
 		SimplePanel arrowIcon = new SimplePanel();
 		arrowIcon.addStyleName("arrow");
 		arrowIcon.getElement().setInnerHTML(MaterialDesignResources.INSTANCE
 				.arrow_drop_down().getSVG());
-		add(arrowIcon);
+
+		contentPanel.add(inputTextField);
+		contentPanel.add(arrowIcon);
+		add(contentPanel);
 
 		setLabels();
 	}
 
 	private void addFocusBlurHandlers() {
 		inputTextField.getTextBox()
-				.addFocusHandler(event -> contentPanel.addStyleName("focusState"));
+				.addFocusHandler(event -> addStyleName("focusState"));
 		inputTextField.getTextBox()
-				.addBlurHandler(event -> contentPanel.removeStyleName("focusState"));
+				.addBlurHandler(event -> removeStyleName("focusState"));
 	}
 
 	/**
@@ -80,9 +81,9 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 	 */
 	private void addHoverHandlers() {
 		inputTextField.getTextBox()
-				.addMouseOverHandler(event -> contentPanel.addStyleName("hoverState"));
+				.addMouseOverHandler(event -> addStyleName("hoverState"));
 		inputTextField.getTextBox()
-				.addMouseOutHandler(event -> contentPanel.removeStyleName("hoverState"));
+				.addMouseOutHandler(event -> removeStyleName("hoverState"));
 	}
 
 	private void createDropDownMenu(final AppW app) {
@@ -107,8 +108,10 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		if (dropDown.isOpened()) {
 			dropDown.close();
 		} else {
-			dropDown.show();
+			dropDown.showAtPoint(getAbsoluteLeft(), getElement().getAbsoluteBottom());
+			//dropDown.show();
 		}
+		Dom.toggleClass(this, "active", dropDown.isOpened());
 	}
 
 	private void setSelectedOption(int idx) {

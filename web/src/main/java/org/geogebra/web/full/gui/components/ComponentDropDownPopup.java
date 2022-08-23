@@ -200,4 +200,8 @@ public class ComponentDropDownPopup {
 	public void clear() {
 		menu.clearItems();
 	}
+
+	public void showAtPoint(int x, int y) {
+		menu.showAtPoint(x, y);
+	}
 }
