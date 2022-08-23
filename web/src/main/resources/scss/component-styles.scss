@@ -922,12 +922,12 @@
             		border: none;
             		box-shadow: none;
             	}
-
-            	.arrow {
-            		cursor: pointer;
-            		opacity: 0.54;
-            	}
             }
+		}
+
+		.arrow {
+			cursor: pointer;
+			opacity: 0.54;
 		}
 
 		&:hover {

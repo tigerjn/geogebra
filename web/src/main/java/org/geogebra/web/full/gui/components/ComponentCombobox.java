@@ -42,6 +42,8 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		createDropDownMenu(appW);
 		setElements(Arrays.asList(((EnumerableProperty) property).getValues()));
 		setSelectedOption(0);
+
+
 	}
 
 	private void buildGUI() {
@@ -87,7 +89,7 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 	}
 
 	private void createDropDownMenu(final AppW app) {
-		dropDown = new ComponentDropDownPopup(app, 24, inputTextField);
+		dropDown = new ComponentDropDownPopup(app, 24, inputTextField, this::onClose);
 		dropDown.addAutoHidePartner(getElement());
 
 		ClickStartHandler.init(this, new ClickStartHandler(true, true) {
@@ -99,6 +101,10 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 				//}
 			}
 		});
+	}
+
+	private void onClose() {
+		removeStyleName("active");
 	}
 
 	/**

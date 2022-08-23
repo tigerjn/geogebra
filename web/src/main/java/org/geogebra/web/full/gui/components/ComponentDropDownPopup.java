@@ -1,12 +1,15 @@
 package org.geogebra.web.full.gui.components;
 
 import org.geogebra.web.full.javax.swing.GPopupMenuW;
+import org.geogebra.web.html5.gui.GPopupPanel;
 import org.geogebra.web.html5.gui.util.AriaMenuItem;
 import org.geogebra.web.html5.main.AppW;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -34,13 +37,13 @@ public class ComponentDropDownPopup {
 	 * @param itemHeight Height of an item in list
 	 * @param anchor     to align the selected item.
 	 */
-	public ComponentDropDownPopup(AppW app, int itemHeight, Widget anchor) {
+	public ComponentDropDownPopup(AppW app, int itemHeight, Widget anchor, Runnable onClose) {
 		this.app = app;
 		this.itemHeight = itemHeight;
 		this.anchor = anchor;
 		menu = new GPopupMenuW(app);
 		menu.getPopupPanel().addStyleName("dropDownPopup");
-		app.registerAutoclosePopup(menu.getPopupPanel());
+		menu.getPopupPanel().addCloseHandler(event -> onClose.run());
 	}
 
 	/**
