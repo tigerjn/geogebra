@@ -10,7 +10,6 @@ import org.geogebra.common.properties.EnumerableProperty;
 import org.geogebra.common.properties.Property;
 import org.geogebra.web.full.css.MaterialDesignResources;
 import org.geogebra.web.full.gui.menubar.MainMenu;
-import org.geogebra.web.full.gui.view.algebra.InputPanelW;
 import org.geogebra.web.html5.gui.inputfield.AutoCompleteTextFieldW;
 import org.geogebra.web.html5.gui.util.AriaMenuItem;
 import org.geogebra.web.html5.gui.util.ClickStartHandler;
@@ -18,8 +17,10 @@ import org.geogebra.web.html5.gui.util.Dom;
 import org.geogebra.web.html5.gui.util.FormLabel;
 import org.geogebra.web.html5.main.AppW;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.himamis.retex.editor.share.util.GWTKeycodes;
 
 public class ComponentCombobox extends FlowPanel implements SetLabels {
 	private final AppW appW;
@@ -29,6 +30,7 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 	private String labelTextKey;
 	private ComponentDropDownPopup dropDown;
 	private List<AriaMenuItem> dropDownElementsList;
+	private int lastSelectedIdx;
 
 	public ComponentCombobox(AppW app, String label, Property property) {
 		appW = app;
@@ -38,12 +40,15 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		buildGUI();
 		addFocusBlurHandlers();
 		addHoverHandlers();
+		inputTextField.addKeyUpHandler(event -> {
+			if (event.getNativeKeyCode() == GWTKeycodes.KEY_ENTER) {
+				toggleExpanded();
+			}
+		});
 		//TODO
 		createDropDownMenu(appW);
 		setElements(Arrays.asList(((EnumerableProperty) property).getValues()));
 		setSelectedOption(0);
-
-
 	}
 
 	private void buildGUI() {
@@ -105,6 +110,7 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 
 	private void onClose() {
 		removeStyleName("active");
+		resetTextField();
 	}
 
 	/**
@@ -112,15 +118,28 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 	 */
 	protected void toggleExpanded() {
 		if (dropDown.isOpened()) {
+			inputTextField.setFocus(false);
+			resetTextField();
 			dropDown.close();
 		} else {
 			dropDown.showAtPoint(getAbsoluteLeft(), getElement().getAbsoluteBottom());
+			Scheduler.get().scheduleDeferred(() -> {
+				inputTextField.selectAll();
+			});
 			//dropDown.show();
 		}
 		Dom.toggleClass(this, "active", dropDown.isOpened());
 	}
 
+	private void resetTextField() {
+		if (inputTextField.getText().isEmpty()) {
+			inputTextField.setText(dropDownElementsList.get(
+					lastSelectedIdx).getText());
+		}
+	}
+
 	private void setSelectedOption(int idx) {
+		lastSelectedIdx = idx;
 		dropDown.setSelectedIndex(idx);
 		inputTextField.setText(dropDownElementsList.get(idx).getElement().getInnerText());
 	}

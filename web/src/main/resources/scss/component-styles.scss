@@ -928,6 +928,7 @@
 		.arrow {
 			cursor: pointer;
 			opacity: 0.54;
+			transition: transform 200ms ease-in-out;
 		}
 
 		&:hover {
@@ -955,6 +956,7 @@
 
 			.arrow {
 				opacity: 0.87;
+				transform: rotate(180deg);
         	}
        	}
 
