@@ -1,7 +1,5 @@
 package org.geogebra.web.full.gui.openfileview;
 
-import org.geogebra.common.move.ggtapi.models.Material;
-
 /**
  * Common interface for material cards.
  */
