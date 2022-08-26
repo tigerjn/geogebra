@@ -126,12 +126,6 @@ public class MaterialCard extends FlowPanel implements MaterialCardI {
 		return getMaterial().getTitle();
 	}
 
-	@Override
-	public String getMaterialID() {
-		return getMaterial().getSharingKeyOrId();
-	}
-
-	@Override
 	public void updateVisibility(Material material) {
 		MaterialDesignResources res = MaterialDesignResources.INSTANCE;
 		String visibility = material.getVisibility();
