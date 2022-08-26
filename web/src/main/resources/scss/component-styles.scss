@@ -893,6 +893,7 @@
 	.combobox {
 		margin-top: 40px;
 		width: fit-content;
+		min-width: 64px;
 
 		.inputLabel {
 			font-size: 75%;
@@ -904,12 +905,11 @@
 
 		.inputPanel {
 			display: flex;
-			margin-top: 8px;
 			box-sizing: border-box;
 			border-bottom: 1px solid colors.$black-42;
 
 			.AutoCompleteTextFieldW {
-				margin-bottom: 8px;
+				margin: 8px 8px 8px 0;
 				border: none;
 
             	input[type="text"] {
@@ -922,11 +922,18 @@
             		border: none;
             		box-shadow: none;
             	}
+
+            	.TextField::selection {
+            		background: colors.$mow_selection_color;
+            	}
             }
 		}
 
 		.arrow {
 			cursor: pointer;
+			width: 24px;
+			height: 24px;
+			margin: 6px 0;
 			opacity: 0.54;
 			transition: transform 200ms ease-in-out;
 		}
@@ -956,18 +963,29 @@
 
 			.arrow {
 				opacity: 0.87;
-				transform: rotate(180deg);
+				transform: rotate(-180deg);
         	}
        	}
 
+       	&.disabled, &.disabled:hover {
+       		cursor: default;
 
-		/*.inputTextField.focusState,
-		 .inputTextField.focusState:hover  {
-			.inputLabel {
-				color: colors.$mow_dark;
-			}
+        	.inputLabel {
+        		color: colors.$black-36;
+        	}
 
-			border-bottom: 2px solid colors.$mow_dark;
-		}*/
+        	.inputPanel {
+        		border-bottom: 1px solid colors.$black-36;
+
+        		input[type="text"] {
+        			cursor: default;
+        			color: colors.$black-36;
+        		}
+        	}
+
+        	.arrow {
+        		opacity: 0.36;
+        	}
+        }
 	}
 }

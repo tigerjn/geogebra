@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.geogebra.common.awt.GColor;
 import org.geogebra.common.euclidian.event.PointerEventType;
 import org.geogebra.common.gui.SetLabels;
+import org.geogebra.common.main.GeoGebraColorConstants;
 import org.geogebra.common.properties.EnumerableProperty;
 import org.geogebra.common.properties.Property;
 import org.geogebra.web.full.css.MaterialDesignResources;
@@ -24,28 +26,34 @@ import com.himamis.retex.editor.share.util.GWTKeycodes;
 
 public class ComponentCombobox extends FlowPanel implements SetLabels {
 	private final AppW appW;
+	private EnumerableProperty property;
 	private FlowPanel contentPanel;
 	private AutoCompleteTextFieldW inputTextField;
 	private FormLabel labelText;
 	private String labelTextKey;
+	private SimplePanel arrowIcon;
 	private ComponentDropDownPopup dropDown;
 	private List<AriaMenuItem> dropDownElementsList;
 	private int lastSelectedIdx;
+	private boolean isDisabled = false;
 
+	/**
+	 * Constructor
+	 * @param app - see {@link AppW}
+	 * @param label - label of combobox
+	 * @param property - popup items
+	 */
 	public ComponentCombobox(AppW app, String label, Property property) {
 		appW = app;
 		labelTextKey = label;
+		this.property = (EnumerableProperty) property;
 
 		addStyleName("combobox");
 		buildGUI();
 		addFocusBlurHandlers();
 		addHoverHandlers();
-		inputTextField.addKeyUpHandler(event -> {
-			if (event.getNativeKeyCode() == GWTKeycodes.KEY_ENTER) {
-				toggleExpanded();
-			}
-		});
-		//TODO
+		addFieldKeyAndPointerHandler();
+
 		createDropDownMenu(appW);
 		setElements(Arrays.asList(((EnumerableProperty) property).getValues()));
 		setSelectedOption(0);
@@ -61,10 +69,11 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		if (labelTextKey != null) {
 			labelText = new FormLabel().setFor(inputTextField);
 			labelText.setStyleName("inputLabel");
+			labelText.setText(appW.getLocalization().getMenu(labelTextKey));
 			add(labelText);
 		}
 
-		SimplePanel arrowIcon = new SimplePanel();
+		arrowIcon = new SimplePanel();
 		arrowIcon.addStyleName("arrow");
 		arrowIcon.getElement().setInnerHTML(MaterialDesignResources.INSTANCE
 				.arrow_drop_down().getSVG());
@@ -72,8 +81,6 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		contentPanel.add(inputTextField);
 		contentPanel.add(arrowIcon);
 		add(contentPanel);
-
-		setLabels();
 	}
 
 	private void addFocusBlurHandlers() {
@@ -93,6 +100,21 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 				.addMouseOutHandler(event -> removeStyleName("hoverState"));
 	}
 
+	private void addFieldKeyAndPointerHandler() {
+		inputTextField.addKeyUpHandler(event -> {
+			if (event.getNativeKeyCode() == GWTKeycodes.KEY_ENTER) {
+				toggleExpanded();
+			}
+		});
+
+		Dom.addEventListener(inputTextField.getTextField().getValueBox().getElement(),
+				"pointerup", (event) -> {
+			if (isDisabled) {
+				inputTextField.setFocus(false);
+			}
+		});
+	}
+
 	private void createDropDownMenu(final AppW app) {
 		dropDown = new ComponentDropDownPopup(app, 24, inputTextField, this::onClose);
 		dropDown.addAutoHidePartner(getElement());
@@ -101,15 +123,17 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 
 			@Override
 			public void onClickStart(int x, int y, PointerEventType type) {
-				//if (!isDisabled) {
+				if (!isDisabled) {
 					toggleExpanded();
-				//}
+				}
 			}
 		});
 	}
 
 	private void onClose() {
 		removeStyleName("active");
+		arrowIcon.getElement().setInnerHTML(MaterialDesignResources.INSTANCE.arrow_drop_down()
+				.withFill(GColor.BLACK.toString()).getSVG());
 		resetTextField();
 	}
 
@@ -126,9 +150,10 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 			Scheduler.get().scheduleDeferred(() -> {
 				inputTextField.selectAll();
 			});
-			//dropDown.show();
 		}
 		Dom.toggleClass(this, "active", dropDown.isOpened());
+		arrowIcon.getElement().setInnerHTML(MaterialDesignResources.INSTANCE.arrow_drop_down()
+				.withFill(GeoGebraColorConstants.GEOGEBRA_ACCENT.toString()).getSVG());
 	}
 
 	private void resetTextField() {
@@ -174,11 +199,20 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		}
 	}
 
+	/**
+	 * Disable drop-down component
+	 * @param disabled - true, if drop-down should be disabled
+	 */
+	public void setDisabled(boolean disabled) {
+		isDisabled = disabled;
+		Dom.toggleClass(this, "disabled", disabled);
+	}
 
 	@Override
 	public void setLabels() {
 		if (labelText != null) {
 			labelText.setText(appW.getLocalization().getMenu(labelTextKey));
 		}
+		setElements(Arrays.asList(property.getValues()));
 	}
 }
