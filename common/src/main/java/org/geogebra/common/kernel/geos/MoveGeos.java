@@ -44,6 +44,15 @@ public class MoveGeos {
 		}
 		final ArrayList<GeoElement> geos = new ArrayList<>();
 
+		//move independent lists as a whole instead of their individual points
+		for (GeoElement geo : geosToMove) {
+			if (geo.isGeoList() && geo.isIndependent()) {
+				for (int i = 0; i < ((GeoList) geo).size(); i++) {
+					geosToMove.remove(((GeoList) geo).get(i));
+				}
+			}
+		}
+
 		for (GeoElement geo: geosToMove) {
 			addWithSiblingsAndChildNodes(geo, geos, view); // also removes duplicates
 		}
@@ -70,6 +79,14 @@ public class MoveGeos {
 		// multiple updates of the same algorithm)
 		GeoElement.updateCascade(moveObjectsUpdateList, GeoElement.getTempSet(),
 				false);
+
+		//geoLists do not trigger the update of the cascade in the function call above
+		for (GeoElement geo : geosToMove) {
+			if (geo.isGeoList()) {
+				geo.updateCascade();
+				geo.resetDefinition();
+			}
+		}
 		return moved;
 	}
 
