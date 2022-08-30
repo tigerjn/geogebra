@@ -914,6 +914,7 @@
 
 				input[type="text"] {
 					height: 20px;
+					line-height: 20px;
 					margin: 0;
 					padding: 0;
 				}
@@ -938,7 +939,7 @@
 			transition: transform 200ms ease-in-out;
 		}
 
-		&:hover {
+		&:not(.disabled):hover {
 			.inputLabel {
 				color: colors.$text-primary;
 			}
@@ -988,6 +989,7 @@
 				input[type="text"] {
 					cursor: default;
 					color: colors.$black-36;
+					background-color: colors.$white;
 				}
 			}
 

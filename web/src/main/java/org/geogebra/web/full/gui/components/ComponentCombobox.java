@@ -105,13 +105,6 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 				toggleExpanded();
 			}
 		});
-
-		Dom.addEventListener(inputTextField.getTextField().getValueBox().getElement(),
-				"pointerup", (event) -> {
-			if (isDisabled) {
-				inputTextField.setFocus(false);
-			}
-		});
 	}
 
 	private void createDropDownMenu(final AppW app) {
@@ -206,6 +199,7 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 	 */
 	public void setDisabled(boolean disabled) {
 		isDisabled = disabled;
+		inputTextField.setEnabled(!disabled);
 		Dom.toggleClass(this, "disabled", disabled);
 	}
 
