@@ -89,7 +89,7 @@ public class ScientificSettingsView extends AnimatingPanel implements FastClickH
 		panel.add(dropDown);
 
 		ComponentCombobox combobox = new ComponentCombobox(app,
-				"Label", properties.getProperties()[0]);
+				"Label", (EnumerableProperty) properties.getProperties()[0]);
 		panel.add(combobox);
 	}
 

@@ -43,10 +43,10 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 	 * @param label - label of combobox
 	 * @param property - popup items
 	 */
-	public ComponentCombobox(AppW app, String label, Property property) {
+	public ComponentCombobox(AppW app, String label, EnumerableProperty property) {
 		appW = app;
 		labelTextKey = label;
-		this.property = (EnumerableProperty) property;
+		this.property = property;
 
 		addStyleName("combobox");
 		buildGUI();
@@ -55,7 +55,7 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 		addFieldKeyAndPointerHandler();
 
 		createDropDownMenu(appW);
-		setElements(Arrays.asList(((EnumerableProperty) property).getValues()));
+		setElements(Arrays.asList(property.getValues()));
 		setSelectedOption(0);
 	}
 
@@ -152,8 +152,10 @@ public class ComponentCombobox extends FlowPanel implements SetLabels {
 			});
 		}
 		Dom.toggleClass(this, "active", dropDown.isOpened());
+		GColor arrowCol = dropDown.isOpened()
+				? GeoGebraColorConstants.GEOGEBRA_ACCENT : GColor.BLACK;
 		arrowIcon.getElement().setInnerHTML(MaterialDesignResources.INSTANCE.arrow_drop_down()
-				.withFill(GeoGebraColorConstants.GEOGEBRA_ACCENT.toString()).getSVG());
+				.withFill(arrowCol.toString()).getSVG());
 	}
 
 	private void resetTextField() {

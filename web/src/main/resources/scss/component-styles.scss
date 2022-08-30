@@ -945,6 +945,10 @@
 
 			.inputPanel {
 				border-bottom: 2px solid colors.$text-primary;
+
+				.AutoCompleteTextFieldW {
+					margin-bottom: 7px;
+				}
 			}
 
 			.arrow {
@@ -959,6 +963,10 @@
 
 			.inputPanel {
 				border-bottom: 2px solid colors.$mow_dark;
+
+				.AutoCompleteTextFieldW {
+                	margin-bottom: 7px;
+                }
 			}
 
 			.arrow {
