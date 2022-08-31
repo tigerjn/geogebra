@@ -737,4 +737,8 @@ public class AppletParameters {
 	public int getParamMaxImageSize() {
 		return getIntDataParam("maxImageSize", 0);
 	}
+
+	public String getParamMultiplayerUrl() {
+		return getStringDataParam("multiplayerUrl", "");
+	}
 }
