@@ -134,8 +134,7 @@ public class ComponentDropDown extends FlowPanel {
 
 		for (int i = 0; i < dropDownList.size(); ++i) {
 			final int currentIndex = i;
-			AriaMenuItem item = new AriaMenuItem(
-					MainMenu.getMenuBarHtmlEmptyIcon(dropDownList.get(i)), true,
+			AriaMenuItem item = new AriaMenuItem(dropDownList.get(i), true,
 					() -> {
 						setSelected(currentIndex);
 						fireSelected(currentIndex);

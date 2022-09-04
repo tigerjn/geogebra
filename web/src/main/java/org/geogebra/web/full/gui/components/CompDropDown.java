@@ -120,8 +120,7 @@ public class CompDropDown extends FlowPanel implements SetLabels {
 
 		for (int i = 0; i < dropDownList.size(); ++i) {
 			final int currentIndex = i;
-			AriaMenuItem item = new AriaMenuItem(
-					MainMenu.getMenuBarHtmlEmptyIcon(dropDownList.get(i)), true,
+			AriaMenuItem item = new AriaMenuItem(dropDownList.get(i), true,
 					() -> setSelectedOption(currentIndex));
 
 			item.setStyleName("dropDownElement");

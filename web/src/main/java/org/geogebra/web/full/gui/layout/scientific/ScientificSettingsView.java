@@ -86,6 +86,8 @@ public class ScientificSettingsView extends AnimatingPanel implements FastClickH
 				panel.add(cell);
 			}
 		}
+		CompDropDown dropDown2 = new CompDropDown(app, "Label", properties.getProperties()[0]);
+		panel.add(dropDown2);
 	}
 
 	private void updateGUI() {
