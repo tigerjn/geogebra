@@ -9,7 +9,6 @@ import org.geogebra.common.gui.SetLabels;
 import org.geogebra.common.properties.EnumerableProperty;
 import org.geogebra.common.properties.Property;
 import org.geogebra.web.full.css.MaterialDesignResources;
-import org.geogebra.web.full.gui.menubar.MainMenu;
 import org.geogebra.web.html5.gui.util.AriaMenuItem;
 import org.geogebra.web.html5.gui.util.ClickStartHandler;
 import org.geogebra.web.html5.gui.util.Dom;
