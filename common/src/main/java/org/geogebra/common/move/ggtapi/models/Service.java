@@ -17,6 +17,8 @@ public interface Service {
 
 	String getGroupsEndpoint(String materialId, GroupIdentifier.GroupCategory category);
 
-	boolean hasMultiuser();
+	default boolean hasMultiuser() {
+		return false;
+	}
 
 }
