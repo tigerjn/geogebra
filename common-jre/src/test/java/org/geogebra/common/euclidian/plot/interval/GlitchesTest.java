@@ -19,7 +19,7 @@ public class GlitchesTest extends BaseUnitTest {
 	@Test
 	public void oneDividedByZeroTimeXShouldBeEmpty() {
 		withHiResFunction("1/(0x)");
-		assertEquals(0, gp.getLog().size());
+		assertEquals(1, gp.getLog().size());
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class GlitchesTest extends BaseUnitTest {
 		withBounds(-1, 1, -8, -8);
 		withScreenSize(50, 50);
 		withFunction("0(1/x)");
-		assertEquals(102, gp.getLog().stream().filter(e -> DoubleUtil.isEqual(e.y, 0))
+		assertEquals(101, gp.getLog().stream().filter(e -> DoubleUtil.isEqual(e.y, 0))
 				.count());
 	}
 
@@ -36,7 +36,7 @@ public class GlitchesTest extends BaseUnitTest {
 		withBounds(-1, 1, -8, -8);
 		withScreenSize(50, 50);
 		withFunction("0/(0/tan(x))");
-		assertEquals(0, gp.getLog().size());
+		assertEquals(1, gp.getLog().size());
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class GlitchesTest extends BaseUnitTest {
 		withBounds(-1E15, 1E15, -1E15, -1E15);
 		withScreenSize(50, 50);
 		withFunction("tan(x)");
-		assertEquals(102, gp.getLog().size());
+		assertEquals(101, gp.getLog().size());
 	}
 
 	@Test

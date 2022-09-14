@@ -81,4 +81,39 @@ public class IntervalFunctionSupportTest extends BaseUnitTest {
 		shouldBeNotSupported("acosh(x)");
 		shouldBeNotSupported("sin(x)^(ln(x))");
 	}
+
+	@Test
+	public void ifsShouldBeNotSupported() {
+		shouldBeNotSupported("If[x < 1, 0]");
+		shouldBeNotSupported("If[x < 1, 2x]");
+		shouldBeNotSupported("If[x < 1, x + 1]");
+		shouldBeNotSupported("If[1 < x, x + 1]");
+		shouldBeNotSupported("If[x != 1, x + 1]");
+		shouldBeNotSupported("If[0 < x < 1, x + 1]");
+		shouldBeNotSupported("If[0 < x < sin(1), x + 1]");
+		shouldBeNotSupported("If[3x < x < 1, x + 1]");
+		shouldBeNotSupported("If[0 < sin(x) < 2, x + 1]");
+		shouldBeNotSupported("If[3x < x <= x, x + 1]");
+		shouldBeNotSupported("If[sin(2) < x, x^2]");
+		shouldBeNotSupported("If[x < sin(2), x^2]");
+		shouldBeNotSupported("If[sin(x) < 0, x + 1]");
+		shouldBeNotSupported("If[0 < sin(x), x + 1]");
+		shouldBeNotSupported("If[x < 1, 2x + x^3");
+		shouldBeNotSupported("If[1 < x, 2x + x^3");
+		shouldBeNotSupported("If[x < 1, x, x + 1]");
+		shouldBeNotSupported("If[x != 1, x, x + 1]");
+		shouldBeNotSupported("If[-1 < x < 1, x, x + 1]");
+		shouldBeNotSupported("If[-1 + cos(1) < x < sin(2), x, x + 1]");
+		shouldBeNotSupported("If[sin(x) < 0, 0, 1]");
+		shouldBeNotSupported("If[x < 1, x * sin(x), x + 1]");
+		shouldBeNotSupported("If[x < 1, x, x * sin(x)]");
+		shouldBeNotSupported("If[x < 1, x/tan(x), x * sin(x)]");
+		shouldBeNotSupported("If[x < 1, x * sin(x) + 1]");
+		shouldBeNotSupported("if(x < -2, -2, x > 0, 4)");
+		shouldBeNotSupported("if(x < -2, -2, x > 0, 4, 2)");
+		shouldBeNotSupported("if(x < -2, x + 1, x > 0, x^4)");
+		shouldBeNotSupported("if(-4 < x < -2, 3x, 2 < x < 4, 4x)");
+		shouldBeNotSupported("if(x < -2, x * (ln(x)), x > 0, x^4)");
+		shouldBeNotSupported("if(sin(x) < 0, 1, cos(x) > 0, x^4)");
+	}
 }
