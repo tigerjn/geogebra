@@ -141,7 +141,8 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 			model.setLaTeX(isLatex(), true);
 			// manual override -> ignore autodetect
 			mayDetectLaTeX = isLatex();
-
+			model.applyEditedGeo(editor.getDynamicTextList(), isLatex(),
+					isSerif(), appw.getDefaultErrorHandler());
 			updatePreviewPanel();
 		});
 		btnLatex.addStyleName("btnLatex");
@@ -216,6 +217,8 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 			model.setEditGeoText(editor.getText());
 			model.applyFontStyle(mask, toggle.isSelected());
 			inlineFormat(propertyName, toggle.isSelected());
+			model.applyEditedGeo(editor.getDynamicTextList(), isLatex(),
+					isSerif(), app.getDefaultErrorHandler());
 			updatePreviewPanel();
 		});
 	}
