@@ -145,6 +145,9 @@ public class MaterialCard extends FlowPanel implements MaterialCardI {
 			} else {
 				visibilityTxt = new Label(getCardAuthor());
 			}
+		} else if (!isOwnMaterial()) {
+			visibiltyImg = null;
+			visibilityTxt = new Label(getCardAuthor());
 		} else {
 			switch (visibility) {
 			case "P":
@@ -161,14 +164,8 @@ public class MaterialCard extends FlowPanel implements MaterialCardI {
 				break;
 			case "O":
 			default:
-				if (isOwnMaterial()) {
-					visibiltyImg = new NoDragImage(
-							MaterialDesignResources.INSTANCE.mow_card_public(), 24);
-					visibilityTxt = new Label(app.getLocalization().getMenu("Public"));
-				} else {
-					visibiltyImg = null;
-					visibilityTxt = new Label(getCardAuthor());
-				}
+				visibiltyImg = new NoDragImage(res.mow_card_public(), 24);
+				visibilityTxt = new Label(app.getLocalization().getMenu("Public"));
 				break;
 			}
 		}
