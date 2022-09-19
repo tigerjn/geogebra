@@ -85,13 +85,12 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		}
 
 		lbFont.addChangeHandler(event -> {
-			model.setEditGeoText(editor.getText());
 			model.applyFont(lbFont.getSelectedIndex() == 1);
+			saveEditorChanges();
 		});
 		lbSize = new ListBox();
 
 		lbSize.addChangeHandler(event -> {
-			model.setEditGeoText(editor.getText());
 			boolean isCustom = lbSize.getSelectedIndex() == 7;
 			if (isCustom) {
 				String currentSize = Math
@@ -114,7 +113,7 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 						* app.getActiveEuclidianView().getFontSize();
 				inlineFormat("size", size);
 			}
-			updatePreviewPanel();
+			saveEditorChanges();
 		});
 
 		btnItalic = new ToggleButton(MaterialDesignResources.INSTANCE.text_italic_black());
@@ -141,9 +140,7 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 			model.setLaTeX(isLatex(), true);
 			// manual override -> ignore autodetect
 			mayDetectLaTeX = isLatex();
-			model.applyEditedGeo(editor.getDynamicTextList(), isLatex(),
-					isSerif(), appw.getDefaultErrorHandler());
-			updatePreviewPanel();
+			saveEditorChanges();
 		});
 		btnLatex.addStyleName("btnLatex");
 
@@ -154,9 +151,8 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		}
 
 		lbDecimalPlaces.addChangeHandler(event -> {
-			model.setEditGeoText(editor.getText());
 			model.applyDecimalPlaces(lbDecimalPlaces.getSelectedIndex());
-			updatePreviewPanel();
+			saveEditorChanges();
 		});
 
 		// font, size
@@ -195,8 +191,7 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		btnOk = new StandardButton("");
 		btnPanel.add(btnOk);
 		btnOk.addFastClickHandler(event -> {
-			model.applyEditedGeo(editor.getDynamicTextList(), isLatex(),
-					isSerif(), appw.getDefaultErrorHandler());
+			saveEditorChanges();
 			((PropertiesViewW) appw.getGuiManager().getPropertiesView())
 					.getOptionPanel(OptionType.OBJECTS, 1);
 		});
@@ -214,13 +209,16 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 	private void addStyleClickListener(final String propertyName, final int mask,
 									   final ToggleButton toggle) {
 		toggle.addFastClickHandler(event -> {
-			model.setEditGeoText(editor.getText());
 			model.applyFontStyle(mask, toggle.isSelected());
 			inlineFormat(propertyName, toggle.isSelected());
-			model.applyEditedGeo(editor.getDynamicTextList(), isLatex(),
-					isSerif(), app.getDefaultErrorHandler());
-			updatePreviewPanel();
+			saveEditorChanges();
 		});
+	}
+
+	private void saveEditorChanges() {
+		model.applyEditedGeo(editor.getDynamicTextList(), isLatex(),
+				isSerif(), app.getDefaultErrorHandler());
+		updatePreviewPanel();
 	}
 
 	protected void inlineFormat(String key, Object val) {
