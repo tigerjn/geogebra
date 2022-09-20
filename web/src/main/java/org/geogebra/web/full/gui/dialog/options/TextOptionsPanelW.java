@@ -85,12 +85,14 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		}
 
 		lbFont.addChangeHandler(event -> {
+			model.setEditGeoText(editor.getText());
 			model.applyFont(lbFont.getSelectedIndex() == 1);
 			saveEditorChanges();
 		});
 		lbSize = new ListBox();
 
 		lbSize.addChangeHandler(event -> {
+			model.setEditGeoText(editor.getText());
 			boolean isCustom = lbSize.getSelectedIndex() == 7;
 			if (isCustom) {
 				String currentSize = Math
@@ -151,6 +153,7 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		}
 
 		lbDecimalPlaces.addChangeHandler(event -> {
+			model.setEditGeoText(editor.getText());
 			model.applyDecimalPlaces(lbDecimalPlaces.getSelectedIndex());
 			saveEditorChanges();
 		});
@@ -209,6 +212,7 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 	private void addStyleClickListener(final String propertyName, final int mask,
 									   final ToggleButton toggle) {
 		toggle.addFastClickHandler(event -> {
+			model.setEditGeoText(editor.getText());
 			model.applyFontStyle(mask, toggle.isSelected());
 			inlineFormat(propertyName, toggle.isSelected());
 			saveEditorChanges();
