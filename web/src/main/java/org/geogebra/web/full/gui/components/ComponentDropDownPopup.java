@@ -79,13 +79,19 @@ public class ComponentDropDownPopup {
 		int popupTopWithMargin = Math.max(popupTop, MARGIN_FROM_SCREEN);
 		int appBottom = (int) (app.getAbsTop() + app.getHeight());
 
-		menu.showAtPoint(getLeft(), popupTopWithMargin);
-		if (appBottom < popupTopWithMargin + getPopupHeight()) {
-			setHeightInPx(appBottom - popupTopWithMargin - MARGIN_FROM_SCREEN - 2 * POPUP_PADDING);
-			if (popupTop < MARGIN_FROM_SCREEN) {
-				int diffAnchorPopupTop = getAnchorTop() - popupTopWithMargin;
-				menu.getPopupPanel().getElement().setScrollTop(getSelectedItemTop()
-						- diffAnchorPopupTop);
+		if (appBottom <= popupTopWithMargin + 3 * itemHeight + MARGIN_FROM_SCREEN) {
+			menu.showAtPoint(getLeft(), MARGIN_FROM_SCREEN);
+			setHeightInPx((int) app.getHeight());
+		} else {
+			menu.showAtPoint(getLeft(), popupTopWithMargin);
+			if (appBottom < popupTopWithMargin + getPopupHeight()) {
+				setHeightInPx(
+						appBottom - popupTopWithMargin - MARGIN_FROM_SCREEN - 2 * POPUP_PADDING);
+				if (popupTop < MARGIN_FROM_SCREEN) {
+					int diffAnchorPopupTop = getAnchorTop() - popupTopWithMargin;
+					menu.getPopupPanel().getElement().setScrollTop(getSelectedItemTop()
+							- diffAnchorPopupTop);
+				}
 			}
 		}
 	}
