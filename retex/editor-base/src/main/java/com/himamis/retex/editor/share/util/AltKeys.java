@@ -156,9 +156,9 @@ public class AltKeys {
 	/**
 	 * checks if the typed character maps to a special character by checking whether
 	 * it exists as a key in the hasmaps
-	 * @param keyCode
-	 * @param isShiftDown
-	 * @param webApp
+	 * @param keyCode - key code without modifiers
+	 * @param isShiftDown - determines if shift is down
+	 * @param webApp - whether we run this in a browser
 	 * @return returns true if the char is a key in the hashmaps
 	 */
 	public static Boolean isSpecialCharacter(int keyCode, boolean isShiftDown,
