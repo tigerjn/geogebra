@@ -218,7 +218,7 @@ public class SpreadsheetKeyListenerW
 			}
 			//$FALL-THROUGH$
 		default:
-			if (!editor.isEditing() && (!ctrlDown || (e.isAltKeyDown() && isSpecialCharacter(e)))) {
+			if (!editor.isEditing() && isValidKeyCombination(e)) {
 				letterOrDigitTyped();
 			}
 		}
@@ -622,7 +622,11 @@ public class SpreadsheetKeyListenerW
 		GlobalKeyDispatcherW.setDownKeys(event);
 	}
 
+	private boolean isValidKeyCombination(KeyDownEvent e) {
+		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e));
+	}
+
 	private boolean isSpecialCharacter(KeyDownEvent e) {
-		return AltKeys.isSpecialCharacter(e.getNativeKeyCode(), e.isShiftKeyDown(), false);
+		return AltKeys.isSpecialCharacter(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
 }

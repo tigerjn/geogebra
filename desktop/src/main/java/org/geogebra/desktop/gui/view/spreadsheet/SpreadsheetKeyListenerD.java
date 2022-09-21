@@ -400,7 +400,7 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 			//$FALL-THROUGH$
 		default:
 			if (!Character.isIdentifierIgnorable(e.getKeyChar())
-					&& !editor.isEditing() && (!ctrlDown || (altDown && isSpecialCharacter(e)))) {
+					&& !editor.isEditing() && isValidKeyCombination(e)) {
 				letterOrDigitTyped();
 			} else {
 				e.consume();
@@ -416,6 +416,10 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 		 * for (int i = 0; i < defaultKeyListeners.length; ++ i) { if
 		 * (e.isConsumed()) break; defaultKeyListeners[i].keyPressed(e); }
 		 */
+	}
+
+	private boolean isValidKeyCombination(KeyEvent e) {
+		return !e.isControlDown() && (!e.isAltDown() || isSpecialCharacter(e));
 	}
 
 	private boolean isSpecialCharacter(KeyEvent e) {
