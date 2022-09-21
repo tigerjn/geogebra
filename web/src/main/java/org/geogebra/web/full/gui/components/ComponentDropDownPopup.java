@@ -80,14 +80,24 @@ public class ComponentDropDownPopup {
 		int appBottom = (int) (app.getAbsTop() + app.getHeight());
 
 		if (appBottom <= popupTopWithMargin + 3 * itemHeight + MARGIN_FROM_SCREEN) {
-			menu.showAtPoint(getLeft(), MARGIN_FROM_SCREEN);
-			setHeightInPx((int) app.getHeight());
+			// not enough space for showing 3 items on bottom
+			int spaceOnScreen = (int) app.getHeight() - 2 * MARGIN_FROM_SCREEN - 2 * POPUP_PADDING;
+			int popupHeightAdjust = getPopupHeight() < spaceOnScreen
+					? getPopupHeight() : spaceOnScreen;
+			int popupTopAdjust = getPopupHeight() < spaceOnScreen
+					? appBottom - getPopupHeight() - MARGIN_FROM_SCREEN : MARGIN_FROM_SCREEN;
+			// if less space than popup height, show popup on top with app height
+			// otherwise popup with full height aligned to the bottom
+			menu.showAtPoint(getLeft(), popupTopAdjust);
+			setHeightInPx(popupHeightAdjust);
 		} else {
 			menu.showAtPoint(getLeft(), popupTopWithMargin);
 			if (appBottom < popupTopWithMargin + getPopupHeight()) {
+				// popup bottom overflow, use available space and make scrollable
 				setHeightInPx(
 						appBottom - popupTopWithMargin - MARGIN_FROM_SCREEN - 2 * POPUP_PADDING);
 				if (popupTop < MARGIN_FROM_SCREEN) {
+					// selected item not on screen, scroll popup
 					int diffAnchorPopupTop = getAnchorTop() - popupTopWithMargin;
 					menu.getPopupPanel().getElement().setScrollTop(getSelectedItemTop()
 							- diffAnchorPopupTop);
