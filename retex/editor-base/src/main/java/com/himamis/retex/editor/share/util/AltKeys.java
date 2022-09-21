@@ -152,6 +152,15 @@ public class AltKeys {
 		}
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
+
+	/**
+	 * checks if the typed character maps to a special character by checking whether
+	 * it exists as a key in the hasmaps
+	 * @param keyCode
+	 * @param isShiftDown
+	 * @param webApp
+	 * @return returns true if the char is a key in the hashmaps
+	 */
 	public static Boolean isSpecialCharacter(int keyCode, boolean isShiftDown,
 			boolean webApp) {
 		if (lookupUpper == null) {

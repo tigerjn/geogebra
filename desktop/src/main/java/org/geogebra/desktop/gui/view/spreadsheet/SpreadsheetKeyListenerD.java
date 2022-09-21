@@ -400,7 +400,7 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 			//$FALL-THROUGH$
 		default:
 			if (!Character.isIdentifierIgnorable(e.getKeyChar())
-					&& !editor.isEditing() && (!(ctrlDown || altDown) || (altDown && isSpecialCharacter(e)))) {
+					&& !editor.isEditing() && (!ctrlDown || (altDown && isSpecialCharacter(e)))) {
 				letterOrDigitTyped();
 			} else {
 				e.consume();

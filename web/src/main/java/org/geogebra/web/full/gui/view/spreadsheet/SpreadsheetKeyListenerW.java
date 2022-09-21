@@ -218,8 +218,7 @@ public class SpreadsheetKeyListenerW
 			}
 			//$FALL-THROUGH$
 		default:
-			if (!editor.isEditing() &&
-					(!(ctrlDown || e.isAltKeyDown())  || (e.isAltKeyDown() && isSpecialCharacter(e)))) {
+			if (!editor.isEditing() && (!ctrlDown || (e.isAltKeyDown() && isSpecialCharacter(e)))) {
 				letterOrDigitTyped();
 			}
 		}
