@@ -152,5 +152,17 @@ public class AltKeys {
 		}
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
-
+	public static Boolean isSpecialCharacter(int keyCode, boolean isShiftDown,
+			boolean webApp) {
+		if (lookupUpper == null) {
+			init(webApp);
+		}
+		if (isShiftDown) {
+			return AltKeys.lookupUpper.containsKey((char) keyCode);
+		}
+		if (keyCode >= 'a' && keyCode <= 'z') {
+			return AltKeys.lookupLower.containsKey((char) (keyCode + 'A' - 'a'));
+		}
+		return AltKeys.lookupLower.containsKey((char) keyCode);
+	}
 }
