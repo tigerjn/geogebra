@@ -1,6 +1,5 @@
 package org.geogebra.web.full.gui.layout.scientific;
 
-import org.geogebra.common.GeoGebraConstants;
 import org.geogebra.web.full.main.HeaderResizer;
 import org.geogebra.web.html5.gui.GeoGebraFrameW;
 import org.geogebra.web.html5.gui.util.Dom;
@@ -27,14 +26,8 @@ public class ScientificHeaderResizer implements HeaderResizer {
 		}
 	}
 
-	private boolean isScientificSettingsHeader() {
-		boolean isScientific = frame.getApp().getConfig().getVersion()
-				== GeoGebraConstants.Version.SCIENTIFIC;
-		return isScientific && frame.shouldHideHeader();
-	}
-
 	@Override
 	public int getSmallScreenHeight() {
-		return isScientificSettingsHeader() ? 0 : 80;
+		return frame.shouldHideHeader() ? 0 : 80;
 	}
 }
