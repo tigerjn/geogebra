@@ -1,7 +1,7 @@
 package org.geogebra.web.full.gui.components;
 
 import java.util.ArrayList;
- import java.util.List;
+import java.util.List;
 
 import org.geogebra.common.euclidian.event.PointerEventType;
 import org.geogebra.common.gui.SetLabels;
@@ -162,7 +162,7 @@ public class CompDropDown extends FlowPanel implements SetLabels {
 		selectedOption.setText(dropDownElementsList.get(dropDown.getSelectedIndex()).getText());
 	}
 
-	public void addChangeHandler(Runnable changeHandler) {
+	public void setChangeHandler(Runnable changeHandler) {
 		this.changeHandler = changeHandler;
 	}
 }

@@ -84,7 +84,7 @@ public class StatsDialogTV extends ComponentDialog {
 
 		CompDropDown regressionChooser = new CompDropDown((AppW) app,
 				app.getLocalization().getMenu("RegressionModel"), items);
-		regressionChooser.addChangeHandler(() -> {
+		regressionChooser.setChangeHandler(() -> {
 			RegressionSpecification regression = available
 					.get(regressionChooser.getSelectedIndex());
 			setRows(view.getRegression(column, regression));

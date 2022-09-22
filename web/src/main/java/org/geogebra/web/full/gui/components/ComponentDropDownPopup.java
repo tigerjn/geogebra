@@ -75,7 +75,7 @@ public class ComponentDropDownPopup {
 	 * center.
 	 */
 	void show() {
-		int popupTop = getPopupTopWithHeader(getAnchorTop() - getSelectedItemTop());
+		int popupTop = (int) (getAnchorTop() - getSelectedItemTop() - app.getAbsTop());
 		int popupTopWithMargin = Math.max(popupTop, MARGIN_FROM_SCREEN);
 		int appBottom = (int) (app.getAbsTop() + app.getHeight());
 
@@ -106,22 +106,12 @@ public class ComponentDropDownPopup {
 		}
 	}
 
-	private int getPopupTopWithHeader(int popupTop) {
-		if (app.getAppletFrame().shouldHideHeader()) {
-			return popupTop;
-		} else if (app.getAppletFrame().hasSmallWindowOrCompactHeader()) {
-			return popupTop - 48;
-		} else {
-			return popupTop - 64;
-		}
-	}
-
 	private int getSelectedItemTop() {
 		return getSelectedIndex() * itemHeight;
 	}
 
 	private int getLeft() {
-		return anchor.getAbsoluteLeft() + OFFSET_X;
+		return (int) (anchor.getAbsoluteLeft() + OFFSET_X - app.getAbsLeft());
 	}
 
 	private int getAnchorTop() {
