@@ -428,6 +428,7 @@ public class MyCellEditorW implements BaseCellEditor {
 			// this also makes sure no top-level action is done on keyUp
 			// but the default action of the event should have already been
 			// expired
+			autoCompleteTextField.onKeyUp(e);
 			e.stopPropagation();
 		}
 

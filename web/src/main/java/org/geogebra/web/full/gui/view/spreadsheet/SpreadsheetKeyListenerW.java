@@ -18,6 +18,7 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.himamis.retex.editor.share.util.AltKeys;
 import com.himamis.retex.editor.share.util.GWTKeycodes;
 
 /**
@@ -217,7 +218,7 @@ public class SpreadsheetKeyListenerW
 			}
 			//$FALL-THROUGH$
 		default:
-			if (!editor.isEditing() && !(ctrlDown || e.isAltKeyDown())) {
+			if (!editor.isEditing() && isValidKeyCombination(e)) {
 				letterOrDigitTyped();
 			}
 		}
@@ -619,5 +620,13 @@ public class SpreadsheetKeyListenerW
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
 		GlobalKeyDispatcherW.setDownKeys(event);
+	}
+
+	private boolean isValidKeyCombination(KeyDownEvent e) {
+		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e));
+	}
+
+	private boolean isSpecialCharacter(KeyDownEvent e) {
+		return AltKeys.isSpecialCharacter(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
 }

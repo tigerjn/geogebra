@@ -153,4 +153,25 @@ public class AltKeys {
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
 
+	/**
+	 * checks if the typed character maps to a special character by checking whether
+	 * it exists as a key in the hasmaps
+	 * @param keyCode - key code without modifiers
+	 * @param isShiftDown - determines if shift is down
+	 * @param webApp - whether we run this in a browser
+	 * @return returns true if the char is a key in the hashmaps
+	 */
+	public static Boolean isSpecialCharacter(int keyCode, boolean isShiftDown,
+			boolean webApp) {
+		if (lookupUpper == null) {
+			init(webApp);
+		}
+		if (isShiftDown) {
+			return AltKeys.lookupUpper.containsKey((char) keyCode);
+		}
+		if (keyCode >= 'a' && keyCode <= 'z') {
+			return AltKeys.lookupLower.containsKey((char) (keyCode + 'A' - 'a'));
+		}
+		return AltKeys.lookupLower.containsKey((char) keyCode);
+	}
 }
