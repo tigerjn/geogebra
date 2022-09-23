@@ -239,7 +239,7 @@ public class ShareControllerW implements ShareController {
 	private void handleMultiuserChange(JsArray<Object> users) {
 		if (users.length == 0
 				&& app.getActiveMaterial() != null
-				&& !app.getLoginOperation().getGeoGebraTubeAPI().owns(app.getActiveMaterial())) {
+				&& !app.getLoginOperation().owns(app.getActiveMaterial())) {
 			CollaborationStoppedDialog dialog = new CollaborationStoppedDialog(app);
 			dialog.show();
 		}
