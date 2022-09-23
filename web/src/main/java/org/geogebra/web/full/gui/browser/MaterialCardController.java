@@ -15,11 +15,8 @@ import org.geogebra.web.full.gui.SaveControllerW;
 import org.geogebra.web.full.gui.openfileview.MaterialCard;
 import org.geogebra.web.full.gui.openfileview.MaterialCardI;
 import org.geogebra.web.html5.Browser;
-import org.geogebra.web.html5.GeoGebraGlobal;
 import org.geogebra.web.html5.gui.tooltip.ToolTipManagerW;
 import org.geogebra.web.html5.main.AppW;
-import org.geogebra.web.html5.main.ScriptManagerW;
-import org.geogebra.web.shared.ggtapi.BackendAPIFactory;
 import org.geogebra.web.shared.ggtapi.models.MaterialCallback;
 
 /**
