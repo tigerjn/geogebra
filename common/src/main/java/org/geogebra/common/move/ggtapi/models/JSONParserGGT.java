@@ -113,7 +113,9 @@ public class JSONParserGGT {
 			setCreator(material, obj);
 		} else {
 			String displayName = getString(obj, "author");
-			int userId = getInt(obj, "author_id", getInt(obj, "creator_id", -1));
+			// creatorId used in MOW, crator_id in Marvl, author_id in Tube
+			int userId = getInt(obj, "author_id", getInt(obj, "creator_id",
+					getInt(obj, "creatorId", -1)));
 			material.setCreator(new UserPublic(userId, displayName));
 		}
 		return material;
