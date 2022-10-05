@@ -1,7 +1,9 @@
 package org.geogebra.common.kernel.interval.operators;
 
+import static org.geogebra.common.kernel.interval.IntervalConstants.one;
 import static org.geogebra.common.kernel.interval.IntervalConstants.undefined;
 import static org.geogebra.common.kernel.interval.IntervalConstants.zero;
+import static org.geogebra.common.kernel.interval.IntervalHelper.around;
 import static org.geogebra.common.kernel.interval.IntervalHelper.interval;
 import static org.geogebra.common.kernel.interval.IntervalHelper.invertedInterval;
 import static org.junit.Assert.assertEquals;
@@ -18,14 +20,14 @@ public class TanOperandTest {
 	@Test
 	public void testTanAtKTimesPi() {
 		assertEquals(zero(), evaluator.tan(zero()));
-		assertEquals(zero(), evaluator.tan(piTimes(1)));
-		assertEquals(zero(), evaluator.tan(piTimes(2)));
-		assertEquals(zero(), evaluator.tan(piTimes(4)));
-		assertEquals(zero(), evaluator.tan(piTimes(99)));
+		assertTrue(evaluator.tan(piTimes(1)).almostEqual(zero(), 1E-11));
+		assertTrue(evaluator.tan(piTimes(2)).almostEqual(zero(), 1E-11));
+		assertTrue(evaluator.tan(piTimes(4)).almostEqual(zero(), 1E-11));
+		assertTrue(evaluator.tan(piTimes(99)).almostEqual(zero(), 1E-11));
 	}
 
 	private Interval piTimes(int times) {
-		return new Interval(Math.PI * times);
+		return around(Math.PI * times);
 	}
 
 	@Test
@@ -67,5 +69,12 @@ public class TanOperandTest {
 		Interval inverse = evaluator.inverse(tan);
 		Interval result = evaluator.inverse(inverse);
 		assertEquals(evaluator.tan(pi2()), result);
+	}
+
+	@Test
+	public void tanDivOneShouldEqualTanTimesOne() {
+		Interval multiplyOne = evaluator.multiply(evaluator.tan(around(Math.PI / 2)), one());
+		Interval divideOne = evaluator.divide(evaluator.tan(around(Math.PI / 2)), one());
+		assertEquals(divideOne, multiplyOne);
 	}
 }
