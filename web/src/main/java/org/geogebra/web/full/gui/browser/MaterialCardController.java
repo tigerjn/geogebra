@@ -148,7 +148,7 @@ public class MaterialCardController implements OpenFileListener {
 									"ContextMenu.ConfirmDeleteA", toDelete.getTitle()));
 							if (toDelete.isMultiuser()) {
 								app.getShareController()
-										.terminateMultiuser(toDelete.getSharingKeyOrId());
+										.terminateMultiuser(toDelete, null);
 							}
 						}
 
