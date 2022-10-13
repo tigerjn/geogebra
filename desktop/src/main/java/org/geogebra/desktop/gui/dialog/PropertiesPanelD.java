@@ -3353,12 +3353,7 @@ class ColorFunctionPanel extends JPanel
 		nameLabelA.setLabelFor(inputPanelA);
 
 		btRemove = new JButton("\u2718");
-		btRemove.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				model.removeAll();
-			}
-		});
+		btRemove.addActionListener(e -> model.removeAll());
 
 		cbColorSpace = new JComboBox();
 		cbColorSpace.addActionListener(this);
