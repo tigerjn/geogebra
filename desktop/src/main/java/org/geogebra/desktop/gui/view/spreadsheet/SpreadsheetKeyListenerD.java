@@ -16,22 +16,24 @@ import com.himamis.retex.editor.share.util.AltKeys;
 
 public class SpreadsheetKeyListenerD implements KeyListener {
 
-	private AppD app;
-	private SpreadsheetViewD view;
-	private Kernel kernel;
-	private MyTableD table;
-	private DefaultTableModel model;
-	private MyCellEditorSpreadsheet editor;
+	private final AppD app;
+	private final SpreadsheetViewD view;
+	private final Kernel kernel;
+	private final MyTableD table;
+	private final DefaultTableModel model;
+	private final MyCellEditorSpreadsheet editor;
 
+	/**
+	 * @param app application
+	 * @param table spreadsheet table
+	 */
 	public SpreadsheetKeyListenerD(AppD app, MyTableD table) {
-
 		this.app = app;
 		this.kernel = app.getKernel();
 		this.table = table;
 		this.view = table.getView();
 		this.model = (DefaultTableModel) table.getModel();
 		this.editor = table.editor;
-
 	}
 
 	@Override
@@ -42,8 +44,6 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		// Application.debug(keyCode+"");
-		// boolean shiftDown = e.isShiftDown();
 		boolean altDown = e.isAltDown();
 		boolean ctrlDown = AppD.isControlDown(e) // Windows ctrl/Mac Meta
 				|| e.isControlDown(); // Fudge (Mac ctrl key)
@@ -408,14 +408,6 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 			break;
 
 		}
-
-		/*
-		 * if (keyCode >= 37 && keyCode <= 40) { if (editor.isEditing()) return;
-		 * }
-		 * 
-		 * for (int i = 0; i < defaultKeyListeners.length; ++ i) { if
-		 * (e.isConsumed()) break; defaultKeyListeners[i].keyPressed(e); }
-		 */
 	}
 
 	private boolean isValidKeyCombination(KeyEvent e) {
@@ -426,7 +418,7 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 		return AltKeys.isSpecialCharacter(e.getKeyCode(), e.isShiftDown(), false);
 	}
 
-	public void letterOrDigitTyped() {
+	private void letterOrDigitTyped() {
 		table.setAllowEditing(true);
 		table.repaint(); // G.Sturr 2009-10-10: cleanup when keypress edit
 							// begins
@@ -434,7 +426,7 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 		// check if cell fixed
 		Object o = model.getValueAt(table.getSelectedRow(),
 				table.getSelectedColumn());
-		if (o != null && o instanceof GeoElement) {
+		if (o instanceof GeoElement) {
 			GeoElement geo = (GeoElement) o;
 			if (geo.isProtected(EventType.UPDATE)) {
 				return;
@@ -452,12 +444,9 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 
 		// workaround for Mac OS X 10.5 problem (first character typed deleted)
 		if (AppD.MAC_OS) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					f.setSelectionStart(1);
-					f.setSelectionEnd(1);
-				}
+			SwingUtilities.invokeLater(() -> {
+				f.setSelectionStart(1);
+				f.setSelectionEnd(1);
 			});
 		}
 

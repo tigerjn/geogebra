@@ -470,12 +470,12 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 				// dp.getKeyboardListener().setFocus(true);
 				listener.ensureEditing();
 				listener.setFocus(true);
-				if (isKeyboardNeeded() && (getExam() == null
+				if (getAppletFrame().appNeedsKeyboard() && (getExam() == null
 						|| getExam().getStart() > 0)) {
 					getAppletFrame().showKeyBoard(true, listener, true);
 				}
 			}
-			if (!isKeyboardNeeded()) {
+			if (!getAppletFrame().appNeedsKeyboard()) {
 				getAppletFrame().showKeyBoard(false, null, true);
 			}
 
@@ -599,8 +599,6 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 					.updateContent();
 		}
 		getAppletFrame().setNotesMode(getMode());
-
-		updateToolbarClosedState(getConfig().getSubAppCode());
 	}
 
 	private void resetAllToolbars() {
@@ -861,6 +859,9 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 								getGgbApi().setBase64(material.getBase64());
 							}
 							setActiveMaterial(material);
+							if (material.isMultiuser()) {
+								getShareController().startMultiuser(material.getSharingKeyOrId());
+							}
 							ensureSupportedModeActive();
 						} else {
 							onError.callback(Errors.LoadFileFailed.getKey());
@@ -1632,7 +1633,7 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 						getGuiManager().getLayout());
 
 		LayoutW layout = getGuiManager().getLayout();
-		updateAvVisibility(forcedPerspective, fromXml);
+		updateAvVisibilityAndTab(forcedPerspective, fromXml);
 		if (!StringUtil.empty(fromXml.getToolbarDefinition())) {
 			layout.updateLayout(forcedPerspective, fromXml.getToolbarDefinition());
 		} else {
@@ -1643,8 +1644,6 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 			unbundledToolbar.updateContent();
 		}
 
-		layout.getDockManager().setActiveTab(fromXml);
-
 		if (isPortrait()) {
 			getGuiManager().getLayout().getDockManager().adjustViews(true);
 		}
@@ -1652,15 +1651,15 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 		setupToolbarPanelVisibility(fromXml.getDockPanelData());
 	}
 
-	private void updateAvVisibility(Perspective forcedPerspective, Perspective fromXml) {
+	private void updateAvVisibilityAndTab(Perspective forcedPerspective, Perspective fromXml) {
 		DockPanelData[] oldDockPanelData = fromXml.getDockPanelData();
 		DockPanelData[] dockPanelData = forcedPerspective.getDockPanelData();
 
 		int oldAlgebra = findDockPanelData(oldDockPanelData, App.VIEW_ALGEBRA);
-		int oldEuclidian = findDockPanelData(oldDockPanelData,
-				isUnbundled3D() ? App.VIEW_EUCLIDIAN3D : App.VIEW_EUCLIDIAN);
-		int euclidian = findDockPanelData(dockPanelData,
-				isUnbundled3D() ? App.VIEW_EUCLIDIAN3D : App.VIEW_EUCLIDIAN);
+		int algebra = findDockPanelData(dockPanelData, App.VIEW_ALGEBRA);
+		int viewId = getConfig().getMainGraphicsViewId();
+		int oldEuclidian = findDockPanelData(oldDockPanelData, viewId);
+		int euclidian = findDockPanelData(dockPanelData, viewId);
 
 		double algebraWidth = 0;
 		double euclidianWidth = 0;
@@ -1673,10 +1672,12 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 		} else {
 			dockPanelData[euclidian].setVisible(false);
 		}
-
 		if (algebraWidth != 0 || euclidianWidth != 0) {
 			forcedPerspective.getSplitPaneData()[0]
 					.setDivider(algebraWidth / (algebraWidth + euclidianWidth));
+		}
+		if (algebra != -1 && oldAlgebra != -1) {
+			dockPanelData[algebra].setTabId(oldDockPanelData[oldAlgebra].getTabId());
 		}
 	}
 
@@ -2310,7 +2311,6 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 			});
 		} else {
 			afterMaterialRestored();
-			updateToolbarClosedState(subAppCode);
 		}
 		getEventDispatcher().dispatchEvent(new Event(EventType.SWITCH_CALC, null, subAppCode));
 	}
@@ -2423,17 +2423,5 @@ public class AppWFull extends AppW implements HasKeyboard, MenuViewListener {
 	 */
 	public void clearSubAppCons() {
 		constructionJson.clear();
-	}
-
-	private void updateToolbarClosedState(String subAppCode) {
-		if ("probability".equals(subAppCode)) {
-			DockPanel avPanel = getGuiManager().getLayout().getDockManager()
-					.getPanel(VIEW_ALGEBRA);
-			if (avPanel instanceof ToolbarDockPanelW) {
-				hideKeyboard();
-				((ToolbarDockPanelW) avPanel).getToolbar().close(true, 0);
-				((ToolbarDockPanelW) avPanel).getToolbar().setAVIconNonSelect(isExam());
-			}
-		}
 	}
 }
