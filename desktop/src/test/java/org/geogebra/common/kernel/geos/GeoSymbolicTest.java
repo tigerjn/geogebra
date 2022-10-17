@@ -1237,7 +1237,7 @@ public class GeoSymbolicTest extends BaseSymbolicTest {
 	@Test
 	public void testNoToggleButtonForSymbolicUndefined() {
 		GeoSymbolic solve = add("Solve(0.05>=(1-x)^50)");
-		assertThat(AlgebraItem.isSymbolicDiffers(solve), is(false));
+		assertThat(AlgebraItem.isSymbolicDiffers(solve), is(true));
 	}
 
 	@Test
@@ -1451,15 +1451,25 @@ public class GeoSymbolicTest extends BaseSymbolicTest {
 		// Solve and NSolve both give {} or {?} or {x=?} or ?
 		GeoSymbolic symbolic = add("Solve(2^x=-3)");
 		assertThat(AlgebraItem.shouldShowSymbolicOutputButton(symbolic), equalTo(false));
-		assertThat(symbolic.toValueString(StringTemplate.defaultTemplate), equalTo("{}"));
+		assertThat(GeoFunction.isUndefined(symbolic.toValueString(StringTemplate.defaultTemplate)),
+				equalTo(true));
 		symbolic = add("NSolve(2^x=-3)");
-		assertThat(symbolic.toValueString(StringTemplate.defaultTemplate), equalTo("?"));
+		assertThat(GeoFunction.isUndefined(symbolic.toValueString(StringTemplate.defaultTemplate)),
+				equalTo(true));
 
 		// 2 variables
 		symbolic = add("Solve(x^2+y^2=-1, x+y=3)");
-		assertThat(symbolic.toValueString(StringTemplate.defaultTemplate), equalTo("?"));
+		assertThat(GeoFunction.isUndefined(symbolic.toValueString(StringTemplate.defaultTemplate)),
+				equalTo(true));
 		symbolic = add("NSolve(x^2+y^2=-1, x+y=3)");
-		assertThat(symbolic.toValueString(StringTemplate.defaultTemplate), equalTo("?"));
+		assertThat(GeoFunction.isUndefined(symbolic.toValueString(StringTemplate.defaultTemplate)),
+				equalTo(true));
+	}
+
+	@Test
+	public void testSolveNSolveCase5() {
+		GeoSymbolic symbolic = add("Solve(x^2>5)");
+		assertThat(AlgebraItem.shouldShowSymbolicOutputButton(symbolic), equalTo(true));
 	}
 
 	@Test
@@ -1701,11 +1711,11 @@ public class GeoSymbolicTest extends BaseSymbolicTest {
 
 			// test input is added to the cache
 			t("NSolve(x+x*x+1/2 = 13)", "{x = -4.070714214271, x = 3.070714214271}");
-			assertEquals(casGiac.getCasGiacCacheSize(), cacheSize + 1);
+			assertEquals(casGiac.getCasGiacCacheSize(), cacheSize + 2);
 
 			// test nothing is added to the cache, result read from cache
 			t("NSolve(x+x*x+1/2 = 13)", "{x = -4.070714214271, x = 3.070714214271}");
-			assertEquals(casGiac.getCasGiacCacheSize(), cacheSize + 1);
+			assertEquals(casGiac.getCasGiacCacheSize(), cacheSize + 2);
 
 			int cacheNewSize = casGiac.getCasGiacCacheSize();
 
