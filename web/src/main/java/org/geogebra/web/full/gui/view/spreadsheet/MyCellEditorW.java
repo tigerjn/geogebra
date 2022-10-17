@@ -1,5 +1,7 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
+import static com.himamis.retex.editor.share.util.KeyCodes.translateJavacode;
+
 import org.geogebra.common.gui.view.spreadsheet.RelativeCopy;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetController;
 import org.geogebra.common.kernel.Kernel;
@@ -17,6 +19,7 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.himamis.retex.editor.share.util.AltKeys;
 import com.himamis.retex.editor.web.MathFieldW;
 
 /**
@@ -444,9 +447,7 @@ public class MyCellEditorW implements BaseCellEditor {
 			int keyCode = e.getNativeKeyCode();
 			// Application.debug(e+"");
 			switch (keyCode) {
-			default:
-				// do nothing
-				break;
+
 			case KeyCodes.KEY_UP:
 			
 				if (isSuggesting()) {
@@ -558,6 +559,15 @@ public class MyCellEditorW implements BaseCellEditor {
 				e.preventDefault();
 				// ?//e.consume();
 				setTabReturnCol(-1);
+				break;
+
+			default:
+				if (e.isAltKeyDown()) {
+					if (AltKeys.isBrowserShortcut(
+							translateJavacode(e.getNativeKeyCode()), e.isShiftKeyDown(), true)) {
+						e.preventDefault();
+					}
+				}
 				break;
 
 			// An F1 keypress causes the focus to be lost, so we

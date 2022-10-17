@@ -1,5 +1,7 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
+import static com.himamis.retex.editor.share.util.KeyCodes.translateJavacode;
+
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -218,7 +220,12 @@ public class SpreadsheetKeyListenerW
 			}
 			//$FALL-THROUGH$
 		default:
-			if (!editor.isEditing() && isValidKeyCombination(e)) {
+			int nativeKeyCode = e.getNativeKeyCode();
+			com.himamis.retex.editor.share.util.KeyCodes keycode = translateJavacode(nativeKeyCode);
+			if (!editor.isEditing() && isValidKeyCombination(e, keycode)) {
+				if (preventDefaultAction(e, keycode)) {
+					e.preventDefault();
+				}
 				letterOrDigitTyped();
 			}
 		}
@@ -622,11 +629,20 @@ public class SpreadsheetKeyListenerW
 		GlobalKeyDispatcherW.setDownKeys(event);
 	}
 
-	private boolean isValidKeyCombination(KeyDownEvent e) {
-		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e));
+	private boolean isValidKeyCombination(KeyDownEvent e,
+			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e, keycode));
 	}
 
-	private boolean isSpecialCharacter(KeyDownEvent e) {
-		return AltKeys.isSpecialCharacter(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
+	private boolean isSpecialCharacter(KeyDownEvent e,
+			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+		return AltKeys.isSpecialCharacter(e.getNativeKeyCode(), e.isShiftKeyDown(), true)
+				||  AltKeys.isBrowserShortcut(keycode, e.isShiftKeyDown(), true);
+	}
+
+	private boolean preventDefaultAction(KeyDownEvent e,
+			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+		return e.isAltKeyDown()
+				&& AltKeys.isBrowserShortcut(keycode, e.isShiftKeyDown(), true);
 	}
 }

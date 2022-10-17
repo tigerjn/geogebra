@@ -6,10 +6,22 @@ public class AltKeys {
 
 	private static HashMap<Character, String> lookupLower = null;
 	private static HashMap<Character, String> lookupUpper = null;
+	private static HashMap<KeyCodes, String> browserShortcutsUpper = null;
+	private static HashMap<KeyCodes, String> browserShortcutsLower = null;
 
 	private static void init(boolean chromeApp) {
 		lookupLower = new HashMap<>();
 		lookupUpper = new HashMap<>();
+		browserShortcutsLower = new HashMap<>();
+		browserShortcutsUpper = new HashMap<>();
+
+		browserShortcutsLower.put(KeyCodes.E, Unicode.EULER_STRING + "");
+		browserShortcutsLower.put(KeyCodes.F, Unicode.phi_symbol + "");
+		browserShortcutsLower.put(KeyCodes.D, Unicode.delta + "");
+
+		browserShortcutsUpper.put(KeyCodes.I, Unicode.IMAGINARY + "");
+		browserShortcutsUpper.put(KeyCodes.E, Unicode.EULER_STRING + "");
+		browserShortcutsUpper.put(KeyCodes.T, Unicode.theta + "");
 
 		lookupLower.put('A', Unicode.alpha + "");
 		lookupUpper.put('A', Unicode.Alpha + "");
@@ -173,5 +185,25 @@ public class AltKeys {
 			return AltKeys.lookupLower.containsKey((char) (keyCode + 'A' - 'a'));
 		}
 		return AltKeys.lookupLower.containsKey((char) keyCode);
+	}
+
+	/**
+	 * checks if the key typed is part of a browser shortcut
+	 * @param code keycode of the typed key
+	 * @param isShiftDown - determines if shift is down
+	 * @param webApp - whether we run this in a browser
+	 * @return returns true if the KeyCodes is a key in the respective hashmap
+	 */
+	public static Boolean isBrowserShortcut(KeyCodes code, boolean isShiftDown, boolean webApp) {
+		if (browserShortcutsUpper == null) {
+			init(webApp);
+		}
+
+		if (isShiftDown) {
+			return AltKeys.browserShortcutsUpper.containsKey(code);
+		} else {
+			return AltKeys.browserShortcutsLower.containsKey(code);
+		}
+
 	}
 }
