@@ -147,6 +147,9 @@ public class SpreadsheetKeyListenerW
 				GlobalKeyDispatcher.toggleAlgebraStyle(app);
 				e.preventDefault();
 			} else {
+				if (e.isAltKeyDown()) {
+					e.preventDefault(); // prevent default Alt+D
+				}
 				letterOrDigitTyped();
 			}
 			break;
