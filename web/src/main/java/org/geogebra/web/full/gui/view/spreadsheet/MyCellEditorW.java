@@ -8,6 +8,7 @@ import org.geogebra.common.kernel.geos.GeoElementSpreadsheet;
 import org.geogebra.common.kernel.kernelND.GeoElementND;
 import org.geogebra.common.plugin.EventType;
 import org.geogebra.common.util.debug.Log;
+import org.geogebra.web.html5.Browser;
 import org.geogebra.web.html5.event.KeyEventsHandler;
 import org.geogebra.web.html5.gui.inputfield.AutoCompleteTextFieldW;
 import org.geogebra.web.html5.main.AppW;
@@ -83,6 +84,10 @@ public class MyCellEditorW implements BaseCellEditor {
 		autoCompleteTextField.setAutoComplete(
 				app.getSettings().getSpreadsheet().isEnableAutoComplete());
 		autoCompleteTextField.setStyleName("SpreadsheetEditorCell");
+		if (Browser.isSafariByVendor()) {
+			autoCompleteTextField.getInputElement().getStyle()
+					.setProperty("font-size: ", "calc(16px + 1.5vw)");
+		}
 		editorPanel.add(autoCompleteTextField);
 	}
 
