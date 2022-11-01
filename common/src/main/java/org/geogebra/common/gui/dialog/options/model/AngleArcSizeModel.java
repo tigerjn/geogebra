@@ -46,7 +46,7 @@ public class AngleArcSizeModel extends OptionsModel {
 		storeUndoInfo();
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		listener.setValue(getAngleAt(0).getArcSize());
 	}
@@ -74,8 +74,4 @@ public class AngleArcSizeModel extends OptionsModel {
 		return true;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

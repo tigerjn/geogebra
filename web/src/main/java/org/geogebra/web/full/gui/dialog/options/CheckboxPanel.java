@@ -1,15 +1,13 @@
 package org.geogebra.web.full.gui.dialog.options;
 
 import org.geogebra.common.gui.dialog.options.model.BooleanOptionModel;
-import org.geogebra.common.gui.dialog.options.model.BooleanOptionModel.IBooleanOptionListener;
 import org.geogebra.common.main.Localization;
 import org.geogebra.web.full.gui.components.ComponentCheckbox;
 import org.geogebra.web.full.gui.properties.OptionPanel;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 
-public class CheckboxPanel extends OptionPanel implements
-		IBooleanOptionListener {
+public class CheckboxPanel extends OptionPanel {
 	private final ComponentCheckbox checkbox;
 
 	/**
@@ -20,7 +18,6 @@ public class CheckboxPanel extends OptionPanel implements
 			BooleanOptionModel m) {
 		this(m.getTitle(), loc);
 		setModel(m);
-		m.setListener(this);
 	}
 
 	/**
@@ -38,8 +35,9 @@ public class CheckboxPanel extends OptionPanel implements
 	}
 
 	@Override
-	public void updateCheckbox(boolean value) {
-		getCheckbox().setSelected(value);
+	protected void updateModelProperties() {
+		getCheckbox().setSelected(((BooleanOptionModel) getModel()).getValue());
+		getCheckbox().setDisabled(!((BooleanOptionModel) getModel()).isEditable());
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package org.geogebra.web.full.gui.dialog.options;
 
 import org.geogebra.common.gui.dialog.options.model.EnableDynamicCaptionModel;
 import org.geogebra.common.main.App;
+import org.geogebra.web.full.gui.properties.OptionPanel;
 import org.geogebra.web.html5.gui.inputfield.AutoCompleteTextFieldW;
 
 class EnableDynamicCaptionPanel extends CheckboxPanel {
@@ -9,15 +10,15 @@ class EnableDynamicCaptionPanel extends CheckboxPanel {
 
 	public EnableDynamicCaptionPanel(App app,
 			AutoCompleteTextFieldW textField) {
-		super(app.getLocalization(),
-				new EnableDynamicCaptionModel(null, app));
+		super(app.getLocalization(), new EnableDynamicCaptionModel(app));
 		this.textField = textField;
 	}
 
 	@Override
-	public void updateCheckbox(boolean value) {
-		super.updateCheckbox(value);
-		setCaptionTextFieldEnabled(!value);
+	public OptionPanel updatePanel(Object[] value) {
+		OptionPanel ret = super.updatePanel(value);
+		onChecked();
+		return ret;
 	}
 
 	@Override

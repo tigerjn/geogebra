@@ -9,13 +9,11 @@ public abstract class SliderOptionsModel extends NumberOptionsModel {
 		super(app);
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		getListener().setValue(getValueAt(0));
-
 	}
 
-	@Override
 	public ISliderListener getListener() {
 		return listener;
 	}

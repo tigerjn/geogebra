@@ -29,7 +29,7 @@ public class SegmentStyleModel extends NumberOptionsModel {
 		return isValid;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		GeoElement geo = getGeoAt(0);
 		if (geo instanceof GeoSegment) {
@@ -37,11 +37,6 @@ public class SegmentStyleModel extends NumberOptionsModel {
 					: ((GeoSegment) geo).getEndStyle();
 			listener.setSelectedIndex(style.ordinal());
 		}
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 
 	@Override

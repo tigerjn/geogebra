@@ -5,39 +5,23 @@ import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.main.App;
 
 public class ShowObjectModel extends BooleanOptionModel {
-	public interface IShowObjectListener extends IBooleanOptionListener {
-		void updateCheckbox(boolean value, boolean isEnabled);
 
-	}
-
-	public ShowObjectModel(IShowObjectListener listener, App app) {
-		super(listener, app);
+	public ShowObjectModel(App app) {
+		super(app);
 	}
 
 	@Override
-	public void updateProperties() {
+	public boolean isEditable() {
 		// check if properties have same values
-		GeoElement temp, geo0 = getGeoAt(0);
-		boolean equalObjectVal = true;
-		boolean showObjectCondition = geo0.getShowObjectCondition() != null;
+		GeoElement temp;
 
-		for (int i = 1; i < getGeosLength(); i++) {
+		for (int i = 0; i < getGeosLength(); i++) {
 			temp = getGeoAt(i);
-			// same object visible value
-			if (geo0.isSetEuclidianVisible() != temp.isSetEuclidianVisible()) {
-				equalObjectVal = false;
-				break;
-			}
-
 			if (temp.getShowObjectCondition() != null) {
-				showObjectCondition = true;
+				return false;
 			}
 		}
-
-		((IShowObjectListener) getListener()).updateCheckbox(equalObjectVal
-				&& geo0.isSetEuclidianVisible(),
-				!showObjectCondition);
-
+		return true;
 	}
 
 	@Override
@@ -63,8 +47,7 @@ public class ShowObjectModel extends BooleanOptionModel {
 
 	@Override
 	public boolean getValueAt(int index) {
-		// not used
-		return false;
+		return getGeoAt(0).isSetEuclidianVisible();
 	}
 
 	@Override

@@ -36,7 +36,6 @@ class ScriptEditPanel extends OptionPanel {
 		this.loc = app.getLocalization();
 		this.scriptManager = app.getScriptManager();
 		setModel(model0);
-		model0.setListener(this);
 		tabbedPane = new TabPanel();
 		tabbedPane.setStyleName("scriptTabPanel");
 
@@ -96,6 +95,11 @@ class ScriptEditPanel extends OptionPanel {
 		// select tab as before
 		tabbedPane.selectTab(Math.max(0, idx));
 		return this;
+	}
+
+	@Override
+	protected void updateModelProperties() {
+		// overrided updatePanel -> not needed
 	}
 
 }

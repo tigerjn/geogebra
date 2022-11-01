@@ -6,8 +6,8 @@ import org.geogebra.common.main.App;
 
 public class BackgroundImageModel extends BooleanOptionModel {
 
-	public BackgroundImageModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public BackgroundImageModel(App app) {
+		super(app);
 	}
 
 	private GeoImage getImageAt(int index) {

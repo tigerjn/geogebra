@@ -44,7 +44,7 @@ public class ColorObjectModel extends OptionsModel {
 		this.listener = listener;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 
 		GeoElement geo0 = getGeoAt(0);
@@ -234,11 +234,6 @@ public class ColorObjectModel extends OptionsModel {
 		return false;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
-
 	protected AlgoElement getAlgorithm() {
 		return getGeoAt(0).getParentAlgorithm();
 	}
@@ -246,7 +241,6 @@ public class ColorObjectModel extends OptionsModel {
 	public ChartStyle getChartStyle() {
 		AlgoElement algo = getAlgorithm();
 		return algo instanceof ChartStyleAlgo ? ((ChartStyleAlgo) algo).getStyle() : null;
-
 	}
 
 	public boolean isBarChart() {

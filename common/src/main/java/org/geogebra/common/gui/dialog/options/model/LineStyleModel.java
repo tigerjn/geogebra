@@ -88,7 +88,7 @@ public class LineStyleModel extends OptionsModel {
 
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		GeoElement temp, geo0 = getGeoAt(0);
 		// Log.debug("geo0 = " + geo0 + ", lineTypeEnabled=" + lineTypeEnabled);
@@ -220,8 +220,4 @@ public class LineStyleModel extends OptionsModel {
 		return geosOK;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

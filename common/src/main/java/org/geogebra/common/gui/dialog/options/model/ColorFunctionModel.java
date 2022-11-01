@@ -35,7 +35,7 @@ public class ColorFunctionModel extends OptionsModel {
 
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		// check for fillable geos in the current selection
 		boolean someFillable = false;
@@ -211,8 +211,4 @@ public class ColorFunctionModel extends OptionsModel {
 		return false;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

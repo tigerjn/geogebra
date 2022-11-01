@@ -5,8 +5,8 @@ import org.geogebra.common.main.App;
 
 public class FixObjectModel extends BooleanOptionModel {
 
-	public FixObjectModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public FixObjectModel(App app) {
+		super(app);
 	}
 
 	@Override

@@ -51,8 +51,6 @@ public abstract class OptionsModel {
 
 	protected abstract boolean isValidAt(int index);
 
-	public abstract void updateProperties();
-
 	public boolean checkGeos() {
 		boolean geosOK = true;
 		for (int i = 0; i < getGeosLength(); i++) {
@@ -77,14 +75,12 @@ public abstract class OptionsModel {
 		return false;
 	}
 
-	public abstract PropertyListener getListener();
-
-	public final boolean updateMPanel(Object[] geos2) {
-		if (getListener() == null) {
+	public final boolean updateMPanel(Object[] geos2, PropertyListener listener) {
+		if (listener == null) {
 			setGeos(geos2);
 			return this.checkGeos();
 		}
-		return getListener().updatePanel(geos2) != null;
+		return listener.updatePanel(geos2) != null;
 	}
 
 	public void storeUndoInfo() {

@@ -16,7 +16,7 @@ public abstract class MultipleOptionsModel extends NumberOptionsModel {
 
 	public abstract List<String> getChoices(Localization loc);
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		int value0 = getValueAt(0);
 		boolean isEqual = true;
@@ -47,7 +47,6 @@ public abstract class MultipleOptionsModel extends NumberOptionsModel {
 		}
 	}
 
-	@Override
 	public IComboListener getListener() {
 		return listener;
 	}

@@ -7,13 +7,13 @@ import org.geogebra.common.main.App;
 
 public class DrawArrowsModel extends BooleanOptionModel {
 
-	public DrawArrowsModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public DrawArrowsModel(App app) {
+		super(app);
 	}
 
 	@Override
 	public boolean getValueAt(int index) {
-		return getGeoAt(index).isSelectionAllowed(null);
+		return getGeoAt(index) instanceof GeoLocus && ((GeoLocus) getGeoAt(index)).isDrawArrows();
 	}
 
 	@Override
@@ -35,25 +35,8 @@ public class DrawArrowsModel extends BooleanOptionModel {
 	}
 
 	@Override
-	public void updateProperties() {
-		if (getListener() != null) {
-			getListener().updateCheckbox(checkDrawArrow());
-		}
-	}
-
-	@Override
 	public String getTitle() {
 		return "DrawArrows";
-	}
-
-	private boolean checkDrawArrow() {
-		for (int i = 0; i < getGeosLength(); i++) {
-			GeoElement geo = getGeoAt(i);
-			if (geo instanceof GeoLocus) {
-				return geo.isDrawArrows();
-			}
-		}
-		return false;
 	}
 
 }

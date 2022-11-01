@@ -1,5 +1,7 @@
 package org.geogebra.desktop.gui.dialog;
 
+import javax.swing.JPanel;
+
 import org.geogebra.common.gui.dialog.options.model.EnableDynamicCaptionModel;
 import org.geogebra.desktop.gui.inputfield.AutoCompleteTextFieldD;
 import org.geogebra.desktop.main.AppD;
@@ -22,10 +24,10 @@ public class EnableDynamicCaptionPanel extends CheckboxPanel {
 	}
 
 	@Override
-	public void updateCheckbox(boolean value) {
-		super.updateCheckbox(value);
-		combo.setVisible(value);
-		setCaptionTextFieldEnabled(!value);
+	public JPanel updatePanel(Object[] objects) {
+		JPanel ret = super.updatePanel(objects);
+		setCaptionTextFieldEnabled(!getCheckbox().isSelected());
+		return ret;
 	}
 
 	@Override

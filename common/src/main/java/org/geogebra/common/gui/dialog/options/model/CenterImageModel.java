@@ -6,7 +6,7 @@ import org.geogebra.common.main.App;
 public class CenterImageModel extends BooleanOptionModel {
 
 	public CenterImageModel(App app) {
-		super(null, app);
+		super(app);
 	}
 
 	private GeoImage getImageAt(int index) {

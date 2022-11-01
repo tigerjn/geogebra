@@ -5,8 +5,8 @@ import org.geogebra.common.main.App;
 
 public class SelectionAllowedModel extends BooleanOptionModel {
 
-	public SelectionAllowedModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public SelectionAllowedModel(App app) {
+		super(app);
 	}
 
 	@Override

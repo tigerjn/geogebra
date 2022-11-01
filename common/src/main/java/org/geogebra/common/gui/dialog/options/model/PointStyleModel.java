@@ -17,7 +17,7 @@ public class PointStyleModel extends NumberOptionsModel {
 		return (PointProperties) getObjectAt(index);
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		if (!hasGeos()) {
 			return;
@@ -85,11 +85,6 @@ public class PointStyleModel extends NumberOptionsModel {
 	protected int getValueAt(int index) {
 		// not used
 		return 0;// getPointPropertiesAt(index).getPointStyle();
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 
 	public void setListener(IComboListener listener) {

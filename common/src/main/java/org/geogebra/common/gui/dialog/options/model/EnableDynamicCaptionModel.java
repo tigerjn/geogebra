@@ -5,8 +5,8 @@ import org.geogebra.common.main.App;
 
 public class EnableDynamicCaptionModel extends BooleanOptionModel {
 
-	public EnableDynamicCaptionModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public EnableDynamicCaptionModel(App app) {
+		super(app);
 	}
 
 	private GeoElementND at(int index) {

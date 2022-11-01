@@ -12,7 +12,7 @@ import org.geogebra.common.main.App;
 import org.geogebra.common.main.Localization;
 import org.geogebra.common.util.StringUtil;
 
-public class DynamicCaptionModel extends CommonOptionsModel<String> {
+public class DynamicCaptionModel extends MultipleOptionsModel {
 
 	private final Construction construction;
 	private final List<String> choices;
@@ -38,20 +38,20 @@ public class DynamicCaptionModel extends CommonOptionsModel<String> {
 	}
 
 	@Override
-	protected void apply(int index, String value) {
+	protected void apply(int index, int value) {
 		GeoElementND geo = getGeoAt(index);
-		if (StringUtil.empty(value)) {
+		if (value < 0 || value >= choices.size()) {
 			geo.clearDynamicCaption();
 		} else {
-			GeoText caption = (GeoText) kernel.lookupLabel(value);
+			GeoText caption = (GeoText) kernel.lookupLabel(choices.get(value));
 			geo.setDynamicCaption(caption);
 		}
 		geo.updateRepaint();
 	}
 
 	@Override
-	protected String getValueAt(int index) {
-		return choices.get(index);
+	protected int getValueAt(int index) {
+		return choices.indexOf(getGeoAt(index).getDynamicCaption().getLabelSimple());
 	}
 
 	@Override

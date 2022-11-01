@@ -6,7 +6,7 @@ import org.geogebra.common.main.App;
 public class InterpolateImageModel extends BooleanOptionModel {
 
 	public InterpolateImageModel(App app) {
-		super(null, app);
+		super(app);
 	}
 
 	private GeoImage getGeoImageAt(int index) {

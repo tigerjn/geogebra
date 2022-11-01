@@ -159,6 +159,11 @@ class NamePanel extends OptionPanel
 		}
 	}
 
+	@Override
+	protected void updateModelProperties() {
+		model.updateProperties();
+	}
+
 	private void applyName() {
 		model.applyNameChange(tfName.getText(),
 				app.getErrorHandler());

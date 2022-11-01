@@ -3,23 +3,21 @@ package org.geogebra.common.gui.dialog.options.model;
 import org.geogebra.common.main.App;
 
 public abstract class BooleanOptionModel extends OptionsModel {
-	private IBooleanOptionListener listener;
 
-	public interface IBooleanOptionListener extends PropertyListener {
-		void updateCheckbox(boolean isEqual);
-	}
-
-	public BooleanOptionModel(IBooleanOptionListener listener, App app) {
+	public BooleanOptionModel(App app) {
 		super(app);
-		this.setListener(listener);
 	}
 
 	public abstract boolean getValueAt(int index);
 
 	public abstract void apply(int index, boolean value);
 
-	@Override
-	public void updateProperties() {
+	public boolean isEditable() {
+		return true;
+	}
+
+	/** Update properties */
+	public boolean getValue() {
 		boolean value0 = getValueAt(0);
 		boolean isEqual = true;
 
@@ -28,8 +26,7 @@ public abstract class BooleanOptionModel extends OptionsModel {
 				isEqual = false;
 			}
 		}
-		getListener().updateCheckbox(isEqual && value0);
-
+		return isEqual && value0;
 	}
 
 	public void applyChanges(boolean value) {
@@ -37,15 +34,6 @@ public abstract class BooleanOptionModel extends OptionsModel {
 			apply(i, value);
 		}
 		storeUndoInfo();
-	}
-
-	@Override
-	public IBooleanOptionListener getListener() {
-		return listener;
-	}
-
-	public void setListener(IBooleanOptionListener listener) {
-		this.listener = listener;
 	}
 
 	public abstract String getTitle();

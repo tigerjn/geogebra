@@ -20,12 +20,6 @@ public class CornerPointsModel extends OptionsModel {
 				&& !(getGeoAt(index).getParentAlgorithm() instanceof AlgoVector);
 	}
 
-	@Override
-	public void updateProperties() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public PropertyListener getListener() {
 		return listener;
 	}

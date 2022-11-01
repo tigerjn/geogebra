@@ -100,7 +100,7 @@ public class SliderPanelW extends OptionPanel implements ISliderOptionsListener 
 		animationPanel = new FlowPanel();
 		sliderStylePanel = new FlowPanel();
 
-		avPanel = new CheckboxPanel(app.getLocalization(), new ExtendedAVModel(null, app));
+		avPanel = new CheckboxPanel(app.getLocalization(), new ExtendedAVModel(app));
 
 		cbSliderFixed = new ComponentCheckbox(loc, false, "fixed",
 				(selected) -> getModel().applyFixed(selected));
@@ -616,5 +616,10 @@ public class SliderPanelW extends OptionPanel implements ISliderOptionsListener 
 	@Override
 	public void setLineColor(GColor color) {
 		updateBlobOrLineColorButton(color, false);
+	}
+
+	@Override
+	protected void updateModelProperties() {
+		model.updateProperties();
 	}
 }

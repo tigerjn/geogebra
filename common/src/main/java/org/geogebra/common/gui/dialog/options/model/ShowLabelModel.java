@@ -24,7 +24,7 @@ public class ShowLabelModel extends OptionsModel {
 		this.listener = listener;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 
 		// check if properties have same values
@@ -84,11 +84,6 @@ public class ShowLabelModel extends OptionsModel {
 
 	public boolean isNameValueShown() {
 		return showNameValue;
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 
 	@Override

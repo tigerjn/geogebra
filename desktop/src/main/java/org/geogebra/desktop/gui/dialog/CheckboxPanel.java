@@ -12,7 +12,7 @@ import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 
 class CheckboxPanel extends OptionPanel
-		implements BooleanOptionModel.IBooleanOptionListener, ItemListener {
+		implements ItemListener {
 
 	private static final long serialVersionUID = 1L;
 	private final LocalizationD loc;
@@ -25,7 +25,6 @@ class CheckboxPanel extends OptionPanel
 	public CheckboxPanel(AppD app, UpdateTabs tabs, BooleanOptionModel model) {
 		this(app, model.getTitle(), tabs);
 		this.model = model;
-		model.setListener(this);
 		app.setFlowLayoutOrientation(this);
 	}
 
@@ -49,7 +48,8 @@ class CheckboxPanel extends OptionPanel
 
 		checkbox.removeItemListener(this);
 
-		model.updateProperties();
+		checkbox.setSelected(model.getValue());
+		checkbox.setEnabled(model.isEditable());
 		// set object visible checkbox
 
 		checkbox.addItemListener(this);
@@ -80,11 +80,6 @@ class CheckboxPanel extends OptionPanel
 	public void apply(boolean value) {
 		model.applyChanges(value);
 		tabs.updateTabs(model.getGeos());
-	}
-
-	@Override
-	public void updateCheckbox(boolean value) {
-		checkbox.setSelected(value);
 	}
 
 	public void setModel(BooleanOptionModel model) {

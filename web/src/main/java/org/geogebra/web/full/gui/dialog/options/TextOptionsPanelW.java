@@ -263,7 +263,7 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		if (geos.length > 0 && geos[0] instanceof GeoText) {
 			btnLatex.setSelected(((GeoText) geos[0]).isLaTeX());
 		}
-		getModel().updateProperties();
+		model.updateProperties();
 		setLabels();
 		advancedPanel.updateGeoList();
 		if (model.isTextEditable()) {
@@ -401,5 +401,10 @@ class TextOptionsPanelW extends OptionPanel implements ITextOptionsListener,
 		btnLatex.setSelected(true);
 		model.getEditGeo().setLaTeX(true, false);
 		updatePreviewPanel();
+	}
+
+	@Override
+	protected void updateModelProperties() {
+		model.updateProperties();
 	}
 }

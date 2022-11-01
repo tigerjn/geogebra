@@ -5,9 +5,8 @@ import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.main.App;
 
 public class TrimmedIntersectionLinesModel extends BooleanOptionModel {
-	public TrimmedIntersectionLinesModel(IBooleanOptionListener listener,
-			App app) {
-		super(listener, app);
+	public TrimmedIntersectionLinesModel(App app) {
+		super(app);
 	}
 
 	@Override

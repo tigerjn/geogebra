@@ -136,12 +136,6 @@ public class ScriptInputModel extends OptionsModel {
 		return getGeosLength() == 1;
 	}
 
-	@Override
-	public void updateProperties() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public boolean isEditOccurred() {
 		return editOccurred;
 	}
@@ -150,8 +144,4 @@ public class ScriptInputModel extends OptionsModel {
 		this.editOccurred = editOccurred;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

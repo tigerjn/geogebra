@@ -49,7 +49,7 @@ public class ObjectNameModel extends OptionsModel {
 
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		// take name of first geo
 		GeoElement geo0 = getGeoAt(0);
@@ -272,8 +272,4 @@ public class ObjectNameModel extends OptionsModel {
 		return true;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

@@ -76,4 +76,8 @@ implements ITextFieldListener {
 		model.setPartOfSlider(true);
 	}
 
+	@Override
+	protected void updateModelProperties() {
+		model.updateProperties();
+	}
 }

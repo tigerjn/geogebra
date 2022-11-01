@@ -14,7 +14,7 @@ import org.geogebra.common.main.App;
 public class AbsoluteScreenLocationModel extends BooleanOptionModel {
 
 	public AbsoluteScreenLocationModel(App app) {
-		super(null, app);
+		super(app);
 	}
 
 	private AbsoluteScreenLocateable getAbsoluteScreenLocateable(int index) {

@@ -17,11 +17,6 @@ public abstract class TextPropertyModel extends OptionsModel {
 		this.listener = listener;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
-
 	public void applyChanges(String text) {
 		if (!StringUtil.empty(text)) {
 			applyChanges(app.getKernel().getAlgebraProcessor()
@@ -32,4 +27,6 @@ public abstract class TextPropertyModel extends OptionsModel {
 	protected abstract void applyChanges(GeoNumberValue text);
 
 	public abstract String getTitle();
+
+	public abstract void updateProperties();
 }

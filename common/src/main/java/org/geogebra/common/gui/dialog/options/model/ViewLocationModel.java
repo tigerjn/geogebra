@@ -25,7 +25,7 @@ public class ViewLocationModel extends OptionsModel {
 
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		boolean isInEV = false;
 		boolean isInEV2 = false;
@@ -186,11 +186,6 @@ public class ViewLocationModel extends OptionsModel {
 	protected boolean isValidAt(int index) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 
 }

@@ -164,4 +164,9 @@ public abstract class ComboBoxPanel extends OptionPanel
 		return false;
 	}
 
+	@Override
+	protected void updateModelProperties() {
+		getMultipleModel().updateProperties();
+	}
+
 }

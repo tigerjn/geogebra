@@ -21,7 +21,7 @@ public class DecoAngleModel extends NumberOptionsModel {
 		return (AngleProperties) getObjectAt(index);
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 
 		AngleProperties geo0 = getAnglePropertiesAt(0);
@@ -61,11 +61,6 @@ public class DecoAngleModel extends NumberOptionsModel {
 
 	public static int getDecoTypeLength() {
 		return GeoAngle.getDecoTypes().length;
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 
 }

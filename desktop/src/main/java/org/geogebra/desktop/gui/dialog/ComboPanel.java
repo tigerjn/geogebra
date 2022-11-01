@@ -11,10 +11,8 @@ import javax.swing.JPanel;
 
 import org.geogebra.common.gui.SetLabels;
 import org.geogebra.common.gui.UpdateFonts;
-import org.geogebra.common.gui.dialog.options.model.CommonOptionsModel;
 import org.geogebra.common.gui.dialog.options.model.GeoComboListener;
 import org.geogebra.common.gui.dialog.options.model.MultipleOptionsModel;
-import org.geogebra.common.gui.dialog.options.model.OptionsModel;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.main.Localization;
@@ -29,7 +27,7 @@ class ComboPanel extends JPanel implements ActionListener,
 	private final Localization loc;
 	private JLabel label;
 	protected JComboBox comboBox;
-	private OptionsModel model;
+	private MultipleOptionsModel model;
 	private String title;
 	private AppD app;
 
@@ -64,11 +62,7 @@ class ComboPanel extends JPanel implements ActionListener,
 		int selectedIndex = comboBox.getSelectedIndex();
 		comboBox.removeActionListener(this);
 		comboBox.removeAllItems();
-		if (isCommonOptionsModel()) {
-			((CommonOptionsModel) model).fillModes(loc);
-		} else {
-			getMultipleModel().fillModes(loc);
-		}
+		model.fillModes(loc);
 		comboBox.setSelectedIndex(selectedIndex);
 
 		if (selectedIndex < comboBox.getItemCount()) {
@@ -122,17 +116,8 @@ class ComboPanel extends JPanel implements ActionListener,
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source == comboBox) {
-			if (isCommonOptionsModel()) {
-				((CommonOptionsModel) model).applyChanges(
-						comboBox.getSelectedItem());
-			} else {
-				getMultipleModel().applyChanges(comboBox.getSelectedIndex());
-			}
+			model.applyChanges(comboBox.getSelectedIndex());
 		}
-	}
-
-	protected boolean isCommonOptionsModel() {
-		return model instanceof CommonOptionsModel;
 	}
 
 	public JLabel getLabel() {
@@ -140,10 +125,10 @@ class ComboPanel extends JPanel implements ActionListener,
 	}
 
 	public MultipleOptionsModel getMultipleModel() {
-		return (MultipleOptionsModel) model;
+		return model;
 	}
 
-	public void setModel(OptionsModel model) {
+	public void setModel(MultipleOptionsModel model) {
 		this.model = model;
 	}
 

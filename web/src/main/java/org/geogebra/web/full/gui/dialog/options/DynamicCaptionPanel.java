@@ -43,6 +43,11 @@ public class DynamicCaptionPanel extends OptionPanel {
 	}
 
 	@Override
+	protected void updateModelProperties() {
+		// overrides updatePanel -> not needed
+	}
+
+	@Override
 	public OptionPanel updatePanel(Object[] geos) {
 		enableDynamicCaption.updatePanel(geos);
 		captions.updatePanel(geos);

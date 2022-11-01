@@ -97,7 +97,7 @@ public class TextOptionsModel extends OptionsModel {
 		return null;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		GeoElement geo = getGeoAt(0);
 		listener.updateWidgetVisibility();
@@ -306,11 +306,6 @@ public class TextOptionsModel extends OptionsModel {
 		return getGeosLength() == 1 && getObjectAt(0) instanceof GeoText
 				&& !getGeoTextAt(0).isTextCommand()
 				&& !getGeoTextAt(0).isProtected(EventType.UPDATE);
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 
 	public void setListener(ITextOptionsListener listener) {

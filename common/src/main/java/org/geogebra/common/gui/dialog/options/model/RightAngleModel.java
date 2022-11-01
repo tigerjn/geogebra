@@ -7,14 +7,8 @@ import org.geogebra.common.main.App;
 
 public class RightAngleModel extends BooleanOptionModel {
 
-	public RightAngleModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
-	}
-
-	@Override
-	public void updateProperties() {
-		AngleProperties geo0 = (AngleProperties) getGeoAt(0);
-		getListener().updateCheckbox(geo0.isEmphasizeRightAngle());
+	public RightAngleModel(App app) {
+		super(app);
 	}
 
 	@Override
@@ -32,8 +26,8 @@ public class RightAngleModel extends BooleanOptionModel {
 
 	@Override
 	public boolean getValueAt(int index) {
-		// not used here, as updateProperties is overridden.
-		return false;
+		AngleProperties geo0 = (AngleProperties) getGeoAt(0);
+		return geo0.isEmphasizeRightAngle();
 	}
 
 	@Override

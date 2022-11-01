@@ -24,10 +24,12 @@ public abstract class OptionPanel implements IOptionPanel, PropertyListener {
 		if (!geosOK || widget == null) {
 			return null;
 		}
-		getModel().updateProperties();
+		updateModelProperties();
 		setLabels();
 		return this;
 	}
+
+	protected abstract void updateModelProperties();
 
 	@Override
 	public Widget getWidget() {

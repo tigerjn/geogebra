@@ -5,8 +5,8 @@ import org.geogebra.common.main.App;
 
 public class AuxObjectModel extends BooleanOptionModel {
 
-	public AuxObjectModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public AuxObjectModel(App app) {
+		super(app);
 	}
 
 	@Override

@@ -21,12 +21,10 @@ public class DecoSegmentModel extends NumberOptionsModel {
 		this.listener = listener;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
-
 		SegmentProperties geo0 = getGeoSegmentAt(0);
 		listener.setSelectedIndex(geo0.getDecorationType());
-
 	}
 
 	@Override
@@ -50,8 +48,4 @@ public class DecoSegmentModel extends NumberOptionsModel {
 		return GeoSegment.getDecoTypes().length;
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

@@ -24,7 +24,7 @@ public class ShowConditionModel extends OptionsModel {
 		this.listener = listener;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 
 		// take condition of first geo
@@ -103,8 +103,4 @@ public class ShowConditionModel extends OptionsModel {
 		storeUndoInfo();
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

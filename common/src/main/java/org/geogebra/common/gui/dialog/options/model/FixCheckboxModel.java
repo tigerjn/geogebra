@@ -5,8 +5,8 @@ import org.geogebra.common.main.App;
 
 public class FixCheckboxModel extends BooleanOptionModel {
 
-	public FixCheckboxModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public FixCheckboxModel(App app) {
+		super(app);
 	}
 
 	private GeoBoolean getBooleanAt(int index) {

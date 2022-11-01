@@ -124,7 +124,7 @@ public class FixUnfixTest extends BaseUnitTest {
 		Object[] geos = new Object[]{function, conic, line};
 
 		fixObjectModel.setGeos(geos);
-		fixObjectModel.updateProperties();
+		Assert.assertTrue(fixObjectModel.getValue());
 
 		for (int i = 0; i < geos.length; ++i) {
 			Assert.assertTrue(fixObjectModel.getValueAt(i));
@@ -144,7 +144,7 @@ public class FixUnfixTest extends BaseUnitTest {
 		Object[] geos = new Object[]{function, conic, line};
 
 		fixObjectModel.setGeos(geos);
-		fixObjectModel.updateProperties();
+		Assert.assertTrue(fixObjectModel.getValue());
 
 		for (int i = 0; i < geos.length; ++i) {
 			Assert.assertTrue(fixObjectModel.getValueAt(i));
@@ -153,17 +153,7 @@ public class FixUnfixTest extends BaseUnitTest {
 	}
 
 	private FixObjectModel getModel() {
-		return new FixObjectModel(new BooleanOptionModel.IBooleanOptionListener() {
-			@Override
-			public void updateCheckbox(boolean isEqual) {
-				// stub
-			}
-
-			@Override
-			public Object updatePanel(Object[] geos2) {
-				return null;
-			}
-		}, getApp());
+		return new FixObjectModel(getApp());
 	}
 
 }

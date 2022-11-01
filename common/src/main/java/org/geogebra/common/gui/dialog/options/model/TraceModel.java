@@ -5,8 +5,8 @@ import org.geogebra.common.main.App;
 
 public class TraceModel extends BooleanOptionModel {
 
-	public TraceModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public TraceModel(App app) {
+		super(app);
 	}
 
 	protected Traceable getTraceableAt(int index) {

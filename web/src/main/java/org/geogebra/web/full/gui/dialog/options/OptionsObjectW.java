@@ -49,7 +49,6 @@ import org.geogebra.common.gui.dialog.options.model.ShowConditionModel.IShowCond
 import org.geogebra.common.gui.dialog.options.model.ShowLabelModel;
 import org.geogebra.common.gui.dialog.options.model.ShowLabelModel.IShowLabelListener;
 import org.geogebra.common.gui.dialog.options.model.ShowObjectModel;
-import org.geogebra.common.gui.dialog.options.model.ShowObjectModel.IShowObjectListener;
 import org.geogebra.common.gui.dialog.options.model.SlopeTriangleSizeModel;
 import org.geogebra.common.gui.dialog.options.model.StartPointModel;
 import org.geogebra.common.gui.dialog.options.model.SymbolicModel;
@@ -108,20 +107,6 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		return loc.getMenu(id);
 	}
 
-	private class ShowObjectPanel extends CheckboxPanel
-			implements IShowObjectListener {
-		public ShowObjectPanel() {
-			super("ShowObject", loc);
-			setModel(new ShowObjectModel(this, app));
-		}
-
-		@Override
-		public void updateCheckbox(boolean value, boolean isEnabled) {
-			getCheckbox().setSelected(value);
-			getCheckbox().setDisabled(!isEnabled);
-		}
-	}
-
 	private class LabelPanel extends OptionPanel implements IShowLabelListener {
 		final ComponentCheckbox showLabelCB;
 		private final FlowPanel mainWidget;
@@ -152,6 +137,11 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 
 		private void updateShowLabel() {
 			showLabelCB.setLabels();
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -243,6 +233,11 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
+		@Override
 		public void showCommandError(String command, String message) {
 			app.getDefaultErrorHandler().showCommandError(command, message);
 		}
@@ -306,6 +301,11 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		public void setLabels() {
 			intervalLabel.setText(localize("AngleBetween"));
 			setComboLabels();
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -502,6 +502,11 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
+		@Override
 		public void execute() {
 			String strRed = tfRed.getText();
 			String strGreen = tfGreen.getText();
@@ -652,6 +657,11 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
+		@Override
 		public void setCheckBox3DVisible(boolean flag) {
 			cbGraphicsView3D.setVisible(flag);
 		}
@@ -749,24 +759,24 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		labelPanel = new LabelPanel();
 		namePanel = new NamePanel(getAppW(), labelPanel.model);
 
-		CheckboxPanel showObjectPanel = new ShowObjectPanel();
+		CheckboxPanel showObjectPanel = new CheckboxPanel(loc, new ShowObjectModel(app));
 		CheckboxPanel tracePanel = new CheckboxPanel(loc,
-				new TraceModel(null, app));
+				new TraceModel(app));
 
 		if (!isDefaults) {
 			animatingPanel = new CheckboxPanel(loc,
-					new AnimatingModel(app, null));
+					new AnimatingModel(app));
 		}
 
 		CheckboxPanel fixPanel = new CheckboxPanel(loc,
-				new FixObjectModel(null, app));
+				new FixObjectModel(app));
 
 		CheckboxPanel auxPanel = new CheckboxPanel(loc,
-				new AuxObjectModel(null, app));
+				new AuxObjectModel(app));
 
 		if (!isDefaults) {
 			bgImagePanel = new CheckboxPanel(loc,
-					new BackgroundImageModel(null, app));
+					new BackgroundImageModel(app));
 		}
 
 		if (!isDefaults) {
@@ -774,18 +784,18 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 			reflexAnglePanel.getWidget().setStyleName("optionsPanel");
 		}
 
-		CheckboxPanel listAsComboPanel = new CheckboxPanel(loc, new ListAsComboModel(app, null));
+		CheckboxPanel listAsComboPanel = new CheckboxPanel(loc, new ListAsComboModel(app));
 		CheckboxPanel rightAnglePanel = new CheckboxPanel(loc,
-				new RightAngleModel(null, app));
+				new RightAngleModel(app));
 		CheckboxPanel trimmedIntersectionLinesPanel = new CheckboxPanel(loc,
-				new TrimmedIntersectionLinesModel(null, app));
+				new TrimmedIntersectionLinesModel(app));
 
 		// tabList.add(comboBoxPanel);
 		CheckboxPanel allowOutlyingIntersectionsPanel = new CheckboxPanel(loc,
-				new OutlyingIntersectionsModel(null, app));
+				new OutlyingIntersectionsModel(app));
 
 		CheckboxPanel fixCheckboxPanel = new CheckboxPanel(loc,
-				new FixCheckboxModel(null, app));
+				new FixCheckboxModel(app));
 
 		basicTab.addPanelList(Arrays.asList(namePanel, showObjectPanel,
 				tracePanel, labelPanel, fixPanel, auxPanel, animatingPanel,
@@ -819,7 +829,7 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		PointSizeModel ptSize = new PointSizeModel(app);
 		PointStyleModel ptStyle = new PointStyleModel(app);
 		LineStyleModel lineStyle = new LineStyleModel(app);
-		DrawArrowsModel drawArrows = new DrawArrowsModel(null, app);
+		DrawArrowsModel drawArrows = new DrawArrowsModel(app);
 		AngleArcSizeModel arcSize = new AngleArcSizeModel(app);
 		SlopeTriangleSizeModel slopeSize = new SlopeTriangleSizeModel(app);
 		IneqStyleModel ineqStyle = new IneqStyleModel(app);
@@ -855,7 +865,7 @@ public class OptionsObjectW extends OptionsObject implements OptionPanelW {
 		ColorFunctionPanel colorFunctionPanel = new ColorFunctionPanel();
 		LayerPanel layerPanel = new LayerPanel();
 		CheckboxPanel selectionAllowedPanel = new CheckboxPanel(loc,
-				new SelectionAllowedModel(null, app));
+				new SelectionAllowedModel(app));
 
 		tab.add(showConditionPanel);
 		tab.add(colorFunctionPanel);

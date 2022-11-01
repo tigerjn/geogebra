@@ -532,4 +532,9 @@ public class FillingPanel extends OptionPanel implements IFillingListener {
 		lbBars.updateTranslationKeys(model.getGeos());
 		lbBars.setBarCount(cols);
 	}
+
+	@Override
+	protected void updateModelProperties() {
+		model.updateProperties();
+	}
 }

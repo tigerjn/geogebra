@@ -9,40 +9,11 @@ import org.geogebra.common.main.App;
 public class IneqStyleModel extends BooleanOptionModel {
 
 	public IneqStyleModel(App app) {
-		super(null, app);
+		super(app);
 	}
 
 	private InequalityProperties getInequalityPropertiesAt(int index) {
 		return (InequalityProperties) getObjectAt(index);
-	}
-
-	@Override
-	public void updateProperties() {
-
-		if (!(getObjectAt(0) instanceof InequalityProperties)) {
-			return;
-		}
-
-		InequalityProperties temp, geo0 = getInequalityPropertiesAt(0);
-		boolean equalFix = true;
-
-		for (int i = 0; i < getGeosLength(); i++) {
-			if (!(getObjectAt(i) instanceof InequalityProperties)) {
-				return;
-			}
-			temp = getInequalityPropertiesAt(i);
-
-			if (geo0.showOnAxis() != temp.showOnAxis()) {
-				equalFix = false;
-			}
-		}
-
-		if (equalFix) {
-			getListener().updateCheckbox(geo0.showOnAxis());
-		} else {
-			getListener().updateCheckbox(false);
-		}
-
 	}
 
 	@Override
@@ -64,8 +35,7 @@ public class IneqStyleModel extends BooleanOptionModel {
 
 	@Override
 	public boolean getValueAt(int index) {
-		// not used as updateProperties is overridden.
-		return false;
+		return getInequalityPropertiesAt(index).showOnAxis();
 	}
 
 	@Override

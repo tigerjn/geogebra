@@ -6,8 +6,8 @@ import org.geogebra.common.main.App;
 
 public class ListAsComboModel extends BooleanOptionModel {
 
-	public ListAsComboModel(App app, IBooleanOptionListener listener) {
-		super(listener, app);
+	public ListAsComboModel(App app) {
+		super(app);
 	}
 
 	private GeoList getGeoListAt(int index) {

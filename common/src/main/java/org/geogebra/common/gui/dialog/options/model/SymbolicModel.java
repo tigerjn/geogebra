@@ -7,7 +7,7 @@ import org.geogebra.common.main.App;
 public class SymbolicModel extends BooleanOptionModel {
 
 	public SymbolicModel(App app) {
-		super(null, app);
+		super(app);
 	}
 
 	@Override

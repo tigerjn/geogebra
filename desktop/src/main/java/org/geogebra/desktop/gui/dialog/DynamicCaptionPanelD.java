@@ -23,7 +23,7 @@ public class DynamicCaptionPanelD extends OptionPanel implements SetLabels, ICom
 	public DynamicCaptionPanelD(AppD app, AutoCompleteTextFieldD textField, UpdateTabs tabs) {
 		captions = new ComboPanel(app, "");
 		enableDynamicCaption = new EnableDynamicCaptionPanel(app, textField,
-				captions, tabs, new EnableDynamicCaptionModel(null, app));
+				captions, tabs, new EnableDynamicCaptionModel(app));
 		DynamicCaptionModel dynamicCaptionModel = new DynamicCaptionModel(app);
 		captions.setModel(dynamicCaptionModel);
 		dynamicCaptionModel.setListener(this);

@@ -1,6 +1,7 @@
 package org.geogebra.web.full.gui.dialog.options;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -39,6 +40,7 @@ import org.geogebra.common.gui.dialog.options.model.OptionsModel;
 import org.geogebra.common.gui.dialog.options.model.PlaneEqnModel;
 import org.geogebra.common.gui.dialog.options.model.PointSizeModel;
 import org.geogebra.common.gui.dialog.options.model.PointStyleModel;
+import org.geogebra.common.gui.dialog.options.model.PropertyListener;
 import org.geogebra.common.gui.dialog.options.model.SegmentStyleModel;
 import org.geogebra.common.gui.dialog.options.model.SlopeTriangleSizeModel;
 import org.geogebra.common.gui.dialog.options.model.StartPointModel;
@@ -107,6 +109,7 @@ public class OptionsTab extends FlowPanel {
 	private boolean inited = false;
 	private boolean focused = false;
 	private boolean updated = true;
+	private HashMap<OptionsModel, PropertyListener> panelMap = new HashMap<>();
 	
 	/**
 	 * @param app
@@ -185,8 +188,8 @@ public class OptionsTab extends FlowPanel {
 		boolean enabled = false;
 		if (focused) {
 			this.updated = true;
-			for (OptionsModel panel : models) {
-				enabled = panel.updateMPanel(geos) || enabled;
+			for (OptionsModel model : models) {
+				enabled = model.updateMPanel(geos, panelMap.get(model)) || enabled;
 			}
 		} else {
 			this.updated = false;
@@ -238,10 +241,11 @@ public class OptionsTab extends FlowPanel {
 		for (OptionsModel m : models) {
 			IOptionPanel panel = buildPanel(m);
 			if (panel != null) {
+				panelMap.put(m, panel);
 				add(panel.getWidget());
 				// geos might be null in fome models because update only checks
 				// for the first one
-				m.updateMPanel(models.get(0).getGeos());
+				m.updateMPanel(models.get(0).getGeos(), panel);
 			}
 		}
 	}
@@ -451,6 +455,11 @@ public class OptionsTab extends FlowPanel {
 			setWidget(mainPanel);
 		}
 
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
 		/**
 		 * @param alphaOnly
 		 *            no color, only alpha
@@ -638,6 +647,11 @@ public class OptionsTab extends FlowPanel {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
+		@Override
 		public void setArcSizeMinValue() {
 			// angleArcSizePanel.setMinValue(); //TODO update min arc size on
 			// deco change
@@ -677,6 +691,11 @@ public class OptionsTab extends FlowPanel {
 		@Override
 		public void setLabels() {
 			styleLbl.setText(app.getLocalization().getMenu("stylebar.LineStartStyle") + ":");
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			((SegmentStyleModel) getModel()).updateProperties();
 		}
 
 		@Override
@@ -731,6 +750,11 @@ public class OptionsTab extends FlowPanel {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			((SegmentStyleModel) getModel()).updateProperties();
+		}
+
+		@Override
 		public void setSelectedIndex(int index) {
 			stylePopup.setSelectedIndex(index);
 		}
@@ -762,6 +786,11 @@ public class OptionsTab extends FlowPanel {
 			}
 			init(iconArray, model);
 		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
 	}
 
 	private class PointSizePanel extends OptionPanel implements ISliderListener {
@@ -786,6 +815,11 @@ public class OptionsTab extends FlowPanel {
 
 			setWidget(mainPanel);
 			slider.addChangeHandler(event -> model.applyChanges(slider.getValue()));
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -825,6 +859,11 @@ public class OptionsTab extends FlowPanel {
 		@Override
 		public void setLabels() {
 			titleLabel.setText(localize("PointStyle"));
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -944,6 +983,11 @@ public class OptionsTab extends FlowPanel {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
+		@Override
 		public void setThicknessSliderValue(int value) {
 			thicknessSlider.setValue(value);
 		}
@@ -1009,6 +1053,11 @@ public class OptionsTab extends FlowPanel {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
+		}
+
+		@Override
 		public void setLabels() {
 			titleLabel.setText(localize("Size"));
 		}
@@ -1046,6 +1095,11 @@ public class OptionsTab extends FlowPanel {
 		@Override
 		public void setLabels() {
 			titleLabel.setText(localize("Size"));
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -1094,6 +1148,11 @@ public class OptionsTab extends FlowPanel {
 		@Override
 		public void setText(String text) {
 			textField.setText(text);
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -1203,6 +1262,11 @@ public class OptionsTab extends FlowPanel {
 			cbUseFixedSize.setLabels();
 		}
 
+		@Override
+		protected void updateModelProperties() {
+			getModel().updateProperties();
+		}
+
 		/**
 		 * @return text area btn for width
 		 */
@@ -1264,6 +1328,11 @@ public class OptionsTab extends FlowPanel {
 			combo.clear();
 			model.fillModes(getLoc());
 			combo.setSelectedIndex(idx);
+		}
+
+		@Override
+		protected void updateModelProperties() {
+			model.updateProperties();
 		}
 
 		@Override
@@ -1401,6 +1470,11 @@ public class OptionsTab extends FlowPanel {
 		}
 
 		@Override
+		protected void updateModelProperties() {
+			// overrides updatePanel -> unused
+		}
+
+		@Override
 		public void setLabels() {
 			corner1.setLabels();
 			corner2.setLabels();
@@ -1463,7 +1537,7 @@ public class OptionsTab extends FlowPanel {
 				setFirstLabel();
 			}
 
-			getModel().updateProperties();
+			getStartPointModel().updateProperties();
 			setLabels();
 			return this;
 		}
@@ -1559,7 +1633,7 @@ public class OptionsTab extends FlowPanel {
 			if (getModel().hasGeos() && getModel().checkGeos()) {
 				int selectedIndex = lb.getSelectedIndex();
 				lb.clear();
-				getModel().updateProperties();
+				((ConicEqnModel) getModel()).updateProperties();
 				lb.setSelectedIndex(selectedIndex);
 			}
 		}

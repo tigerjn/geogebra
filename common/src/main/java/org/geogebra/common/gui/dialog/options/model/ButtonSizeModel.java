@@ -27,7 +27,7 @@ public class ButtonSizeModel extends OptionsModel {
 		return null;
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		for (int i = 0; i < getGeosLength(); i++) {
 			GeoButton geo = getButtonAt(i);
@@ -75,8 +75,4 @@ public class ButtonSizeModel extends OptionsModel {
 		storeUndoInfo();
 	}
 
-	@Override
-	public PropertyListener getListener() {
-		return listener;
-	}
 }

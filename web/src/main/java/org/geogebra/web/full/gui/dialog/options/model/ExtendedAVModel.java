@@ -8,8 +8,8 @@ import org.geogebra.common.main.App;
 
 public class ExtendedAVModel extends BooleanOptionModel {
 
-	public ExtendedAVModel(IBooleanOptionListener listener, App app) {
-		super(listener, app);
+	public ExtendedAVModel(App app) {
+		super(app);
 	}
 
 	@Override

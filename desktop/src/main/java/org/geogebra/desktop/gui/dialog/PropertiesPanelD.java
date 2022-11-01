@@ -99,7 +99,6 @@ import org.geogebra.common.gui.dialog.options.model.ShowConditionModel.IShowCond
 import org.geogebra.common.gui.dialog.options.model.ShowLabelModel;
 import org.geogebra.common.gui.dialog.options.model.ShowLabelModel.IShowLabelListener;
 import org.geogebra.common.gui.dialog.options.model.ShowObjectModel;
-import org.geogebra.common.gui.dialog.options.model.ShowObjectModel.IShowObjectListener;
 import org.geogebra.common.gui.dialog.options.model.SlopeTriangleSizeModel;
 import org.geogebra.common.gui.dialog.options.model.StartPointModel;
 import org.geogebra.common.gui.dialog.options.model.SymbolicModel;
@@ -163,7 +162,7 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 
 	private static final long serialVersionUID = 1L;
 	private NamePanelD namePanel;
-	private ShowObjectPanel showObjectPanel;
+	private CheckboxPanel showObjectPanel;
 	private CheckboxPanel selectionAllowed;
 	private CheckboxPanel showTrimmedIntersectionLines;
 	private ColorPanel colorPanel;
@@ -187,7 +186,7 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 	// added by Loic BEGIN
 	private DecoSegmentPanel decoSegmentPanel;
 	private DecoAnglePanel decoAnglePanel;
-	private RightAnglePanel rightAnglePanel;
+	private CheckboxPanel rightAnglePanel;
 	// END
 
 	/** filling */
@@ -269,7 +268,7 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 			textEditPanel = new TextEditPanel(this);
 			startPointPanel = new StartPointPanel();
 			cornerPointsPanel = new CornerPointsPanel();
-			bgImagePanel = getCheckboxPanel(new BackgroundImageModel(null, app));
+			bgImagePanel = getCheckboxPanel(new BackgroundImageModel(app));
 			showConditionPanel = new ShowConditionPanel(app, this);
 			colorFunctionPanel = new ColorFunctionPanel(app, this);
 
@@ -280,10 +279,10 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 		allowReflexAnglePanel = new AllowReflexAnglePanel();
 
 		sliderPanel = new SliderPanelD(app, this, false, true);
-		showObjectPanel = new ShowObjectPanel();
-		selectionAllowed = getCheckboxPanel(new SelectionAllowedModel(null, app));
+		showObjectPanel = getCheckboxPanel(new ShowObjectModel(app));
+		selectionAllowed = getCheckboxPanel(new SelectionAllowedModel(app));
 		showTrimmedIntersectionLines = getCheckboxPanel(
-				new TrimmedIntersectionLinesModel(null, app));
+				new TrimmedIntersectionLinesModel(app));
 		colorPanel = new ColorPanel(this, colChooser);
 		coordPanel = new CoordsPanel();
 		lineEqnPanel = new LineEqnPanel();
@@ -297,36 +296,36 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 		slopeTriangleSizePanel = new SlopeTriangleSizePanel();
 		lineStylePanel = new LineStylePanel();
 		lineStylePanelHidden = new LineStyleHiddenPanel();
-		drawArrowsPanel = getCheckboxPanel(new DrawArrowsModel(null, app));
+		drawArrowsPanel = getCheckboxPanel(new DrawArrowsModel(app));
 		segmentStartStylePanel = new SegmentStartStylePanel();
 		segmentEndStylePanel = new SegmentEndStylePanel();
 		// added by Loic BEGIN
 		decoSegmentPanel = new DecoSegmentPanel();
 		decoAnglePanel = new DecoAnglePanel();
-		rightAnglePanel = new RightAnglePanel();
+		rightAnglePanel = getCheckboxPanel(new RightAngleModel(app));
 		// END
 		fillingPanel = new FillingPanelD(app);
 		fadingPanel = new FadingPanel();
 		lodPanel = new LodPanel();
 		checkBoxInterpolateImage = getCheckboxPanel(new InterpolateImageModel(app));
-		tracePanel = getCheckboxPanel(new TraceModel(null, app));
-		animatingPanel = getCheckboxPanel(new AnimatingModel(app, null));
-		fixPanel = getCheckboxPanel(new FixObjectModel(null, app));
-		checkBoxFixPanel = getCheckboxPanel(new FixCheckboxModel(null, app));
+		tracePanel = getCheckboxPanel(new TraceModel( app));
+		animatingPanel = getCheckboxPanel(new AnimatingModel(app));
+		fixPanel = getCheckboxPanel(new FixObjectModel(app));
+		checkBoxFixPanel = getCheckboxPanel(new FixCheckboxModel(app));
 		absScreenLocPanel = getCheckboxPanel(new AbsoluteScreenLocationModel(app));
 		absPositionXPanel = new TextPropertyPanel(app, new AbsoluteScreenPositionModel.ForX(app));
 		absPositionYPanel = new TextPropertyPanel(app, new AbsoluteScreenPositionModel.ForY(app));
 		centerImagePanel = getCheckboxPanel(new CenterImageModel(app));
-		comboBoxPanel = getCheckboxPanel(new ListAsComboModel(app, null));
+		comboBoxPanel = getCheckboxPanel(new ListAsComboModel(app));
 		// showView2D = new ShowView2D();
-		auxPanel = getCheckboxPanel(new AuxObjectModel(null, app));
+		auxPanel = getCheckboxPanel(new AuxObjectModel(app));
 		animStepPanel = new AnimationStepPanel(app);
 		symbolicPanel = getCheckboxPanel(new SymbolicModel(app));
 		textFieldSizePanel = new TextPropertyPanel(app, new TextFieldSizeModel(app));
 		textFieldAlignmentPanel = new TextFieldAlignmentPanel(app);
 		animSpeedPanel = new AnimationSpeedPanel(app);
 		allowOutlyingIntersectionsPanel = getCheckboxPanel(
-				new OutlyingIntersectionsModel(null, app));
+				new OutlyingIntersectionsModel(app));
 		buttonSizePanel = new ButtonSizePanel(app, loc);
 		// tabbed pane for properties
 		tabs = new JTabbedPane();
@@ -859,26 +858,6 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 				tabs.addTab(title, this);
 			}
 		}
-	}
-
-	/**
-	 * panel with show/hide object checkbox
-	 */
-	private class ShowObjectPanel extends CheckboxPanel
-			implements IShowObjectListener {
-
-		private static final long serialVersionUID = 1L;
-
-		public ShowObjectPanel() {
-			super(app, PropertiesPanelD.this, new ShowObjectModel(null, app));
-		}
-
-		@Override
-		public void updateCheckbox(boolean value, boolean isEnabled) {
-			getCheckbox().setSelected(value);
-			getCheckbox().setEnabled(isEnabled);
-		}
-
 	}
 
 	/**
@@ -3015,20 +2994,6 @@ public class PropertiesPanelD extends JPanel implements SetLabels, UpdateFonts,
 			// TODO Auto-generated method stub
 		}
 
-	}
-
-	// added 3/11/06
-	private class RightAnglePanel extends CheckboxPanel {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		RightAnglePanel() {
-
-			super(app, PropertiesPanelD.this, new RightAngleModel(null, app));
-		}
 	}
 
 	/**

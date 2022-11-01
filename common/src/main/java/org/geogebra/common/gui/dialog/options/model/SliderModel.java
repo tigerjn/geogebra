@@ -69,7 +69,7 @@ public class SliderModel extends OptionsModel {
 		return (GeoNumeric) getObjectAt(index);
 	}
 
-	@Override
+	/** Update properties */
 	public void updateProperties() {
 		// check if properties have same values
 		GeoNumeric temp, num0 = getNumericAt(0);
@@ -382,10 +382,5 @@ public class SliderModel extends OptionsModel {
 
 	public void setIncludeRandom(boolean includeRandom) {
 		this.includeRandom = includeRandom;
-	}
-
-	@Override
-	public PropertyListener getListener() {
-		return listener;
 	}
 }

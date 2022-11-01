@@ -7,8 +7,8 @@ import org.geogebra.common.main.App;
 public class AnimatingModel extends BooleanOptionModel {
 	private Kernel kernel;
 
-	public AnimatingModel(App app, IBooleanOptionListener listener) {
-		super(listener, app);
+	public AnimatingModel(App app) {
+		super(app);
 		kernel = app.getKernel();
 	}
 
