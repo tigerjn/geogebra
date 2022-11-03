@@ -415,7 +415,7 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 	}
 
 	private boolean isSpecialCharacter(KeyEvent e) {
-		return AltKeys.isSpecialCharacter(e.getKeyCode(), e.isShiftDown(), false);
+		return AltKeys.isGeoGebraShortcut(e.getKeyCode(), e.isShiftDown(), false);
 	}
 
 	private void letterOrDigitTyped() {

@@ -1,7 +1,5 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
-import static com.himamis.retex.editor.share.util.KeyCodes.translateJavacode;
-
 import org.geogebra.common.gui.view.spreadsheet.RelativeCopy;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetController;
 import org.geogebra.common.kernel.Kernel;
@@ -561,8 +559,8 @@ public class MyCellEditorW implements BaseCellEditor {
 
 			default:
 				if (e.isAltKeyDown()) {
-					if (AltKeys.isBrowserShortcut(
-							translateJavacode(e.getNativeKeyCode()), e.isShiftKeyDown(), true)) {
+					if (AltKeys.isGeoGebraShortcut(
+							e.getNativeKeyCode(), e.isShiftKeyDown(), true)) {
 						e.preventDefault();
 					}
 				}

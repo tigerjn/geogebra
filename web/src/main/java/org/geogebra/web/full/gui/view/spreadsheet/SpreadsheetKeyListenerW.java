@@ -634,18 +634,16 @@ public class SpreadsheetKeyListenerW
 
 	private boolean isValidKeyCombination(KeyDownEvent e,
 			com.himamis.retex.editor.share.util.KeyCodes keycode) {
-		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e, keycode));
+		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e));
 	}
 
-	private boolean isSpecialCharacter(KeyDownEvent e,
-			com.himamis.retex.editor.share.util.KeyCodes keycode) {
-		return AltKeys.isSpecialCharacter(e.getNativeKeyCode(), e.isShiftKeyDown(), true)
-				||  AltKeys.isBrowserShortcut(keycode, e.isShiftKeyDown(), true);
+	private boolean isSpecialCharacter(KeyDownEvent e) {
+		return AltKeys.isGeoGebraShortcut(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
 
 	private boolean preventDefaultAction(KeyDownEvent e,
 			com.himamis.retex.editor.share.util.KeyCodes keycode) {
 		return e.isAltKeyDown()
-				&& AltKeys.isBrowserShortcut(keycode, e.isShiftKeyDown(), true);
+				&& AltKeys.isGeoGebraShortcut(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
 }
