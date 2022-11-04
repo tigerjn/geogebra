@@ -55,6 +55,10 @@ public enum KeyCodes {
 
 	Z(JavaKeyCodes.VK_Z, GWTKeycodes.KEY_Z),
 
+	MAC_N(JavaKeyCodes.VK_N, GWTKeycodes.KEY_MAC_N),
+
+	MAC_U(JavaKeyCodes.VK_U, GWTKeycodes.KEY_MAC_U),
+
 	F1(JavaKeyCodes.VK_F1, GWTKeycodes.KEY_F1),
 
 	F2(JavaKeyCodes.VK_F2, GWTKeycodes.KEY_F2),

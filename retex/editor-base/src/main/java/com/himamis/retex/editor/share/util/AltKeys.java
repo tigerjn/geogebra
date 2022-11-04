@@ -7,9 +7,12 @@ public class AltKeys {
 	private static HashMap<Character, String> lookupLower = null;
 	private static HashMap<Character, String> lookupUpper = null;
 
+	private static HashMap<KeyCodes, String> specialKeyCodes = null;
+
 	private static void init(boolean chromeApp) {
 		lookupLower = new HashMap<>();
 		lookupUpper = new HashMap<>();
+		specialKeyCodes = new HashMap<>();
 
 		lookupLower.put('A', Unicode.alpha + "");
 		lookupUpper.put('A', Unicode.Alpha + "");
@@ -130,8 +133,18 @@ public class AltKeys {
 			// on Chrome, Alt-. gives character 190 (3/4)
 			lookupUpper.put((char) 190, Unicode.GREATER_EQUAL + "");
 			lookupLower.put((char) 190, Unicode.GREATER_EQUAL + "");
-		}
 
+			// on Chrome (mac), Alt u. gives character 85 (3/4)
+			lookupUpper.put((char) 85, Unicode.INFINITY + "");
+			lookupLower.put((char) 85, Unicode.INFINITY + "");
+
+			// on Chrome (mac), Alt n. gives character 78 (3/4)
+			lookupUpper.put((char) 78, Unicode.nu + "");
+			lookupLower.put((char) 78, Unicode.nu + "");
+
+			specialKeyCodes.put(KeyCodes.MAC_N, Unicode.nu + "");
+			specialKeyCodes.put(KeyCodes.MAC_U, Unicode.INFINITY + "");
+		}
 	}
 
 	/**
@@ -148,6 +161,9 @@ public class AltKeys {
 	 */
 	public static String getAltSymbols(int keyCode, boolean isShiftDown,
 			boolean webApp) {
+
+		KeyCodes code = KeyCodes.translateGWTcode(keyCode);
+
 		if (lookupUpper == null) {
 			init(webApp);
 		}
@@ -157,6 +173,17 @@ public class AltKeys {
 		if (keyCode >= 'a' && keyCode <= 'z') {
 			return AltKeys.lookupLower.get((char) (keyCode + 'A' - 'a'));
 		}
+
+
+		 if(keyCode == 229) {
+		 	return Unicode.nu + "";
+		 }
+
+
+		// if(isSpecialCharacter(code)) {
+		// 	return specialKeyCodes.get(code);
+		// }
+
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
 
@@ -179,6 +206,18 @@ public class AltKeys {
 		if (keyCode >= 'a' && keyCode <= 'z') {
 			return AltKeys.lookupLower.containsKey((char) (keyCode + 'A' - 'a'));
 		}
-		return AltKeys.lookupLower.containsKey((char) keyCode);
+
+		return AltKeys.lookupLower.containsKey((char) keyCode)
+				|| keyCode == 229;
+				// 	|| isSpecialCharacter(KeyCodes.translateGWTcode(keyCode));
+	}
+
+	/**
+	 * key bindings for alt u & alt n are the same on MAC, so we check by key instead
+	 * @param code the typed key
+	 * @return returns true if the key is u or n
+	 */
+	public static boolean isSpecialCharacter(KeyCodes code) {
+		return specialKeyCodes.containsKey(code);
 	}
 }
