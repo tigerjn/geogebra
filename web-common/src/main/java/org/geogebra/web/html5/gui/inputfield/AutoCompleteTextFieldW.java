@@ -782,7 +782,7 @@ public class AutoCompleteTextFieldW extends FlowPanel
 			leftAltDown = true;
 		}
 		if (leftAltDown) {
-			Log.debug("TODO: preventDefault");
+			e.preventDefault();
 		}
 		int keyCode = e.getNativeKeyCode();
 		app.getGlobalKeyDispatcher();
@@ -939,10 +939,10 @@ public class AutoCompleteTextFieldW extends FlowPanel
 			//$FALL-THROUGH$
 		default:
 			if (MathFieldW.isRightAlt(e.getNativeEvent())) {
-				rightAltDown = true;
+				rightAltDown = false;
 			}
 			if (MathFieldW.isLeftAlt(e.getNativeEvent())) {
-				leftAltDown = true;
+				leftAltDown = false;
 			}
 			// check for eg alt-a for alpha
 			// check for eg alt-shift-a for upper case alpha
