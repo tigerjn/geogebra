@@ -775,15 +775,22 @@ public class AutoCompleteTextFieldW extends FlowPanel
 		if (!isTabEnabled()) {
 			return;
 		}
+		/*
 		if (MathFieldW.isRightAlt(e.getNativeEvent())) {
-			rightAltDown = true;
+			GlobalKeyDispatcherW.w
 		}
 		if (MathFieldW.isLeftAlt(e.getNativeEvent())) {
 			leftAltDown = true;
 		}
-		if (leftAltDown) {
+
+
+		 */
+
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.preventDefault();
 		}
+
+
 		int keyCode = e.getNativeKeyCode();
 		app.getGlobalKeyDispatcher();
 		if (keyCode == GWTKeycodes.KEY_F1
@@ -887,7 +894,7 @@ public class AutoCompleteTextFieldW extends FlowPanel
 		case GWTKeycodes.KEY_DOWN:
 			handleDownArrow();
 			e.stopPropagation(); // prevent GlobalKeyDispatcherW to move the
-									// euclidian view
+			// euclidian view
 			break;
 
 		case GWTKeycodes.KEY_F9:
@@ -921,6 +928,13 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 			e.stopPropagation();
 			break;
+		case GWTKeycodes.KEY_ALT:
+			if (!e.isAltKeyDown())
+				GlobalKeyDispatcherW.resetAltKeys();
+		case GWTKeycodes.KEY_CTRL:
+			GlobalKeyDispatcherW.resetCtrlKey();
+		case GWTKeycodes.KEY_SHIFT:
+			GlobalKeyDispatcherW.resetShiftKey();
 
 		case GWTKeycodes.KEY_ZERO:
 		case GWTKeycodes.KEY_ONE:
@@ -938,19 +952,19 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 			//$FALL-THROUGH$
 		default:
-			if (MathFieldW.isRightAlt(e.getNativeEvent())) {
+			/* if (MathFieldW.isRightAlt(e.getNativeEvent())) {
 				rightAltDown = false;
 			}
 			if (MathFieldW.isLeftAlt(e.getNativeEvent())) {
 				leftAltDown = false;
 			}
+		 */
 			// check for eg alt-a for alpha
 			// check for eg alt-shift-a for upper case alpha
-			if (e.isAltKeyDown() && !rightAltDown) {
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
 
 				String s = AltKeys.getAltSymbols(keyCode, e.isShiftKeyDown(),
 						true);
-
 				if (s != null) {
 					insertString(s);
 					break;

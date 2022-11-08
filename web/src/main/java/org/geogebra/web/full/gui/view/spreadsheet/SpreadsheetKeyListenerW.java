@@ -55,7 +55,6 @@ public class SpreadsheetKeyListenerW
 	@Override
 	public void onKeyDown(KeyDownEvent e) {
 		e.stopPropagation();
-		GlobalKeyDispatcherW.setDownKeys(e);
 		// cancel as this may prevent the keyPress in some browsers
 		// hopefully it is enough to preventDefault in onKeyPress
 		// e.preventDefault();
@@ -69,6 +68,8 @@ public class SpreadsheetKeyListenerW
 		int keyCode = e.getNativeKeyCode();
 		boolean shiftDown = e.isShiftKeyDown();
 		boolean ctrlDown = e.isControlKeyDown() || e.isMetaKeyDown();
+		boolean ctrlDownGlobal = GlobalKeyDispatcherW.getControlDown();
+		boolean leftGlobal = GlobalKeyDispatcherW.isLeftAltDown();
 
 		GPoint pos = new GPoint(table.getSelectedColumn(),
 				table.getSelectedRow());
@@ -108,7 +109,7 @@ public class SpreadsheetKeyListenerW
 		case KeyCodes.KEY_SHIFT:
 		case KeyCodes.KEY_CTRL:
 		case KeyCodes.KEY_ALT:
-			// do nothing
+			GlobalKeyDispatcherW.setDownKeys(e);
 			break;
 
 		case GWTKeycodes.KEY_F9:
@@ -226,12 +227,15 @@ public class SpreadsheetKeyListenerW
 			int nativeKeyCode = e.getNativeKeyCode();
 			com.himamis.retex.editor.share.util.KeyCodes keycode = translateJavacode(nativeKeyCode);
 			if (!editor.isEditing() && isValidKeyCombination(e, keycode)) {
-				if (preventDefaultAction(e, keycode)) {
+				if (GlobalKeyDispatcherW.isLeftAltDown()){//preventDefaultAction(e, keycode)) {
 					e.preventDefault();
 				}
 				letterOrDigitTyped();
 			}
 		}
+		boolean leftGlobal2 = GlobalKeyDispatcherW.isLeftAltDown();
+		boolean leftGloba3 = GlobalKeyDispatcherW.isLeftAltDown();
+
 	}
 
 	private void handleHomeKey(boolean ctrl, boolean shift, GPoint pos) {

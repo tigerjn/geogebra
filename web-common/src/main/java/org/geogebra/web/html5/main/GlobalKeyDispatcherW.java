@@ -27,6 +27,7 @@ import com.google.gwt.user.client.EventListener;
 import com.himamis.retex.editor.share.util.GWTKeycodes;
 import com.himamis.retex.editor.share.util.JavaKeyCodes;
 import com.himamis.retex.editor.share.util.KeyCodes;
+import com.himamis.retex.editor.web.MathFieldW;
 
 /**
  * Handles keyboard events.
@@ -37,6 +38,10 @@ public class GlobalKeyDispatcherW extends GlobalKeyDispatcher
 	private static boolean controlDown = false;
 	private static boolean shiftDown = false;
 
+	private static boolean rightAltDown = false;
+
+	private static boolean leftAltDown = false;
+
 	private boolean escPressed = false;
 
 	/**
@@ -44,6 +49,22 @@ public class GlobalKeyDispatcherW extends GlobalKeyDispatcher
 	 */
 	public static boolean getControlDown() {
 		return controlDown;
+	}
+
+
+	/**
+	 * @return whether rightAlt is pressed
+	 */
+	public static boolean isRightAltDown() {
+		return rightAltDown;
+	}
+
+
+	/**
+	 * @return whether leftAlt is pressed
+	 */
+	public static boolean isLeftAltDown() {
+		return leftAltDown;
 	}
 
 	/**
@@ -60,7 +81,9 @@ public class GlobalKeyDispatcherW extends GlobalKeyDispatcher
 	 *            key event
 	 */
 	public static void setDownKeys(KeyEvent<? extends EventHandler> ev) {
-		setDownKeys(ev.isControlKeyDown(), ev.isShiftKeyDown());
+		boolean rightAltDown = MathFieldW.isRightAlt(ev.getNativeEvent()) && ev.isAltKeyDown();
+		boolean leftAltDown = MathFieldW.isLeftAlt(ev.getNativeEvent())  && ev.isAltKeyDown();
+		setDownKeys(ev.isControlKeyDown(), ev.isShiftKeyDown(), rightAltDown, leftAltDown);
 	}
 
 	/**
@@ -71,10 +94,27 @@ public class GlobalKeyDispatcherW extends GlobalKeyDispatcher
 	 * @param shift
 	 *            if shift is down.
 	 */
-	private static void setDownKeys(boolean control, boolean shift) {
+	private static void setDownKeys(boolean control, boolean shift,
+			boolean rightAlt, boolean leftAlt) {
 		controlDown = control;
 		shiftDown = shift;
+		rightAltDown = rightAlt;
+		leftAltDown = leftAlt;
 	}
+
+	public static void resetAltKeys() {
+		rightAltDown = false;
+		leftAltDown = false;
+	}
+
+	public static void resetCtrlKey() {
+		controlDown = false;
+	}
+
+	public static void resetShiftKey() {
+		shiftDown = false;
+	}
+
 
 	/**
 	 * @param app
