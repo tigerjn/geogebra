@@ -29,7 +29,6 @@ import org.geogebra.common.main.Localization;
 import org.geogebra.common.main.MyError;
 import org.geogebra.common.plugin.EuclidianStyleConstants;
 import org.geogebra.common.util.StringUtil;
-import org.geogebra.common.util.debug.Log;
 import org.geogebra.gwtutil.NavigatorUtil;
 import org.geogebra.regexp.shared.MatchResult;
 import org.geogebra.regexp.shared.RegExp;
@@ -775,15 +774,12 @@ public class AutoCompleteTextFieldW extends FlowPanel
 		if (!isTabEnabled()) {
 			return;
 		}
-		if (MathFieldW.isRightAlt(e.getNativeEvent())) {
-			rightAltDown = true;
-		}
-		if (MathFieldW.isLeftAlt(e.getNativeEvent())) {
-			leftAltDown = true;
-		}
-		if (leftAltDown) {
+		GlobalKeyDispatcherW.setDownAltKeys(e, true);
+
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.preventDefault();
 		}
+
 		int keyCode = e.getNativeKeyCode();
 		app.getGlobalKeyDispatcher();
 		if (keyCode == GWTKeycodes.KEY_F1
@@ -843,6 +839,7 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyUp(KeyUpEvent e) {
+		GlobalKeyDispatcherW.setDownAltKeys(e, false);
 		int keyCode = e.getNativeKeyCode();
 		// we don't want to trap AltGr
 		// as it is used eg for entering {[}] is some locales
@@ -921,7 +918,6 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 			e.stopPropagation();
 			break;
-
 		case GWTKeycodes.KEY_ZERO:
 		case GWTKeycodes.KEY_ONE:
 		case GWTKeycodes.KEY_TWO:
@@ -938,15 +934,10 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 			//$FALL-THROUGH$
 		default:
-			if (MathFieldW.isRightAlt(e.getNativeEvent())) {
-				rightAltDown = false;
-			}
-			if (MathFieldW.isLeftAlt(e.getNativeEvent())) {
-				leftAltDown = false;
-			}
+
 			// check for eg alt-a for alpha
 			// check for eg alt-shift-a for upper case alpha
-			if (e.isAltKeyDown() && !rightAltDown) {
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
 
 				String s = AltKeys.getAltSymbols(keyCode, e.isShiftKeyDown(),
 						true);

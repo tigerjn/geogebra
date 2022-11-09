@@ -56,6 +56,7 @@ public class SpreadsheetKeyListenerW
 	public void onKeyDown(KeyDownEvent e) {
 		e.stopPropagation();
 		GlobalKeyDispatcherW.setDownKeys(e);
+		GlobalKeyDispatcherW.setDownAltKeys(e, true);
 		// cancel as this may prevent the keyPress in some browsers
 		// hopefully it is enough to preventDefault in onKeyPress
 		// e.preventDefault();
@@ -226,7 +227,7 @@ public class SpreadsheetKeyListenerW
 			int nativeKeyCode = e.getNativeKeyCode();
 			com.himamis.retex.editor.share.util.KeyCodes keycode = translateJavacode(nativeKeyCode);
 			if (!editor.isEditing() && isValidKeyCombination(e, keycode)) {
-				if (preventDefaultAction(e, keycode)) {
+				if (GlobalKeyDispatcherW.isLeftAltDown()) { //preventDefaultAction(e, keycode)) {
 					e.preventDefault();
 				}
 				letterOrDigitTyped();
@@ -630,6 +631,7 @@ public class SpreadsheetKeyListenerW
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
 		GlobalKeyDispatcherW.setDownKeys(event);
+		GlobalKeyDispatcherW.setDownAltKeys(event, false);
 	}
 
 	private boolean isValidKeyCombination(KeyDownEvent e,
