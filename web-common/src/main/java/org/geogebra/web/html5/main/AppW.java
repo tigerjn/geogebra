@@ -2723,6 +2723,11 @@ public abstract class AppW extends App implements SetLabels, HasLanguage {
 	/**
 	 * @return whether file operations (open / save) are allowed
 	 */
+	public boolean enableOnlineFileFeatures() {
+		return this.appletParameters.getDataParamEnableFileFeatures()
+				&& getLAF() != null && getLAF().hasLoginButton();
+	}
+
 	public boolean enableFileFeatures() {
 		return this.appletParameters.getDataParamEnableFileFeatures();
 	}

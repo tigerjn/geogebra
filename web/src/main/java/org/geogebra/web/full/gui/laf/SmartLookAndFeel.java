@@ -97,6 +97,11 @@ public class SmartLookAndFeel extends GLookAndFeel {
 	}
 
 	@Override
+	public boolean hasLoginButton() {
+		return true;
+	}
+
+	@Override
 	public ResourceAction getDisplayAction(ResourceAction action) {
 		return action == ResourceAction.EDIT
 				? ResourceAction.INSERT_ACTIVITY : super.getDisplayAction(action);
