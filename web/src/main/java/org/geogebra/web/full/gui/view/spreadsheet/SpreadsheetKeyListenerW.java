@@ -143,6 +143,9 @@ public class SpreadsheetKeyListenerW
 			break;
 
 		case GWTKeycodes.KEY_D:
+		case GWTKeycodes.KEY_N:
+		case GWTKeycodes.KEY_U:
+		case GWTKeycodes.KEY_MAC_N:
 		case GWTKeycodes.KEY_BACK_QUOTE:
 			if (ctrlDown) {
 				GlobalKeyDispatcher.toggleAlgebraStyle(app);

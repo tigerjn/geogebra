@@ -7,12 +7,12 @@ public class AltKeys {
 	private static HashMap<Character, String> lookupLower = null;
 	private static HashMap<Character, String> lookupUpper = null;
 
-	private static HashMap<KeyCodes, String> specialKeyCodes = null;
+	private static HashMap<KeyCodes, String> specialMacKeyCodeBindings = null;
 
 	private static void init(boolean chromeApp) {
 		lookupLower = new HashMap<>();
 		lookupUpper = new HashMap<>();
-		specialKeyCodes = new HashMap<>();
+		specialMacKeyCodeBindings = new HashMap<>();
 
 		lookupLower.put('A', Unicode.alpha + "");
 		lookupUpper.put('A', Unicode.Alpha + "");
@@ -82,7 +82,6 @@ public class AltKeys {
 
 		// alt-/ for backslash (not on all keyboards eg Dutch)
 		lookupLower.put('/', "\\");
-
 		lookupUpper.put('=', Unicode.XOR + "");
 		lookupLower.put('=', Unicode.XOR + "");
 
@@ -141,10 +140,11 @@ public class AltKeys {
 			// on Chrome (mac), Alt n. gives character 78 (3/4)
 			lookupUpper.put((char) 78, Unicode.nu + "");
 			lookupLower.put((char) 78, Unicode.nu + "");
-
-			specialKeyCodes.put(KeyCodes.MAC_N, Unicode.nu + "");
-			specialKeyCodes.put(KeyCodes.MAC_U, Unicode.INFINITY + "");
 		}
+
+		specialMacKeyCodeBindings.put(KeyCodes.MAC_N, Unicode.nu + "");
+		specialMacKeyCodeBindings.put(KeyCodes.APOSTROPHE, Unicode.nu + "");
+		specialMacKeyCodeBindings.put(KeyCodes.MAC_U, Unicode.INFINITY + "");
 	}
 
 	/**
@@ -174,15 +174,10 @@ public class AltKeys {
 			return AltKeys.lookupLower.get((char) (keyCode + 'A' - 'a'));
 		}
 
+		if(keyCode == 229 || keyCode == 192) {
+			return specialMacKeyCodeBindings.get(code);
 
-		 if(keyCode == 229) {
-		 	return Unicode.nu + "";
-		 }
-
-
-		// if(isSpecialCharacter(code)) {
-		// 	return specialKeyCodes.get(code);
-		// }
+		}
 
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
@@ -208,8 +203,7 @@ public class AltKeys {
 		}
 
 		return AltKeys.lookupLower.containsKey((char) keyCode)
-				|| keyCode == 229;
-				// 	|| isSpecialCharacter(KeyCodes.translateGWTcode(keyCode));
+				|| keyCode == 229 || keyCode == 192;
 	}
 
 	/**
@@ -217,7 +211,7 @@ public class AltKeys {
 	 * @param code the typed key
 	 * @return returns true if the key is u or n
 	 */
-	public static boolean isSpecialCharacter(KeyCodes code) {
-		return specialKeyCodes.containsKey(code);
+	public static boolean hasDifferentMacBinding(KeyCodes code) {
+		return specialMacKeyCodeBindings.containsKey(code);
 	}
 }
