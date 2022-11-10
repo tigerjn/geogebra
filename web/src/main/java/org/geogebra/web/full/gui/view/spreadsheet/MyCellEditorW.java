@@ -377,6 +377,10 @@ public class MyCellEditorW implements BaseCellEditor {
 			checkCursorKeys(e);
 			int keyCode = e.getNativeKeyCode();
 
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
+				e.preventDefault();
+			}
+
 			if (keyCode == KeyCodes.KEY_ESCAPE) {
 				e.preventDefault();
 				GeoElement oldGeo = kernel.getGeoAt(column, row);
