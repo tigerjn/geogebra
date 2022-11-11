@@ -56,7 +56,7 @@ dependencies {
         project(':web-common'),
         project(':editor-web'),
         project(':keyboard-web'),
-        'org.webjars.npm:pdfjs-dist:2.5.207',
+        'org.webjars.npm:pdfjs-dist:3.0.279',
         "org.geogebra:multiplayer:1.0.202210261417",
         "org.geogebra:multiplayer:1.0.202210180737:sources",
         files(project(':carota-web').sourceSets.main.allSource.srcDirs),
