@@ -1,9 +1,11 @@
 package org.geogebra.web.full.gui.components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.geogebra.common.gui.SetLabels;
+import org.geogebra.common.properties.EnumerableProperty;
 import org.geogebra.web.html5.gui.util.AriaMenuItem;
 import org.geogebra.web.html5.main.AppW;
 
@@ -15,6 +17,7 @@ public class DropDownComboBoxController implements SetLabels {
 	private List<AriaMenuItem> dropDownElementsList;
 	private List<String> items;
 	private Runnable changeHandler;
+	private EnumerableProperty property;
 
 	/**
 	 * popup controller for dropdown and combobox
@@ -52,21 +55,21 @@ public class DropDownComboBoxController implements SetLabels {
 
 	/**
 	 * open/close dropdown
+	 * @param isFullWidth - whether dropdown should have full width
 	 */
-	public void toggleAsDropDown() {
+	public void toggleAsDropDown(boolean isFullWidth) {
 		if (isOpened()) {
 			closePopup();
 		} else {
-			showAsDropDown();
+			showAsDropDown(isFullWidth);
 		}
 	}
 
-	private void highlightSelectedElement(int previousSelectedIndex,
-			int currentSelectedIndex) {
-		dropDownElementsList.get(previousSelectedIndex)
-				.removeStyleName("selectedDropDownElement");
-		dropDownElementsList.get(currentSelectedIndex)
-				.addStyleName("selectedDropDownElement");
+	private void highlightSelectedElement(int index, boolean highlight) {
+		if (index >= 0 && index < dropDownElementsList.size()) {
+			dropDownElementsList.get(index)
+					.setStyleName("selectedDropDownElement", highlight);
+		}
 	}
 
 	/**
@@ -83,8 +86,11 @@ public class DropDownComboBoxController implements SetLabels {
 			AriaMenuItem item = new AriaMenuItem(dropDownList.get(i), true,
 					() -> {
 				setSelectedOption(currentIndex);
+				if (property != null) {
+					property.setIndex(currentIndex);
+				}
 				if (changeHandler != null) {
-					 changeHandler.run();
+					changeHandler.run();
 				}
 					});
 
@@ -95,7 +101,8 @@ public class DropDownComboBoxController implements SetLabels {
 	}
 
 	 void setSelectedOption(int idx) {
-		highlightSelectedElement(dropDown.getSelectedIndex(), idx);
+		highlightSelectedElement(dropDown.getSelectedIndex(), false);
+		highlightSelectedElement(idx, true);
 		dropDown.setSelectedIndex(idx);
 	}
 
@@ -112,7 +119,12 @@ public class DropDownComboBoxController implements SetLabels {
 
 	@Override
 	public void setLabels() {
-		setElements(items);
+		if (property != null) {
+			setElements(Arrays.asList(property.getValues()));
+			setSelectedOption(property.getIndex());
+		} else {
+			setElements(items);
+		}
 	}
 
 	public ComponentDropDownPopup getPopup() {
@@ -132,6 +144,9 @@ public class DropDownComboBoxController implements SetLabels {
 	 * @return selected text
 	 */
 	public String getSelectedText() {
+		if (getSelectedIndex() < 0) {
+			return "";
+		}
 		return dropDownElementsList.get(getSelectedIndex()).getText();
 	}
 
@@ -144,13 +159,39 @@ public class DropDownComboBoxController implements SetLabels {
 
 	/**
 	 * shop popup and position as dropdown
+	 * @param isFullWidth - is dropdown should have full width
 	 */
-	public void showAsDropDown() {
+	public void showAsDropDown(boolean isFullWidth) {
 		dropDown.positionAsDropDown();
-		dropDown.setWidthInPx(parent.asWidget().getElement().getClientWidth());
+		if (isFullWidth) {
+			dropDown.setWidthInPx(parent.asWidget().getElement().getClientWidth());
+		}
 	}
 
 	public void setChangeHandler(Runnable changeHandler) {
 		this.changeHandler = changeHandler;
+	}
+
+	public void setProperty(EnumerableProperty property) {
+		this.property = property;
+	}
+
+	/**
+	 * reset dropdown to property value
+	 */
+	public void resetToDefault() {
+		if (property.getIndex() > -1) {
+			setSelectedOption(property.getIndex());
+		}
+	}
+
+	/**
+	 * on text input from user
+	 */
+	public void onInputChange() {
+		dropDown.setSelectedIndex(-1);
+		if (changeHandler != null) {
+			changeHandler.run();
+		}
 	}
 }

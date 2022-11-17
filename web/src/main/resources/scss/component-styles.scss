@@ -904,6 +904,12 @@
 				margin: 8px 8px 0 0;
 				color: colors.$text-primary;
 			}
+
+			&.noLabel {
+				.selectedOption {
+					margin-top: 20px;
+				}
+			}
 		}
 
 		.arrow {
@@ -962,7 +968,6 @@
 	}
 
 	.combobox {
-		margin-top: 40px;
 		width: fit-content;
 		min-width: 64px;
 		height: 50px;
@@ -1062,6 +1067,7 @@
 					cursor: default;
 					color: colors.$black-36;
 					background-color: colors.$white;
+					border: none;
 				}
 			}
 
