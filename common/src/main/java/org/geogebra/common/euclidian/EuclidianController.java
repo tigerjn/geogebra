@@ -4490,6 +4490,7 @@ public abstract class EuclidianController implements SpecialPointsListener {
 		}
 
 		getDialogManager().showBooleanCheckboxCreationDialog(mouseLoc, null);
+		app.setMode(EuclidianConstants.MODE_MOVE);
 		return false;
 	}
 
