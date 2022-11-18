@@ -397,6 +397,7 @@ public abstract class CommandDispatcher implements Restrictable {
 			case TurtleDown:
 			case RunClickScript:
 			case RunUpdateScript:
+			case SetImage:
 				// case DensityPlot:
 				return getScriptingDispatcher().dispatch(command, kernel);
 
