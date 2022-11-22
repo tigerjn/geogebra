@@ -30,7 +30,7 @@ public class SettingsBuilder {
 		return settings;
 	}
 
-	private int getEuclidianLength() {
+	protected int getEuclidianLength() {
 		return 3;
 	}
 
@@ -42,7 +42,7 @@ public class SettingsBuilder {
 		return new FontSettings(defaultSettings);
 	}
 
-	private LabelSettings newLabelSettings() {
+	protected LabelSettings newLabelSettings() {
 		return new LabelSettings();
 	}
 

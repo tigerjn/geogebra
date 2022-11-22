@@ -67,7 +67,7 @@ public class Settings {
 		resetSettings(app);
 	}
 
-	private static EuclidianSettings createEuclidanSettings(App app, int i) {
+	protected EuclidianSettings createEuclidanSettings(App app, int i) {
 		if (i == 2) { // 3D view
 			return new EuclidianSettings3D(app);
 		}
@@ -394,7 +394,7 @@ public class Settings {
 		return fontSettings;
 	}
 
-	void setFontSettings(FontSettings fontSettings) {
+	protected void setFontSettings(FontSettings fontSettings) {
 		this.fontSettings = fontSettings;
 	}
 
@@ -402,11 +402,11 @@ public class Settings {
 		return labelSettings;
 	}
 
-	void setLabelSettings(LabelSettings labelSettings) {
+	protected void setLabelSettings(LabelSettings labelSettings) {
 		this.labelSettings = labelSettings;
 	}
 
-	void setAlgebraSettings(AlgebraSettings algebraSettings) {
+	protected void setAlgebraSettings(AlgebraSettings algebraSettings) {
 		this.algebraSettings = algebraSettings;
 		resetableSettings.add(algebraSettings);
 	}
