@@ -489,6 +489,9 @@ public class ScreenReader {
 	 * @return converted String; unchanged for desktop, eg "M subscript R minus a" for mobile
 	 */
 	public static String convertToReadable(String s, App app) {
+		if (s == null) {
+			return "";
+		}
 		return getSerializationAdapter(app).convertToReadable(s);
 	}
 
