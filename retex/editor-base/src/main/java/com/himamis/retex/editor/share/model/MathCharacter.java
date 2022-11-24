@@ -31,6 +31,7 @@ package com.himamis.retex.editor.share.model;
 import com.himamis.retex.editor.share.meta.MetaCharacter;
 import com.himamis.retex.editor.share.model.inspect.Inspecting;
 import com.himamis.retex.editor.share.model.traverse.Traversing;
+import com.himamis.retex.editor.share.util.Unicode;
 
 /**
  * Character. This class is part of model.
@@ -170,6 +171,11 @@ public class MathCharacter extends MathComponent {
 
 	public boolean isUnicode(char c) {
 		return meta.getUnicode() == c;
+	}
+
+	@Override
+	public boolean isFieldSeparator() {
+		return meta.getUnicode() == ',' || meta.getUnicode() == Unicode.verticalLine;
 	}
 
 	public boolean isLetter() {

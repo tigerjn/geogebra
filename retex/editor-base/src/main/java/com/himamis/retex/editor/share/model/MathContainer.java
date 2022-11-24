@@ -502,7 +502,8 @@ abstract public class MathContainer extends MathComponent implements Iterable<Ma
 		}
 
 		return getParent() != null && getParent().getParent() != null
-				&& getParent().getParent().isProtected && isComma(i);
+				&& getParent().getParent().isProtected
+				&& arguments.get(i).isFieldSeparator();
 	}
 
 	/**
@@ -515,8 +516,7 @@ abstract public class MathContainer extends MathComponent implements Iterable<Ma
 			return false;
 		}
 
-		return arguments.get(i) instanceof MathCharacter
-				&& ((MathCharacter) arguments.get(i)).getUnicode() == ',';
+		return arguments.get(i).isFieldSeparator();
 	}
 
 	@Override
