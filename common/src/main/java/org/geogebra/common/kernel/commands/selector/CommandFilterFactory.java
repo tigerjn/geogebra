@@ -144,7 +144,7 @@ public final class CommandFilterFactory {
 				Commands.CircleArc, Commands.CircleSector,
 				Commands.CircumcircleArc,
 				Commands.CircumcircleSector, Commands.Cubic, Commands.Direction,
-				Commands.Distance, Commands.Envelope, Commands.IntersectPath,
+				Commands.Envelope, Commands.IntersectPath,
 				Commands.Locus, Commands.LocusEquation, Commands.Midpoint,
 				Commands.Point, Commands.Polygon,
 				Commands.PolyLine, Commands.ProveDetails, Commands.Ray,
