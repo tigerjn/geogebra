@@ -68,13 +68,21 @@ public class InputBoxProcessor {
 			if ("?".equals(inputText)) {
 				inputBox.setTempUserInput("", "");
 			} else {
-				inputBox.setTempUserInput(inputText, content.getLaTeX());
+				inputBox.setTempUserInput(eraseQuestionMark(inputText),
+						eraseQuestionMark(content.getLaTeX()));
 			}
 			linkedGeo.setUndefined();
 			makeGeoIndependent();
 			linkedGeo.resetDefinition(); // same as SetValue(linkedGeo, ?)
 			linkedGeo.updateRepaint();
 		}
+	}
+
+	private String eraseQuestionMark(String text) {
+		if (text == null) {
+			return "";
+		}
+		return text.replace("?,", ",").replace(",?", ",");
 	}
 
 	private String maybeClampInputForNumeric(String inputText, StringTemplate tpl) {

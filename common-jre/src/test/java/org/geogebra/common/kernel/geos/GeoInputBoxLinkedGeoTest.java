@@ -189,11 +189,11 @@ public class GeoInputBoxLinkedGeoTest extends BaseUnitTest {
 	public void symbolicShouldShowDefinitionFor3DPoints() {
 		setupInput("P", "(?,?,?)");
 		inputBox.setSymbolicMode(true, false);
-		assertEquals("(?,?,?)", inputBox.getTextForEditor());
+		assertEquals("(,,)", inputBox.getTextForEditor());
 		updateInput("(sqrt(2), 1/3, 0)");
 		assertEquals("(sqrt(2),(1)/(3),0)", inputBox.getTextForEditor());
 		add("SetValue(P,?)");
-		assertEquals("(?,?,?)", inputBox.getTextForEditor());
+		assertEquals("(,,)", inputBox.getTextForEditor());
 	}
 
 	@Test
@@ -483,7 +483,7 @@ public class GeoInputBoxLinkedGeoTest extends BaseUnitTest {
 		vec1.set(vec2);
 		assertThat(inputBox.getTextForEditor(), equalTo("{{sqrt(3)}, {3 / 2}}"));
 		addAvInput("SetValue(u,?)");
-		assertThat(inputBox.getTextForEditor(), equalTo("{{?}, {?}}"));
+		assertThat(inputBox.getTextForEditor(), equalTo("{{}, {}}"));
 	}
 
 	@Test
@@ -494,7 +494,7 @@ public class GeoInputBoxLinkedGeoTest extends BaseUnitTest {
 		vec1.set(vec2);
 		assertThat(inputBox.getTextForEditor(), equalTo("{{5 / 6}, {3 / 2}, {sqrt(5)}}"));
 		addAvInput("SetValue(u,?)");
-		assertThat(inputBox.getTextForEditor(), equalTo("{{?}, {?}, {?}}"));
+		assertThat(inputBox.getTextForEditor(), equalTo("{{}, {}, {}}"));
 	}
 
 	@Test
@@ -613,7 +613,7 @@ public class GeoInputBoxLinkedGeoTest extends BaseUnitTest {
 	public void testComplexMatrices() {
 		add("m = {{1, i},{i, 2}}");
 		GeoInputBox inputBox = add("InputBox(m)");
-		assertEquals("\\left(\\begin{array}{rr}1&i\\\\i&2\\\\ \\end{array}\\right)",
+		assertEquals("\\begin{pmatrix} 1 & i \\\\ i & 2 \\end{pmatrix}",
 				inputBox.getText());
 	}
 
