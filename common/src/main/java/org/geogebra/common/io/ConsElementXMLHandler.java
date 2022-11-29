@@ -138,7 +138,7 @@ public class ConsElementXMLHandler {
 	@Weak
 	private App app;
 	@Weak
-	private MyXMLHandler xmlHandler;
+	private ConstructionXmlHandler xmlHandler;
 	private boolean needsConstructionDefaults;
 	private String pendingLabel;
 
@@ -200,13 +200,13 @@ public class ConsElementXMLHandler {
 	}
 
 	/**
-	 * @param myXMLHandler
+	 * @param xmlHandler
 	 *            XML handler
 	 * @param app
 	 *            app
 	 */
-	public ConsElementXMLHandler(MyXMLHandler myXMLHandler, App app) {
-		this.xmlHandler = myXMLHandler;
+	public ConsElementXMLHandler(ConstructionXmlHandler xmlHandler, App app) {
+		this.xmlHandler = xmlHandler;
 		this.app = app;
 	}
 
@@ -345,7 +345,7 @@ public class ConsElementXMLHandler {
 		try {
 			GeoBoolean bool = (GeoBoolean) geo;
 			bool.setCheckboxFixed(
-					MyXMLHandler.parseBoolean(attrs.get("fixed")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("fixed")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -397,7 +397,7 @@ public class ConsElementXMLHandler {
 				 * saved one for the Prove command
 				 */
 				if (!(geo.getParentAlgorithm() instanceof AlgoProve)) {
-					bool.setValue(MyXMLHandler.parseBoolean(strVal));
+					bool.setValue(ConstructionXmlHandler.parseBoolean(strVal));
 				}
 				bool.setDefinition(oldDef);
 			} else if (geo.isGeoButton()) {
@@ -594,7 +594,7 @@ public class ConsElementXMLHandler {
 			// attrs.get("playing")));
 
 			// replacement
-			if (MyXMLHandler.parseBoolean(attrs.get("playing"))) {
+			if (ConstructionXmlHandler.parseBoolean(attrs.get("playing"))) {
 				animatingList.add(geo);
 			} else {
 				geo.setAnimating(false); // evalXML should act on existing objects
@@ -608,7 +608,7 @@ public class ConsElementXMLHandler {
 
 	private boolean handleFixed(LinkedHashMap<String, String> attrs) {
 		try {
-			geo.setFixed(MyXMLHandler.parseBoolean(attrs.get("val")));
+			geo.setFixed(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -617,7 +617,7 @@ public class ConsElementXMLHandler {
 
 	private boolean handleIsMask(LinkedHashMap<String, String> attrs) {
 		try {
-			geo.setIsMask(MyXMLHandler.parseBoolean(attrs.get("val")));
+			geo.setIsMask(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -627,7 +627,7 @@ public class ConsElementXMLHandler {
 	private boolean handleBreakpoint(LinkedHashMap<String, String> attrs) {
 		try {
 			geo.setConsProtocolBreakpoint(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -656,7 +656,7 @@ public class ConsElementXMLHandler {
 		String serif = attrs.get("val");
 
 		if (serif != null) {
-			((GeoInputBox) geo).setSerifContent(MyXMLHandler.parseBoolean(serif));
+			((GeoInputBox) geo).setSerifContent(ConstructionXmlHandler.parseBoolean(serif));
 		}
 		return true;
 	}
@@ -688,7 +688,7 @@ public class ConsElementXMLHandler {
 				text.setFontSizeMultiplier(StringUtil.parseDouble(size));
 			}
 			if (serif != null) {
-				text.setSerifFont(MyXMLHandler.parseBoolean((String) serif));
+				text.setSerifFont(ConstructionXmlHandler.parseBoolean((String) serif));
 			}
 			if (style != null) {
 				text.setFontStyle(Integer.parseInt((String) style));
@@ -738,7 +738,7 @@ public class ConsElementXMLHandler {
 
 		try {
 			((GeoImage) geo).setInBackground(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -753,7 +753,7 @@ public class ConsElementXMLHandler {
 
 		try {
 			((GeoImage) geo)
-					.setCentered(MyXMLHandler.parseBoolean(attrs.get("val")));
+					.setCentered(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -769,7 +769,7 @@ public class ConsElementXMLHandler {
 
 		try {
 			((GeoImage) geo).setInterpolate(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -778,7 +778,7 @@ public class ConsElementXMLHandler {
 
 	private boolean handleAuxiliary(LinkedHashMap<String, String> attrs) {
 		try {
-			geo.setAuxiliaryObject(MyXMLHandler.parseBoolean(attrs.get("val"))
+			geo.setAuxiliaryObject(ConstructionXmlHandler.parseBoolean(attrs.get("val"))
 							? Auxiliary.YES_SAVE
 							: Auxiliary.NO_SAVE);
 			return true;
@@ -789,7 +789,7 @@ public class ConsElementXMLHandler {
 
 	private boolean handleAutocolor(LinkedHashMap<String, String> attrs) {
 		try {
-			geo.setAutoColor(MyXMLHandler.parseBoolean(attrs.get("val")));
+			geo.setAutoColor(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -799,7 +799,7 @@ public class ConsElementXMLHandler {
 	private boolean handleIsLaTeX(LinkedHashMap<String, String> attrs) {
 		try {
 			((GeoText) geo).setLaTeX(
-					MyXMLHandler.parseBoolean(attrs.get("val")), false);
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")), false);
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -857,7 +857,7 @@ public class ConsElementXMLHandler {
 		try {
 			AngleProperties angle = (AngleProperties) geo;
 			angle.setAllowReflexAngle(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 
@@ -876,7 +876,7 @@ public class ConsElementXMLHandler {
 		try {
 			AngleProperties angle = (AngleProperties) geo;
 			angle.setEmphasizeRightAngle(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 
@@ -892,7 +892,7 @@ public class ConsElementXMLHandler {
 
 		try {
 			GeoList list = (GeoList) geo;
-			list.setDrawAsComboBox(MyXMLHandler.parseBoolean(attrs.get("val")));
+			list.setDrawAsComboBox(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 
@@ -912,7 +912,7 @@ public class ConsElementXMLHandler {
 			double y = Double.parseDouble(attrs.get("y"));
 			double w = Double.parseDouble(attrs.get("width"));
 			double h = Double.parseDouble(attrs.get("height"));
-			boolean cropped = MyXMLHandler.parseBoolean(attrs.get("cropped"));
+			boolean cropped = ConstructionXmlHandler.parseBoolean(attrs.get("cropped"));
 			GRectangle2D rect = AwtFactory.getPrototype().newRectangle2D();
 			rect.setRect(x, y, w, h);
 			img.setCropBoxRelative(rect);
@@ -955,7 +955,7 @@ public class ConsElementXMLHandler {
 
 	private boolean handleAlgebra(LinkedHashMap<String, String> attrs) {
 		try {
-			geo.setAlgebraLabelVisible(MyXMLHandler
+			geo.setAlgebraLabelVisible(ConstructionXmlHandler
 					.parseBooleanRev(attrs.get("labelVisible")));
 			return true;
 		} catch (RuntimeException e) {
@@ -967,10 +967,10 @@ public class ConsElementXMLHandler {
 	private boolean handleTableView(LinkedHashMap<String, String> attrs) {
 		try {
 			((GeoEvaluatable) geo).setTableColumn(
-					(int) MyXMLHandler.parseDoubleNaN(attrs.get("column")));
+					(int) ConstructionXmlHandler.parseDoubleNaN(attrs.get("column")));
 			((GeoEvaluatable) geo)
 					.setPointsVisible(
-							MyXMLHandler.parseBoolean(attrs.get("points")));
+							ConstructionXmlHandler.parseBoolean(attrs.get("points")));
 			return true;
 		} catch (RuntimeException e) {
 			Log.debug(e);
@@ -1008,7 +1008,7 @@ public class ConsElementXMLHandler {
 		try {
 			AngleProperties angle = (AngleProperties) geo;
 			angle.setForceReflexAngle(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 
@@ -1027,7 +1027,7 @@ public class ConsElementXMLHandler {
 		try {
 			LimitedPath lpath = (LimitedPath) geo;
 			lpath.setAllowOutlyingIntersections(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -1045,7 +1045,7 @@ public class ConsElementXMLHandler {
 		try {
 			LimitedPath lpath = (LimitedPath) geo;
 			lpath.setKeepTypeOnGeometricTransform(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -1090,7 +1090,7 @@ public class ConsElementXMLHandler {
 		symbolicTagProcessed = true;
 		try {
 			HasSymbolicMode num = (HasSymbolicMode) geo;
-			num.setSymbolicMode(MyXMLHandler.parseBoolean(attrs.get("val")),
+			num.setSymbolicMode(ConstructionXmlHandler.parseBoolean(attrs.get("val")),
 					false);
 			return true;
 		} catch (RuntimeException e) {
@@ -1208,7 +1208,7 @@ public class ConsElementXMLHandler {
 		Locateable locGeo = (Locateable) geo;
 		if (locGeo instanceof AbsoluteScreenLocateable) {
 			((AbsoluteScreenLocateable) locGeo).setAbsoluteScreenLocActive(
-					MyXMLHandler.parseBoolean(attrs.get("absolute")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("absolute")));
 		}
 		// relative start point (expression or label expected)
 		String exp = attrs.get("exp");
@@ -1363,7 +1363,7 @@ public class ConsElementXMLHandler {
 			}
 			String drawArrows = attrs.get("drawArrow");
 			if (drawArrows != null && geo instanceof GeoLocus) {
-				((GeoLocus) geo).drawAsArrows(MyXMLHandler.parseBoolean(drawArrows));
+				((GeoLocus) geo).drawAsArrows(ConstructionXmlHandler.parseBoolean(drawArrows));
 			}
 
 			return true;
@@ -1450,7 +1450,7 @@ public class ConsElementXMLHandler {
 
 			String str = attrs.get("absoluteScreenLocation");
 			if (str != null) {
-				num.setAbsoluteScreenLocActive(MyXMLHandler.parseBoolean(str));
+				num.setAbsoluteScreenLocActive(ConstructionXmlHandler.parseBoolean(str));
 			} else {
 				num.setAbsoluteScreenLocActive(false);
 			}
@@ -1464,12 +1464,12 @@ public class ConsElementXMLHandler {
 
 			num.setSliderWidth(StringUtil.parseDouble(attrs.get("width")),
 					true);
-			num.setSliderFixed(MyXMLHandler.parseBoolean(attrs.get("fixed")));
+			num.setSliderFixed(ConstructionXmlHandler.parseBoolean(attrs.get("fixed")));
 			num.setShowExtendedAV(
-					MyXMLHandler.parseBoolean(attrs.get("showAlgebra")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("showAlgebra")));
 
 			num.setSliderHorizontal(
-					MyXMLHandler.parseBoolean(attrs.get("horizontal")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("horizontal")));
 
 			return true;
 		} catch (RuntimeException e) {
@@ -1486,7 +1486,7 @@ public class ConsElementXMLHandler {
 
 		try {
 			Traceable t = (Traceable) geo;
-			t.setTrace(MyXMLHandler.parseBoolean(attrs.get("val")));
+			t.setTrace(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -1507,7 +1507,7 @@ public class ConsElementXMLHandler {
 
 			// set geo for tracing
 			geo.setSpreadsheetTrace(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 
 			SpreadsheetTraceSettings t = geo.getTraceSettings();
 			t.traceColumn1 = Integer.parseInt(attrs.get("traceColumn1"));
@@ -1518,20 +1518,20 @@ public class ConsElementXMLHandler {
 			t.numRows = Integer.parseInt(attrs.get("numRows"));
 			t.headerOffset = Integer.parseInt(attrs.get("headerOffset"));
 
-			t.doColumnReset = (MyXMLHandler
+			t.doColumnReset = (ConstructionXmlHandler
 					.parseBoolean(attrs.get("doColumnReset")));
-			t.doRowLimit = (MyXMLHandler.parseBoolean(attrs.get("doRowLimit")));
-			t.showLabel = (MyXMLHandler.parseBoolean(attrs.get("showLabel")));
-			t.showTraceList = (MyXMLHandler
+			t.doRowLimit = (ConstructionXmlHandler.parseBoolean(attrs.get("doRowLimit")));
+			t.showLabel = (ConstructionXmlHandler.parseBoolean(attrs.get("showLabel")));
+			t.showTraceList = (ConstructionXmlHandler
 					.parseBoolean(attrs.get("showTraceList")));
-			t.doTraceGeoCopy = (MyXMLHandler
+			t.doTraceGeoCopy = (ConstructionXmlHandler
 					.parseBoolean(attrs.get("doTraceGeoCopy")));
 
 			String stringPause = attrs.get("pause");
 			if (stringPause == null) {
 				t.pause = false;
 			} else {
-				t.pause = MyXMLHandler.parseBoolean(stringPause);
+				t.pause = ConstructionXmlHandler.parseBoolean(stringPause);
 			}
 
 			app.setNeedsSpreadsheetTableModel();
@@ -1550,7 +1550,7 @@ public class ConsElementXMLHandler {
 	private boolean handleShowTrimmed(LinkedHashMap<String, String> attrs) {
 		try {
 			geo.setShowTrimmedIntersectionLines(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -1561,7 +1561,7 @@ public class ConsElementXMLHandler {
 			LinkedHashMap<String, String> attrs) {
 		try {
 			geo.setSelectionAllowed(
-					MyXMLHandler.parseBoolean(attrs.get("val")));
+					ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 		} catch (RuntimeException e) {
 			return false;
@@ -1593,7 +1593,7 @@ public class ConsElementXMLHandler {
 	private boolean handleLevelOfDetailQuality(
 			LinkedHashMap<String, String> attrs) {
 		try {
-			boolean lod = MyXMLHandler.parseBoolean(attrs.get("val"));
+			boolean lod = ConstructionXmlHandler.parseBoolean(attrs.get("val"));
 			if (lod) {
 				((SurfaceEvaluable) geo)
 						.setLevelOfDetail(LevelOfDetail.QUALITY);
@@ -1850,7 +1850,7 @@ public class ConsElementXMLHandler {
 	}
 
 	private boolean handleObjColor(LinkedHashMap<String, String> attrs) {
-		GColor col = MyXMLHandler.handleColorAttrs(attrs);
+		GColor col = ConstructionXmlHandler.handleColorAttrs(attrs);
 		if (col == null) {
 			return false;
 		}
@@ -1909,7 +1909,7 @@ public class ConsElementXMLHandler {
 
 		String inverse = attrs.get("inverseFill");
 		if (inverse != null) {
-			geo.setInverseFill(MyXMLHandler.parseBoolean(inverse));
+			geo.setInverseFill(ConstructionXmlHandler.parseBoolean(inverse));
 		}
 
 		String distance = attrs.get("hatchDistance");
@@ -2044,8 +2044,8 @@ public class ConsElementXMLHandler {
 				geo.setEuclidianVisible(false);
 			} else {
 				geo.setEuclidianVisible(
-						MyXMLHandler.parseBoolean(attrs.get("object")));
-				geo.setLabelVisible(MyXMLHandler.parseBoolean(attrs.get("label")));
+						ConstructionXmlHandler.parseBoolean(attrs.get("object")));
+				geo.setLabelVisible(ConstructionXmlHandler.parseBoolean(attrs.get("label")));
 			}
 
 			// bit 0 -> display object in EV1, 0 = true (default)
@@ -2112,7 +2112,7 @@ public class ConsElementXMLHandler {
 				return false;
 			}
 			((GeoFunction) geo)
-					.setShowOnAxis(MyXMLHandler.parseBoolean(attrs.get("val")));
+					.setShowOnAxis(ConstructionXmlHandler.parseBoolean(attrs.get("val")));
 			return true;
 
 		} catch (RuntimeException e) {

@@ -32,7 +32,7 @@ import org.geogebra.common.gui.view.probcalculator.Procedure;
 import org.geogebra.common.gui.view.probcalculator.StatisticsCalculator;
 import org.geogebra.common.gui.view.probcalculator.StatisticsCollection;
 import org.geogebra.common.util.TextObject;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.gui.util.ListSeparatorRenderer;
 import org.geogebra.desktop.main.AppD;
@@ -196,14 +196,14 @@ public class StatisticsCalculatorD extends StatisticsCalculator
 		panelSample1.add(LayoutUtil.flowPanelRight(4, 2, 0, lblSampleHeader1));
 		for (int i = 0; i < lblSampleStat1.length; i++) {
 			panelSample1.add(LayoutUtil.flowPanelRight(4, 2, 0,
-					lblSampleStat1[i], (MyTextFieldD) fldSampleStat1[i]));
+					lblSampleStat1[i], (MathTextFieldBase) fldSampleStat1[i]));
 		}
 
 		panelSample2.add(LayoutUtil.flowPanelRight(4, 2, 0, new JLabel(" "),
 				lblSampleHeader2));
 		for (int i = 0; i < lblSampleStat2.length; i++) {
 			panelSample2.add(LayoutUtil.flowPanelRight(4, 2, 0,
-					lblSampleStat2[i], (MyTextFieldD) fldSampleStat2[i]));
+					lblSampleStat2[i], (MathTextFieldBase) fldSampleStat2[i]));
 		}
 
 		switch (sc.getSelectedProcedure()) {
@@ -220,13 +220,13 @@ public class StatisticsCalculatorD extends StatisticsCalculator
 			if (app.getLocalization().isRightToLeftReadingOrder()) {
 				// eg 1.1 = mu
 				panelTestAndCI.add(LayoutUtil.flowPanel(4, 2, 0, lblNull,
-						Box.createHorizontalStrut(5), (MyTextFieldD) fldNullHyp,
+						Box.createHorizontalStrut(5), (MathTextFieldBase) fldNullHyp,
 						lblHypParameter));
 			} else {
 				// eg mu = 1.1
 				panelTestAndCI.add(LayoutUtil.flowPanel(4, 2, 0, lblNull,
 						Box.createHorizontalStrut(5), lblHypParameter,
-						(MyTextFieldD) fldNullHyp));
+						(MathTextFieldBase) fldNullHyp));
 			}
 			panelTestAndCI.add(LayoutUtil.flowPanel(4, 2, 0, lblTailType,
 					btnLeft, btnRight, btnTwo));
@@ -242,7 +242,7 @@ public class StatisticsCalculatorD extends StatisticsCalculator
 
 			panelTestAndCI.add(
 					LayoutUtil.flowPanel(4, 2, 0, lblConfLevel,
-							(MyTextFieldD) fldConfLevel));
+							(MathTextFieldBase) fldConfLevel));
 			panelTestAndCI.add(LayoutUtil.flowPanel(4, 2, 0, ckPooled));
 			break;
 		}
@@ -349,14 +349,14 @@ public class StatisticsCalculatorD extends StatisticsCalculator
 			lblSampleStat2[i] = new JLabel();
 		}
 
-		fldSampleStat2 = new MyTextFieldD[3];
+		fldSampleStat2 = new MathTextFieldBase[3];
 		for (int i = 0; i < fldSampleStat2.length; i++) {
 			fldSampleStat2[i] = newTextField();
 		}
 	}
 
 	private TextObject newTextField() {
-		MyTextFieldD ret = new MyTextFieldD((AppD) app);
+		MathTextFieldBase ret = new MathTextFieldBase((AppD) app);
 		ret.setColumns(fieldWidth);
 		addActionListener(ret);
 		ret.addFocusListener(this);
@@ -631,16 +631,16 @@ public class StatisticsCalculatorD extends StatisticsCalculator
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		if (e.getSource() instanceof MyTextFieldD) {
-			((MyTextFieldD) e.getSource()).selectAll();
+		if (e.getSource() instanceof MathTextFieldBase) {
+			((MathTextFieldBase) e.getSource()).selectAll();
 		}
 
 	}
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		if (e.getSource() instanceof MyTextFieldD) {
-			doTextFieldActionPerformed((MyTextFieldD) e.getSource());
+		if (e.getSource() instanceof MathTextFieldBase) {
+			doTextFieldActionPerformed((MathTextFieldBase) e.getSource());
 		}
 	}
 
@@ -704,13 +704,13 @@ public class StatisticsCalculatorD extends StatisticsCalculator
 
 	@Override
 	public void addActionListener(TextObject obj) {
-		((MyTextFieldD) obj).addActionListener(this);
+		((MathTextFieldBase) obj).addActionListener(this);
 
 	}
 
 	@Override
 	public void removeActionListener(TextObject obj) {
-		((MyTextFieldD) obj).removeActionListener(this);
+		((MathTextFieldBase) obj).removeActionListener(this);
 
 	}
 

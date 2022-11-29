@@ -25,7 +25,7 @@ import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.EquationSolver;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.PointPair;
 import org.geogebra.common.kernel.PointPairList;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
@@ -989,7 +989,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 			tempLine = new GeoLine(cons);
 		}
 
-		ArrayList<MyPoint> set = new ArrayList<>();
+		ArrayList<PathPoint> set = new ArrayList<>();
 
 		// intersect vertical lines
 		fillQuarticRoots(eqn, c, d, e, f, k, l, m, o, p);
@@ -1010,7 +1010,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 			for (int i = 0; i < points.length; i++) {
 
 				if (i < set.size()) {
-					MyPoint pt = set.get(i);
+					PathPoint pt = set.get(i);
 					points[i].setCoords(pt.x, pt.y, 1);
 				} else {
 					points[i].setUndefined();
@@ -1055,7 +1055,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 			tempLine = new GeoLine(cons);
 		}
 
-		ArrayList<MyPoint> set = new ArrayList<>();
+		ArrayList<PathPoint> set = new ArrayList<>();
 
 		// intersect vertical lines
 		if (vertical) {
@@ -1073,7 +1073,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 			for (int i = 0; i < points.length; i++) {
 
 				if (i < set.size()) {
-					MyPoint pt = set.get(i);
+					PathPoint pt = set.get(i);
 					points[i].setCoords(pt.x, pt.y, 1);
 				} else {
 					points[i].setUndefined();
@@ -1118,7 +1118,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 			tempLine = new GeoLine(cons);
 		}
 
-		ArrayList<MyPoint> set = new ArrayList<>();
+		ArrayList<PathPoint> set = new ArrayList<>();
 
 		// intersect vertical lines
 		if (vertical) {
@@ -1141,7 +1141,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 			for (int i = 0; i < points.length; i++) {
 
 				if (i < set.size()) {
-					MyPoint pt = set.get(i);
+					PathPoint pt = set.get(i);
 					points[i].setCoords(pt.x, pt.y, 1);
 				} else {
 					points[i].setUndefined();
@@ -1158,7 +1158,7 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 	}
 
 	private void intersectLines(boolean vertical, double[] eqn, int roots, GeoPoint[] points,
-			GeoLine tempLine, GeoConic c1, GeoConic c2, ArrayList<MyPoint> set, double eps) {
+			GeoLine tempLine, GeoConic c1, GeoConic c2, ArrayList<PathPoint> set, double eps) {
 		for (int i = 0; i < roots; i++) {
 
 			tempLine.setCoords(vertical ? 1 : 0, vertical ? 0 : 1, -eqn[i]);
@@ -1252,21 +1252,21 @@ public class AlgoIntersectConics extends AlgoIntersect implements SymbolicParame
 		eqn[0] = 4 * p * p * c - 4 * p * m * f + b * m * m;
 	}
 
-	private void savePoints(ArrayList<MyPoint> set, GeoPoint[] points) {
+	private void savePoints(ArrayList<PathPoint> set, GeoPoint[] points) {
 		for (int i = 0; i < points.length; i++) {
 			if (points[i] != null && points[i].isDefined()
 					&& points[i].isFinite() && !contains(set, points[i])) {
-				MyPoint pt = new MyPoint(points[i].x, points[i].y);
+				PathPoint pt = new PathPoint(points[i].x, points[i].y);
 				set.add(pt);
 			}
 		}
 
 	}
 
-	private boolean contains(ArrayList<MyPoint> set, GeoPoint geoPoint) {
+	private boolean contains(ArrayList<PathPoint> set, GeoPoint geoPoint) {
 
 		for (int i = 0; i < set.size(); i++) {
-			MyPoint pt = set.get(i);
+			PathPoint pt = set.get(i);
 			if (DoubleUtil.isEqual(pt.x, geoPoint.inhomX)
 					&& DoubleUtil.isEqual(pt.y, geoPoint.inhomY)) {
 				return true;

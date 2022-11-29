@@ -67,6 +67,7 @@ import org.geogebra.common.geogebra3D.euclidian3D.openGL.Renderer;
 import org.geogebra.common.geogebra3D.euclidian3D.printer3D.ExportToPrinter3D;
 import org.geogebra.common.geogebra3D.euclidian3D.printer3D.Format;
 import org.geogebra.common.geogebra3D.euclidian3D.xr.XRManagerInterface;
+import org.geogebra.common.geogebra3D.io.ConstructionXmlHandler3D;
 import org.geogebra.common.geogebra3D.kernel3D.Kernel3D;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoClippingCube3D;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoConicSection;
@@ -79,6 +80,7 @@ import org.geogebra.common.geogebra3D.kernel3D.geos.GeoQuadric3D;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoQuadric3DLimited;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoQuadric3DPart;
 import org.geogebra.common.geogebra3D.kernel3D.implicit3D.GeoImplicitSurface;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.EVProperty;
 import org.geogebra.common.kernel.Kernel;
@@ -3011,8 +3013,8 @@ public abstract class EuclidianView3D extends EuclidianView
 	/**
 	 * returns settings in XML format, read by xml handlers
 	 *
-	 * @see org.geogebra.common.io.MyXMLHandler
-	 * @see org.geogebra.common.geogebra3D.io.MyXMLHandler3D
+	 * @see ConstructionXmlHandler
+	 * @see ConstructionXmlHandler3D
 	 */
 	@Override
 	public void getXML(StringBuilder sb, boolean asPreference) {

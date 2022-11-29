@@ -14,7 +14,7 @@ package org.geogebra.common.kernel.matrix;
 
 import org.geogebra.common.factories.FormatFactory;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.util.DoubleUtil;
 import org.geogebra.common.util.MyMath;
 import org.geogebra.common.util.ScientificFormatAdapter;
@@ -3035,8 +3035,8 @@ public class Coords implements AnimatableValue<Coords> {
 	 * @param rightPoint
 	 *            rightPoint
 	 */
-	public void set(double param1, double param2, MyPoint leftPoint,
-			MyPoint rightPoint) {
+	public void set(double param1, double param2, PathPoint leftPoint,
+			PathPoint rightPoint) {
 		val[0] = param2 * leftPoint.x + param1 * rightPoint.x;
 		val[1] = param2 * leftPoint.y + param1 * rightPoint.y;
 		val[2] = 1.0;

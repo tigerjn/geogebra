@@ -35,7 +35,7 @@ import org.geogebra.common.euclidian.clipping.ClipLine;
 import org.geogebra.common.euclidian.modes.ModeShape;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.kernel.ConstructionDefaults;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoSegment;
 import org.geogebra.common.kernel.kernelND.GeoElementND;
@@ -687,7 +687,7 @@ public class DrawSegment extends SetDrawable implements Previewable {
 
 	private void addPoint(GeoPointND point, ArrayList<GPoint2D> ret) {
 		point.updateCoords2D();
-		ret.add(new MyPoint(view.toScreenCoordXd(point.getX2D()),
+		ret.add(new PathPoint(view.toScreenCoordXd(point.getX2D()),
 				view.toScreenCoordYd(point.getY2D())));
 	}
 

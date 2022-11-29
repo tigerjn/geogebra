@@ -35,7 +35,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.ListCellRenderer;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ListDataListener;
 
@@ -49,7 +48,7 @@ import org.geogebra.common.main.GeoElementSelectionListener;
 import org.geogebra.common.main.MyError.Errors;
 import org.geogebra.common.util.debug.Log;
 import org.geogebra.desktop.gui.ToolNameIconPanelD;
-import org.geogebra.desktop.gui.view.algebra.MyComboBoxListener;
+import org.geogebra.desktop.gui.view.algebra.ComboBoxMouseAdapter;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 
@@ -563,7 +562,7 @@ public class ToolCreationDialogD extends Dialog
 		// combobox to add geos
 		final JComboBox cbAdd = new JComboBox(cbModel);
 		// listener for the combobox
-		MyComboBoxListener ac = new MyComboBoxListener() {
+		ComboBoxMouseAdapter ac = new ComboBoxMouseAdapter() {
 			@Override
 			public void doActionPerformed(Object source) {
 				GeoElement geo = (GeoElement) cbAdd.getSelectedItem();
@@ -594,7 +593,7 @@ public class ToolCreationDialogD extends Dialog
 				BorderLayout.CENTER);
 
 		// renderer to show long description of geos in list and combobox
-		MyCellRenderer rend = new MyCellRenderer();
+		GeoCellRenderer rend = new GeoCellRenderer();
 		list.setCellRenderer(rend);
 		cbAdd.setRenderer(rend);
 
@@ -744,11 +743,7 @@ public class ToolCreationDialogD extends Dialog
 
 	}
 
-	public static boolean isMyCellRenderer(ListCellRenderer renderer) {
-		return renderer instanceof MyCellRenderer;
-	}
-
-	static class MyCellRenderer extends DefaultListCellRenderer {
+	static class GeoCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 1L;
 
 		/*

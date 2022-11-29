@@ -2039,7 +2039,7 @@ public class ExpressionNode extends ValidExpression
 	 */
 	public ExpressionNode betaRegularized(ExpressionValue v1,
 			ExpressionValue v2) {
-		return new ExpressionNode(kernel, new MyNumberPair(kernel, this, v1),
+		return new ExpressionNode(kernel, new NumberPair(kernel, this, v1),
 				Operation.BETA_INCOMPLETE_REGULARIZED, v2);
 	}
 
@@ -2717,9 +2717,9 @@ public class ExpressionNode extends ValidExpression
 			break;
 
 		case IF_ELSE:
-			MyNumberPair np = (MyNumberPair) left;
+			NumberPair np = (NumberPair) left;
 
-			np = new MyNumberPair(kernel0, np.x, np.y.integral(fv, kernel0));
+			np = new NumberPair(kernel0, np.x, np.y.integral(fv, kernel0));
 
 			return new ExpressionNode(kernel0, np, Operation.IF_ELSE,
 					right.integral(fv, kernel0));
@@ -3013,7 +3013,7 @@ public class ExpressionNode extends ValidExpression
 	public ExpressionNode ifElse(ExpressionValue ifBranch,
 			ExpressionValue elseBranch) {
 		return new ExpressionNode(kernel,
-				new MyNumberPair(kernel, this, ifBranch), Operation.IF_ELSE,
+				new NumberPair(kernel, this, ifBranch), Operation.IF_ELSE,
 				elseBranch);
 	}
 

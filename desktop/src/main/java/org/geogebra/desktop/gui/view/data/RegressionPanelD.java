@@ -23,7 +23,7 @@ import org.geogebra.common.kernel.arithmetic.ExpressionNodeConstants.StringType;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.kernel.geos.GeoFunctionable;
 import org.geogebra.common.kernel.statistics.Regression;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.GeoGebraIconD;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.main.AppD;
@@ -49,7 +49,7 @@ public class RegressionPanelD extends JPanel
 	private JComboBox<String> cbRegression;
 	private JComboBox<String> cbPolyOrder;
 	private JLabel lblEvaluate;
-	private MyTextFieldD fldInputX;
+	private MathTextFieldBase fldInputX;
 	private JLabel lblOutputY;
 
 	private String[] regressionLabels;
@@ -142,7 +142,7 @@ public class RegressionPanelD extends JPanel
 
 		JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		lblEvaluate = new JLabel();
-		fldInputX = new MyTextFieldD(app);
+		fldInputX = new MathTextFieldBase(app);
 		fldInputX.addActionListener(this);
 
 		fldInputX.setColumns(6);

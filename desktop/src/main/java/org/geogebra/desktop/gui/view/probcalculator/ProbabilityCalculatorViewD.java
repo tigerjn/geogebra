@@ -40,7 +40,7 @@ import org.geogebra.common.main.settings.ProbabilityCalculatorSettings;
 import org.geogebra.common.main.settings.ProbabilityCalculatorSettings.Dist;
 import org.geogebra.desktop.euclidianND.EuclidianViewInterfaceD;
 import org.geogebra.desktop.gui.GuiManagerD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.gui.util.ListSeparatorRenderer;
 import org.geogebra.desktop.gui.view.data.PlotPanelEuclidianViewD;
@@ -304,7 +304,7 @@ public class ProbabilityCalculatorViewD extends ProbabilityCalculatorView
 
 		for (int i = 0; i < maxParameterCount; ++i) {
 			lblParameterArray[i] = new JLabel();
-			fldParameterArray[i] = new MyTextFieldD((AppD) app);
+			fldParameterArray[i] = new MathTextFieldBase((AppD) app);
 			fldParameterArray[i].setColumns(5);
 			fldParameterArray[i].addActionListener(this);
 			fldParameterArray[i].addFocusListener(this);
@@ -527,8 +527,8 @@ public class ProbabilityCalculatorViewD extends ProbabilityCalculatorView
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		if (e.getSource() instanceof MyTextFieldD) {
-			((MyTextFieldD) e.getSource()).selectAll();
+		if (e.getSource() instanceof MathTextFieldBase) {
+			((MathTextFieldBase) e.getSource()).selectAll();
 		}
 	}
 

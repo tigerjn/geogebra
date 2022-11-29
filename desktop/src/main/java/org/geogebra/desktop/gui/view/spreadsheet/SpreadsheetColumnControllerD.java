@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import org.geogebra.common.awt.GPoint;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.main.App;
 import org.geogebra.common.util.SpreadsheetTraceSettings;
@@ -39,7 +39,7 @@ public class SpreadsheetColumnControllerD
 	private AppD app;
 	private SpreadsheetViewD view;
 	private Kernel kernel;
-	private MyTableD table;
+	private SpreadsheetTableD table;
 	private DefaultTableModel model;
 
 	protected int column0 = -1;
@@ -53,7 +53,7 @@ public class SpreadsheetColumnControllerD
 	 * @param app application
 	 * @param table spreadsheet table
 	 */
-	public SpreadsheetColumnControllerD(AppD app, MyTableD table) {
+	public SpreadsheetColumnControllerD(AppD app, SpreadsheetTableD table) {
 		this.app = app;
 		this.loc = app.getLocalization();
 		this.kernel = app.getKernel();
@@ -146,8 +146,8 @@ public class SpreadsheetColumnControllerD
 
 					// otherwise handle column selection
 					if (table
-							.getSelectionType() != MyTableInterface.COLUMN_SELECT) {
-						table.setSelectionType(MyTableInterface.COLUMN_SELECT);
+							.getSelectionType() != SpreadsheetTableInterface.COLUMN_SELECT) {
+						table.setSelectionType(SpreadsheetTableInterface.COLUMN_SELECT);
 						if (table.getTableHeader() != null) {
 							table.getTableHeader().requestFocusInWindow();
 						}
@@ -200,8 +200,8 @@ public class SpreadsheetColumnControllerD
 					|| p.getX() > table.maxSelectionColumn) {
 				// switch to column selection mode and select column
 				if (table
-						.getSelectionType() != MyTableInterface.COLUMN_SELECT) {
-					table.setSelectionType(MyTableInterface.COLUMN_SELECT);
+						.getSelectionType() != SpreadsheetTableInterface.COLUMN_SELECT) {
+					table.setSelectionType(SpreadsheetTableInterface.COLUMN_SELECT);
 				}
 
 				// selectNone();
@@ -478,11 +478,11 @@ public class SpreadsheetColumnControllerD
 			btnTrace.setPreferredSize(new Dimension(18, 18));
 
 			setOpaque(true);
-			defaultBackground = MyTableD.BACKGROUND_COLOR_HEADER;
+			defaultBackground = SpreadsheetTableD.BACKGROUND_COLOR_HEADER;
 
 			setBorder(BorderFactory.createCompoundBorder(
 					BorderFactory.createMatteBorder(0, 0, 1, 1,
-							MyTableD.HEADER_GRID_COLOR),
+							SpreadsheetTableD.HEADER_GRID_COLOR),
 					BorderFactory.createEmptyBorder(0, 5, 0, 0)));
 
 			layout = (BorderLayout) this.getLayout();
@@ -493,10 +493,10 @@ public class SpreadsheetColumnControllerD
 				Object value, boolean isSelected, boolean hasFocus,
 				int rowIndex, int colIndex) {
 
-			MyTableD table1;
+			SpreadsheetTableD table1;
 
-			if (table0 instanceof MyTableD) {
-				table1 = (MyTableD) table0;
+			if (table0 instanceof SpreadsheetTableD) {
+				table1 = (SpreadsheetTableD) table0;
 			} else {
 				return null;
 			}
@@ -505,13 +505,13 @@ public class SpreadsheetColumnControllerD
 
 			lblHeader.setText(value.toString());
 
-			if (table1.getSelectionType() == MyTableInterface.ROW_SELECT) {
+			if (table1.getSelectionType() == SpreadsheetTableInterface.ROW_SELECT) {
 				setBackground(defaultBackground);
 			} else {
 				if (table1.selectedColumnSet.contains(colIndex)
 						|| (colIndex >= table1.minSelectionColumn
 								&& colIndex <= table1.maxSelectionColumn)) {
-					setBackground(MyTableD.SELECTED_BACKGROUND_COLOR_HEADER);
+					setBackground(SpreadsheetTableD.SELECTED_BACKGROUND_COLOR_HEADER);
 				} else {
 					setBackground(defaultBackground);
 				}

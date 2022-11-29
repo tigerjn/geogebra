@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 import org.geogebra.common.awt.GPoint2D;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.discrete.delaunay.DelaunayTriangulation;
@@ -23,7 +23,7 @@ import org.geogebra.common.util.debug.Log;
  * DelauneyTriangulation command
  */
 public class AlgoDelauneyTriangulation extends AlgoDiscrete {
-	private static Comparator<MyLine> lineComparator;
+	private static Comparator<DiagramLine> lineComparator;
 
 	/**
 	 * @param cons
@@ -83,23 +83,23 @@ public class AlgoDelauneyTriangulation extends AlgoDiscrete {
 			}
 
 			// add to TreeSet to remove duplicates (from touching triangles)
-			TreeSet<MyLine> tree = new TreeSet<>(getComparator());
+			TreeSet<DiagramLine> tree = new TreeSet<>(getComparator());
 
 			while (it.hasNext()) {
 				TriangleDt triangle = it.next();
 
-				tree.add(new MyLine(
+				tree.add(new DiagramLine(
 						new GPoint2D(triangle.p1().x(),
 								triangle.p1().y()),
 						new GPoint2D(triangle.p2().x(),
 								triangle.p2().y())));
 				if (triangle.p3() != null) {
-					tree.add(new MyLine(
+					tree.add(new DiagramLine(
 							new GPoint2D(triangle.p2().x(),
 									triangle.p2().y()),
 							new GPoint2D(triangle.p3().x(),
 									triangle.p3().y())));
-					tree.add(new MyLine(
+					tree.add(new DiagramLine(
 							new GPoint2D(triangle.p3().x(),
 									triangle.p3().y()),
 							new GPoint2D(triangle.p1().x(),
@@ -108,13 +108,13 @@ public class AlgoDelauneyTriangulation extends AlgoDiscrete {
 
 			}
 
-			Iterator<MyLine> it2 = tree.iterator();
+			Iterator<DiagramLine> it2 = tree.iterator();
 
 			while (it2.hasNext()) {
-				MyLine line = it2.next();
-				al.add(new MyPoint(line.p1.getX(), line.p1.getY(),
+				DiagramLine line = it2.next();
+				al.add(new PathPoint(line.p1.getX(), line.p1.getY(),
 						SegmentType.MOVE_TO));
-				al.add(new MyPoint(line.p2.getX(), line.p2.getY(),
+				al.add(new PathPoint(line.p2.getX(), line.p2.getY(),
 						SegmentType.LINE_TO));
 			}
 
@@ -130,11 +130,11 @@ public class AlgoDelauneyTriangulation extends AlgoDiscrete {
 	 * @return comparator used to eliminate duplicate objects (TreeSet deletes
 	 *         duplicates ie those that return 0)
 	 */
-	public static Comparator<MyLine> getComparator() {
+	public static Comparator<DiagramLine> getComparator() {
 		if (lineComparator == null) {
-			lineComparator = new Comparator<MyLine>() {
+			lineComparator = new Comparator<DiagramLine>() {
 				@Override
-				public int compare(MyLine itemA, MyLine itemB) {
+				public int compare(DiagramLine itemA, DiagramLine itemB) {
 
 					GPoint2D p1A = itemA.p1;
 					GPoint2D p2A = itemA.p2;

@@ -15,7 +15,7 @@ package org.geogebra.common.kernel.algos;
 import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoLocusNDInterface;
@@ -73,7 +73,7 @@ public class AlgoPerimeterLocus extends AlgoElement {
 			return;
 		}
 
-		ArrayList<? extends MyPoint> points = locus.getPoints();
+		ArrayList<? extends PathPoint> points = locus.getPoints();
 
 		if (points.isEmpty()) {
 			circum.setUndefined();
@@ -85,11 +85,11 @@ public class AlgoPerimeterLocus extends AlgoElement {
 			return;
 		}
 
-		MyPoint lastPoint = points.get(0);
+		PathPoint lastPoint = points.get(0);
 
 		double length = 0;
 		for (int i = 1; i < points.size(); i++) {
-			MyPoint pt = points.get(i);
+			PathPoint pt = points.get(i);
 			length = length + pt.distance(lastPoint);
 			lastPoint = pt;
 		}

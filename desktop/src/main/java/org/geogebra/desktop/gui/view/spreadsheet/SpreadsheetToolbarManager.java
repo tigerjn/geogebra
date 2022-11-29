@@ -2,7 +2,7 @@ package org.geogebra.desktop.gui.view.spreadsheet;
 
 import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.gui.view.spreadsheet.CreateObjectModel;
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
 import org.geogebra.desktop.main.AppD;
 
 /**
@@ -16,7 +16,7 @@ public class SpreadsheetToolbarManager {
 
 	private final AppD app;
 	private final SpreadsheetViewD view;
-	private final MyTableD table;
+	private final SpreadsheetTableD table;
 
 	/**
 	 * @param app application
@@ -25,14 +25,14 @@ public class SpreadsheetToolbarManager {
 	public SpreadsheetToolbarManager(AppD app, SpreadsheetViewD view) {
 		this.app = app;
 		this.view = view;
-		this.table = (MyTableD) view.getSpreadsheetTable();
+		this.table = (SpreadsheetTableD) view.getSpreadsheetTable();
 	}
 
 	/**
 	 * @param mode app mode
 	 */
 	public void handleModeChange(int mode) {
-		table.setTableMode(MyTable.TABLE_MODE_STANDARD);
+		table.setTableMode(SpreadsheetTable.TABLE_MODE_STANDARD);
 
 		CreateObjectDialog id;
 		switch (mode) {
@@ -88,7 +88,7 @@ public class SpreadsheetToolbarManager {
 		case EuclidianConstants.MODE_SPREADSHEET_MIN:
 		case EuclidianConstants.MODE_SPREADSHEET_MAX:
 			// Handle autofunction modes
-			table.setTableMode(MyTable.TABLE_MODE_AUTOFUNCTION);
+			table.setTableMode(SpreadsheetTable.TABLE_MODE_AUTOFUNCTION);
 			break;
 
 		default:

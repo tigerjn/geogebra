@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.geogebra.common.awt.GPoint;
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoElementSpreadsheet;
@@ -38,7 +38,7 @@ public class SpreadsheetViewDnD
 		implements DragGestureListener, DragSourceListener, DropTargetListener {
 
 	private AppD app;
-	private MyTableD table;
+	private SpreadsheetTableD table;
 
 	// current drag over cell
 	private GPoint currentCell = new GPoint(0, 0);
@@ -67,7 +67,7 @@ public class SpreadsheetViewDnD
 	@SuppressWarnings("unused")
 	public SpreadsheetViewDnD(AppD app, SpreadsheetViewD view) {
 		this.app = app;
-		this.table = (MyTableD) view.getSpreadsheetTable();
+		this.table = (SpreadsheetTableD) view.getSpreadsheetTable();
 
 		new DragSource();
 		// DragGestureRecognizer dgr =
@@ -174,7 +174,7 @@ public class SpreadsheetViewDnD
 	 */
 	@Override
 	public void dragEnter(DropTargetDragEvent dte) {
-		table.setTableMode(MyTable.TABLE_MODE_DROP);
+		table.setTableMode(SpreadsheetTable.TABLE_MODE_DROP);
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class SpreadsheetViewDnD
 	 */
 	@Override
 	public void dragExit(DropTargetEvent dte) {
-		table.setTableMode(MyTable.TABLE_MODE_STANDARD);
+		table.setTableMode(SpreadsheetTable.TABLE_MODE_STANDARD);
 	}
 
 	/**
@@ -401,7 +401,7 @@ public class SpreadsheetViewDnD
 
 	private void handleDropComplete(DropTargetDropEvent dte, boolean success) {
 		dte.dropComplete(success);
-		table.setTableMode(MyTable.TABLE_MODE_STANDARD);
+		table.setTableMode(SpreadsheetTable.TABLE_MODE_STANDARD);
 	}
 
 	@Override

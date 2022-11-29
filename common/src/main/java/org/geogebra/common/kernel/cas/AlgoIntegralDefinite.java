@@ -29,7 +29,7 @@ import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.Function;
 import org.geogebra.common.kernel.arithmetic.ListValue;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.kernel.arithmetic.PolyFunction;
 import org.geogebra.common.kernel.commands.Commands;
@@ -772,8 +772,8 @@ public class AlgoIntegralDefinite extends AlgoUsingTempCASalgo
 		ExpressionNode exp = f2.getFunction().getExpression();
 		ExpressionValue rt = exp.getRight();
 
-		ListValue keyList = (ListValue) ((MyNumberPair) rt).getX();
-		ListValue valueList = (ListValue) ((MyNumberPair) rt).getY();
+		ListValue keyList = (ListValue) ((NumberPair) rt).getX();
+		ListValue valueList = (ListValue) ((NumberPair) rt).getY();
 
 		int n = keyList.size();
 

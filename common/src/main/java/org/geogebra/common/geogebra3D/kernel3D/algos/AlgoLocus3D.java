@@ -12,7 +12,7 @@ the Free Software Foundation.
 
 package org.geogebra.common.geogebra3D.kernel3D.algos;
 
-import org.geogebra.common.geogebra3D.kernel3D.MyPoint3D;
+import org.geogebra.common.geogebra3D.kernel3D.PathPoint3D;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoLocus3D;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoPoint3D;
 import org.geogebra.common.kernel.Construction;
@@ -26,7 +26,7 @@ import org.geogebra.common.util.MyMath;
 /**
  * locus line for Q dependent on P
  */
-public class AlgoLocus3D extends AlgoLocusND<MyPoint3D> {
+public class AlgoLocus3D extends AlgoLocusND<PathPoint3D> {
 
 	private double[] maxZdist;
 	private double[] farZmin;
@@ -225,19 +225,19 @@ public class AlgoLocus3D extends AlgoLocusND<MyPoint3D> {
 	}
 
 	@Override
-	protected MyPoint3D[] createQCopyCache(int length) {
-		return new MyPoint3D[length];
+	protected PathPoint3D[] createQCopyCache(int length) {
+		return new PathPoint3D[length];
 	}
 
 	@Override
-	protected void setQCopyCache(MyPoint3D copy, GeoPointND point) {
+	protected void setQCopyCache(PathPoint3D copy, GeoPointND point) {
 		Coords coords = point.getInhomCoordsInD3();
 		copy.setLocation(coords.getX(), coords.getY(), coords.getZ());
 	}
 
 	@Override
-	protected MyPoint3D newCache() {
-		return new MyPoint3D();
+	protected PathPoint3D newCache() {
+		return new PathPoint3D();
 	}
 
 }

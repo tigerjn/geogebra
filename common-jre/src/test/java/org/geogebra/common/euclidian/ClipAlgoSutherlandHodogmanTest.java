@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.junit.Test;
 
 public class ClipAlgoSutherlandHodogmanTest {
 	private final ClipAlgoSutherlandHodogman algo = new ClipAlgoSutherlandHodogman();
-	private final ArrayList< MyPoint > input = new ArrayList<>();
-	private ArrayList< MyPoint > output = new ArrayList<>();
+	private final ArrayList<PathPoint> input = new ArrayList<>();
+	private ArrayList<PathPoint> output = new ArrayList<>();
 	private static final double[][] defaultClipPolygon = {
 			{0, 0},
 			{0, 100},
@@ -30,10 +30,10 @@ public class ClipAlgoSutherlandHodogmanTest {
 	}
 
 	private void assertOutput() {
-		List<MyPoint> actual = processAlgo();
+		List<PathPoint> actual = processAlgo();
 		for (int i = 0; i < output.size(); i++) {
-			MyPoint p = output.get(i);
-			MyPoint q = actual.get(i);
+			PathPoint p = output.get(i);
+			PathPoint q = actual.get(i);
 			assertTrue(p.isEqual(q));
 		}
 	}
@@ -96,14 +96,14 @@ public class ClipAlgoSutherlandHodogmanTest {
 	}
 
 	private void addInput(double x, double y) {
-		input.add(new MyPoint(x, y));
+		input.add(new PathPoint(x, y));
 	}
 
-	private List<MyPoint> processAlgo() {
+	private List<PathPoint> processAlgo() {
 		return algo.process(input, defaultClipPolygon);
 	}
 
 	private void addOutput(double x, double y) {
-		output.add(new MyPoint(x, y));
+		output.add(new PathPoint(x, y));
 	}
 }

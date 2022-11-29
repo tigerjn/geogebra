@@ -11,7 +11,7 @@ import org.geogebra.common.cas.view.CASTable;
 import org.geogebra.common.cas.view.CASView;
 import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.gui.SetLabels;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetViewInterface;
 import org.geogebra.common.javax.swing.GImageIcon;
 import org.geogebra.common.javax.swing.SwingConstants;
@@ -1260,7 +1260,7 @@ public class ConstructionProtocolView implements ConstructionStepper {
 
 		SpreadsheetViewInterface spreadsheet = gm.getSpreadsheetView();
 		
-		MyTableInterface table = spreadsheet.getSpreadsheetTable();
+		SpreadsheetTableInterface table = spreadsheet.getSpreadsheetTable();
 		
 		int rows = table.getRowCount();
 		int cols = table.getColumnCount();

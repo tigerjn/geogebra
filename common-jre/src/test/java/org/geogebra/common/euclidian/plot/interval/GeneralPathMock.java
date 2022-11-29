@@ -2,7 +2,7 @@ package org.geogebra.common.euclidian.plot.interval;
 
 import org.geogebra.common.euclidian.EuclidianViewInterfaceSlim;
 import org.geogebra.common.euclidian.GeneralPathClipped;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 
 public class GeneralPathMock extends GeneralPathClipped {
 	/**
@@ -14,7 +14,7 @@ public class GeneralPathMock extends GeneralPathClipped {
 	}
 
 	@Override
-	public MyPoint firstPoint() {
+	public PathPoint firstPoint() {
 		return super.firstPoint();
 	}
 }

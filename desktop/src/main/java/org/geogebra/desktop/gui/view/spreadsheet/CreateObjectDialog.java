@@ -34,7 +34,7 @@ import org.geogebra.common.gui.view.spreadsheet.CreateObjectModel.ICreateObjectL
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetViewInterface;
 import org.geogebra.common.util.IndexHTMLBuilder;
 import org.geogebra.desktop.gui.dialog.InputDialogD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 
 /**
@@ -48,7 +48,7 @@ import org.geogebra.desktop.main.AppD;
 public class CreateObjectDialog extends InputDialogD
 		implements ListSelectionListener, FocusListener, ICreateObjectListener {
 
-	private MyTableD table;
+	private SpreadsheetTableD table;
 	private CreateObjectModel coModel;
 	private JLabel lblObject;
 	private JLabel lblName;
@@ -62,7 +62,7 @@ public class CreateObjectDialog extends InputDialogD
 	private boolean isIniting = true;
 	private JPanel optionsPanel;
 
-	private MyTextFieldD fldName;
+	private MathTextFieldBase fldName;
 
 	private JScrollPane previewPanel;
 
@@ -82,7 +82,7 @@ public class CreateObjectDialog extends InputDialogD
 	public CreateObjectDialog(AppD app, SpreadsheetViewD view, int objectType) {
 
 		super(app.getFrame(), false, app.getLocalization());
-		this.table = (MyTableD) view.getSpreadsheetTable();
+		this.table = (SpreadsheetTableD) view.getSpreadsheetTable();
 		coModel = new CreateObjectModel(app, objectType, this);
 		coModel.setCellRangeProcessor(table.getCellRangeProcessor());
 		coModel.setSelectedCellRanges(table.selectedCellRanges);
@@ -123,7 +123,7 @@ public class CreateObjectDialog extends InputDialogD
 		typeList.addListSelectionListener(this);
 
 		lblName = new JLabel();
-		fldName = new MyTextFieldD(app);
+		fldName = new MathTextFieldBase(app);
 		fldName.setShowSymbolTableIcon(true);
 		fldName.addFocusListener(this);
 

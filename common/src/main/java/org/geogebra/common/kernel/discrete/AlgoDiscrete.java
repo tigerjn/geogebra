@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.GraphAlgo;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoList;
@@ -33,7 +33,7 @@ public abstract class AlgoDiscrete extends AlgoElement implements GraphAlgo {
 	/** output locus */
 	protected GeoLocus locus;
 	/** locus points */
-	protected ArrayList<MyPoint> al;
+	protected ArrayList<PathPoint> al;
 	/** number of points */
 	protected int size;
 

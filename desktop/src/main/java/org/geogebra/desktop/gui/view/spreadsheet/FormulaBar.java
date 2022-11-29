@@ -36,7 +36,7 @@ public class FormulaBar extends JToolBar
 	private static final long serialVersionUID = 1L;
 	private AppD app;
 	private SpreadsheetViewD view;
-	private MyTableD table;
+	private SpreadsheetTableD table;
 
 	private JButton btnCancelFormula;
 	private JButton btnAcceptFormula;
@@ -44,7 +44,7 @@ public class FormulaBar extends JToolBar
 	private AutoCompleteTextFieldD fldCellName;
 	private boolean isIniting;
 
-	private MyCellEditorSpreadsheet editor;
+	private SpreadsheetCellEditorD editor;
 
 	/**
 	 * @param app application
@@ -54,7 +54,7 @@ public class FormulaBar extends JToolBar
 
 		this.app = app;
 		this.view = view;
-		this.table = (MyTableD) view.getSpreadsheetTable();
+		this.table = (SpreadsheetTableD) view.getSpreadsheetTable();
 
 		this.editor = table.editor;
 
@@ -123,7 +123,7 @@ public class FormulaBar extends JToolBar
 		}
 
 		private void updateCellEditor() {
-			((MyTableD) view.getSpreadsheetTable())
+			((SpreadsheetTableD) view.getSpreadsheetTable())
 					.updateEditor(fldFormula.getText());
 		}
 	};

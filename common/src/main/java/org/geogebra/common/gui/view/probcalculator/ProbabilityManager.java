@@ -43,7 +43,7 @@ import org.geogebra.common.main.App;
 import org.geogebra.common.main.Localization;
 import org.geogebra.common.main.settings.ProbabilityCalculatorSettings;
 import org.geogebra.common.main.settings.ProbabilityCalculatorSettings.Dist;
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 import org.geogebra.common.util.debug.Log;
 
 import com.himamis.retex.editor.share.util.Unicode;
@@ -861,8 +861,8 @@ public class ProbabilityManager {
 			shape = parms[0].getDouble();
 			scale = parms[1].getDouble();
 
-			mean = scale * MyMath2.gamma(1 + 1 / shape);
-			variance = scale * scale * MyMath2.gamma(1 + 2 / shape)
+			mean = scale * SpecialFunctionMath.gamma(1 + 1 / shape);
+			variance = scale * scale * SpecialFunctionMath.gamma(1 + 2 / shape)
 					- mean * mean;
 			sigma = Math.sqrt(variance);
 

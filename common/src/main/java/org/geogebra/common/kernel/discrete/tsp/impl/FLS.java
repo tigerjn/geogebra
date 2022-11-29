@@ -1,6 +1,6 @@
 package org.geogebra.common.kernel.discrete.tsp.impl;
 
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 
 // Fast Local Search, 2-Opt "Dont look bits"
 public final class FLS {
@@ -24,9 +24,9 @@ public final class FLS {
 	 * this implementation currently reverses whatever subtour does not wrap
 	 * around -which could be the larger of the two.
 	 */
-	private static void reverse(final MyPoint[] x, final int from, final int to) {
+	private static void reverse(final PathPoint[] x, final int from, final int to) {
 		for (int i = from, j = to; i < j; i++, j--) {
-			final MyPoint tmp = x[i];
+			final PathPoint tmp = x[i];
 			x[i] = x[j];
 			x[j] = tmp;
 		}
@@ -55,8 +55,8 @@ public final class FLS {
 	 * longer edges, avoid 4 square root operations by comparing squares. this
 	 * results in a 40% speed up in this code.
 	 */
-	private static double moveCost(final MyPoint a, final MyPoint b, final MyPoint c,
-			final MyPoint d) {
+	private static double moveCost(final PathPoint a, final PathPoint b, final PathPoint c,
+			final PathPoint d) {
 
 		// original edges (ab) (cd)
 		final double _ab = a.distanceSq(b), _cd = c.distanceSq(d);
@@ -79,8 +79,8 @@ public final class FLS {
 	/**
 	 * set active bits for 4 vertices making up edges ab, cd.
 	 */
-	private static void activate(final MyPoint a, final MyPoint b, final MyPoint c,
-			final MyPoint d) {
+	private static void activate(final PathPoint a, final PathPoint b, final PathPoint c,
+			final PathPoint d) {
 		a.setActive(true);
 		b.setActive(true);
 		c.setActive(true);
@@ -94,14 +94,14 @@ public final class FLS {
 	 * (currentPoint,nextPoint) are compared to all over edges (c,d), starting
 	 * at (c=currentPoint+2, d=currentPoint+3) until an improvement is found.
 	 */
-	private static double findMove(final int current, final MyPoint currentPoint,
-			final MyPoint[] points, final int numCities) {
+	private static double findMove(final int current, final PathPoint currentPoint,
+			final PathPoint[] points, final int numCities) {
 
 		// previous and next city index and point object.
 		final int prev = wrap(current - 1, numCities);
 		final int next = wrap(current + 1, numCities);
-		final MyPoint prevPoint = points[prev];
-		final MyPoint nextPoint = points[next];
+		final PathPoint prevPoint = points[prev];
+		final PathPoint nextPoint = points[next];
 
 		// iterate through pairs (i,j) where i = current+2 j = current+3
 		// until i = current+numCities-2, j = current+numCities-1.
@@ -110,8 +110,8 @@ public final class FLS {
 		for (int i = wrap(current + 2, numCities), j = wrap(current + 3,
 				numCities); j != current; i = j, j = wrap(j + 1, numCities)) {
 
-			final MyPoint c = points[i];
-			final MyPoint d = points[j];
+			final PathPoint c = points[i];
+			final PathPoint d = points[j];
 
 			// previous edge:
 			// see if swaping the current 2 edges:
@@ -150,7 +150,7 @@ public final class FLS {
 	 * 
 	 * @return a 2-Optimal tour.
 	 */
-	public static double optimise(final MyPoint[] points) {
+	public static double optimise(final PathPoint[] points) {
 
 		// total tour distance
 		double best = distance(points);
@@ -169,7 +169,7 @@ public final class FLS {
 		// the resulting tour (points) will be "2-Optimal" -that is, no further
 		// imrovements are possible (local optima).
 		while (visited < numCities) {
-			final MyPoint currentPoint = points[current];
+			final PathPoint currentPoint = points[current];
 			if (currentPoint.isActive()) {
 
 				// from the current city, try to find a move.
@@ -197,7 +197,7 @@ public final class FLS {
 	/**
 	 * Euclidean distance. tour wraps around N-1 to 0.
 	 */
-	private static double distance(final MyPoint[] points) {
+	private static double distance(final PathPoint[] points) {
 		final int len = points.length;
 		double d = points[len - 1].distance(points[0]);
 		for (int i = 1; i < len; i++) {

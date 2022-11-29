@@ -82,7 +82,6 @@ import java.util.logging.SimpleFormatter;
 import javax.imageio.ImageIO;
 import javax.naming.OperationNotSupportedException;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
@@ -190,10 +189,6 @@ import org.geogebra.desktop.factories.UtilFactoryD;
 import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.gui.MyImageD;
 import org.geogebra.desktop.gui.app.GeoGebraFrame;
-import org.geogebra.desktop.gui.dialog.AxesStyleListRenderer;
-import org.geogebra.desktop.gui.dialog.DashListRenderer;
-import org.geogebra.desktop.gui.dialog.DecorationListRenderer;
-import org.geogebra.desktop.gui.dialog.PointStyleListRenderer;
 import org.geogebra.desktop.gui.dialog.options.OptionsAdvancedD;
 import org.geogebra.desktop.gui.inputbar.AlgebraInputD;
 import org.geogebra.desktop.gui.layout.DockBar;
@@ -4287,19 +4282,10 @@ public class AppD extends App implements KeyEventDispatcher, AppDI {
 		} else if (c instanceof JComboBox) {
 			JComboBox cb = (JComboBox) c;
 			ListCellRenderer renderer = cb.getRenderer();
-			if (!(renderer instanceof DashListRenderer
-					|| renderer instanceof DecorationListRenderer
-					|| renderer instanceof AxesStyleListRenderer
-					|| renderer instanceof PointStyleListRenderer)) {
-				// if we didn't load GUI yet, assume there is no tool creation
-				// dialog
-				if (getGuiManager() == null
-						|| !getGuiManager().belongsToToolCreator(renderer)) {
-					renderer = new DefaultListCellRenderer();
-					cb.setRenderer(renderer);
-				}
+			if (renderer instanceof JLabel) {
 				((JLabel) renderer).setHorizontalAlignment(
 						rtl ? SwingConstants.RIGHT : SwingConstants.LEFT);
+				cb.invalidate();
 			}
 		} else if (c instanceof Container) {
 			Container container = (Container) c;

@@ -15,7 +15,7 @@ package org.geogebra.common.kernel.statistics;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoNumberValue;
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 
 /**
  * InverseLogNormal[mean, s, val]
@@ -55,7 +55,7 @@ public class AlgoInverseLogNormal extends AlgoDistribution {
 				num.setValue(0);
 			} else {
 				num.setValue(Math
-						.exp(MyMath2.inverf(2 * (x - 0.5)) * Math.sqrt(2) * s
+						.exp(SpecialFunctionMath.inverf(2 * (x - 0.5)) * Math.sqrt(2) * s
 								+ mean));
 			}
 

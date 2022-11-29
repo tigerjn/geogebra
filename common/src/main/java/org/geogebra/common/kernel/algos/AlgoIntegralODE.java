@@ -9,7 +9,7 @@ import org.apache.commons.math3.ode.sampling.StepHandler;
 import org.apache.commons.math3.ode.sampling.StepInterpolator;
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.arithmetic.FunctionalNVar;
 import org.geogebra.common.kernel.commands.Commands;
@@ -41,7 +41,7 @@ public class AlgoIntegralODE extends AlgoElement {
 	private FunctionalNVar den;
 
 	private boolean quotient;
-	private ArrayList<MyPoint> al;
+	private ArrayList<PathPoint> al;
 
 	final private static double step = 0.02;
 	final private static int n = 20;
@@ -174,7 +174,7 @@ public class AlgoIntegralODE extends AlgoElement {
 
 		integrator.addStepHandler(stepHandler);
 
-		al.add(new MyPoint(p.inhomX, p.inhomY, SegmentType.MOVE_TO));
+		al.add(new PathPoint(p.inhomX, p.inhomY, SegmentType.MOVE_TO));
 
 		double[] yy = new double[] { p.inhomY }; // initial state
 		double[] yy2 = new double[] { p.inhomX, p.inhomY }; // initial state
@@ -190,7 +190,7 @@ public class AlgoIntegralODE extends AlgoElement {
 					Log.debug(e);
 				}
 
-				al.add(new MyPoint(p.inhomX, p.inhomY, SegmentType.MOVE_TO));
+				al.add(new PathPoint(p.inhomX, p.inhomY, SegmentType.MOVE_TO));
 			}
 
 			if (p.inhomX > xmin) {
@@ -211,7 +211,7 @@ public class AlgoIntegralODE extends AlgoElement {
 				Log.debug(e);
 			}
 			// draw backwards
-			al.add(new MyPoint(p.inhomX, p.inhomY, SegmentType.MOVE_TO));
+			al.add(new PathPoint(p.inhomX, p.inhomY, SegmentType.MOVE_TO));
 			try {
 				integrator.integrate(ode, 0.0, yy2a, -n, yy2a);
 			} catch (Exception e) {
@@ -329,9 +329,9 @@ public class AlgoIntegralODE extends AlgoElement {
 	 */
 	protected void addMyPoint(double t, double[] y) {
 		if (!quotient) {
-			al.add(new MyPoint(t, y[0], SegmentType.LINE_TO));
+			al.add(new PathPoint(t, y[0], SegmentType.LINE_TO));
 		} else {
-			al.add(new MyPoint(y[0], y[1], SegmentType.LINE_TO));
+			al.add(new PathPoint(y[0], y[1], SegmentType.LINE_TO));
 		}
 	}
 

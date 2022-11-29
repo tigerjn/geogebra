@@ -17,7 +17,7 @@ import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoNumberValue;
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 
 /**
  * Cumulative LogNormal[mean, s, val]
@@ -52,7 +52,7 @@ public class AlgoLogNormal extends AlgoDistribution {
 			} else if (x <= 0) {
 				num.setValue(0);
 			} else if (pdf) {
-				num.setValue(MyMath2.erf(
+				num.setValue(SpecialFunctionMath.erf(
 						(Math.log(x) - mean) / (Math.sqrt(2) * Math.abs(s))) / 2
 						+ 0.5);
 			} else {

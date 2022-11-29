@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.geogebra.common.awt.GPoint2D;
 import org.geogebra.common.awt.GRectangle2D;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.RectangleTransformable;
 
@@ -62,7 +62,7 @@ public class BoundingBoxResizeState {
 				GRectangle2D rectangle = view.getBoundingBox().getRectangle();
 				for (GPoint2D pt : dr.toPoints()) {
 					forGeo.add(
-							new MyPoint((pt.getX() - rectangle.getMinX()) / rectangle.getWidth(),
+							new PathPoint((pt.getX() - rectangle.getMinX()) / rectangle.getWidth(),
 									(pt.getY() - rectangle.getMinY()) / rectangle.getHeight()));
 				}
 

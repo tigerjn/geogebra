@@ -14,7 +14,7 @@ package org.geogebra.common.kernel;
 
 import java.util.LinkedHashMap;
 
-import org.geogebra.common.io.MyXMLHandler;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.kernel.algos.AlgoDispatcher;
 import org.geogebra.common.kernel.arithmetic.ExpressionNodeEvaluator;
 import org.geogebra.common.kernel.commands.AlgebraProcessor;
@@ -170,7 +170,7 @@ public class MacroKernel extends Kernel {
 	// //////////////////////////////////////
 
 	@Override
-	public MyXMLHandler newMyXMLHandler(Construction cons1) {
+	public ConstructionXmlHandler newMyXMLHandler(Construction cons1) {
 		return parentKernel.newMyXMLHandler(this, cons1);
 	}
 

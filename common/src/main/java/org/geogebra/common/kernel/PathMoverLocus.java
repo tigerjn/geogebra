@@ -24,9 +24,9 @@ import org.geogebra.common.kernel.kernelND.GeoPointND;
  * @param <T>
  *            for 2D/3D locus
  */
-public class PathMoverLocus<T extends MyPoint> extends PathMoverGeneric {
+public class PathMoverLocus<T extends PathPoint> extends PathMoverGeneric {
 
-	private ArrayList<? extends MyPoint> myPointList;
+	private ArrayList<? extends PathPoint> myPointList;
 	private boolean noLineToSet;
 	private boolean lastNoLineToSet;
 
@@ -72,8 +72,8 @@ public class PathMoverLocus<T extends MyPoint> extends PathMoverGeneric {
 			p.setUndefined();
 			return;
 		}
-		MyPoint leftPoint = myPointList.get(leftIndex);
-		MyPoint rightPoint = myPointList.get(rightIndex);
+		PathPoint leftPoint = myPointList.get(leftIndex);
+		PathPoint rightPoint = myPointList.get(rightIndex);
 
 		// interpolate between leftPoint and rightPoint
 		double param1 = param - leftIndex;

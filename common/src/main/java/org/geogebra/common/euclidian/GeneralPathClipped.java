@@ -11,7 +11,7 @@ import org.geogebra.common.awt.GRectangle;
 import org.geogebra.common.awt.GRectangle2D;
 import org.geogebra.common.awt.GShape;
 import org.geogebra.common.factories.AwtFactory;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.util.MyMath;
 import org.geogebra.common.util.debug.Log;
@@ -26,7 +26,7 @@ import org.geogebra.common.util.debug.Log;
  */
 public class GeneralPathClipped implements GShape {
 
-	private final ArrayList<MyPoint> pathPoints;
+	private final ArrayList<PathPoint> pathPoints;
 	private final GGeneralPath gp;
 	private static final double MAX_COORD_VALUE = 10000;
 
@@ -67,7 +67,7 @@ public class GeneralPathClipped implements GShape {
 	/**
 	 * @return first point of the path
 	 */
-	public MyPoint firstPoint() {
+	public PathPoint firstPoint() {
 		if (pathPoints.size() == 0) {
 			return null;
 		}
@@ -126,7 +126,7 @@ public class GeneralPathClipped implements GShape {
 
 	private void addSimpleSegments() {
 		for (int i = 0; i < pathPoints.size(); i++) {
-			MyPoint curP = pathPoints.get(i);
+			PathPoint curP = pathPoints.get(i);
 			/// https://play.google.com/apps/publish/?dev_acc=05873811091523087820#ErrorClusterDetailsPlace:p=org.geogebra.android&et=CRASH&lr=LAST_7_DAYS&ecn=java.lang.NullPointerException&tf=SourceFile&tc=org.geogebra.common.euclidian.GeneralPathClipped&tm=addSimpleSegments&nid&an&c&s=new_status_desc
 			if (curP != null) {
 				addToGeneralPath(curP, curP.getSegmentType());
@@ -152,9 +152,9 @@ public class GeneralPathClipped implements GShape {
 			pathPoints.get(0).setLineTo(true);
 		}
 
-		List<MyPoint> result = clipAlgoSutherlandHodogman.process(pathPoints, clipPoints);
+		List<PathPoint> result = clipAlgoSutherlandHodogman.process(pathPoints, clipPoints);
 
-		for (MyPoint curP : result) {
+		for (PathPoint curP : result) {
 			addToGeneralPath(curP, curP.getSegmentType());
 		}
 
@@ -259,7 +259,7 @@ public class GeneralPathClipped implements GShape {
 			return;
 		}
 
-		MyPoint p = new MyPoint(x, y, SegmentType.LINE_TO);
+		PathPoint p = new PathPoint(x, y, SegmentType.LINE_TO);
 		updateBounds(p);
 		pathPoints.ensureCapacity(pos + 1);
 		while (pathPoints.size() <= pos) {
@@ -287,7 +287,7 @@ public class GeneralPathClipped implements GShape {
 			polygon = false;
 		}
 
-		MyPoint p = new MyPoint(x, y, segmentType);
+		PathPoint p = new PathPoint(x, y, segmentType);
 		updateBounds(p);
 		pathPoints.add(p);
 	}
@@ -328,7 +328,7 @@ public class GeneralPathClipped implements GShape {
 	 *            transformation
 	 */
 	public void transform(GAffineTransform af) {
-		for (MyPoint p : pathPoints) {
+		for (PathPoint p : pathPoints) {
 			if (p != null) {
 				af.transform(p, p);
 			}

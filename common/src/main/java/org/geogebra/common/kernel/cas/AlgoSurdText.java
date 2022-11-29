@@ -29,8 +29,8 @@ import org.geogebra.common.kernel.geos.GeoList;
 import org.geogebra.common.kernel.geos.GeoNumberValue;
 import org.geogebra.common.kernel.geos.GeoText;
 import org.geogebra.common.util.DoubleUtil;
-import org.geogebra.common.util.MyMathExact.MyDecimal;
-import org.geogebra.common.util.MyMathExact.MyDecimalMatrix;
+import org.geogebra.common.util.ExactMathUtil.DecimalMatrix;
+import org.geogebra.common.util.ExactMathUtil.FixedScaleDecimal;
 import org.geogebra.common.util.debug.Log;
 
 import com.himamis.retex.editor.share.util.Unicode;
@@ -1245,9 +1245,9 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 	private static class IntRelationFinder {
 
 		// constants (defined later)
-		private MyDecimal zero;
-		MyDecimal zeroLess;
-		private MyDecimal oneLess;
+		private FixedScaleDecimal zero;
+		FixedScaleDecimal zeroLess;
+		private FixedScaleDecimal oneLess;
 
 		// parameters
 		private double tau;
@@ -1258,26 +1258,26 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 		// input
 		private int n;
 		private double[] x;
-		private MyDecimal[] x_full;
-		private MyDecimal[] x_double;
+		private FixedScaleDecimal[] x_full;
+		private FixedScaleDecimal[] x_double;
 
 		// working variables
 		private int fullScale1;
 		private int lessScale1;
-		private MyDecimal xNorm;
-		private MyDecimalMatrix mHfull;
-		private MyDecimalMatrix mH;
-		MyDecimalMatrix mI;
-		private MyDecimalMatrix mA;
-		private MyDecimalMatrix mB;
-		private MyDecimalMatrix mD;
+		private FixedScaleDecimal xNorm;
+		private DecimalMatrix mHfull;
+		private DecimalMatrix mH;
+		DecimalMatrix mI;
+		private DecimalMatrix mA;
+		private DecimalMatrix mB;
+		private DecimalMatrix mD;
 		// private Array2DRowFieldMatrix<Dfp> B_comp; //B_comp: *= new B_rest
 		// (B_rest is in IntRelation class)
-		private MyDecimalMatrix xB;
+		private DecimalMatrix xB;
 
-		private MyDecimal b;
-		private MyDecimal l;
-		private MyDecimal d;
+		private FixedScaleDecimal b;
+		private FixedScaleDecimal l;
+		private FixedScaleDecimal d;
 		private int r;
 
 		// results
@@ -1309,9 +1309,9 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			 * (needSizeChange) { fullScale = digitsAllocated; }
 			 */
 
-			zero = new MyDecimal(fullScale1, BigDecimal.ZERO);
-			zeroLess = new MyDecimal(lessScale1, BigDecimal.ZERO);
-			oneLess = new MyDecimal(lessScale1, BigDecimal.ONE);
+			zero = new FixedScaleDecimal(fullScale1, BigDecimal.ZERO);
+			zeroLess = new FixedScaleDecimal(lessScale1, BigDecimal.ZERO);
+			oneLess = new FixedScaleDecimal(lessScale1, BigDecimal.ONE);
 
 			if (n < 1) {
 				result.clear();
@@ -1324,9 +1324,9 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 					return;
 				}
 
-				mB = new MyDecimalMatrix(lessScale1, 1, 1);
+				mB = new DecimalMatrix(lessScale1, 1, 1);
 				mB.setEntry(0, 0, oneLess);
-				xB = new MyDecimalMatrix(lessScale1, 1, 1);
+				xB = new DecimalMatrix(lessScale1, 1, 1);
 				xB.setEntry(0, 0, zeroLess);
 				IntRelation m = new IntRelation(n, mB, xB, 1);
 				result.add(m);
@@ -1334,14 +1334,14 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			}
 
 			this.x = new double[n];
-			this.x_full = new MyDecimal[n]; // normalized, full precision
-			this.x_double = new MyDecimal[n]; // normalized, double precision
+			this.x_full = new FixedScaleDecimal[n]; // normalized, full precision
+			this.x_double = new FixedScaleDecimal[n]; // normalized, double precision
 
 			// int[] orthoIndices = new int[n];
 
 			for (int i = 0; i < n; i++) {
 				this.x[i] = x[i];
-				this.x_full[i] = new MyDecimal(fullScale1, x[i]);
+				this.x_full[i] = new FixedScaleDecimal(fullScale1, x[i]);
 			}
 
 			rho = 2;
@@ -1349,9 +1349,9 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			gamma = 1 / Math.sqrt(1 / tau / tau - 1 / rho / rho);
 
 			initialize_full();
-			b = new MyDecimal(lessScale1);
-			l = new MyDecimal(lessScale1);
-			d = new MyDecimal(lessScale1);
+			b = new FixedScaleDecimal(lessScale1);
+			l = new FixedScaleDecimal(lessScale1);
+			d = new FixedScaleDecimal(lessScale1);
 
 			boolean loopTillExhausted = true;
 			int iterCount = 0;
@@ -1385,11 +1385,11 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 					d = b.multiply(b).add(l.multiply(l)).sqrt();
 				}
 
-				MyDecimal temp2 = new MyDecimal(xB.getEntry(0, r));
+				FixedScaleDecimal temp2 = new FixedScaleDecimal(xB.getEntry(0, r));
 				xB.setEntry(0, r, xB.getEntry(0, r + 1));
 				xB.setEntry(0, r + 1, temp2);
 
-				MyDecimal[] temp3 = mH.getRow(r);
+				FixedScaleDecimal[] temp3 = mH.getRow(r);
 				mH.setRow(r, mH.getRow(r + 1));
 				mH.setRow(r + 1, temp3);
 
@@ -1402,7 +1402,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 				mB.setColumn(r + 1, temp3);
 
 				// Corner
-				MyDecimal[] temp4;
+				FixedScaleDecimal[] temp4;
 				if (r < n - 2) {
 
 					temp3 = mH.getColumn(r);
@@ -1478,7 +1478,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 
 		void initialize_full() {
 
-			xNorm = new MyDecimal(lessScale1);
+			xNorm = new FixedScaleDecimal(lessScale1);
 
 			// normalize x
 			Log.debug("normalizing " + n);
@@ -1495,14 +1495,14 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 				if (xNorm.getImpl().compareTo(BigDecimal.ZERO) != 0) {
 					x_full[i] = x_full[i].divide(xNorm);
 				}
-				x_double[i] = new MyDecimal(lessScale1, x_full[i].getImpl());
+				x_double[i] = new FixedScaleDecimal(lessScale1, x_full[i].getImpl());
 
 			}
 
 			// partial sums of squares
-			MyDecimal[] ss = new MyDecimal[n];
+			FixedScaleDecimal[] ss = new FixedScaleDecimal[n];
 			for (int i = 0; i < n; i++) {
-				ss[i] = new MyDecimal(fullScale1);
+				ss[i] = new FixedScaleDecimal(fullScale1);
 			}
 
 			ss[n - 1] = x_full[n - 1].multiply(x_full[n - 1]);
@@ -1516,14 +1516,14 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			}
 
 			// pre-calculate ss[j]*ss[j+1]
-			MyDecimal[] Pss = new MyDecimal[n - 1];
+			FixedScaleDecimal[] Pss = new FixedScaleDecimal[n - 1];
 			for (int i = 0; i < n - 1; i++) {
-				Pss[i] = new MyDecimal(fullScale1,
+				Pss[i] = new FixedScaleDecimal(fullScale1,
 						ss[i].multiply(ss[i + 1]).getImpl());
 			}
 
 			// initialize Matrix H (lower trapezoidal
-			mHfull = new MyDecimalMatrix(fullScale1, n, n - 1);
+			mHfull = new DecimalMatrix(fullScale1, n, n - 1);
 
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < i; j++) {
@@ -1571,10 +1571,10 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			 * "|H|^2 = " + frobNormSq(H,n,n-1) );
 			 */
 
-			mH = new MyDecimalMatrix(lessScale1, n, n - 1);
+			mH = new DecimalMatrix(lessScale1, n, n - 1);
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n - 1; j++) {
-					mH.setEntry(i, j, new MyDecimal(lessScale1,
+					mH.setEntry(i, j, new FixedScaleDecimal(lessScale1,
 							mHfull.getEntry(i, j).getImpl()));
 				}
 			}
@@ -1594,7 +1594,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			 * j=0; j<n; j++) B[i][j]=0; for (int i=0; i<n; i++) B[i][i]=1;
 			 */
 
-			mI = new MyDecimalMatrix(lessScale1, n, n);
+			mI = new DecimalMatrix(lessScale1, n, n);
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
 					if (i == j) {
@@ -1608,7 +1608,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 
 			mA = mI.copy();
 			mB = mI.copy();
-			xB = new MyDecimalMatrix(lessScale1, 1, n);
+			xB = new DecimalMatrix(lessScale1, 1, n);
 			for (int i = 0; i < n; i++) {
 				xB.setEntry(0, i, x_double[i]);
 			}
@@ -1624,7 +1624,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 					// MyDecimal q = new MyDecimal(H.getEntry(i,
 					// j).divide(H.getEntry(j, j)).divide(ONE, 0,
 					// BigDecimal.ROUND_DOWN));
-					MyDecimal q = new MyDecimal(lessScale1,
+					FixedScaleDecimal q = new FixedScaleDecimal(lessScale1,
 							Math.rint(mH.getEntry(i, j).doubleValue()
 									/ mH.getEntry(j, j).doubleValue()));
 					for (int k = 0; k <= j; k++) {
@@ -1657,13 +1657,13 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 
 			private int nilDim; // dimension of the nil-subspace corresponding
 								// to vector m, that is, the # cols of B_sol
-			private MyDecimalMatrix B1;
-			private MyDecimalMatrix B_sol;
-			private MyDecimalMatrix B_rest;
-			MyDecimalMatrix xB1;
+			private DecimalMatrix B1;
+			private DecimalMatrix B_sol;
+			private DecimalMatrix B_rest;
+			DecimalMatrix xB1;
 			int[] orthoIndices;
 
-			public IntRelation(int n, MyDecimalMatrix B, MyDecimalMatrix xB,
+			public IntRelation(int n, DecimalMatrix B, DecimalMatrix xB,
 					double sig) {
 
 				if (n == 0) {
@@ -1702,12 +1702,12 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 
 				// B_sol: solution columns of B; B_rest: non solution columns
 				if (nilDim > 0) {
-					B_sol = new MyDecimalMatrix(B.getScale(), size, nilDim);
+					B_sol = new DecimalMatrix(B.getScale(), size, nilDim);
 				} else {
 					B_sol = null;
 				}
 				if (nilDim < size) {
-					B_rest = new MyDecimalMatrix(B.getScale(), size,
+					B_rest = new DecimalMatrix(B.getScale(), size,
 							size - nilDim);
 				} else {
 					B_rest = null;
@@ -1726,18 +1726,18 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 
 			}
 
-			public MyDecimalMatrix getBMatrix() {
+			public DecimalMatrix getBMatrix() {
 				return B1.copy();
 			}
 
-			public MyDecimalMatrix getBSolMatrix() {
+			public DecimalMatrix getBSolMatrix() {
 				if (B_sol != null) {
 					return B_sol.copy();
 				}
 				return null;
 			}
 
-			public MyDecimalMatrix getBRestMatrix() {
+			public DecimalMatrix getBRestMatrix() {
 				if (B_rest != null) {
 					return B_rest.copy();
 				}
@@ -2251,7 +2251,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 		private int[][] mPSLQ(int n, double[] x, double accuracyFactor,
 				int bound) {
 
-			MyDecimalMatrix r2;
+			DecimalMatrix r2;
 
 			int rCols = 0; // tracks the number of solutions globally
 
@@ -2288,9 +2288,9 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 			// r2 stores all possible results. Numbers are initialized here
 			// because
 			// we need the correct field.
-			r2 = new MyDecimalMatrix(m.getBMatrix().getScale(), n, n);
+			r2 = new DecimalMatrix(m.getBMatrix().getScale(), n, n);
 
-			MyDecimalMatrix result2 = m.getBSolMatrix();
+			DecimalMatrix result2 = m.getBSolMatrix();
 			if (result2 != null) {
 				q = result2.getColumnDimension();
 			} else {
@@ -2315,7 +2315,7 @@ public class AlgoSurdText extends AlgoElement implements UsesCAS {
 				}
 			}
 
-			MyDecimalMatrix B_comp = m.getBRestMatrix();
+			DecimalMatrix B_comp = m.getBRestMatrix();
 
 			// second and more cycles. If p<oldp means at least one solution has
 			// been found in the last cycle.

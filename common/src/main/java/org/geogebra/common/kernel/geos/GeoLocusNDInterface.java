@@ -1,6 +1,6 @@
 package org.geogebra.common.kernel.geos;
 
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 
 /**
  * Locus interface to avoid typecast warnings
@@ -10,5 +10,5 @@ public interface GeoLocusNDInterface extends GeoLocusable {
 	/**
 	 * @return this locus
 	 */
-	GeoLocusND<? extends MyPoint> getLocus();
+	GeoLocusND<? extends PathPoint> getLocus();
 }

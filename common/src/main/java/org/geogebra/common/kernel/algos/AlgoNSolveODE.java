@@ -8,7 +8,7 @@ import org.apache.commons.math3.ode.nonstiff.DormandPrince54Integrator;
 import org.apache.commons.math3.ode.sampling.StepHandler;
 import org.apache.commons.math3.ode.sampling.StepInterpolator;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.arithmetic.FunctionalNVar;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
@@ -31,7 +31,7 @@ public class AlgoNSolveODE extends AlgoElement {
 
 	private GeoLocus[] out; // output
 	/** list of solutions */
-	protected ArrayList<ArrayList<MyPoint>> al;
+	protected ArrayList<ArrayList<PathPoint>> al;
 
 	private double t0;
 	private double[] y0;
@@ -120,7 +120,7 @@ public class AlgoNSolveODE extends AlgoElement {
 		al = new ArrayList<>(dim);
 
 		for (int i = 0; i < dim; i++) {
-			al.add(new ArrayList<MyPoint>());
+			al.add(new ArrayList<PathPoint>());
 		}
 
 		FirstOrderIntegrator integrator = new DormandPrince54Integrator(0.001,
@@ -130,7 +130,7 @@ public class AlgoNSolveODE extends AlgoElement {
 		integrator.addStepHandler(stepHandler);
 
 		for (int i = 0; i < dim; i++) {
-			al.get(i).add(new MyPoint(startX.getDouble(), y0[i],
+			al.get(i).add(new PathPoint(startX.getDouble(), y0[i],
 					SegmentType.MOVE_TO));
 		}
 		try {
@@ -170,7 +170,7 @@ public class AlgoNSolveODE extends AlgoElement {
 			}
 			double[] y1 = interpolator.getInterpolatedState();
 			for (int i = 0; i < y1.length; i++) {
-				al.get(i).add(new MyPoint(t, y1[i], SegmentType.LINE_TO));
+				al.get(i).add(new PathPoint(t, y1[i], SegmentType.LINE_TO));
 			}
 		}
 	};

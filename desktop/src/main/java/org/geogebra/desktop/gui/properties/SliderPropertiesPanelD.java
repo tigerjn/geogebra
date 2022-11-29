@@ -38,7 +38,7 @@ import org.geogebra.desktop.awt.GColorD;
 import org.geogebra.desktop.gui.AngleTextField;
 import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.gui.dialog.PropertiesPanelD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.gui.util.SliderUtil;
 import org.geogebra.desktop.main.AppD;
@@ -134,13 +134,13 @@ public class SliderPropertiesPanelD extends JPanel
 
 		tfMin = new AngleTextField(6, app);
 		tfMax = new AngleTextField(6, app);
-		tfWidth = new MyTextFieldD(app, 4);
-		tfBlobSize = new MyTextFieldD(app, 4);
-		tfLineThickness = new MyTextFieldD(app, 4);
+		tfWidth = new MathTextFieldBase(app, 4);
+		tfBlobSize = new MathTextFieldBase(app, 4);
+		tfLineThickness = new MathTextFieldBase(app, 4);
 		lbWidthUnit = new JLabel("");
 		JLabel lblBlobSizeUnit = new JLabel("px");
 		JLabel lblLineThicknessUnit = new JLabel("px");
-		tfields = new MyTextFieldD[5];
+		tfields = new MathTextFieldBase[5];
 		tLabels = new JLabel[5];
 		tfields[0] = tfMin;
 		tfields[1] = tfMax; 

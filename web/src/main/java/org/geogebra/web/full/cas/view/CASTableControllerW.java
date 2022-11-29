@@ -32,7 +32,6 @@ import com.google.gwt.event.dom.client.TouchMoveEvent;
 import com.google.gwt.event.dom.client.TouchMoveHandler;
 import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
-import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -205,13 +204,13 @@ public class CASTableControllerW extends CASTableCellController implements
 			return;
 		}
 		CASTableW table = view.getConsoleTable();
-		Cell cell = table.getCellForEvent(event);
+		GPoint cell = table.getCellForEvent(event);
 		table.setFirstRowFront(false);
 		if (cell == null) {
 			return;
 		}
-		if (cell.getCellIndex() == CASTableW.COL_CAS_CELLS_WEB) {
-			int rowIndex = cell.getRowIndex();
+		if (cell.getX() == CASTableW.COL_CAS_CELLS_WEB) {
+			int rowIndex = cell.getY();
 			table.startEditingRow(rowIndex);
 			table.adjustCaret(event);
 		}

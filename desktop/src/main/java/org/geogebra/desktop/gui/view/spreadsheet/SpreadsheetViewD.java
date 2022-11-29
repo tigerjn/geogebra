@@ -32,7 +32,7 @@ import javax.swing.table.TableColumn;
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.gui.SetLabels;
 import org.geogebra.common.gui.view.spreadsheet.CellRange;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetViewInterface;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.ModeSetter;
@@ -45,7 +45,7 @@ import org.geogebra.common.main.settings.AbstractSettings;
 import org.geogebra.common.main.settings.SettingListener;
 import org.geogebra.common.main.settings.SpreadsheetSettings;
 import org.geogebra.desktop.awt.GDimensionD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.layout.LayoutD;
 import org.geogebra.desktop.gui.view.Gridable;
 import org.geogebra.desktop.main.AppD;
@@ -61,7 +61,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 
 	// spreadsheet gui components
 	private JPanel spreadsheetWrapper;
-	private MyTableD table;
+	private SpreadsheetTableD table;
 	protected SpreadsheetTableModelD tableModel;
 	private SpreadsheetRowHeaderD rowHeader;
 	private JTableHeader tableHeader;
@@ -141,7 +141,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 
 		// Create the spreadsheet table model and the table
 		tableModel = (SpreadsheetTableModelD) app.getSpreadsheetTableModel();
-		table = new MyTableD(this, tableModel.getDefaultTableModel());
+		table = new SpreadsheetTableD(this, tableModel.getDefaultTableModel());
 
 		// Create row header
 		rowHeader = new SpreadsheetRowHeaderD(app, table);
@@ -183,7 +183,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 
 		@Override
 		protected void paintComponent(Graphics g) {
-			g.setColor(MyTableD.BACKGROUND_COLOR_HEADER);
+			g.setColor(SpreadsheetTableD.BACKGROUND_COLOR_HEADER);
 			g.fillRect(0, 0, getWidth(), getHeight());
 		}
 	}
@@ -195,7 +195,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 
 		upperLeftCorner.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createMatteBorder(0, 0, 1, 1,
-						MyTableD.HEADER_GRID_COLOR),
+						SpreadsheetTableD.HEADER_GRID_COLOR),
 				BorderFactory.createEmptyBorder(0, 5, 0, 0)));
 
 		upperLeftCorner.addMouseListener(new MouseAdapter() {
@@ -243,7 +243,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 	}
 
 	@Override
-	public MyTableInterface getSpreadsheetTable() {
+	public SpreadsheetTableInterface getSpreadsheetTable() {
 		return table;
 	}
 
@@ -565,7 +565,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 			table.setSelectionRectangleColor(Color.GRAY);
 			// table.setFocusable(false);
 		} else {
-			table.setSelectionRectangleColor(MyTableD.SELECTED_RECTANGLE_COLOR);
+			table.setSelectionRectangleColor(SpreadsheetTableD.SELECTED_RECTANGLE_COLOR);
 			// table.setFocusable(true);
 		}
 	}
@@ -599,7 +599,7 @@ public class SpreadsheetViewD implements SpreadsheetViewInterface,
 	public void updateFonts() {
 		Font font = app.getPlainFont();
 
-		MyTextFieldD dummy = new MyTextFieldD(app);
+		MathTextFieldBase dummy = new MathTextFieldBase(app);
 		dummy.setFont(font);
 		dummy.setText("9999"); // for row header width
 		int h = dummy.getPreferredSize().height;

@@ -6,7 +6,7 @@ import java.util.TreeSet;
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.cas.view.CASTable;
 import org.geogebra.common.cas.view.CASTableCellEditor;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
 import org.geogebra.common.kernel.geos.GeoCasCell;
 import org.geogebra.common.kernel.geos.GeoNumeric;
 import org.geogebra.common.main.App;
@@ -21,7 +21,6 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -136,7 +135,7 @@ public class CASTableW extends Grid implements CASTable {
 			Integer max = Collections.max(app.getKernel().getConstruction()
 					.getArbitraryConsTable().keySet());
 			for (int key = max; key >= row; key--) {
-				MyArbitraryConstant myArbConst = app.getKernel()
+				ArbitraryConstant myArbConst = app.getKernel()
 						.getConstruction()
 					.getArbitraryConsTable().get(key);
 				if (myArbConst != null
@@ -250,7 +249,7 @@ public class CASTableW extends Grid implements CASTable {
 	 *            row index (starting from 0) where cell is deleted
 	 */
 	private void updateAfterDeleteArbConstTable(int row) {
-		MyArbitraryConstant arbConst = app.getKernel().getConstruction()
+		ArbitraryConstant arbConst = app.getKernel().getConstruction()
 				.getArbitraryConsTable().remove(row);
 		if (arbConst != null) {
 			for (GeoNumeric geoNum : arbConst.getConstList()) {
@@ -266,7 +265,7 @@ public class CASTableW extends Grid implements CASTable {
 			Integer max = Collections.max(app.getKernel().getConstruction()
 				.getArbitraryConsTable().keySet());
 			for (int key = row + 1; key <= max; key++) {
-				MyArbitraryConstant myArbConst = app.getKernel()
+				ArbitraryConstant myArbConst = app.getKernel()
 						.getConstruction()
 					.getArbitraryConsTable().get(key);
 				if (myArbConst != null) {
@@ -468,21 +467,6 @@ public class CASTableW extends Grid implements CASTable {
 	}
 
 	/**
-	 * Return value for {@link HTMLTable#getCellForEvent}.
-	 */
-	public class MyCell extends HTMLTable.Cell {
-		/**
-		 * @param rowIndex
-		 *            row
-		 * @param cellIndex
-		 *            column
-		 */
-		public MyCell(int rowIndex, int cellIndex) {
-			super(rowIndex, cellIndex);
-		}
-	}
-
-	/**
 	 * Given a click event, return the Cell that was clicked or touched, or null
 	 * if the event did not hit this table. The cell can also be null if the
 	 * click event does not occur on a specific cell.
@@ -491,7 +475,7 @@ public class CASTableW extends Grid implements CASTable {
 	 *            A click event of indeterminate origin
 	 * @return The appropriate cell, or null
 	 */
-	public MyCell getCellForEvent(HumanInputEvent<?> event) {
+	public GPoint getCellForEvent(HumanInputEvent<?> event) {
 		Element td = getEventTargetCell(Event.as(event.getNativeEvent()));
 		if (td == null) {
 			return null;
@@ -500,7 +484,7 @@ public class CASTableW extends Grid implements CASTable {
 		int row = TableRowElement.as(td.getParentElement())
 				.getSectionRowIndex();
 		int column = TableCellElement.as(td).getCellIndex();
-		return new MyCell(row, column);
+		return new GPoint(column, row);
 	}
 
 	/**

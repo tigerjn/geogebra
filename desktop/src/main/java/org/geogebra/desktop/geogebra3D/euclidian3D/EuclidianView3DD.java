@@ -43,15 +43,15 @@ import org.geogebra.desktop.awt.GColorD;
 import org.geogebra.desktop.awt.GDimensionD;
 import org.geogebra.desktop.awt.GFontD;
 import org.geogebra.desktop.awt.GGraphics2DD;
+import org.geogebra.desktop.euclidian.CoordSystemAnimationD;
 import org.geogebra.desktop.euclidian.EuclidianControllerListeners;
 import org.geogebra.desktop.euclidian.EuclidianViewJPanelD;
-import org.geogebra.desktop.euclidian.MyZoomerD;
 import org.geogebra.desktop.euclidianND.EuclidianViewInterfaceD;
 import org.geogebra.desktop.export.GraphicExportDialog;
 import org.geogebra.desktop.geogebra3D.App3D;
 import org.geogebra.desktop.geogebra3D.euclidian3D.opengl.RendererCheckGLVersionD;
 import org.geogebra.desktop.geogebra3D.euclidianInput3D.Mouse3DEventD;
-import org.geogebra.desktop.io.MyImageIO;
+import org.geogebra.desktop.io.ImageFileUtil;
 import org.geogebra.desktop.main.AppD;
 
 /**
@@ -426,8 +426,8 @@ public class EuclidianView3DD extends EuclidianView3D
 	}
 
 	@Override
-	protected MyZoomerD newZoomer() {
-		return new MyZoomerD(this);
+	protected CoordSystemAnimationD newZoomer() {
+		return new CoordSystemAnimationD(this);
 	}
 
 	@Override
@@ -487,7 +487,7 @@ public class EuclidianView3DD extends EuclidianView3D
 		try {
 			BufferedImage img = GBufferedImageD
 					.getAwtBufferedImage(getRenderer().getExportImage());
-			MyImageIO.write(img, "png", exportDPI, exportFile);
+			ImageFileUtil.write(img, "png", exportDPI, exportFile);
 			if (exportToClipboard) {
 				GraphicExportDialog.sendToClipboard(exportFile);
 			}

@@ -38,7 +38,7 @@ import org.geogebra.common.euclidian.Previewable;
 import org.geogebra.common.euclidian.clipping.ClipShape;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.algos.AlgoCirclePointRadius;
 import org.geogebra.common.kernel.algos.AlgoCircleThreePoints;
 import org.geogebra.common.kernel.algos.AlgoCircleTwoPoints;
@@ -2093,7 +2093,7 @@ public class DrawConic extends SetDrawable implements Previewable {
 		updateDiameter();
 		double tangentPointX = view.toRealWorldCoordX(ret.get(1).getX());
 		double tangentPointY = diameter.value(tangentPointX);
-		ret.add(new MyPoint(view.toScreenCoordXd(tangentPointX),
+		ret.add(new PathPoint(view.toScreenCoordXd(tangentPointX),
 				view.toScreenCoordYd(tangentPointY)));
 		return ret;
 	}

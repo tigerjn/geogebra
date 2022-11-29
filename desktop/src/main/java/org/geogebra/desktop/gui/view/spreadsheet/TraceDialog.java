@@ -56,7 +56,7 @@ import org.geogebra.common.main.GeoElementSelectionListener;
 import org.geogebra.common.main.SpreadsheetTraceManager;
 import org.geogebra.common.util.SpreadsheetTraceSettings;
 import org.geogebra.desktop.gui.dialog.Dialog;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 import org.geogebra.desktop.util.GuiResourcesD;
@@ -295,7 +295,7 @@ public class TraceDialog extends Dialog
 		traceGeoList.addListSelectionListener(this);
 		traceGeoList.setLayoutOrientation(JList.VERTICAL);
 		traceGeoList.setVisibleRowCount(-1);
-		MyCellRenderer rend = new MyCellRenderer();
+		GeoCellRenderer rend = new GeoCellRenderer();
 		traceGeoList.setCellRenderer(rend);
 
 		JScrollPane listScroller = new JScrollPane(traceGeoList);
@@ -311,7 +311,7 @@ public class TraceDialog extends Dialog
 
 		// start row panel
 		lblStartRow = new JLabel(loc.getMenu("StartRow" + ": "));
-		firstRowField = new MyTextFieldD(app);
+		firstRowField = new MathTextFieldBase(app);
 		firstRowField.setColumns(3);
 		firstRowField.addActionListener(this);
 		firstRowField.addFocusListener(this);
@@ -325,7 +325,7 @@ public class TraceDialog extends Dialog
 		cbRowLimit = new JCheckBox(loc.getMenu("RowLimit" + ": "));
 		cbRowLimit.addActionListener(this);
 
-		numRowsField = new MyTextFieldD(app);
+		numRowsField = new MathTextFieldBase(app);
 		numRowsField.setAlignmentX(0.0f);
 		numRowsField.setColumns(3);
 		numRowsField.addActionListener(this);
@@ -1006,7 +1006,7 @@ public class TraceDialog extends Dialog
 	/**
 	 * Custom cell renderer that displays GeoElement descriptions.
 	 */
-	static class MyCellRenderer extends DefaultListCellRenderer {
+	static class GeoCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 1L;
 
 		@Override

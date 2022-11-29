@@ -6,10 +6,10 @@ import java.util.List;
 import org.apache.commons.collections15.Transformer;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.GraphAlgo;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.commands.Commands;
-import org.geogebra.common.kernel.discrete.AlgoMinimumSpanningTree.MyLink;
+import org.geogebra.common.kernel.discrete.AlgoMinimumSpanningTree.GraphEdge;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoList;
@@ -28,7 +28,7 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 	private GeoPointND start;
 	private GeoPointND end;
 	private GeoList inputList;
-	private GeoLocusND<? extends MyPoint> locus;
+	private GeoLocusND<? extends PathPoint> locus;
 	private GeoBoolean weighted;
 	private int edgeCount = 0;
 
@@ -73,7 +73,7 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 	/**
 	 * @return resulting locus (shortest path)
 	 */
-	public GeoLocusND<? extends MyPoint> getResult() {
+	public GeoLocusND<? extends PathPoint> getResult() {
 		return locus;
 	}
 
@@ -84,9 +84,9 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 
 	// weighted Shortest Path
 	// use length of segments to weight
-	private Transformer<MyLink, Double> wtTransformer = new Transformer<MyLink, Double>() {
+	private Transformer<GraphEdge, Double> wtTransformer = new Transformer<GraphEdge, Double>() {
 		@Override
-		public Double transform(MyLink link) {
+		public Double transform(GraphEdge link) {
 			return link.weight;
 		}
 	};
@@ -102,11 +102,11 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 
 		edgeCount = 0;
 
-		HashMap<GeoPointND, MyNode> nodes = new HashMap<>();
+		HashMap<GeoPointND, GraphNode> nodes = new HashMap<>();
 
-		SparseMultigraph<MyNode, MyLink> g = new SparseMultigraph<>();
+		SparseMultigraph<GraphNode, GraphEdge> g = new SparseMultigraph<>();
 
-		MyNode node1, node2;
+		GraphNode node1, node2;
 		NodeMatcher startNode = new NodeMatcher(start);
 		NodeMatcher endNode = new NodeMatcher(end);
 
@@ -119,11 +119,11 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 				node1 = nodes.get(p1);
 				node2 = nodes.get(p2);
 				if (node1 == null) {
-					node1 = new MyNode(p1);
+					node1 = new GraphNode(p1);
 					nodes.put(p1, node1);
 				}
 				if (node2 == null) {
-					node2 = new MyNode(p2);
+					node2 = new GraphNode(p2);
 					nodes.put(p2, node2);
 				}
 
@@ -135,7 +135,7 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 
 				// add edge to graph
 				g.addEdge(
-						new MyLink(seg.getLength(), node1, node2, edgeCount++),
+						new GraphEdge(seg.getLength(), node1, node2, edgeCount++),
 						node1,
 						node2, EdgeType.UNDIRECTED);
 
@@ -155,7 +155,7 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 			return;
 		}
 
-		DijkstraShortestPath<MyNode, MyLink> alg;
+		DijkstraShortestPath<GraphNode, GraphEdge> alg;
 
 		if (weighted.getBoolean()) {
 			alg = new DijkstraShortestPath<>(g, wtTransformer);
@@ -164,11 +164,11 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 			alg = new DijkstraShortestPath<>(g);
 		}
 
-		List<MyLink> list = alg.getPath(startNode.node, endNode.node);
+		List<GraphEdge> list = alg.getPath(startNode.node, endNode.node);
 
-		MyNode n1, n2;
+		GraphNode n1, n2;
 		if (!list.isEmpty()) {
-			MyLink link = list.get(0);
+			GraphEdge link = list.get(0);
 			n1 = link.n1;
 			n2 = link.n2;
 
@@ -183,7 +183,7 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 		}
 		double[] inhom1 = new double[3];
 		double[] inhom2 = new double[3];
-		for (MyLink link : list) {
+		for (GraphEdge link : list) {
 			link.n1.id.getInhomCoords(inhom1);
 			link.n2.id.getInhomCoords(inhom2);
 			// nodes may not be in the right order, might need n1 or n2
@@ -201,14 +201,14 @@ public class AlgoShortestDistance extends AlgoElement implements GraphAlgo {
 
 	private static class NodeMatcher {
 		private final GeoPointND target;
-		public MyNode node;
+		public GraphNode node;
 		private boolean exactMatch;
 
 		public NodeMatcher(GeoPointND target) {
 			this.target = target;
 		}
 
-		public void check(GeoPointND p1, MyNode node2) {
+		public void check(GeoPointND p1, GraphNode node2) {
 			if (p1 == target) {
 				exactMatch = true;
 				node = node2;

@@ -30,7 +30,7 @@ public class MyCellEditorW implements BaseCellEditor {
 	protected AppW app;
 
 	protected GeoElementND value;
-	protected MyTableW table;
+	protected SpreadsheetTableW table;
 	AutoCompleteTextFieldW autoCompleteTextField;
 
 	protected int column = -1;
@@ -113,7 +113,7 @@ public class MyCellEditorW implements BaseCellEditor {
 	 *            column
 	 * @return editor textfield
 	 */
-	public AutoCompleteTextFieldW getTableCellEditorWidget(MyTableW table0,
+	public AutoCompleteTextFieldW getTableCellEditorWidget(SpreadsheetTableW table0,
 			Object value0,
 			boolean isSelected, int row0, int column0) {
 

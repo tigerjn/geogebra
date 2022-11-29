@@ -32,8 +32,8 @@ import javax.swing.event.DocumentListener;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.commands.CmdGetTime;
 import org.geogebra.common.main.App;
-import org.geogebra.desktop.gui.inputfield.MyFormattedTextField;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.DateInputTextField;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.GeoGebraPreferencesD;
 import org.geogebra.desktop.main.LocalizationD;
@@ -70,9 +70,9 @@ public class TitlePanel extends JPanel {
 		loc = app.getLocalization();
 
 		setLayout(new BorderLayout(5, 5));
-		titleField = new MyTextFieldD(app);
-		authorField = new MyTextFieldD(app);
-		dateField = new MyFormattedTextField((GuiManagerD) app.getGuiManager(),
+		titleField = new MathTextFieldBase(app);
+		authorField = new MathTextFieldBase(app);
+		dateField = new DateInputTextField((GuiManagerD) app.getGuiManager(),
 				DateFormat.getDateInstance(DateFormat.LONG));
 		dateField.setColumns(12);
 		dateField.setFocusLostBehavior(JFormattedTextField.PERSIST);

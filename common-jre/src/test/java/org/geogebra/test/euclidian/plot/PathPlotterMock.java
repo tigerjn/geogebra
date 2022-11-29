@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.geogebra.common.euclidian.plot.Gap;
 import org.geogebra.common.euclidian.plot.PathPlotter;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.matrix.CoordSys;
 import org.geogebra.common.util.StringUtil;
@@ -53,7 +53,7 @@ public class PathPlotterMock implements PathPlotter {
 	}
 
 	@Override
-	public boolean copyCoords(MyPoint point, double[] ret, CoordSys transformSys) {
+	public boolean copyCoords(PathPoint point, double[] ret, CoordSys transformSys) {
 		return false;
 	}
 

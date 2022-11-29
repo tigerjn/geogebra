@@ -56,7 +56,7 @@ public class DataPanelD extends JPanel
 
 	private JTable dataTable;
 	private JButton btnEnableAll;
-	private MyRowHeader rowHeader;
+	private CheckBoxRowHeader rowHeader;
 	private JScrollPane scrollPane;
 
 	private Boolean[] selectionList;
@@ -107,8 +107,8 @@ public class DataPanelD extends JPanel
 
 	private void createGUI() {
 		// set table and column renderers
-		dataTable.setDefaultRenderer(Object.class, new MyCellRenderer());
-		MyColumnHeaderRenderer columnHeader = new MyColumnHeaderRenderer();
+		dataTable.setDefaultRenderer(Object.class, new DataPanelCellRenderer());
+		DataColumnHeaderRenderer columnHeader = new DataColumnHeaderRenderer();
 		columnHeader.setPreferredSize(new Dimension(preferredColumnWidth,
 				SpreadsheetSettings.TABLE_CELL_HEIGHT));
 		for (int i = 0; i < dataTable.getColumnCount(); ++i) {
@@ -135,7 +135,7 @@ public class DataPanelD extends JPanel
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
 		// create row header
-		rowHeader = new MyRowHeader(this, dataTable);
+		rowHeader = new CheckBoxRowHeader(this, dataTable);
 		scrollPane.setRowHeaderView(rowHeader);
 
 		// create enableAll button and put it in the upper left corner
@@ -306,7 +306,7 @@ public class DataPanelD extends JPanel
 		}
 
 		// create a new header
-		rowHeader = new MyRowHeader(this, dataTable);
+		rowHeader = new CheckBoxRowHeader(this, dataTable);
 		scrollPane.setRowHeaderView(rowHeader);
 		updateFonts(getFont());
 
@@ -372,7 +372,7 @@ public class DataPanelD extends JPanel
 		rowHeader.setFixedCellHeight(h);
 	}
 
-	public MyRowHeader getRowHeader() {
+	public CheckBoxRowHeader getRowHeader() {
 		return rowHeader;
 	}
 
@@ -388,11 +388,11 @@ public class DataPanelD extends JPanel
 	// Column Header Renderer
 	// =================================================
 
-	protected class MyColumnHeaderRenderer extends JLabel
+	protected class DataColumnHeaderRenderer extends JLabel
 			implements TableCellRenderer {
 		private static final long serialVersionUID = 1L;
 
-		public MyColumnHeaderRenderer() {
+		public DataColumnHeaderRenderer() {
 			super("", SwingConstants.CENTER);
 			setOpaque(true);
 			setBackground(TABLE_HEADER_COLOR);
@@ -417,10 +417,10 @@ public class DataPanelD extends JPanel
 	// Table Cell Renderer
 	// ======================================================
 
-	class MyCellRenderer extends DefaultTableCellRenderer {
+	class DataPanelCellRenderer extends DefaultTableCellRenderer {
 		private static final long serialVersionUID = 1L;
 
-		public MyCellRenderer() {
+		public DataPanelCellRenderer() {
 			setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 		}
 
@@ -452,17 +452,17 @@ public class DataPanelD extends JPanel
 	}
 
 	// ======================================================
-	// Row Header
+	// Row Header with checkboxes
 	// ======================================================
 
-	public class MyRowHeader extends JList<Boolean> implements MouseListener {
+	public class CheckBoxRowHeader extends JList<Boolean> implements MouseListener {
 		private static final long serialVersionUID = 1L;
 
 		// DefaultListModel model;
 		JTable table;
 		DataPanelD dataPanel;
 
-		protected MyRowHeader(DataPanelD dataPanel, JTable table) {
+		protected CheckBoxRowHeader(DataPanelD dataPanel, JTable table) {
 			super(selectionList);
 			this.table = table;
 			this.dataPanel = dataPanel;
@@ -473,7 +473,7 @@ public class DataPanelD extends JPanel
 
 		}
 
-		class RowHeaderRenderer extends JLabel implements ListCellRenderer {
+		class RowHeaderRenderer extends JLabel implements ListCellRenderer<Boolean> {
 			private static final long serialVersionUID = 1L;
 			private ImageIcon iconChecked;
 			private ImageIcon iconUnChecked;
@@ -497,14 +497,14 @@ public class DataPanelD extends JPanel
 			}
 
 			@Override
-			public Component getListCellRendererComponent(JList list,
-					Object value, int index, boolean isSelected,
+			public Component getListCellRendererComponent(JList<? extends Boolean> list,
+					Boolean value, int index, boolean isSelected,
 					boolean cellHasFocus) {
 
 				setText("" + (index + 1));
 
 				// add/remove icons
-				if ((Boolean) value) {
+				if (value) {
 					setIcon(iconChecked);
 				} else {
 					setIcon(iconUnChecked);

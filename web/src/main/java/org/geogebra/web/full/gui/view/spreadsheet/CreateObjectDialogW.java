@@ -72,7 +72,7 @@ public class CreateObjectDialogW extends ComponentDialog implements ICreateObjec
 	public CreateObjectDialogW(AppW app, SpreadsheetViewW view, int objectType, String title) {
 		super(app, new DialogData(title), false, false);
 		addStyleName("createObjDialog");
-		MyTableW table = view.getSpreadsheetTable();
+		SpreadsheetTableW table = view.getSpreadsheetTable();
 		coModel = new CreateObjectModel(app, objectType, this);
 		coModel.setCellRangeProcessor(table.getCellRangeProcessor());
 		coModel.setSelectedCellRanges(table.getSelectedCellRanges());

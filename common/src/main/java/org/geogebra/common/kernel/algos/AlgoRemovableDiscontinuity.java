@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.Equation;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.Function;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.kernel.arithmetic.Traversing;
 import org.geogebra.common.kernel.cas.UsesCAS;
@@ -29,7 +29,7 @@ public class AlgoRemovableDiscontinuity extends AlgoGeoPointsFunction implements
 		UsesCAS {
 
 	private final GeoFunction f; // input
-	private final MyArbitraryConstant arbconst = new MyArbitraryConstant(this);
+	private final ArbitraryConstant arbconst = new ArbitraryConstant(this);
 
 	/**
 	 * @param cons Construction
@@ -78,13 +78,13 @@ public class AlgoRemovableDiscontinuity extends AlgoGeoPointsFunction implements
 	@Override
 	public void compute() {
 		Function fun = f.getFunction();
-		List<MyPoint> result = new ArrayList<>();
+		List<PathPoint> result = new ArrayList<>();
 		solveExpr(fun.getExpression(), result);
 
 		double[] xs = new double[result.size()];
 		double[] ys = new double[result.size()];
 		for (int i = 0; i < result.size(); i++) {
-			MyPoint point = result.get(i);
+			PathPoint point = result.get(i);
 			xs[i] = point.x;
 			ys[i] = point.y;
 		}
@@ -92,7 +92,7 @@ public class AlgoRemovableDiscontinuity extends AlgoGeoPointsFunction implements
 		updatePoints();
 	}
 
-	private void solveExpr(ExpressionValue expr, List<MyPoint> result) {
+	private void solveExpr(ExpressionValue expr, List<PathPoint> result) {
 		if (expr == null || expr.isConstant()) {
 			return;
 		}
@@ -107,7 +107,7 @@ public class AlgoRemovableDiscontinuity extends AlgoGeoPointsFunction implements
 		}
 	}
 
-	private void solveDivision(ExpressionValue exp, List<MyPoint> result) {
+	private void solveDivision(ExpressionValue exp, List<PathPoint> result) {
 		arbconst.startBlocking();
 		List<NumberValue> values = getValues(exp);
 		for (NumberValue value: values) {
@@ -137,9 +137,9 @@ public class AlgoRemovableDiscontinuity extends AlgoGeoPointsFunction implements
 		}
 	}
 
-	private void add(double x, double y, List<MyPoint> result) {
+	private void add(double x, double y, List<PathPoint> result) {
 		if (!Double.isInfinite(y)) {
-			MyPoint point = new MyPoint(x, y);
+			PathPoint point = new PathPoint(x, y);
 			result.add(point);
 		}
 	}

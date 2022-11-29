@@ -3,7 +3,7 @@ package org.geogebra.common.kernel.statistics;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 
 /**
  * Helper for nPr operation
@@ -79,7 +79,7 @@ public class AlgoNpR {
 		// eg NpR2(38,19) is wrong
 
 		return Math.floor(0.5 + Math
-				.exp(MyMath2.logGamma(n + 1d) - MyMath2.logGamma(n - r + 1)));
+				.exp(SpecialFunctionMath.logGamma(n + 1d) - SpecialFunctionMath.logGamma(n - r + 1)));
 
 	}
 

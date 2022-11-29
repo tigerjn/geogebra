@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 import org.geogebra.common.gui.view.probcalculator.ResultPanel;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetViewInterface;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 
@@ -62,7 +62,7 @@ class ResultPanelD extends JPanel implements ResultPanel {
 	}
 
 	private JTextField createField(int width) {
-		JTextField field = new MyTextFieldD(app);
+		JTextField field = new MathTextFieldBase(app);
 		field.setColumns(width);
 		return field;
 	}

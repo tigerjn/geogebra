@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.algos.AlgoNumeratorDenominatorFun;
@@ -36,7 +36,7 @@ public class AlgoSlopeField extends AlgoElement {
 
 	private GeoLocus locus; // output
 	/** locus points */
-	ArrayList<MyPoint> al;
+	ArrayList<PathPoint> al;
 
 	private AlgoNumeratorDenominatorFun numAlgo;
 	private AlgoNumeratorDenominatorFun denAlgo;
@@ -269,8 +269,8 @@ public class AlgoSlopeField extends AlgoElement {
 
 						if (DoubleUtil.isZero(denD) && DoubleUtil.isZero(numD)) {
 							// just a dot
-							al.add(new MyPoint(xx, yy, SegmentType.MOVE_TO));
-							al.add(new MyPoint(xx, yy, SegmentType.LINE_TO));
+							al.add(new PathPoint(xx, yy, SegmentType.MOVE_TO));
+							al.add(new PathPoint(xx, yy, SegmentType.LINE_TO));
 						} else {
 							// standard case
 							drawLine(denD, numD, length, xx, yy, scaleRatio);
@@ -294,8 +294,8 @@ public class AlgoSlopeField extends AlgoElement {
 		double coeff = Math.sqrt(dx0 * dx0 + dyScaled * dyScaled);
 		double dx = dx0 * length / coeff;
 		double dy = dy0 * length / coeff;
-		al.add(new MyPoint(xx - dx, yy - dy, SegmentType.MOVE_TO));
-		al.add(new MyPoint(xx + dx, yy + dy, SegmentType.LINE_TO));
+		al.add(new PathPoint(xx - dx, yy - dy, SegmentType.MOVE_TO));
+		al.add(new PathPoint(xx + dx, yy + dy, SegmentType.LINE_TO));
 		if (locus.isDrawArrows()) {
 			drawArrowHead(xx - dx, yy - dy, xx + dx, yy + dy);
 		}
@@ -311,9 +311,9 @@ public class AlgoSlopeField extends AlgoElement {
 		vx /= 2.0;
 		vy /= 2.0;
 
-		al.add(new MyPoint(fx - vy, fy + vx, SegmentType.MOVE_TO));
-		al.add(new MyPoint(x1, y1, SegmentType.LINE_TO));
-		al.add(new MyPoint(fx + vy, fy - vx, SegmentType.LINE_TO));
+		al.add(new PathPoint(fx - vy, fy + vx, SegmentType.MOVE_TO));
+		al.add(new PathPoint(x1, y1, SegmentType.LINE_TO));
+		al.add(new PathPoint(fx + vy, fy - vx, SegmentType.LINE_TO));
 	}
 
 	@Override

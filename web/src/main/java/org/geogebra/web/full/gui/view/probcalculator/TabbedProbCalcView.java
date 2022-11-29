@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 
 public class TabbedProbCalcView extends ProbabilityCalculatorViewW {
-	private final MyTabLayoutPanel tabbedPane;
+	private final ProbabilityTabLayoutPanel tabbedPane;
 	protected final StatisticsCalculatorW statCalculator;
 	protected FlowPanel plotSplitPane;
 	protected FlowPanel mainSplitPane;
@@ -39,7 +39,7 @@ public class TabbedProbCalcView extends ProbabilityCalculatorViewW {
 		buildProbCalcPanel();
 		isIniting = false;
 		statCalculator = new StatisticsCalculatorW(app);
-		tabbedPane = new MyTabLayoutPanel();
+		tabbedPane = new ProbabilityTabLayoutPanel();
 		tabbedPane.add(probCalcPanel, loc.getMenu("Distribution"));
 		tabbedPane.add(statCalculator.getWrappedPanel(),
 				loc.getMenu("Statistics"));
@@ -98,9 +98,9 @@ public class TabbedProbCalcView extends ProbabilityCalculatorViewW {
 		exportMenu.addItem(item);
 	}
 
-	private class MyTabLayoutPanel extends TabLayoutPanel implements ClickHandler {
+	private class ProbabilityTabLayoutPanel extends TabLayoutPanel implements ClickHandler {
 
-		public MyTabLayoutPanel() {
+		public ProbabilityTabLayoutPanel() {
 			super(30, Style.Unit.PX);
 			this.addDomHandler(this, ClickEvent.getType());
 		}

@@ -312,7 +312,7 @@ public class Function extends FunctionNVar
 			return expression;
 		} else if (expression.getOperation() == Operation.IF_ELSE) {
 
-			MyNumberPair left = (MyNumberPair) expression.getLeft();
+			NumberPair left = (NumberPair) expression.getLeft();
 			left.setY(translateY(left.getY().unwrap().wrap(), fVars, vy));
 			expression.setRight(
 					translateY(expression.getRight().wrap(), fVars, vy));

@@ -37,7 +37,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import org.geogebra.common.io.MyXMLHandler;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.io.MyXMLio;
 import org.geogebra.common.io.QDParser;
 import org.geogebra.common.io.file.ByteArrayZipFile;
@@ -591,7 +591,7 @@ public abstract class MyXMLioJre extends MyXMLio {
 	}
 
 	@Override
-	final protected void parseXML(MyXMLHandler xmlHandler, XMLStream stream)
+	final protected void parseXML(ConstructionXmlHandler xmlHandler, XMLStream stream)
 			throws Exception {
 		XMLStreamJre streamJre = (XMLStreamJre) stream;
 		xmlParser.parse(xmlHandler, streamJre.getReader());

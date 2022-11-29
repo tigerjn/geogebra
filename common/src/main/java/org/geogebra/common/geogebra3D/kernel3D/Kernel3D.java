@@ -15,7 +15,7 @@ package org.geogebra.common.geogebra3D.kernel3D;
 import java.util.LinkedHashMap;
 import java.util.TreeSet;
 
-import org.geogebra.common.geogebra3D.io.MyXMLHandler3D;
+import org.geogebra.common.geogebra3D.io.ConstructionXmlHandler3D;
 import org.geogebra.common.geogebra3D.kernel3D.algos.AlgoDispatcher3D;
 import org.geogebra.common.geogebra3D.kernel3D.algos.AlgoElement3D;
 import org.geogebra.common.geogebra3D.kernel3D.algos.AlgoPointVector3D;
@@ -32,7 +32,7 @@ import org.geogebra.common.geogebra3D.kernel3D.geos.GeoPlane3DConstant;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoPoint3D;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoSpace;
 import org.geogebra.common.geogebra3D.kernel3D.geos.GeoVector3D;
-import org.geogebra.common.io.MyXMLHandler;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.ConstructionCompanion;
 import org.geogebra.common.kernel.EVProperty;
@@ -155,9 +155,9 @@ public class Kernel3D extends Kernel {
 	}
 
 	@Override
-	public MyXMLHandler newMyXMLHandler(Kernel kernel,
+	public ConstructionXmlHandler newMyXMLHandler(Kernel kernel,
 			Construction construction) {
-		return new MyXMLHandler3D(kernel, construction);
+		return new ConstructionXmlHandler3D(kernel, construction);
 	}
 
 	@Override

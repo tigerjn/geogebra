@@ -255,7 +255,7 @@ public class GeoFactory {
 		return new GeoSurfaceCartesian2D(cons, point, fun);
 	}
 
-	public GeoLocusND<? extends MyPoint> newLocus(int dimension, Construction cons) {
+	public GeoLocusND<? extends PathPoint> newLocus(int dimension, Construction cons) {
 		return new GeoLocus(cons);
 	}
 }

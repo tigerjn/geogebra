@@ -44,7 +44,7 @@ import com.google.j2objc.annotations.Weak;
  */
 public class CellRangeProcessor {
 
-	private MyTable table;
+	private SpreadsheetTable table;
 	@Weak
 	private App app;
 	private Localization loc;
@@ -58,7 +58,7 @@ public class CellRangeProcessor {
 	 * @param app
 	 *            application
 	 */
-	public CellRangeProcessor(MyTable table, App app) {
+	public CellRangeProcessor(SpreadsheetTable table, App app) {
 		this.table = table;
 		this.app = app;
 		loc = app.getLocalization();

@@ -29,7 +29,7 @@ public class SpreadsheetKeyListenerW
 	private AppW app;
 	private SpreadsheetViewW view;
 	private Kernel kernel;
-	private MyTableW table;
+	private SpreadsheetTableW table;
 	private SpreadsheetTableModelSimple model;
 	private MyCellEditorW editor;
 	boolean keyDownSomething = false;
@@ -40,7 +40,7 @@ public class SpreadsheetKeyListenerW
 	 * @param table
 	 *            table
 	 */
-	public SpreadsheetKeyListenerW(AppW app, MyTableW table) {
+	public SpreadsheetKeyListenerW(AppW app, SpreadsheetTableW table) {
 		this.app = app;
 		this.kernel = app.getKernel();
 		this.table = table;

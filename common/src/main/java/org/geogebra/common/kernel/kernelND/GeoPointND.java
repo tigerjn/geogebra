@@ -3,10 +3,10 @@ package org.geogebra.common.kernel.kernelND;
 import java.util.ArrayList;
 
 import org.geogebra.common.kernel.LocateableList;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.Path;
 import org.geogebra.common.kernel.PathOrPoint;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.Region;
 import org.geogebra.common.kernel.RegionParameters;
 import org.geogebra.common.kernel.StringTemplate;
@@ -380,8 +380,8 @@ public interface GeoPointND extends PointProperties, Translateable,
 	 * @param rightPoint
 	 *            second point
 	 */
-	public void set(double param1, double param2, MyPoint leftPoint,
-			MyPoint rightPoint);
+	public void set(double param1, double param2, PathPoint leftPoint,
+			PathPoint rightPoint);
 
 	/**
 	 * @param phi

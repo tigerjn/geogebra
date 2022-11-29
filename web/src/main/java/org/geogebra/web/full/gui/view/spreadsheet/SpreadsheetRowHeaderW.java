@@ -3,7 +3,7 @@ package org.geogebra.web.full.gui.view.spreadsheet;
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.awt.GRectangle;
 import org.geogebra.common.euclidian.event.PointerEventType;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.web.full.gui.GuiManagerW;
 import org.geogebra.web.full.gui.util.AdvancedFocusPanel;
 import org.geogebra.web.full.javax.swing.GPopupMenuW;
@@ -40,7 +40,7 @@ import jsinterop.base.Js;
  */
 public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandler {
 	private AppW app;
-	private MyTableW table;
+	private SpreadsheetTableW table;
 	private Grid grid;
 	private FlowPanel container;
 
@@ -60,7 +60,7 @@ public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandle
 	 * @param table
 	 *            spreadsheet table
 	 */
-	public SpreadsheetRowHeaderW(AppW app, MyTableW table) {
+	public SpreadsheetRowHeaderW(AppW app, SpreadsheetTableW table) {
 
 		this.app = app;
 		this.table = table;
@@ -201,7 +201,7 @@ public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandle
 			 * .getStyle();
 			 */
 
-			if (table.getSelectionType() == MyTableInterface.COLUMN_SELECT) {
+			if (table.getSelectionType() == SpreadsheetTableInterface.COLUMN_SELECT) {
 				// setBgColorIfNeeded(s, defaultBackground);
 				updateCellSelection(false, rowIndex);
 			} else {
@@ -306,7 +306,7 @@ public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandle
 			if (shiftDown) {
 				// extend the column selection
 				int row = table.getLeadSelectionRow();
-				table.setSelectionType(MyTableInterface.ROW_SELECT);
+				table.setSelectionType(SpreadsheetTableInterface.ROW_SELECT);
 				table.changeSelection(row - 1, -1, true);
 			} else {
 				// select topmost cell in first column left of the selection
@@ -323,7 +323,7 @@ public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandle
 			if (shiftDown) {
 				// extend the row selection
 				int row = table.getLeadSelectionRow();
-				table.setSelectionType(MyTableInterface.ROW_SELECT);
+				table.setSelectionType(SpreadsheetTableInterface.ROW_SELECT);
 				table.changeSelection(row + 1, -1, true);
 			} else {
 				// select topmost cell in first column left of the selection
@@ -432,8 +432,8 @@ public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandle
 			GPoint point = table.getIndexFromPixel(x, y);
 			if (point != null) {
 
-				if (table.getSelectionType() != MyTableInterface.ROW_SELECT) {
-					table.setSelectionType(MyTableInterface.ROW_SELECT);
+				if (table.getSelectionType() != SpreadsheetTableInterface.ROW_SELECT) {
+					table.setSelectionType(SpreadsheetTableInterface.ROW_SELECT);
 					// ?//requestFocusInWindow();
 				}
 
@@ -650,8 +650,8 @@ public class SpreadsheetRowHeaderW implements SpreadsheetHeader, CopyPasteHandle
 	@Override
 	public void updateSelection(GPoint p) {
 		// switch to row selection mode and select row
-		if (table.getSelectionType() != MyTableInterface.ROW_SELECT) {
-			table.setSelectionType(MyTableInterface.ROW_SELECT);
+		if (table.getSelectionType() != SpreadsheetTableInterface.ROW_SELECT) {
+			table.setSelectionType(SpreadsheetTableInterface.ROW_SELECT);
 		}
 		table.setRowSelectionInterval(p.getY(), p.getY());
 		renderSelection();

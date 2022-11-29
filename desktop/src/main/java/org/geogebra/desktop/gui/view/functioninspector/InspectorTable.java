@@ -17,7 +17,7 @@ import javax.swing.table.TableColumn;
 
 import org.geogebra.common.main.GeoGebraColorConstants;
 import org.geogebra.desktop.awt.GColorD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 
 public class InspectorTable extends JTable {
@@ -55,8 +55,8 @@ public class InspectorTable extends JTable {
 		// this.addKeyListener(this);
 
 		// set renderer and editor
-		setDefaultRenderer(Object.class, new MyCellRenderer(this));
-		setDefaultEditor(Object.class, new MyEditor());
+		setDefaultRenderer(Object.class, new InspectorTableCellRenderer(this));
+		setDefaultEditor(Object.class, new InspectorTableEditor());
 
 		editableCell = new HashSet<Point>();
 	}
@@ -138,14 +138,14 @@ public class InspectorTable extends JTable {
 	}
 
 	public void setMyCellEditor(int colIndex) {
-		getColumnModel().getColumn(colIndex).setCellEditor(new MyEditor());
+		getColumnModel().getColumn(colIndex).setCellEditor(new InspectorTableEditor());
 	}
 
 	// ====================================================
 	// Cell Renderer
 	// ====================================================
 
-	private class MyCellRenderer extends DefaultTableCellRenderer {
+	private class InspectorTableCellRenderer extends DefaultTableCellRenderer {
 
 		private static final long serialVersionUID = 1L;
 
@@ -154,7 +154,7 @@ public class InspectorTable extends JTable {
 		private JTable table;
 		private Border paddingBorder;
 
-		private MyCellRenderer(InspectorTable table) {
+		private InspectorTableCellRenderer(InspectorTable table) {
 			this.table = table;
 			tf = new JTextField();
 			paddingBorder = BorderFactory.createEmptyBorder(2, 2, 2, 2);
@@ -198,12 +198,12 @@ public class InspectorTable extends JTable {
 	// Cell Editor
 	// ====================================================
 
-	private class MyEditor extends DefaultCellEditor {
+	private class InspectorTableEditor extends DefaultCellEditor {
 
 		private static final long serialVersionUID = 1L;
 
-		public MyEditor() {
-			super(new MyTextFieldD(app));
+		public InspectorTableEditor() {
+			super(new MathTextFieldBase(app));
 			this.setClickCountToStart(1);
 		}
 

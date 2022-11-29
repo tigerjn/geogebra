@@ -34,7 +34,7 @@ import org.geogebra.common.gui.view.data.StatPanelSettings;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetViewInterface;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.main.Feature;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
@@ -80,12 +80,12 @@ public class OptionsPanelD extends JPanel implements PropertyChangeListener,
 	private JLabel lblYMax;
 	private JLabel lblXInterval;
 	private JLabel lblYInterval;
-	private MyTextFieldD fldXMin;
-	private MyTextFieldD fldXMax;
-	private MyTextFieldD fldYMin;
-	private MyTextFieldD fldYMax;
-	private MyTextFieldD fldXInterval;
-	private MyTextFieldD fldYInterval;
+	private MathTextFieldBase fldXMin;
+	private MathTextFieldBase fldXMax;
+	private MathTextFieldBase fldYMin;
+	private MathTextFieldBase fldYMax;
+	private MathTextFieldBase fldXInterval;
+	private MathTextFieldBase fldYInterval;
 	private JRadioButton rbStandToStand;
 	private JRadioButton rbLogToStand;
 	private JRadioButton rbStandToLog;
@@ -96,7 +96,7 @@ public class OptionsPanelD extends JPanel implements PropertyChangeListener,
 
 	// bar chart panel GUI
 	private JLabel lblBarWidth;
-	private MyTextFieldD fldBarWidth;
+	private MathTextFieldBase fldBarWidth;
 	private JCheckBox ckAutoBarWidth;
 	private JPanel barChartWidthPanel;
 
@@ -372,7 +372,7 @@ public class OptionsPanelD extends JPanel implements PropertyChangeListener,
 		ckAutoBarWidth = new JCheckBox();
 		ckAutoBarWidth.addActionListener(this);
 		lblBarWidth = new JLabel();
-		fldBarWidth = new MyTextFieldD(app, fieldWidth);
+		fldBarWidth = new MathTextFieldBase(app, fieldWidth);
 		fldBarWidth.setEditable(true);
 		fldBarWidth.addActionListener(this);
 		fldBarWidth.addFocusListener(this);
@@ -428,33 +428,33 @@ public class OptionsPanelD extends JPanel implements PropertyChangeListener,
 		ckShowGrid.addActionListener(this);
 
 		lblXMin = new JLabel();
-		fldXMin = new MyTextFieldD(app, fieldWidth);
+		fldXMin = new MathTextFieldBase(app, fieldWidth);
 		fldXMin.setEditable(true);
 		fldXMin.addActionListener(this);
 		fldXMin.addFocusListener(this);
 
 		lblXMax = new JLabel();
-		fldXMax = new MyTextFieldD(app, fieldWidth);
+		fldXMax = new MathTextFieldBase(app, fieldWidth);
 		fldXMax.addActionListener(this);
 		fldXMax.addFocusListener(this);
 
 		lblYMin = new JLabel();
-		fldYMin = new MyTextFieldD(app, fieldWidth);
+		fldYMin = new MathTextFieldBase(app, fieldWidth);
 		fldYMin.addActionListener(this);
 		fldYMin.addFocusListener(this);
 
 		lblYMax = new JLabel();
-		fldYMax = new MyTextFieldD(app, fieldWidth);
+		fldYMax = new MathTextFieldBase(app, fieldWidth);
 		fldYMax.addActionListener(this);
 		fldYMax.addFocusListener(this);
 
 		lblXInterval = new JLabel();
-		fldXInterval = new MyTextFieldD(app, fieldWidth);
+		fldXInterval = new MathTextFieldBase(app, fieldWidth);
 		fldXInterval.addActionListener(this);
 		fldXInterval.addFocusListener(this);
 
 		lblYInterval = new JLabel();
-		fldYInterval = new MyTextFieldD(app, fieldWidth);
+		fldYInterval = new MathTextFieldBase(app, fieldWidth);
 		fldYInterval.addActionListener(this);
 		fldYInterval.addFocusListener(this);
 

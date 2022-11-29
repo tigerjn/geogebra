@@ -23,7 +23,7 @@ import org.geogebra.common.export.UnicodeTeX;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.factories.FormatFactory;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.algos.AlgoAngleLines;
 import org.geogebra.common.kernel.algos.AlgoAnglePoints;
@@ -186,8 +186,8 @@ public abstract class GeoGebraToPstricks extends GeoGebraExport {
 
 	@Override
 	protected void drawLocus(GeoLocus g) {
-		ArrayList<MyPoint> ll = g.getPoints();
-		Iterator<MyPoint> it = ll.iterator();
+		ArrayList<PathPoint> ll = g.getPoints();
+		Iterator<PathPoint> it = ll.iterator();
 		startBeamer(code);
 		code.append("\\pscustom");
 		code.append(lineOptionCode(g, true));
@@ -195,7 +195,7 @@ public abstract class GeoGebraToPstricks extends GeoGebraExport {
 		boolean first = true;
 		boolean out = false;
 		while (it.hasNext()) {
-			MyPoint mp = it.next();
+			PathPoint mp = it.next();
 			if (mp.x > xmin && mp.x < xmax && mp.y > ymin && mp.y < ymax) {
 				String x = format(mp.x);
 				String y = format(mp.y);

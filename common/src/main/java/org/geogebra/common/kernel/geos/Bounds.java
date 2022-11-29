@@ -11,7 +11,7 @@ import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.plugin.Operation;
 import org.geogebra.common.util.DoubleUtil;
@@ -470,10 +470,10 @@ public class Bounds {
 		}
 		boolean complete = condRoot.getOperation() == Operation.IF_ELSE;
 		ExpressionNode condFun = complete
-				? ((MyNumberPair) condRoot.getLeft()).getX().wrap()
+				? ((NumberPair) condRoot.getLeft()).getX().wrap()
 				: condRoot.getLeft().wrap();
 		ExpressionNode ifFun = complete
-				? ((MyNumberPair) condRoot.getLeft()).getY().wrap()
+				? ((NumberPair) condRoot.getLeft()).getY().wrap()
 				: condRoot.getRight().wrap();
 		ExpressionNode elseFun = complete ? condRoot.getRight().wrap() : null;
 

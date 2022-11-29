@@ -3,7 +3,7 @@ package org.geogebra.common.kernel.commands;
 import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.algos.AlgoLocusStroke;
 import org.geogebra.common.kernel.algos.AlgoPolyLine;
 import org.geogebra.common.kernel.arithmetic.Command;
@@ -81,13 +81,13 @@ public class CmdPolyLine extends CommandProcessor {
 			penStroke = ((GeoBoolean) lastArg).getBoolean();
 		}
 		if (penStroke) {
-			ArrayList<MyPoint> myPoints = new ArrayList<>();
+			ArrayList<PathPoint> pathPoints = new ArrayList<>();
 			for (int i = 0; i < size; i++) {
 				MyVecNode vec = (MyVecNode) c.getArgument(i).unwrap();
-				myPoints.add(new MyPoint(vec.getX().evaluateDouble(),
+				pathPoints.add(new PathPoint(vec.getX().evaluateDouble(),
 						vec.getY().evaluateDouble()));
 			}
-			AlgoLocusStroke algo = new AlgoLocusStroke(cons, myPoints);
+			AlgoLocusStroke algo = new AlgoLocusStroke(cons, pathPoints);
 			algo.getOutput(0).setLabel(c.getLabel());
 			return algo.getOutput();
 		}

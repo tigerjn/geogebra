@@ -22,7 +22,7 @@ public class SpreadsheetContextMenu<T> {
 	protected App app;
 
 	/** spreadsheet table */
-	protected MyTable table = null;
+	protected SpreadsheetTable table = null;
 
 	private ArrayList<GeoElement> geos;
 	private CellRangeProcessor cp;
@@ -69,7 +69,7 @@ public class SpreadsheetContextMenu<T> {
 	 * @param table
 	 *            spreadsheet table
 	 */
-	public SpreadsheetContextMenu(MyTable table) {
+	public SpreadsheetContextMenu(SpreadsheetTable table) {
 
 		this.table = table;
 		updateFields();
@@ -150,14 +150,14 @@ public class SpreadsheetContextMenu<T> {
 		// ===============================================
 		boolean enabled = false;
 
-		if (selectionType == MyTableInterface.COLUMN_SELECT
-				|| selectionType == MyTableInterface.ROW_SELECT) {
+		if (selectionType == SpreadsheetTableInterface.COLUMN_SELECT
+				|| selectionType == SpreadsheetTableInterface.ROW_SELECT) {
 
 			addSeparator();
 
 			subMenu = addSubMenu(loc.getMenu("Insert"), null);
 
-			if (selectionType == MyTableInterface.COLUMN_SELECT) {
+			if (selectionType == SpreadsheetTableInterface.COLUMN_SELECT) {
 
 				cmdString = MenuCommand.InsertLeft.toString();
 				addSubMenuItem(subMenu, cmdString, loc.getMenu(cmdString),
@@ -168,7 +168,7 @@ public class SpreadsheetContextMenu<T> {
 						true);
 			}
 
-			if (selectionType == MyTableInterface.ROW_SELECT) {
+			if (selectionType == SpreadsheetTableInterface.ROW_SELECT) {
 
 				cmdString = MenuCommand.InsertAbove.toString();
 				addSubMenuItem(subMenu, cmdString, loc.getMenu(cmdString),
@@ -179,13 +179,13 @@ public class SpreadsheetContextMenu<T> {
 						true);
 			}
 
-			if (selectionType == MyTableInterface.COLUMN_SELECT) {
+			if (selectionType == SpreadsheetTableInterface.COLUMN_SELECT) {
 				cmdString = MenuCommand.DeleteColumn.toString();
 				enabled = true;
 				addMenuItem(cmdString, getDeleteColumnString(), enabled);
 			}
 
-			if (selectionType == MyTableInterface.ROW_SELECT) {
+			if (selectionType == SpreadsheetTableInterface.ROW_SELECT) {
 				cmdString = MenuCommand.DeleteRow.toString();
 				enabled = true;
 				addMenuItem(cmdString, getDeleteRowString(), enabled);
@@ -263,7 +263,7 @@ public class SpreadsheetContextMenu<T> {
 
 			app.isHTML5Applet();
 			if (geo.isSpreadsheetTraceable()
-					&& selectionType != MyTableInterface.ROW_SELECT) {
+					&& selectionType != SpreadsheetTableInterface.ROW_SELECT) {
 
 				boolean showRecordToSpreadsheet = true;
 				// check if other geos are recordable

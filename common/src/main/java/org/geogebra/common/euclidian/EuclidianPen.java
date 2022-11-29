@@ -9,7 +9,7 @@ import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.euclidian.event.AbstractEvent;
 import org.geogebra.common.euclidian.modes.RulerTransformer;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.algos.AlgoLocusStroke;
 import org.geogebra.common.kernel.geos.GProperty;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -432,13 +432,13 @@ public class EuclidianPen implements GTimerListener {
 			startNewStroke = false;
 		}
 
-		ArrayList<MyPoint> newPts = new ArrayList<>(penPoints.size());
+		ArrayList<PathPoint> newPts = new ArrayList<>(penPoints.size());
 		for (GPoint p : penPoints) {
 			double x = view.toRealWorldCoordX(p.getX());
 			double y = view.toRealWorldCoordY(p.getY());
 
 			// change -2.4600000000000004 to -2.46 for smaller XML
-			newPts.add(new MyPoint(DoubleUtil.checkDecimalFraction(x),
+			newPts.add(new PathPoint(DoubleUtil.checkDecimalFraction(x),
 					DoubleUtil.checkDecimalFraction(y)));
 		}
 

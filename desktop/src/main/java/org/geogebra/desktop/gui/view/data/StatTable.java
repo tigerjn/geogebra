@@ -54,7 +54,7 @@ public class StatTable extends JScrollPane {
 					GeoGebraColorConstants.TABLE_SELECTED_BACKGROUND_COLOR);
 
 	protected DefaultTableModel tableModel;
-	private HashMap<Point, MyComboBoxEditor> comboBoxEditorMap;
+	private HashMap<Point, ComboBoxCellEditor> comboBoxEditorMap;
 	private HashMap<Point, MyComboBoxRenderer> comboBoxRendererMap;
 	private ActionListener al;
 	AppD app;
@@ -103,7 +103,7 @@ public class StatTable extends JScrollPane {
 		myTable = new MyTable();
 
 		// table settings
-		myTable.setDefaultRenderer(Object.class, new MyCellRenderer(this));
+		myTable.setDefaultRenderer(Object.class, new StatTableCellRenderer(this));
 		myTable.setColumnSelectionAllowed(true);
 		myTable.setRowSelectionAllowed(true);
 		myTable.setShowGrid(true);
@@ -221,7 +221,7 @@ public class StatTable extends JScrollPane {
 			System.arraycopy(items, 0, comboBoxItems, 0, comboBoxItems.length);
 
 			// create the comboBox editors/renderers and map them
-			comboBoxEditorMap.put(cell, new MyComboBoxEditor(comboBoxItems));
+			comboBoxEditorMap.put(cell, new ComboBoxCellEditor(comboBoxItems));
 			comboBoxRendererMap.put(cell,
 					new MyComboBoxRenderer(comboBoxLabel, comboBoxItems));
 
@@ -410,11 +410,11 @@ public class StatTable extends JScrollPane {
 	// Table Cell Renderer
 	// ======================================================
 
-	private static class MyCellRenderer extends DefaultTableCellRenderer {
+	private static class StatTableCellRenderer extends DefaultTableCellRenderer {
 		private static final long serialVersionUID = 1L;
 		private StatTable statTable;
 
-		public MyCellRenderer(StatTable statTable) {
+		public StatTableCellRenderer(StatTable statTable) {
 			// cell padding
 			setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 			this.statTable = statTable;
@@ -501,13 +501,13 @@ public class StatTable extends JScrollPane {
 	public class MyComboBoxRenderer extends JPanel
 			implements TableCellRenderer {
 		private static final long serialVersionUID = 1L;
-		JComboBox comboBox;
+		JComboBox<String> comboBox;
 		JLabel label;
 
 		protected MyComboBoxRenderer(String text, String[] items) {
 
 			setLayout(new BorderLayout());
-			comboBox = new JComboBox(items);
+			comboBox = new JComboBox<>(items);
 			add(comboBox, loc.borderEast());
 			if (text != null) {
 				label = new JLabel(text);
@@ -534,16 +534,16 @@ public class StatTable extends JScrollPane {
 	// ComboBox Editor
 	// ======================================================
 
-	public class MyComboBoxEditor extends DefaultCellEditor
+	public class ComboBoxCellEditor extends DefaultCellEditor
 			implements ItemListener {
 		private static final long serialVersionUID = 1L;
-		JComboBox comboBox;
+		JComboBox<String> comboBox;
 		int row;
 		int column;
 
-		protected MyComboBoxEditor(String[] items) {
-			super(new JComboBox(items));
-			comboBox = (JComboBox) editorComponent;
+		protected ComboBoxCellEditor(String[] items) {
+			super(new JComboBox<>(items));
+			comboBox = (JComboBox<String>) editorComponent;
 			comboBox.addItemListener(this);
 		}
 

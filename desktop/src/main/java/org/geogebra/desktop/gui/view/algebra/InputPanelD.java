@@ -19,7 +19,7 @@ import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.gui.editor.GeoGebraEditorPane;
 import org.geogebra.desktop.gui.inputfield.AutoCompleteTextFieldD;
 import org.geogebra.desktop.gui.inputfield.KeyNavigation;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.TextLineNumber;
 import org.geogebra.desktop.gui.virtualkeyboard.VirtualKeyboardD;
 import org.geogebra.desktop.main.AppD;
@@ -125,7 +125,7 @@ public class InputPanelD extends JPanel
 
 			textComponent = new AutoCompleteTextFieldD(columns, app,
 					KeyNavigation.HISTORY);
-			((MyTextFieldD) textComponent)
+			((MathTextFieldBase) textComponent)
 					.setShowSymbolTableIcon(showSymbolPopup);
 		}
 

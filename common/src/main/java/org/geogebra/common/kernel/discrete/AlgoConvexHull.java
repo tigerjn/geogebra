@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.GraphAlgo;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.commands.Commands;
@@ -40,7 +40,7 @@ public class AlgoConvexHull extends AlgoElement implements GraphAlgo {
 
 	private GeoList inputList; // input
 	private GeoLocus locus; // output
-	private ArrayList<MyPoint> al;
+	private ArrayList<PathPoint> al;
 	private ArrayList<Point2D> vl;
 
 	/**
@@ -125,8 +125,8 @@ public class AlgoConvexHull extends AlgoElement implements GraphAlgo {
 
 		if (vl.size() == 1) {
 			Point2D p = vl.get(0);
-			al.add(new MyPoint(p.getX(), p.getY(), SegmentType.MOVE_TO));
-			al.add(new MyPoint(p.getX(), p.getY(), SegmentType.LINE_TO));
+			al.add(new PathPoint(p.getX(), p.getY(), SegmentType.MOVE_TO));
+			al.add(new PathPoint(p.getX(), p.getY(), SegmentType.LINE_TO));
 			locus.setPoints(al);
 			locus.setDefined(true);
 			return;
@@ -141,7 +141,7 @@ public class AlgoConvexHull extends AlgoElement implements GraphAlgo {
 
 		for (int i = 0; i < hull.size(); i++) {
 			Point2D p = hull.get(i);
-			al.add(new MyPoint(p.getX(), p.getY(), i != 0 ? SegmentType.LINE_TO
+			al.add(new PathPoint(p.getX(), p.getY(), i != 0 ? SegmentType.LINE_TO
 					: SegmentType.MOVE_TO));
 
 		}
@@ -153,7 +153,7 @@ public class AlgoConvexHull extends AlgoElement implements GraphAlgo {
 
 		// close the polygon
 		Point2D p = hull.get(0);
-		al.add(new MyPoint(p.getX(), p.getY(), SegmentType.LINE_TO));
+		al.add(new PathPoint(p.getX(), p.getY(), SegmentType.LINE_TO));
 
 		locus.setPoints(al);
 		locus.setDefined(true);

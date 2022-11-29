@@ -16,7 +16,7 @@ import elemental2.dom.WheelEvent;
 
 public class TableScroller extends ScrollPanel implements ScrollHandler {
 
-	private final MyTableW table;
+	private final SpreadsheetTableW table;
 	private final SpreadsheetRowHeaderW rowHeader;
 	private final SpreadsheetColumnHeaderW columnHeader;
 	boolean doAdjustScroll = true;
@@ -29,7 +29,7 @@ public class TableScroller extends ScrollPanel implements ScrollHandler {
 	 * @param columnHeader
 	 *            column header
 	 */
-	public TableScroller(MyTableW table, SpreadsheetRowHeaderW rowHeader,
+	public TableScroller(SpreadsheetTableW table, SpreadsheetRowHeaderW rowHeader,
 			SpreadsheetColumnHeaderW columnHeader) {
 		super(table.getGridPanel());
 		this.table = table;

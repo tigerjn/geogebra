@@ -14,7 +14,7 @@ public class SpreadsheetModeProcessor {
 	private App app;
 	private Kernel kernel;
 	private CopyPasteCut copyPasteCut;
-	private MyTable table;
+	private SpreadsheetTable table;
 	private GeoElement targetCell;
 
 	/**
@@ -23,7 +23,7 @@ public class SpreadsheetModeProcessor {
 	 * @param table
 	 *            table
 	 */
-	public SpreadsheetModeProcessor(App app, MyTable table) {
+	public SpreadsheetModeProcessor(App app, SpreadsheetTable table) {
 		this.app = app;
 		this.kernel = app.getKernel();
 		this.copyPasteCut = table.getCopyPasteCut();
@@ -186,7 +186,7 @@ public class SpreadsheetModeProcessor {
 	 */
 	public void stopAutoFunction() {
 
-		table.setTableMode(MyTable.TABLE_MODE_STANDARD);
+		table.setTableMode(SpreadsheetTable.TABLE_MODE_STANDARD);
 
 		if (createAutoFunctionCell(targetCell,
 				table.getSelectedCellRanges().get(0))) {
@@ -222,7 +222,7 @@ public class SpreadsheetModeProcessor {
 	public void updateAutoFunction() {
 
 		if (targetCell == null || table.getSelectedCellRanges().get(0).isEmpty()
-				|| table.getTableMode() != MyTable.TABLE_MODE_AUTOFUNCTION) {
+				|| table.getTableMode() != SpreadsheetTable.TABLE_MODE_AUTOFUNCTION) {
 			app.setMoveMode();
 			return;
 		}

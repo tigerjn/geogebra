@@ -211,9 +211,9 @@ public class Derivative {
 			break;
 
 		case IF_ELSE:
-			MyNumberPair np = (MyNumberPair) left;
+			NumberPair np = (NumberPair) left;
 
-			np = new MyNumberPair(kernel0, np.x, np.y.derivative(fv, kernel0));
+			np = new NumberPair(kernel0, np.x, np.y.derivative(fv, kernel0));
 
 			return new ExpressionNode(kernel0, np, Operation.IF_ELSE,
 					right.derivative(fv, kernel0));

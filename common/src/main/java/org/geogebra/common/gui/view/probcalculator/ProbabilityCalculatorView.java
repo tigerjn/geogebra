@@ -29,8 +29,8 @@ import org.geogebra.common.kernel.algos.AlgoTake;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionNodeConstants.StringType;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
 import org.geogebra.common.kernel.arithmetic.MyVecNode;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.cas.AlgoIntegralDefinite;
 import org.geogebra.common.kernel.geos.GProperty;
 import org.geogebra.common.kernel.geos.GeoBoolean;
@@ -636,7 +636,7 @@ public abstract class ProbabilityCalculatorView
 			ExpressionNode xminPlusOne = new ExpressionNode(kernel,
 					xMin, Operation.PLUS, new MyDouble(kernel, 1));
 			ExpressionNode ex = new ExpressionNode(kernel,
-					new MyNumberPair(kernel,
+					new NumberPair(kernel,
 							new ExpressionNode(kernel,
 									xLow, Operation.EQUAL_BOOLEAN, xHigh.getNumber()),
 							xminPlusOne), Operation.IF_ELSE, xMax);

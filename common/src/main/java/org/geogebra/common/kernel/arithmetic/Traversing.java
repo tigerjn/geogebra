@@ -1000,10 +1000,10 @@ public interface Traversing {
 			ExpressionValue expr = en.getLeft();
 			ExpressionValue var = en.getRight();
 			ExpressionValue deg;
-			if (expr instanceof MyNumberPair) {
+			if (expr instanceof NumberPair) {
 
-				var = ((MyNumberPair) expr).y;
-				expr = ((MyNumberPair) expr).x;
+				var = ((NumberPair) expr).y;
+				expr = ((NumberPair) expr).x;
 				deg = en.getRight();
 			} else {
 				deg = new MyDouble(kernel, 1);

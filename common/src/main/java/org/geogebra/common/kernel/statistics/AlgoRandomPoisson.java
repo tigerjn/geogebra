@@ -21,7 +21,7 @@ import org.geogebra.common.kernel.geos.GeoNumberValue;
 import org.geogebra.common.kernel.geos.GeoNumeric;
 import org.geogebra.common.kernel.kernelND.GeoElementND;
 import org.geogebra.common.util.DoubleUtil;
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 
 /**
  * Computes RandomPoisson[lambda]
@@ -162,7 +162,7 @@ public class AlgoRandomPoisson extends AlgoElement implements SetRandomValue {
 	private static double logOfKFactorial(int k) {
 		if (k < 10) {
 			if (logtable[k] == 0) {
-				logtable[k] = Math.log(MyMath2.factorial(k));
+				logtable[k] = Math.log(SpecialFunctionMath.factorial(k));
 			}
 			return logtable[k];
 		}

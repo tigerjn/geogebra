@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.gui.view.spreadsheet.RelativeCopy;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.arithmetic.Command;
 import org.geogebra.common.kernel.commands.CommandProcessor;
@@ -87,7 +87,7 @@ public class CmdFillCells extends CommandProcessor {
 
 					GeoLocus locus = (GeoLocus) geo;
 
-					ArrayList<MyPoint> al = locus.getPoints();
+					ArrayList<PathPoint> al = locus.getPoints();
 
 					int length = Math.min(al.size(), maxRow - minRow);
 
@@ -102,7 +102,7 @@ public class CmdFillCells extends CommandProcessor {
 							removePossibleGeo(GeoElementSpreadsheet
 									.getSpreadsheetCellName(minCol + 1, row));
 
-							MyPoint p = al.get(i);
+							PathPoint p = al.get(i);
 
 							kernel.getGeoElementSpreadsheet()
 									.setSpreadsheetCell(app, row, minCol,

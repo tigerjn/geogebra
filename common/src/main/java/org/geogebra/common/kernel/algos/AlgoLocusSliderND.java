@@ -21,8 +21,8 @@ import org.geogebra.common.euclidian3D.EuclidianView3DInterface;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Macro;
 import org.geogebra.common.kernel.MacroKernel;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.PathMover;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SliderMover;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
@@ -37,7 +37,7 @@ import org.geogebra.common.util.debug.Log;
 /**
  * locus line for Q dependent on P where P is a slider
  */
-public abstract class AlgoLocusSliderND<T extends MyPoint> extends AlgoElement
+public abstract class AlgoLocusSliderND<T extends PathPoint> extends AlgoElement
 		implements AlgoLocusSliderInterface {
 
 	// TODO: update locus algorithm

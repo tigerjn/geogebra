@@ -128,7 +128,7 @@ import org.geogebra.desktop.awt.GColorD;
 import org.geogebra.desktop.gui.color.GeoGebraColorChooser;
 import org.geogebra.desktop.gui.inputfield.AutoCompleteTextFieldD;
 import org.geogebra.desktop.gui.inputfield.GeoGebraComboBoxEditor;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.properties.AnimationSpeedPanel;
 import org.geogebra.desktop.gui.properties.AnimationStepPanel;
 import org.geogebra.desktop.gui.properties.SliderPropertiesPanelD;
@@ -3747,8 +3747,8 @@ class ButtonSizePanel extends JPanel implements ChangeListener, FocusListener,
 	private static final long serialVersionUID = 1L;
 	private ButtonSizeModel model;
 
-	private MyTextFieldD tfButtonWidth;
-	private MyTextFieldD tfButtonHeight;
+	private MathTextFieldBase tfButtonWidth;
+	private MathTextFieldBase tfButtonHeight;
 	private JLabel labelWidth;
 	private JLabel labelHeight;
 	private JLabel labelPixelW;
@@ -3773,8 +3773,8 @@ class ButtonSizePanel extends JPanel implements ChangeListener, FocusListener,
 		labelPixelH = new JLabel(loc.getMenu("Pixels.short"));
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		cbUseFixedSize = new JCheckBox(loc.getMenu("fixed"));
-		tfButtonWidth = new MyTextFieldD(app, 3);
-		tfButtonHeight = new MyTextFieldD(app, 3);
+		tfButtonWidth = new MathTextFieldBase(app, 3);
+		tfButtonHeight = new MathTextFieldBase(app, 3);
 		tfButtonHeight.setInputVerifier(new SizeVerify());
 		tfButtonWidth.setInputVerifier(new SizeVerify());
 		cbUseFixedSize.addChangeListener(this);
@@ -3856,7 +3856,7 @@ class ButtonSizePanel extends JPanel implements ChangeListener, FocusListener,
 	static class SizeVerify extends InputVerifier {
 		@Override
 		public boolean verify(JComponent input) {
-			MyTextFieldD tf = (MyTextFieldD) input;
+			MathTextFieldBase tf = (MathTextFieldBase) input;
 			String s = tf.getText();
 			if (!s.matches("\\d{2,3}")) {
 				return false;

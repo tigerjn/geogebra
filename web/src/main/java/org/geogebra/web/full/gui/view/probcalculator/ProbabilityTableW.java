@@ -6,7 +6,7 @@ import org.geogebra.common.kernel.geos.GeoNumberValue;
 import org.geogebra.common.main.App;
 import org.geogebra.common.main.settings.ProbabilityCalculatorSettings.Dist;
 import org.geogebra.web.full.gui.view.data.StatTableW;
-import org.geogebra.web.full.gui.view.data.StatTableW.MyTable;
+import org.geogebra.web.full.gui.view.data.StatTableW.StatTableGrid;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -113,7 +113,7 @@ public class ProbabilityTableW extends ProbabilityTable implements ClickHandler 
 	
 	@Override
 	public void onClick(ClickEvent event) {
-		MyTable table = statTable.getTable();
+		StatTableGrid table = statTable.getTable();
 		
 		table.handleSelection(event);
 

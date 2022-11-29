@@ -51,6 +51,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableColumnModelEvent;
 import javax.swing.event.TableColumnModelListener;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
@@ -80,7 +81,6 @@ import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.gui.TitlePanel;
 import org.geogebra.desktop.gui.view.algebra.InputPanelD;
 import org.geogebra.desktop.javax.swing.GImageIconD;
-import org.geogebra.desktop.javax.swing.table.GAbstractTableModelD;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 import org.geogebra.desktop.util.GuiResourcesD;
@@ -128,7 +128,7 @@ public class ConstructionProtocolViewD extends ConstructionProtocolView
 
 		table = new JTable();
 		table.setAutoCreateColumnsFromModel(false);
-		table.setModel(((ConstructionTableDataD) data).getImpl().getImpl());
+		table.setModel(((ConstructionTableDataD) data).getImpl());
 		table.setRowSelectionAllowed(true);
 		table.setGridColor(Color.lightGray);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
@@ -687,7 +687,7 @@ public class ConstructionProtocolViewD extends ConstructionProtocolView
 				// setSize(view.getWidth(), getHeight());
 			}
 			table.tableChanged(new TableModelEvent(
-					((ConstructionTableDataD) data).getImpl().getImpl()));
+					((ConstructionTableDataD) data).getImpl()));
 
 			// reinit view to update possible breakpoint changes
 			((ConstructionTableDataD) data).initView();
@@ -878,7 +878,7 @@ public class ConstructionProtocolViewD extends ConstructionProtocolView
 
 	public class ConstructionTableDataD extends ConstructionTableData {
 
-		protected MyGAbstractTableModel ctDataImpl;
+		protected ConstructionProtocolTableModel ctDataImpl;
 		protected ConstructionTableData ctData = this;
 
 		/**
@@ -886,12 +886,12 @@ public class ConstructionProtocolViewD extends ConstructionProtocolView
 		 */
 		public ConstructionTableDataD(SetLabels gui) {
 			super(gui);
-			ctDataImpl = new MyGAbstractTableModel();
+			ctDataImpl = new ConstructionProtocolTableModel();
 			// rowList = new ArrayList<RowData>();
 			// geoMap = new HashMap<GeoElement, RowData>();
 		}
 
-		public GAbstractTableModelD getImpl() {
+		public AbstractTableModel getImpl() {
 			return ctDataImpl;
 		}
 
@@ -1072,7 +1072,7 @@ public class ConstructionProtocolViewD extends ConstructionProtocolView
 			return false;
 		}
 
-		public class MyGAbstractTableModel extends GAbstractTableModelD {
+		public class ConstructionProtocolTableModel extends AbstractTableModel {
 
 			@Override
 			public int getRowCount() {

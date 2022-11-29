@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import org.geogebra.common.gui.view.spreadsheet.CellRange;
 import org.geogebra.common.gui.view.spreadsheet.CellRangeProcessor;
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
 import org.geogebra.common.gui.view.spreadsheet.RelativeCopy;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetViewInterface;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.StringTemplate;
@@ -657,10 +657,10 @@ public class DataItem {
 		return spreadsheetTable(app).getCellRangeProcessor();
 	}
 
-	private static MyTable spreadsheetTable(App app) {
+	private static SpreadsheetTable spreadsheetTable(App app) {
 		SpreadsheetViewInterface spvi = app
 				.getGuiManager().getSpreadsheetView();
-		return (MyTable) spvi.getSpreadsheetTable();
+		return (SpreadsheetTable) spvi.getSpreadsheetTable();
 	}
 
 }

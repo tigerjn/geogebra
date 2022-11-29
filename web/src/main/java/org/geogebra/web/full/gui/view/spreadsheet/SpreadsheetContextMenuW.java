@@ -1,7 +1,7 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetContextMenu;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.web.full.css.MaterialDesignResources;
 import org.geogebra.web.full.gui.images.AppResources;
@@ -32,7 +32,7 @@ public class SpreadsheetContextMenuW extends SpreadsheetContextMenu<AriaMenuItem
 	 * @param table
 	 *            spreadsheet table
 	 */
-	public SpreadsheetContextMenuW(MyTable table) {
+	public SpreadsheetContextMenuW(SpreadsheetTable table) {
 		super(table);
 	}
 

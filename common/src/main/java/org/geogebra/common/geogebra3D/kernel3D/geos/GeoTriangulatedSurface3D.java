@@ -1,6 +1,6 @@
 package org.geogebra.common.geogebra3D.kernel3D.geos;
 
-import org.geogebra.common.geogebra3D.kernel3D.MyPoint3D;
+import org.geogebra.common.geogebra3D.kernel3D.PathPoint3D;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.matrix.Coords3;
 import org.geogebra.common.kernel.matrix.CoordsDouble3;
@@ -24,15 +24,15 @@ public class GeoTriangulatedSurface3D {
 	private int current;
 	private int restore;
 	private int counter;
-	private MyPoint3D[] vertices;
-	private MyPoint3D[] normals;
+	private PathPoint3D[] vertices;
+	private PathPoint3D[] normals;
 
 	/**
 	 * 
 	 */
 	public GeoTriangulatedSurface3D() {
-		this.vertices = new MyPoint3D[capacity];
-		this.normals = new MyPoint3D[capacity];
+		this.vertices = new PathPoint3D[capacity];
+		this.normals = new PathPoint3D[capacity];
 	}
 
 	/**
@@ -89,9 +89,9 @@ public class GeoTriangulatedSurface3D {
 			vertices[current].setLineTo(counter != 0);
 			normals[current].setLocation(n[0], n[1], n[2]);
 		} else {
-			vertices[current] = new MyPoint3D(p[0], p[1], p[2],
+			vertices[current] = new PathPoint3D(p[0], p[1], p[2],
 					counter != 0 ? SegmentType.LINE_TO : SegmentType.MOVE_TO);
-			normals[current] = new MyPoint3D(n[0], n[1], n[2],
+			normals[current] = new PathPoint3D(n[0], n[1], n[2],
 					SegmentType.MOVE_TO);
 		}
 		++current;
@@ -101,10 +101,10 @@ public class GeoTriangulatedSurface3D {
 	private void ensureCapacity(int size) {
 		if (size >= capacity) {
 			capacity = Integer.highestOneBit(size) << 1;
-			MyPoint3D[] temp = new MyPoint3D[capacity];
+			PathPoint3D[] temp = new PathPoint3D[capacity];
 			System.arraycopy(vertices, 0, temp, 0, size);
 			this.vertices = temp;
-			temp = new MyPoint3D[capacity];
+			temp = new PathPoint3D[capacity];
 			System.arraycopy(normals, 0, temp, 0, size);
 			this.normals = temp;
 		}
@@ -113,7 +113,7 @@ public class GeoTriangulatedSurface3D {
 	/**
 	 * @return list of points on the surface
 	 */
-	public MyPoint3D[] getPoints() {
+	public PathPoint3D[] getPoints() {
 		return vertices;
 	}
 
@@ -121,7 +121,7 @@ public class GeoTriangulatedSurface3D {
 	 * 
 	 * @return list of normals corresponding to points
 	 */
-	public MyPoint3D[] getNormals() {
+	public PathPoint3D[] getNormals() {
 		return normals;
 	}
 
@@ -150,8 +150,8 @@ public class GeoTriangulatedSurface3D {
 	public static class SurfaceMover {
 		private final int size;
 		private int next;
-		private MyPoint3D[] points;
-		private MyPoint3D[] normals;
+		private PathPoint3D[] points;
+		private PathPoint3D[] normals;
 		private Triangle current = new Triangle(new CoordsDouble3(0, 0, 0),
 				new CoordsDouble3(0, 0, 0), new CoordsDouble3(0, 0, 0));
 
@@ -161,8 +161,8 @@ public class GeoTriangulatedSurface3D {
 		 */
 		public SurfaceMover(GeoTriangulatedSurface3D surf) {
 			this.size = surf.size();
-			this.points = new MyPoint3D[this.size];
-			this.normals = new MyPoint3D[this.size];
+			this.points = new PathPoint3D[this.size];
+			this.normals = new PathPoint3D[this.size];
 			System.arraycopy(surf.getPoints(), 0, this.points, 0, this.size);
 			System.arraycopy(surf.getNormals(), 0, this.normals, 0, this.size);
 			next = 2;
@@ -196,7 +196,7 @@ public class GeoTriangulatedSurface3D {
 			return current;
 		}
 
-		private static void set(Coords3 c, MyPoint3D p) {
+		private static void set(Coords3 c, PathPoint3D p) {
 			c.set(p.x, p.y, p.z);
 		}
 

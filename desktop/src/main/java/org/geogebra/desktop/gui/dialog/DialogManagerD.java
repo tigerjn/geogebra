@@ -42,7 +42,7 @@ import org.geogebra.common.main.OptionType;
 import org.geogebra.common.util.AsyncOperation;
 import org.geogebra.common.util.debug.Log;
 import org.geogebra.desktop.gui.GuiManagerD;
-import org.geogebra.desktop.gui.app.MyFileFilter;
+import org.geogebra.desktop.gui.app.ExtensionFileFilter;
 import org.geogebra.desktop.gui.autocompletion.AutoCompletion;
 import org.geogebra.desktop.gui.toolbar.ToolbarConfigDialog;
 import org.geogebra.desktop.gui.util.GeoGebraFileChooser;
@@ -51,7 +51,7 @@ import org.geogebra.desktop.gui.view.functioninspector.FunctionInspectorD;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.DialogManagerMinimal;
 import org.geogebra.desktop.main.LocalizationD;
-import org.geogebra.desktop.main.MyResourceBundle;
+import org.geogebra.desktop.main.TranslationResourceBundle;
 
 /**
  * Class to manage all kind of dialogs, including the file chooser, appearing in
@@ -514,11 +514,11 @@ public class DialogManagerD extends DialogManagerMinimal {
 			// get keys to delete
 			// as Java is localized in these languages already
 			// http://openjdk.java.net/groups/i18n/
-			rbJavaUI = MyResourceBundle
+			rbJavaUI = TranslationResourceBundle
 					.loadSingleBundleFile(LocalizationD.RB_JAVA_UI);
 			deleteKeys = true;
 		} else {
-			rbJavaUI = MyResourceBundle.createBundle(LocalizationD.RB_JAVA_UI,
+			rbJavaUI = TranslationResourceBundle.createBundle(LocalizationD.RB_JAVA_UI,
 					currentLocale);
 		}
 		if (rbJavaUI == null) {
@@ -572,7 +572,7 @@ public class DialogManagerD extends DialogManagerMinimal {
 	private class FileFilterChangedListener implements PropertyChangeListener {
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
-			if (getFileChooser().getFileFilter() instanceof MyFileFilter) {
+			if (getFileChooser().getFileFilter() instanceof ExtensionFileFilter) {
 				String fileName = null;
 				if (getFileChooser().getSelectedFile() != null) {
 					fileName = getFileChooser().getSelectedFile().getName();
@@ -586,7 +586,7 @@ public class DialogManagerD extends DialogManagerMinimal {
 				if (fileName != null && fileName.indexOf(".") > -1) {
 					fileName = fileName.substring(0, fileName.lastIndexOf("."))
 							+ "."
-							+ ((MyFileFilter) getFileChooser().getFileFilter())
+							+ ((ExtensionFileFilter) getFileChooser().getFileFilter())
 									.getExtension();
 
 					getFileChooser().setSelectedFile(new File(

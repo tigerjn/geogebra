@@ -3,7 +3,7 @@ package org.geogebra.common.euclidian.plot;
 import java.util.ArrayList;
 
 import org.apache.commons.math3.util.Cloner;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.matrix.CoordSys;
 
@@ -20,7 +20,7 @@ public class CurvePlotterUtils {
 	 * @return last point drawn
 	 */
 	static public double[] draw(PathPlotter gp,
-			ArrayList<? extends MyPoint> pointList, CoordSys transformSys) {
+			ArrayList<? extends PathPoint> pointList, CoordSys transformSys) {
 		double[] coords = gp.newDoubleArray();
 		int size = pointList.size();
 		if (!gp.supports(transformSys) || size == 0) {
@@ -31,7 +31,7 @@ public class CurvePlotterUtils {
 		// points
 		boolean linetofirst = true;
 		double[] lastMove = null;
-		for (MyPoint p : pointList) {
+		for (PathPoint p : pointList) {
 			// don't add infinite points
 			// otherwise hit-testing doesn't work
 			if (p.isFinite() && gp.copyCoords(p, coords, transformSys)) {
@@ -72,7 +72,7 @@ public class CurvePlotterUtils {
 		return lastMove;
 	}
 
-	private static boolean isArcOrCurvePart(MyPoint p) {
+	private static boolean isArcOrCurvePart(PathPoint p) {
 		return p.getSegmentType() == SegmentType.CURVE_TO
 				|| p.getSegmentType() == SegmentType.CONTROL
 				|| p.getSegmentType() == SegmentType.ARC_TO

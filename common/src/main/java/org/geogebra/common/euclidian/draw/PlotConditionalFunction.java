@@ -13,7 +13,7 @@ import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.geos.GeoFunction;
 import org.geogebra.common.plugin.Operation;
 
@@ -64,7 +64,7 @@ class PlotConditionalFunction {
 	}
 
 	private void plotIfElse() {
-		MyNumberPair pair = (MyNumberPair) node.getLeft();
+		NumberPair pair = (NumberPair) node.getLeft();
 		ExpressionNode conditional = pair.getX().wrap();
 		plotBetweenLimits(Collections.singletonList(conditional));
 	}

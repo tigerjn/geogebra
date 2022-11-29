@@ -14,10 +14,10 @@ package org.geogebra.common.kernel.geos;
 
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.PathMover;
 import org.geogebra.common.kernel.PathMoverGeneric;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.Transform;
 import org.geogebra.common.kernel.algos.AlgoJoinPointsSegment;
@@ -844,7 +844,7 @@ final public class GeoSegment extends GeoLine
 	}
 
 	@Override
-	public void setCoords(MyPoint locusPoint, MyPoint locusPoint2) {
+	public void setCoords(PathPoint locusPoint, PathPoint locusPoint2) {
 		double x1 = locusPoint.x;
 		double x2 = locusPoint2.x;
 		double y1 = locusPoint.y;

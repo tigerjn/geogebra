@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class StatTableW extends FlowPanel {
 
-	private MyTable myTable;
+	private StatTableGrid myTable;
 
 	/**
 	 * Create new stats table
@@ -27,7 +27,7 @@ public class StatTableW extends FlowPanel {
 	}
 
 	private void initTable() {
-		myTable = new MyTable();
+		myTable = new StatTableGrid();
 		this.add(myTable);
 
 		// coloring and things here with css....
@@ -126,12 +126,9 @@ public class StatTableW extends FlowPanel {
 	}
 
 	/**
-	 * @author gabor
-	 * 
-	 *         Table for StatTable
-	 *
+	 * Table for StatTable
 	 */
-	public static class MyTable extends Grid /* do it with CellTable later */ {
+	public static class StatTableGrid extends Grid /* do it with CellTable later */ {
 
 		private int firstRow = 0;
 
@@ -353,7 +350,7 @@ public class StatTableW extends FlowPanel {
 	/**
 	 * @return wrapped table
 	 */
-	public MyTable getTable() {
+	public StatTableGrid getTable() {
 		return myTable;
 	}
 

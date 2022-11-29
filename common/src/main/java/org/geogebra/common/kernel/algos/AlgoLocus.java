@@ -16,7 +16,7 @@ import org.geogebra.common.awt.GRectangle2D;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.geos.GeoLocus;
 import org.geogebra.common.kernel.geos.GeoPoint;
@@ -26,7 +26,7 @@ import org.geogebra.common.util.MyMath;
 /**
  * locus line for Q dependent on P
  */
-public class AlgoLocus extends AlgoLocusND<MyPoint> {
+public class AlgoLocus extends AlgoLocusND<PathPoint> {
 
 	public AlgoLocus(Construction cons, GeoPointND Q, GeoPointND P,
 			int min_steps, boolean registerCE) {
@@ -152,18 +152,18 @@ public class AlgoLocus extends AlgoLocusND<MyPoint> {
 	}
 
 	@Override
-	protected MyPoint[] createQCopyCache(int length) {
-		return new MyPoint[length];
+	protected PathPoint[] createQCopyCache(int length) {
+		return new PathPoint[length];
 	}
 
 	@Override
-	protected void setQCopyCache(MyPoint copy, GeoPointND point) {
+	protected void setQCopyCache(PathPoint copy, GeoPointND point) {
 		copy.setLocation(((GeoPoint) point).inhomX, ((GeoPoint) point).inhomY);
 	}
 
 	@Override
-	protected MyPoint newCache() {
-		return new MyPoint();
+	protected PathPoint newCache() {
+		return new PathPoint();
 	}
 
 }

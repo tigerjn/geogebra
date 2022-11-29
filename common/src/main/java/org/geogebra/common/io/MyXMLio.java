@@ -80,7 +80,7 @@ public abstract class MyXMLio {
 	@Weak
 	protected Construction cons;
 	/** handler for GGB files */
-	protected MyXMLHandler handler;
+	protected ConstructionXmlHandler handler;
 
 	/**
 	 * @param kernel
@@ -105,7 +105,7 @@ public abstract class MyXMLio {
 	/**
 	 * @return handler for GGB files
 	 */
-	protected MyXMLHandler getGGBHandler() {
+	protected ConstructionXmlHandler getGGBHandler() {
 		if (handler == null) {
 			// ggb3D : to create also a MyXMLHandler3D
 			// ggbDocHandler = new MyXMLHandler(kernel, cons);
@@ -492,7 +492,7 @@ public abstract class MyXMLio {
 	 * @throws Exception
 	 *             exception
 	 */
-	abstract protected void parseXML(MyXMLHandler xmlHandler, XMLStream stream)
+	abstract protected void parseXML(ConstructionXmlHandler xmlHandler, XMLStream stream)
 			throws Exception;
 
 	/**
@@ -501,7 +501,7 @@ public abstract class MyXMLio {
 	 */
 	public void parsePerspectiveXML(String perspectiveXML) {
 		try {
-			MyXMLHandler h = getGGBHandler();
+			ConstructionXmlHandler h = getGGBHandler();
 			parseXML(h, createXMLStreamString(perspectiveXML));
 		} catch (Exception e) {
 			Log.debug(e);

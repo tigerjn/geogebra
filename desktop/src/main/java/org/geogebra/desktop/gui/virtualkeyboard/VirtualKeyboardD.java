@@ -51,7 +51,7 @@ import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.KeyboardSettings;
 import org.geogebra.desktop.main.LocalizationD;
-import org.geogebra.desktop.main.MyResourceBundle;
+import org.geogebra.desktop.main.TranslationResourceBundle;
 import org.geogebra.desktop.util.GuiResourcesD;
 
 import com.himamis.retex.editor.share.util.Unicode;
@@ -1216,16 +1216,16 @@ public class VirtualKeyboardD extends JFrame
 		kbLocale = locale;
 
 		if (math) {
-			rbKeyboard = MyResourceBundle.createBundle(
+			rbKeyboard = TranslationResourceBundle.createBundle(
 					"org.geogebra.desktop.gui.virtualkeyboard.keyboardMath",
 					locale);
 		} else {
 			if (loc0 == null) {
-				rbKeyboard = MyResourceBundle.createBundle(
+				rbKeyboard = TranslationResourceBundle.createBundle(
 						"org.geogebra.desktop.gui.virtualkeyboard.keyboard",
 						locale);
 			} else {
-				rbKeyboard = MyResourceBundle.createBundle(
+				rbKeyboard = TranslationResourceBundle.createBundle(
 						"org.geogebra.desktop.gui.virtualkeyboard.keyboard",
 						loc0);
 				kbLocale = loc0;

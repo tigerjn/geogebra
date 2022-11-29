@@ -43,7 +43,7 @@ public class SpreadsheetViewW implements SpreadsheetViewInterface,
 	private Kernel kernel;
 
 	// spreadsheet table and row header
-	MyTableW table;
+	SpreadsheetTableW table;
 	protected SpreadsheetTableModelSimple tableModel;
 
 	public static final int ROW_HEADER_WIDTH = 35; // wide enough for "9999"
@@ -142,7 +142,7 @@ public class SpreadsheetViewW implements SpreadsheetViewInterface,
 	private void buildSpreadsheet() {
 		// Create the spreadsheet table model and the table
 		tableModel = (SpreadsheetTableModelSimple) app.getSpreadsheetTableModel();
-		table = new MyTableW(this, tableModel);
+		table = new SpreadsheetTableW(this, tableModel);
 
 		spreadsheet = new AbsolutePanel();
 		spreadsheet.add(table.getContainer());
@@ -171,7 +171,7 @@ public class SpreadsheetViewW implements SpreadsheetViewInterface,
 	}
 
 	@Override
-	public MyTableW getSpreadsheetTable() {
+	public SpreadsheetTableW getSpreadsheetTable() {
 		return table;
 	}
 
@@ -409,7 +409,7 @@ public class SpreadsheetViewW implements SpreadsheetViewInterface,
 			table.setSelectionRectangleColor(GColor.GRAY);
 			// table.setFocusable(false);
 		} else {
-			table.setSelectionRectangleColor(MyTableW.SELECTED_RECTANGLE_COLOR);
+			table.setSelectionRectangleColor(SpreadsheetTableW.SELECTED_RECTANGLE_COLOR);
 			// table.setFocusable(true);
 		}
 	}

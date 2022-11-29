@@ -8,7 +8,7 @@ import org.geogebra.common.kernel.arithmetic.Function;
 import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoFunction;
@@ -35,7 +35,7 @@ public class AlgoLineGraph extends AlgoElement {
 		this.yValuesCopy = new MyList(c.getKernel());
 		FunctionVariable var = new FunctionVariable(kernel);
 		ExpressionNode graphExpr = new ExpressionNode(kernel, var, Operation.DATA,
-				new MyNumberPair(kernel, xValuesCopy, yValuesCopy));
+				new NumberPair(kernel, xValuesCopy, yValuesCopy));
 		this.graph = new GeoFunction(c, new Function(kernel, graphExpr));
 		setInputOutput();
 		compute();

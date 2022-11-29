@@ -3,9 +3,9 @@ package org.geogebra.common.geogebra3D.kernel3D.geos;
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.geogebra3D.kernel3D.algos.AlgoJoinPoints3D;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.PathMover;
 import org.geogebra.common.kernel.PathMoverGeneric;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.Transform;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
@@ -514,7 +514,7 @@ public class GeoSegment3D extends GeoCoordSys1D implements GeoSegmentND {
 	}
 
 	@Override
-	public void setCoords(MyPoint locusPoint, MyPoint locusPoint2) {
+	public void setCoords(PathPoint locusPoint, PathPoint locusPoint2) {
 		setCoordFromPoints(
 				new Coords(locusPoint.x, locusPoint.y, locusPoint.getZ(), 1.0),
 				new Coords(locusPoint2.x, locusPoint2.y, locusPoint2.getZ(),

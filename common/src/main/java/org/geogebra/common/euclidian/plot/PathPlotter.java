@@ -1,6 +1,6 @@
 package org.geogebra.common.euclidian.plot;
 
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.matrix.CoordSys;
 
@@ -81,7 +81,7 @@ public interface PathPlotter {
 	 *            coordinate system of 2D points
 	 * @return true if coords are on the view
 	 */
-	public boolean copyCoords(MyPoint point, double[] ret,
+	public boolean copyCoords(PathPoint point, double[] ret,
 			CoordSys transformSys);
 
 	/**

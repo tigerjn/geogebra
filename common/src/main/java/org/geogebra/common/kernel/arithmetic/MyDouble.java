@@ -36,7 +36,7 @@ import org.geogebra.common.plugin.Operation;
 import org.geogebra.common.util.DoubleUtil;
 import org.geogebra.common.util.LambertW;
 import org.geogebra.common.util.MyMath;
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 import org.geogebra.common.util.StringUtil;
 
 import com.google.j2objc.annotations.Weak;
@@ -487,7 +487,7 @@ public class MyDouble extends ValidExpression
 	 * @return erf(this)
 	 */
 	final public MyDouble erf() {
-		set(MyMath2.erf(0.0, 1.0, val));
+		set(SpecialFunctionMath.erf(0.0, 1.0, val));
 		angleDim = 0;
 		return this;
 	}
@@ -496,7 +496,7 @@ public class MyDouble extends ValidExpression
 	 * @return inverf(this)
 	 */
 	final public MyDouble inverf() {
-		set(MyMath2.inverf(val));
+		set(SpecialFunctionMath.inverf(val));
 		angleDim = 0;
 		return this;
 	}
@@ -507,7 +507,7 @@ public class MyDouble extends ValidExpression
 	 * @return polygamma(this,order)
 	 */
 	final public MyDouble polygamma(NumberValue order) {
-		set(MyMath2.polyGamma(order, val));
+		set(SpecialFunctionMath.polyGamma(order, val));
 		angleDim = 0;
 		return this;
 	}
@@ -532,7 +532,7 @@ public class MyDouble extends ValidExpression
 	 * @return psi(this)
 	 */
 	final public MyDouble psi() {
-		set(MyMath2.psi(val));
+		set(SpecialFunctionMath.psi(val));
 		angleDim = 0;
 		return this;
 	}
@@ -819,7 +819,7 @@ public class MyDouble extends ValidExpression
 	 * @return atanh(this)
 	 */
 	final public MyDouble cosineIntegral() {
-		set(MyMath2.ci(val));
+		set(SpecialFunctionMath.ci(val));
 		angleDim = 0;
 		return this;
 	}
@@ -828,7 +828,7 @@ public class MyDouble extends ValidExpression
 	 * @return atanh(this)
 	 */
 	final public MyDouble sineIntegral() {
-		set(MyMath2.si(val));
+		set(SpecialFunctionMath.si(val));
 		angleDim = 0;
 		return this;
 	}
@@ -837,7 +837,7 @@ public class MyDouble extends ValidExpression
 	 * @return atanh(this)
 	 */
 	final public MyDouble expIntegral() {
-		set(MyMath2.ei(val));
+		set(SpecialFunctionMath.ei(val));
 		angleDim = 0;
 		return this;
 	}
@@ -846,7 +846,7 @@ public class MyDouble extends ValidExpression
 	 * @return this!
 	 */
 	final public MyDouble factorial() {
-		set(MyMath2.factorial(val));
+		set(SpecialFunctionMath.factorial(val));
 		angleDim = 0;
 		return this;
 	}
@@ -855,7 +855,7 @@ public class MyDouble extends ValidExpression
 	 * @return gamma(this)
 	 */
 	final public MyDouble gamma() {
-		set(MyMath2.gamma(val));
+		set(SpecialFunctionMath.gamma(val));
 		angleDim = 0;
 		return this;
 	}
@@ -1037,7 +1037,7 @@ public class MyDouble extends ValidExpression
 	 * @return gammaIncompleteRegularized(lt,this)
 	 */
 	public ExpressionValue gammaIncompleteRegularized(NumberValue lt) {
-		set(MyMath2.gammaIncompleteRegularized(lt.getDouble(), val));
+		set(SpecialFunctionMath.gammaIncompleteRegularized(lt.getDouble(), val));
 		angleDim = 0;
 		return this;
 	}
@@ -1048,7 +1048,7 @@ public class MyDouble extends ValidExpression
 	 * @return gammaIncomplete(lt,this)
 	 */
 	public ExpressionValue gammaIncomplete(NumberValue lt) {
-		set(MyMath2.gammaIncomplete(lt.getDouble(), val));
+		set(SpecialFunctionMath.gammaIncomplete(lt.getDouble(), val));
 		angleDim = 0;
 		return this;
 	}
@@ -1059,7 +1059,7 @@ public class MyDouble extends ValidExpression
 	 * @return beta(lt,this)
 	 */
 	public ExpressionValue beta(NumberValue lt) {
-		set(MyMath2.beta(val, lt.getDouble()));
+		set(SpecialFunctionMath.beta(val, lt.getDouble()));
 		angleDim = 0;
 		return this;
 	}
@@ -1071,7 +1071,7 @@ public class MyDouble extends ValidExpression
 	 */
 	public ExpressionValue betaIncomplete(VectorValue lt) {
 		GeoVec2D vec = lt.getVector();
-		set(MyMath2.betaIncomplete(vec.getX(), vec.getY(), val));
+		set(SpecialFunctionMath.betaIncomplete(vec.getX(), vec.getY(), val));
 		angleDim = 0;
 		return this;
 	}
@@ -1083,7 +1083,7 @@ public class MyDouble extends ValidExpression
 	 */
 	public ExpressionValue betaIncompleteRegularized(VectorValue lt) {
 		GeoVec2D vec = lt.getVector();
-		set(MyMath2.betaIncompleteRegularized(vec.getX(), vec.getY(), val));
+		set(SpecialFunctionMath.betaIncompleteRegularized(vec.getX(), vec.getY(), val));
 		angleDim = 0;
 		return this;
 	}
@@ -1143,7 +1143,7 @@ public class MyDouble extends ValidExpression
 	 * @return rieman zeta of this number
 	 */
 	public ExpressionValue zeta() {
-		return new MyDouble(kernel, MyMath2.zeta(val));
+		return new MyDouble(kernel, SpecialFunctionMath.zeta(val));
 	}
 
 	@Override

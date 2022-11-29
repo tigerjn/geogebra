@@ -39,8 +39,8 @@ import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.util.debug.Log;
 import org.geogebra.desktop.gui.editor.GeoGebraEditorPane;
 import org.geogebra.desktop.gui.inputfield.AutoCompleteTextFieldD;
+import org.geogebra.desktop.gui.view.algebra.ComboBoxMouseAdapter;
 import org.geogebra.desktop.gui.view.algebra.InputPanelD;
-import org.geogebra.desktop.gui.view.algebra.MyComboBoxListener;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 
@@ -157,7 +157,7 @@ public class ButtonDialogD extends Dialog
 			if (comboModel.getSize() > 1) {
 
 				// listener for the combobox
-				MyComboBoxListener ac = new MyComboBoxListener() {
+				ComboBoxMouseAdapter ac = new ComboBoxMouseAdapter() {
 					@Override
 					public void doActionPerformed(Object source) {
 						model.setLinkedGeo(

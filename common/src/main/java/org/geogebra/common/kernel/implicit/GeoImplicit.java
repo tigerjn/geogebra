@@ -1,7 +1,7 @@
 package org.geogebra.common.kernel.implicit;
 
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.Path;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.arithmetic.Equation;
 import org.geogebra.common.kernel.arithmetic.EquationValue;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
@@ -51,7 +51,7 @@ public interface GeoImplicit extends Path, EquationValue {
 	/**
 	 * @return locus for drawing
 	 */
-	GeoLocusND<? extends MyPoint> getLocus();
+	GeoLocusND<? extends PathPoint> getLocus();
 
 	/**
 	 * @return degree in x or -1

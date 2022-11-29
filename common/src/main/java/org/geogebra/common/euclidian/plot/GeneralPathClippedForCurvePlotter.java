@@ -5,7 +5,7 @@ import org.geogebra.common.awt.GPoint2D;
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.euclidian.EuclidianViewInterfaceSlim;
 import org.geogebra.common.euclidian.GeneralPathClipped;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.matrix.CoordSys;
 import org.geogebra.common.kernel.matrix.Coords;
@@ -110,7 +110,7 @@ public class GeneralPathClippedForCurvePlotter extends GeneralPathClipped
 
 	@Override
 	public void corner() {
-		MyPoint fp = firstPoint();
+		PathPoint fp = firstPoint();
 		if (fp != null) {
 			corner(fp.x, fp.y);
 			closePath();
@@ -212,7 +212,7 @@ public class GeneralPathClippedForCurvePlotter extends GeneralPathClipped
 	}
 
 	@Override
-	public boolean copyCoords(MyPoint point, double[] ret,
+	public boolean copyCoords(PathPoint point, double[] ret,
 			CoordSys transformSys) {
 
 		Coords coords = new Coords(point.x, point.y, point.getZ(), 1);

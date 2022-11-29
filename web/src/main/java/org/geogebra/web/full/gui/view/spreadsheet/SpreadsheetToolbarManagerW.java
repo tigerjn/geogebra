@@ -2,7 +2,7 @@ package org.geogebra.web.full.gui.view.spreadsheet;
 
 import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.gui.view.spreadsheet.CreateObjectModel;
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
 import org.geogebra.web.html5.main.AppW;
 
 /**
@@ -16,7 +16,7 @@ public class SpreadsheetToolbarManagerW {
 
 	private AppW app;
 	private SpreadsheetViewW view;
-	private MyTableW table;
+	private SpreadsheetTableW table;
 
 	private CreateObjectDialogW createObjectDialog;
 	public static final int TYPE_LIST = 0;
@@ -44,7 +44,7 @@ public class SpreadsheetToolbarManagerW {
 	public void handleModeChange(int mode) {
 
 		// Application.printStacktrace("");
-		table.setTableMode(MyTable.TABLE_MODE_STANDARD);
+		table.setTableMode(SpreadsheetTable.TABLE_MODE_STANDARD);
 
 		switch (mode) {
 
@@ -91,7 +91,7 @@ public class SpreadsheetToolbarManagerW {
 			
 			// Handle autofunction modes
 			
-			table.setTableMode(MyTable.TABLE_MODE_AUTOFUNCTION);
+			table.setTableMode(SpreadsheetTable.TABLE_MODE_AUTOFUNCTION);
 
 			break;
 

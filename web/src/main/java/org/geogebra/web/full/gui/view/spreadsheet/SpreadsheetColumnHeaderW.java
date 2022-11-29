@@ -3,7 +3,7 @@ package org.geogebra.web.full.gui.view.spreadsheet;
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.awt.GRectangle;
 import org.geogebra.common.euclidian.event.PointerEventType;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.kernel.geos.GeoElementSpreadsheet;
 import org.geogebra.common.util.debug.Log;
 import org.geogebra.web.full.gui.GuiManagerW;
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class SpreadsheetColumnHeaderW implements SpreadsheetHeader {
 	private AppW app;
-	private MyTableW table;
+	private SpreadsheetTableW table;
 	private Grid grid;
 
 	private FlowPanel container;
@@ -48,7 +48,7 @@ public class SpreadsheetColumnHeaderW implements SpreadsheetHeader {
 	/***************************************************
 	 * Constructor
 	 */
-	public SpreadsheetColumnHeaderW(AppW app, MyTableW table) {
+	public SpreadsheetColumnHeaderW(AppW app, SpreadsheetTableW table) {
 		this.app = app;
 		this.table = table;
 
@@ -173,7 +173,7 @@ public class SpreadsheetColumnHeaderW implements SpreadsheetHeader {
 			/*Style s = grid.getCellFormatter().getElement(0, colIndex)
 			        .getStyle();*/
 
-			if (table.getSelectionType() == MyTableInterface.ROW_SELECT) {
+			if (table.getSelectionType() == SpreadsheetTableInterface.ROW_SELECT) {
 				//setBgColorIfNeeded(s, defaultBackground);
 				updateCellSelection(false, colIndex);
 			} else {
@@ -293,8 +293,8 @@ public class SpreadsheetColumnHeaderW implements SpreadsheetHeader {
 
 				// otherwise handle column selection
 				if (table
-						.getSelectionType() != MyTableInterface.COLUMN_SELECT) {
-					table.setSelectionType(MyTableInterface.COLUMN_SELECT);
+						.getSelectionType() != SpreadsheetTableInterface.COLUMN_SELECT) {
+					table.setSelectionType(SpreadsheetTableInterface.COLUMN_SELECT);
 					// ?//if (table.getTableHeader() != null) {
 					// ?// table.getTableHeader().requestFocusInWindow();
 					// ?//}
@@ -432,8 +432,8 @@ public class SpreadsheetColumnHeaderW implements SpreadsheetHeader {
 	public void updateSelection(GPoint p) {
 		// switch to column selection mode and select column
 		if (table
-				.getSelectionType() != MyTableInterface.COLUMN_SELECT) {
-			table.setSelectionType(MyTableInterface.COLUMN_SELECT);
+				.getSelectionType() != SpreadsheetTableInterface.COLUMN_SELECT) {
+			table.setSelectionType(SpreadsheetTableInterface.COLUMN_SELECT);
 		}
 
 		// selectNone();

@@ -30,7 +30,7 @@ public class SpreadsheetHeaderController
 	private final SpreadsheetHeader header;
 	private final LongTouchManager longTouchManager;
 	private final Grid grid;
-	private final MyTableW table;
+	private final SpreadsheetTableW table;
 	protected boolean isMouseDown = false;
 
 	/**
@@ -39,7 +39,7 @@ public class SpreadsheetHeaderController
 	 * @param table spreadsheet table
 	 */
 	public SpreadsheetHeaderController(SpreadsheetHeader header,
-			Grid grid, MyTableW table) {
+			Grid grid, SpreadsheetTableW table) {
 		this.header = header;
 		this.grid = grid;
 		this.table = table;

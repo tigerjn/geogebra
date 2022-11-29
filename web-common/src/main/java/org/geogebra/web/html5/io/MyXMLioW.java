@@ -2,7 +2,7 @@ package org.geogebra.web.html5.io;
 
 import java.io.StringReader;
 
-import org.geogebra.common.io.MyXMLHandler;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.io.MyXMLio;
 import org.geogebra.common.io.QDParser;
 import org.geogebra.common.io.file.Base64ZipFile;
@@ -41,7 +41,7 @@ public class MyXMLioW extends MyXMLio {
 	}
 
 	@Override
-	protected void parseXML(MyXMLHandler xmlHandler, XMLStream stream)
+	protected void parseXML(ConstructionXmlHandler xmlHandler, XMLStream stream)
 			throws Exception {
 		xmlParser.parse(xmlHandler,
 				new StringReader(((XMLStreamStringW) stream).getString()));

@@ -2,7 +2,7 @@ package org.geogebra.common.main;
 
 import java.util.ArrayList;
 
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.util.debug.Log;
 
 /**
@@ -11,7 +11,7 @@ import org.geogebra.common.util.debug.Log;
  */
 public class SpreadsheetTableModelSimple extends SpreadsheetTableModel {
 
-	private MyTableInterface table;
+	private SpreadsheetTableInterface table;
 
 	private ChangeListener listener = null;
 
@@ -75,7 +75,7 @@ public class SpreadsheetTableModelSimple extends SpreadsheetTableModel {
 	 * @param newTable
 	 *            table implementation
 	 */
-	public void attachMyTable(MyTableInterface newTable) {
+	public void attachMyTable(SpreadsheetTableInterface newTable) {
 		this.table = newTable;
 		Object value;
 		if (newTable != null) {

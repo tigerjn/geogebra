@@ -15,7 +15,7 @@ package org.geogebra.common.kernel.algos;
 import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.Function;
@@ -155,8 +155,8 @@ public class AlgoFunctionFreehand extends AlgoElement {
 	/**
 	 * @return points for First[] command
 	 */
-	public ArrayList<MyPoint> getPoints() {
-		ArrayList<MyPoint> ret = new ArrayList<>();
+	public ArrayList<PathPoint> getPoints() {
+		ArrayList<PathPoint> ret = new ArrayList<>();
 		double step, min, max;
 		int n = inputList.size() - 3;
 		if (n >= 1) {
@@ -174,7 +174,7 @@ public class AlgoFunctionFreehand extends AlgoElement {
 
 		for (int i = 2; i < inputList.size(); i++) {
 			double x = min + step * (i - 2);
-			ret.add(new MyPoint(x, g.value(x)));
+			ret.add(new PathPoint(x, g.value(x)));
 		}
 
 		return ret;

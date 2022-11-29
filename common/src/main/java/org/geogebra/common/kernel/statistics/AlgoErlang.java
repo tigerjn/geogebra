@@ -16,7 +16,7 @@ import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoNumberValue;
-import org.geogebra.common.util.MyMath2;
+import org.geogebra.common.util.SpecialFunctionMath;
 
 /**
  * 
@@ -59,11 +59,11 @@ public class AlgoErlang extends AlgoDistribution {
 			if (x < 0) {
 				num.setValue(0);
 			} else if (pdf) {
-				num.setValue(MyMath2.gammaIncomplete(k, l * x)
-						/ MyMath2.factorial(k - 1));
+				num.setValue(SpecialFunctionMath.gammaIncomplete(k, l * x)
+						/ SpecialFunctionMath.factorial(k - 1));
 			} else {
 				num.setValue(Math.pow(l, k) * Math.pow(x, k - 1)
-						* Math.exp(-l * x) / MyMath2.factorial(k - 1));
+						* Math.exp(-l * x) / SpecialFunctionMath.factorial(k - 1));
 			}
 
 			// old hack

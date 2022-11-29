@@ -41,7 +41,7 @@ import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.Inspecting;
 import org.geogebra.common.kernel.arithmetic.ListValue;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.geos.GeoFunction;
 import org.geogebra.common.kernel.interval.function.GeoFunctionConverter;
 import org.geogebra.common.kernel.interval.function.IntervalFunctionSupport;
@@ -349,7 +349,7 @@ public class DrawParametricCurve extends Drawable implements RemoveNeeded {
 
 		nPoints = 0;
 
-		ListValue lvX = (ListValue) ((MyNumberPair) dataExpression.getRight())
+		ListValue lvX = (ListValue) ((NumberPair) dataExpression.getRight())
 				.getX();
 		/*
 		 * ListValue lvY = (ListValue) ((MyNumberPair)

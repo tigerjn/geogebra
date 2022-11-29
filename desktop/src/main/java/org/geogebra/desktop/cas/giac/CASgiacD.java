@@ -45,7 +45,7 @@ public class CASgiacD extends CASgiacJre {
 
 			// When running from local jars we can load the library files from
 			// inside a jar like this
-			MyClassPathLoader loader = new MyClassPathLoader();
+			NativeLibClassPathLoader loader = new NativeLibClassPathLoader();
 			giacLoaded = loader.loadLibrary(file);
 
 			if (!giacLoaded) {

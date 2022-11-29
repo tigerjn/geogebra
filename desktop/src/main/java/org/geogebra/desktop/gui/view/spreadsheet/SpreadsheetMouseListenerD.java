@@ -13,9 +13,9 @@ import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.euclidian.event.AbstractEvent;
 import org.geogebra.common.gui.view.spreadsheet.CellRange;
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
 import org.geogebra.common.gui.view.spreadsheet.RelativeCopy;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoElementSpreadsheet;
@@ -36,16 +36,16 @@ public class SpreadsheetMouseListenerD
 	private AppD app;
 	private SpreadsheetViewD view;
 	private Kernel kernel;
-	private MyTableD table;
+	private SpreadsheetTableD table;
 	private DefaultTableModel model;
-	private MyCellEditorSpreadsheet editor;
+	private SpreadsheetCellEditorD editor;
 
 	private RelativeCopy relativeCopy;
 
 	/*************************************************
 	 * Constructor
 	 */
-	public SpreadsheetMouseListenerD(AppD app, MyTableD table) {
+	public SpreadsheetMouseListenerD(AppD app, SpreadsheetTableD table) {
 
 		this.app = app;
 		this.kernel = app.getKernel();
@@ -223,8 +223,8 @@ public class SpreadsheetMouseListenerD
 			// memory testing
 			// Application.debug("", true, true, 0);
 
-			if (table.getSelectionType() != MyTableInterface.CELL_SELECT) {
-				table.setSelectionType(MyTableInterface.CELL_SELECT);
+			if (table.getSelectionType() != SpreadsheetTableInterface.CELL_SELECT) {
+				table.setSelectionType(SpreadsheetTableInterface.CELL_SELECT);
 			}
 
 			// force column selection
@@ -317,7 +317,7 @@ public class SpreadsheetMouseListenerD
 	public void mouseReleased(MouseEvent e) {
 		boolean rightClick = AppD.isRightClick(e);
 
-		if (table.getTableMode() == MyTable.TABLE_MODE_AUTOFUNCTION) {
+		if (table.getTableMode() == SpreadsheetTable.TABLE_MODE_AUTOFUNCTION) {
 			table.getSpreadsheetModeProcessor().stopAutoFunction();
 			return;
 		}
@@ -439,8 +439,8 @@ public class SpreadsheetMouseListenerD
 					|| p.getX() > table.maxSelectionColumn) {
 				// switch to cell selection mode
 
-				if (table.getSelectionType() != MyTableInterface.CELL_SELECT) {
-					table.setSelectionType(MyTableInterface.CELL_SELECT);
+				if (table.getSelectionType() != SpreadsheetTableInterface.CELL_SELECT) {
+					table.setSelectionType(SpreadsheetTableInterface.CELL_SELECT);
 				}
 
 				// now change the selection
@@ -459,8 +459,8 @@ public class SpreadsheetMouseListenerD
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
-		if (table.getTableMode() == MyTable.TABLE_MODE_AUTOFUNCTION
-				|| table.getTableMode() == MyTable.TABLE_MODE_DROP) {
+		if (table.getTableMode() == SpreadsheetTable.TABLE_MODE_AUTOFUNCTION
+				|| table.getTableMode() == SpreadsheetTable.TABLE_MODE_DROP) {
 			// System.out.println("drop is dragging ");
 			return;
 		}
@@ -653,7 +653,7 @@ public class SpreadsheetMouseListenerD
 		if (maxPoint != null) {
 			int dotX = maxPoint.getX();
 			int dotY = maxPoint.getY();
-			int s = MyTableD.DOT_SIZE + 2;
+			int s = SpreadsheetTableD.DOT_SIZE + 2;
 			Rectangle dotRect = new Rectangle(dotX - s / 2, dotY - s / 2, s, s);
 			boolean overDot = dotRect.contains(e.getPoint());
 

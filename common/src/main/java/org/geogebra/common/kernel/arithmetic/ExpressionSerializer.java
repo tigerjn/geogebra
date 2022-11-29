@@ -970,7 +970,7 @@ public class ExpressionSerializer implements ExpressionNodeConstants {
 			}
 			break;
 		case PLUSMINUS:
-			if (right instanceof MyNumberPair) {
+			if (right instanceof NumberPair) {
 				sb.append(Unicode.PLUSMINUS);
 				tpl.append(sb, leftStr, left, Operation.PLUSMINUS);
 				break;
@@ -1873,22 +1873,22 @@ public class ExpressionSerializer implements ExpressionNodeConstants {
 		case SUM:
 			if (stringType == StringType.LATEX) {
 				sb.append("\\sum_{");
-				sb.append(((MyNumberPair) left).y.toString(tpl));
+				sb.append(((NumberPair) left).y.toString(tpl));
 				sb.append("=");
-				sb.append(((MyNumberPair) right).x.toString(tpl));
+				sb.append(((NumberPair) right).x.toString(tpl));
 				sb.append("}^{");
-				sb.append(((MyNumberPair) right).y.toString(tpl));
+				sb.append(((NumberPair) right).y.toString(tpl));
 				sb.append("}");
-				sb.append(((MyNumberPair) left).x.toString(tpl));
+				sb.append(((NumberPair) left).x.toString(tpl));
 			} else if (stringType == StringType.LIBRE_OFFICE) {
 				sb.append("sum from{");
-				sb.append(((MyNumberPair) left).y.toString(tpl));
+				sb.append(((NumberPair) left).y.toString(tpl));
 				sb.append("=");
-				sb.append(((MyNumberPair) right).x.toString(tpl));
+				sb.append(((NumberPair) right).x.toString(tpl));
 				sb.append("} to{");
-				sb.append(((MyNumberPair) right).y.toString(tpl));
+				sb.append(((NumberPair) right).y.toString(tpl));
 				sb.append("}");
-				sb.append(((MyNumberPair) left).x.toString(tpl));
+				sb.append(((NumberPair) left).x.toString(tpl));
 			} else {
 				if (stringType.isGiac()) {
 					sb.append("sum(");

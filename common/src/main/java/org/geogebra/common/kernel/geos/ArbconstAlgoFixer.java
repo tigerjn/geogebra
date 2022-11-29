@@ -2,9 +2,9 @@ package org.geogebra.common.kernel.geos;
 
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.algos.AlgorithmSet.AlgorithmSetIterator;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant.AlgoDependentArbconst;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.Inspecting;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant.AlgoDependentArbconst;
 
 /**
  * Replaces references to removed algos in arbitrary constant after XML reload

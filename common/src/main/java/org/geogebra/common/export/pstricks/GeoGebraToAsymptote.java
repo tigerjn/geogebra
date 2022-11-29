@@ -25,7 +25,7 @@ import org.geogebra.common.euclidian.draw.DrawPoint;
 import org.geogebra.common.export.UnicodeTeX;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.algos.AlgoAngleLines;
 import org.geogebra.common.kernel.algos.AlgoAnglePoints;
@@ -312,8 +312,8 @@ public abstract class GeoGebraToAsymptote extends GeoGebraExport {
 
 	@Override
 	protected void drawLocus(GeoLocus geo) {
-		ArrayList<MyPoint> ll = geo.getPoints();
-		Iterator<MyPoint> it = ll.iterator();
+		ArrayList<PathPoint> ll = geo.getPoints();
+		Iterator<PathPoint> it = ll.iterator();
 		boolean first = true, first2 = true; // whether to write join operators
 												// afterwards
 
@@ -322,7 +322,7 @@ public abstract class GeoGebraToAsymptote extends GeoGebraExport {
 		}
 		startDraw();
 		while (it.hasNext()) {
-			MyPoint mp = it.next();
+			PathPoint mp = it.next();
 			if (mp.x > xmin && mp.x < xmax && mp.y > ymin && mp.y < ymax) {
 				String x = format(mp.x), y = format(mp.y);
 				if (first && first2) {

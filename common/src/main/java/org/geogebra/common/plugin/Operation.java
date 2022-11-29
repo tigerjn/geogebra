@@ -14,8 +14,8 @@ import org.geogebra.common.kernel.arithmetic.ListValue;
 import org.geogebra.common.kernel.arithmetic.MyBoolean;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
 import org.geogebra.common.kernel.arithmetic.MyVecNode;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.kernel.arithmetic.TextValue;
 import org.geogebra.common.kernel.arithmetic.Traversing;
@@ -455,7 +455,7 @@ public enum Operation {
 					ret.addListElement(ev.getKernel().getAlgebraProcessor()
 							.makeFunctionNVar(part.wrap()));
 				}
-			} else if (rt instanceof MyNumberPair) {
+			} else if (rt instanceof NumberPair) {
 					ret.addListElement(MyList.get(lt, 0));
 					ret.addListElement(ExpressionNode
 							.unaryMinus(ev.getKernel(), MyList.get(lt, 1))
@@ -599,10 +599,10 @@ public enum Operation {
 		public ExpressionValue handle(ExpressionNodeEvaluator ev,
 				ExpressionValue lt, ExpressionValue rt, ExpressionValue left,
 				ExpressionValue right, StringTemplate tpl, boolean holdsLaTeX) {
-			if (lt instanceof NumberValue && rt instanceof MyNumberPair) {
+			if (lt instanceof NumberValue && rt instanceof NumberPair) {
 				double x = lt.evaluateDouble();
-				ListValue keyList = (ListValue) ((MyNumberPair) rt).getX();
-				ListValue valueList = (ListValue) ((MyNumberPair) rt).getY();
+				ListValue keyList = (ListValue) ((NumberPair) rt).getX();
+				ListValue valueList = (ListValue) ((NumberPair) rt).getY();
 				if (keyList.size() < 1) {
 					return new MyDouble(ev.getKernel(), Double.NaN);
 				}
@@ -1730,8 +1730,8 @@ public enum Operation {
 		public ExpressionValue handle(ExpressionNodeEvaluator ev,
 				ExpressionValue lt, ExpressionValue rt, ExpressionValue left,
 				ExpressionValue right, StringTemplate tpl, boolean holdsLaTeX) {
-			if (lt instanceof MyNumberPair) {
-				ExpressionValue cond = ((MyNumberPair) lt).getX().evaluate(tpl);
+			if (lt instanceof NumberPair) {
+				ExpressionValue cond = ((NumberPair) lt).getX().evaluate(tpl);
 				if (cond instanceof BooleanValue) {
 
 					if (!((BooleanValue) cond).isDefined()) {
@@ -1739,7 +1739,7 @@ public enum Operation {
 					}
 
 					if (((BooleanValue) cond).getBoolean()) {
-						return ((MyNumberPair) lt).getY().evaluate(tpl);
+						return ((NumberPair) lt).getY().evaluate(tpl);
 					}
 					return rt;
 				}
@@ -1895,7 +1895,7 @@ public enum Operation {
 		} else {
 			Operation operation = exp.getOperation();
 			if (operation == Operation.PLUSMINUS) {
-				if (exp.getRight() instanceof MyNumberPair) {
+				if (exp.getRight() instanceof NumberPair) {
 					ExpressionValue[] expandLeft = expandPlusMinus(exp.getLeftTree(), kernel);
 					expand[0] = expandLeft[0];
 					expand[1] = ExpressionNode.unaryMinus(kernel, expandLeft[0]);

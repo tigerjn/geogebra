@@ -16,10 +16,10 @@ import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.ListValue;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
 import org.geogebra.common.kernel.arithmetic.MySpecialDouble;
 import org.geogebra.common.kernel.arithmetic.MyVecNDNode;
 import org.geogebra.common.kernel.arithmetic.MyVecNode;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.SymbolicMode;
 import org.geogebra.common.kernel.arithmetic.Traversing;
 import org.geogebra.common.kernel.arithmetic.ValidExpression;
@@ -393,13 +393,13 @@ public class FunctionParser {
 		// for beta regularized
 		case 3:
 			return new ExpressionNode(kernel,
-					new MyNumberPair(kernel, list.getListElement(0), list.getListElement(1)), op,
+					new NumberPair(kernel, list.getListElement(0), list.getListElement(1)), op,
 					list.getListElement(2));
 		// for sum (from CAS)
 		case 4:
 			return new ExpressionNode(kernel,
-					new MyNumberPair(kernel, list.getListElement(0), list.getListElement(1)), op,
-					new MyNumberPair(kernel, list.getListElement(2), list.getListElement(3)));
+					new NumberPair(kernel, list.getListElement(0), list.getListElement(1)), op,
+					new NumberPair(kernel, list.getListElement(2), list.getListElement(3)));
 		default:
 			return null;
 		}
@@ -632,7 +632,7 @@ public class FunctionParser {
 			// +-b * f is parsed as (b +- ()) *f
 		} else if (left instanceof ExpressionNode
 				&& (((ExpressionNode) left).getOperation() == Operation.PLUSMINUS)
-				&& (((ExpressionNode) left).getRight() instanceof MyNumberPair)) {
+				&& (((ExpressionNode) left).getRight() instanceof NumberPair)) {
 			ExpressionValue bf = multiplySpecial(((ExpressionNode) left).getLeft(), right,
 					giacParsing, geogebraCasParsing);
 			return bf == null ? null

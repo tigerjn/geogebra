@@ -37,7 +37,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.JTextComponent;
@@ -89,13 +88,12 @@ import org.geogebra.desktop.export.GraphicExportDialog;
 import org.geogebra.desktop.export.WorksheetExportDialog;
 import org.geogebra.desktop.export.pstricks.GeoGebraToPstricksD;
 import org.geogebra.desktop.export.pstricks.PstricksFrame;
+import org.geogebra.desktop.gui.app.ExtensionFileFilter;
 import org.geogebra.desktop.gui.app.GeoGebraFrame;
-import org.geogebra.desktop.gui.app.MyFileFilter;
 import org.geogebra.desktop.gui.color.GeoGebraColorChooser;
 import org.geogebra.desktop.gui.dialog.DialogManagerD;
 import org.geogebra.desktop.gui.dialog.InputDialogD;
 import org.geogebra.desktop.gui.dialog.InputDialogOpenURL;
-import org.geogebra.desktop.gui.dialog.ToolCreationDialogD;
 import org.geogebra.desktop.gui.inputbar.AlgebraInputD;
 import org.geogebra.desktop.gui.inputbar.InputBarHelpPanelD;
 import org.geogebra.desktop.gui.layout.DockPanelD;
@@ -1387,7 +1385,7 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 					fileChooser.setCurrentDirectory(
 							getApp().getCurrentImagePath());
 
-					MyFileFilter fileFilter = new MyFileFilter();
+					ExtensionFileFilter fileFilter = new ExtensionFileFilter();
 					fileFilter.addExtension(FileExtensions.JPG);
 					fileFilter.addExtension(FileExtensions.JPEG);
 					fileFilter.addExtension(FileExtensions.PNG);
@@ -1490,7 +1488,7 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 			fileChooser.setMode(GeoGebraFileChooser.MODE_DATA);
 			fileChooser.setCurrentDirectory(getApp().getCurrentImagePath());
 
-			MyFileFilter fileFilter = new MyFileFilter();
+			ExtensionFileFilter fileFilter = new ExtensionFileFilter();
 			fileFilter.addExtension(FileExtensions.TXT);
 			fileFilter.addExtension(FileExtensions.CSV);
 			fileFilter.addExtension(FileExtensions.DAT);
@@ -1692,10 +1690,10 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 			fileChooser.setSelectedFile(null);
 		}
 		fileChooser.resetChoosableFileFilters();
-		MyFileFilter fileFilter;
-		MyFileFilter mainFilter = null;
+		ExtensionFileFilter fileFilter;
+		ExtensionFileFilter mainFilter = null;
 		for (int i = 0; i < fileExtensions.length; i++) {
-			fileFilter = new MyFileFilter(fileExtensions[i]);
+			fileFilter = new ExtensionFileFilter(fileExtensions[i]);
 			if (fileDescriptions.length >= i && fileDescriptions[i] != null) {
 				fileFilter.setDescription(fileDescriptions[i]);
 			}
@@ -1713,8 +1711,8 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				file = fileChooser.getSelectedFile();
 
-				if (fileChooser.getFileFilter() instanceof MyFileFilter) {
-					fileFilter = (MyFileFilter) fileChooser.getFileFilter();
+				if (fileChooser.getFileFilter() instanceof ExtensionFileFilter) {
+					fileFilter = (ExtensionFileFilter) fileChooser.getFileFilter();
 					fileExtension = fileFilter.getExtension();
 				} else {
 					fileExtension = fileExtensions[0];
@@ -1942,7 +1940,7 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 			fileChooser.setSelectedFile(oldCurrentFile);
 
 			// GeoGebra File Filter
-			MyFileFilter fileFilter = new MyFileFilter();
+			ExtensionFileFilter fileFilter = new ExtensionFileFilter();
 			fileFilter.addExtension(FileExtensions.GEOGEBRA);
 			fileFilter.addExtension(FileExtensions.GEOGEBRA_TOOL);
 			fileFilter.addExtension(FileExtensions.HTML);
@@ -1952,17 +1950,17 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 			fileChooser.resetChoosableFileFilters();
 			fileChooser.addChoosableFileFilter(fileFilter);
 
-			MyFileFilter insertFilter = new MyFileFilter();
+			ExtensionFileFilter insertFilter = new ExtensionFileFilter();
 			insertFilter.addExtension(FileExtensions.GEOGEBRA);
 			insertFilter.setDescription(loc.getMenu("InsertFile"));
 			fileChooser.addChoosableFileFilter(insertFilter);
 
-			MyFileFilter templateFilter = new MyFileFilter();
+			ExtensionFileFilter templateFilter = new ExtensionFileFilter();
 			templateFilter.addExtension(FileExtensions.GEOGEBRA);
 			templateFilter.setDescription(loc.getMenu("ApplyTemplate"));
 			fileChooser.addChoosableFileFilter(templateFilter);
 
-			MyFileFilter offFilter = new MyFileFilter(FileExtensions.OFF);
+			ExtensionFileFilter offFilter = new ExtensionFileFilter(FileExtensions.OFF);
 			// TODO: Localization
 			offFilter.setDescription("OFF file");
 			fileChooser.addChoosableFileFilter(offFilter);
@@ -1987,7 +1985,7 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 			FileFilter filter = fileChooser.getFileFilter();
 
 			if (filter == fileFilter) {
-				fileFilter = (MyFileFilter) fileChooser.getFileFilter();
+				fileFilter = (ExtensionFileFilter) fileChooser.getFileFilter();
 				doOpenFiles(files, true, fileFilter.getExtension());
 			} else if (filter == templateFilter) {
 				// #4403
@@ -2966,11 +2964,6 @@ public class GuiManagerD extends GuiManager implements GuiManagerInterfaceD {
 					returnVal == 0 ? AlgebraProcessor.CREATE_SLIDER : "0" });
 		}
 		return false;
-	}
-
-	@Override
-	public boolean belongsToToolCreator(ListCellRenderer renderer) {
-		return ToolCreationDialogD.isMyCellRenderer(renderer);
 	}
 
 	@Override

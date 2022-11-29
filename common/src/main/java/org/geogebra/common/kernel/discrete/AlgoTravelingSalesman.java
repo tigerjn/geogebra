@@ -3,7 +3,7 @@ package org.geogebra.common.kernel.discrete;
 import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.discrete.tsp.TSP;
@@ -49,14 +49,14 @@ public class AlgoTravelingSalesman extends AlgoDiscrete {
 		// Opt3 opt3 = new Opt3();
 		// final BranchBound construction = new BranchBound(500, opt3);
 
-		MyPoint[] nodes = new MyPoint[size];
+		PathPoint[] nodes = new PathPoint[size];
 
 		for (int i = 0; i < size; i++) {
 			GeoElement geo = inputList.get(i);
 			if (geo.isDefined() && geo.isGeoPoint()) {
 				GeoPointND p = (GeoPointND) geo;
 				p.getInhomCoords(inhom);
-				nodes[i] = new MyPoint(inhom[0], inhom[1]);
+				nodes[i] = new PathPoint(inhom[0], inhom[1]);
 				// Log.error(i + " " + nodes[i].toString());
 			}
 		}
@@ -78,8 +78,8 @@ public class AlgoTravelingSalesman extends AlgoDiscrete {
 		}
 
 		// // join up
-		MyPoint n = nodes[0];
-		al.add(new MyPoint(n.getX(), n.getY(), SegmentType.LINE_TO));
+		PathPoint n = nodes[0];
+		al.add(new PathPoint(n.getX(), n.getY(), SegmentType.LINE_TO));
 
 		locus.setPoints(al);
 		locus.setDefined(true);

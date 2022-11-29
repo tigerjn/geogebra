@@ -59,7 +59,7 @@ import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.gui.NumberComboBox;
 import org.geogebra.desktop.gui.dialog.AxesStyleListRenderer;
 import org.geogebra.desktop.gui.dialog.DashListRenderer;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.FullWidthLayout;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.gui.view.consprotocol.ConstructionProtocolNavigationD;
@@ -271,31 +271,31 @@ public class OptionsEuclidianD<T extends EuclidianView> extends OptionsEuclidian
 			dimLabel[i] = new JLabel("");
 		}
 
-		tfMinX = new MyTextFieldD(app, 8);
-		tfMaxX = new MyTextFieldD(app, 8);
+		tfMinX = new MathTextFieldBase(app, 8);
+		tfMaxX = new MathTextFieldBase(app, 8);
 		tfMinX.addActionListener(this);
 		tfMaxX.addActionListener(this);
 		tfMinX.addFocusListener(this);
 		tfMaxX.addFocusListener(this);
 
-		tfMinY = new MyTextFieldD(app, 8);
-		tfMaxY = new MyTextFieldD(app, 8);
+		tfMinY = new MathTextFieldBase(app, 8);
+		tfMaxY = new MathTextFieldBase(app, 8);
 		tfMinY.addActionListener(this);
 		tfMaxY.addActionListener(this);
 		tfMinY.addFocusListener(this);
 		tfMaxY.addFocusListener(this);
 
 		if (getDimension() == 3) {
-			tfMinZ = new MyTextFieldD(app, 8);
-			tfMaxZ = new MyTextFieldD(app, 8);
+			tfMinZ = new MathTextFieldBase(app, 8);
+			tfMaxZ = new MathTextFieldBase(app, 8);
 			tfMinZ.addActionListener(this);
 			tfMaxZ.addActionListener(this);
 			tfMinZ.addFocusListener(this);
 			tfMaxZ.addFocusListener(this);
 		}
 
-		tfAxesRatioX = new MyTextFieldD(app, 6);
-		tfAxesRatioY = new MyTextFieldD(app, 6);
+		tfAxesRatioX = new MathTextFieldBase(app, 6);
+		tfAxesRatioY = new MathTextFieldBase(app, 6);
 		tfAxesRatioX.setEnabled(view.isZoomable() && !view.isLockedAxesRatio());
 		tfAxesRatioY.setEnabled(view.isZoomable() && !view.isLockedAxesRatio());
 		tfAxesRatioX.addActionListener(this);

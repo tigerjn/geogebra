@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.geos.GeoLocus;
 import org.geogebra.common.kernel.kernelND.GeoPointND;
@@ -77,12 +77,12 @@ abstract class QuadTree {
 	protected double h;
 	protected double scaleX;
 	protected double scaleY;
-	protected ArrayList<MyPoint> locusPoints;
+	protected ArrayList<PathPoint> locusPoints;
 	private LinkedList<PointList> openList = new LinkedList<>();
-	private MyPoint[] pts = new MyPoint[2];
+	private PathPoint[] pts = new PathPoint[2];
 	private PointList p1;
 	private PointList p2;
-	private MyPoint temp;
+	private PathPoint temp;
 	private ListIterator<PointList> itr1;
 	private ListIterator<PointList> itr2;
 
@@ -127,7 +127,7 @@ abstract class QuadTree {
 		openList.clear();
 	}
 
-	private static boolean equal(MyPoint q1, MyPoint q2) {
+	private static boolean equal(PathPoint q1, PathPoint q2) {
 		return DoubleUtil.isEqual(q1.x, q2.x, 1e-10)
 				&& DoubleUtil.isEqual(q1.y, q2.y, 1e-10);
 	}
@@ -190,39 +190,39 @@ abstract class QuadTree {
 		switch (gridType) {
 		// one or three corners are inside / outside
 		case T0001:
-			pts[0] = new MyPoint(x1,
+			pts[0] = new PathPoint(x1,
 					GeoImplicitCurve.interpolate(bl, tl, y2,
 					y1), SegmentType.MOVE_TO);
-			pts[1] = new MyPoint(GeoImplicitCurve.interpolate(bl, br, x1, x2),
+			pts[1] = new PathPoint(GeoImplicitCurve.interpolate(bl, br, x1, x2),
 					y2, SegmentType.LINE_TO);
 			q1 = minAbs(bl, tl);
 			q2 = minAbs(bl, br);
 			break;
 
 		case T0010:
-			pts[0] = new MyPoint(x2,
+			pts[0] = new PathPoint(x2,
 					GeoImplicitCurve.interpolate(br, tr, y2,
 					y1), SegmentType.MOVE_TO);
-			pts[1] = new MyPoint(GeoImplicitCurve.interpolate(br, bl, x2, x1),
+			pts[1] = new PathPoint(GeoImplicitCurve.interpolate(br, bl, x2, x1),
 					y2, SegmentType.LINE_TO);
 			q1 = minAbs(br, tr);
 			q2 = minAbs(br, bl);
 			break;
 
 		case T0100:
-			pts[0] = new MyPoint(x2, GeoImplicitCurve.interpolate(tr, br, y1,
+			pts[0] = new PathPoint(x2, GeoImplicitCurve.interpolate(tr, br, y1,
 					y2), SegmentType.MOVE_TO);
-			pts[1] = new MyPoint(GeoImplicitCurve.interpolate(tr, tl, x2, x1),
+			pts[1] = new PathPoint(GeoImplicitCurve.interpolate(tr, tl, x2, x1),
 					y1, SegmentType.LINE_TO);
 			q1 = minAbs(tr, br);
 			q2 = minAbs(tr, tl);
 			break;
 
 		case T0111:
-			pts[0] = new MyPoint(x1,
+			pts[0] = new PathPoint(x1,
 					GeoImplicitCurve.interpolate(tl, bl, y1, y2),
 					SegmentType.MOVE_TO);
-			pts[1] = new MyPoint(GeoImplicitCurve.interpolate(tl, tr, x1, x2),
+			pts[1] = new PathPoint(GeoImplicitCurve.interpolate(tl, tr, x1, x2),
 					y1, SegmentType.LINE_TO);
 			q1 = minAbs(bl, tl);
 			q2 = minAbs(tl, tr);
@@ -230,9 +230,9 @@ abstract class QuadTree {
 
 		// two consecutive corners are inside / outside
 		case T0011:
-			pts[0] = new MyPoint(x1, GeoImplicitCurve.interpolate(tl, bl, y1,
+			pts[0] = new PathPoint(x1, GeoImplicitCurve.interpolate(tl, bl, y1,
 					y2), SegmentType.MOVE_TO);
-			pts[1] = new MyPoint(x2,
+			pts[1] = new PathPoint(x2,
 					GeoImplicitCurve.interpolate(tr, br, y1, y2),
 					SegmentType.LINE_TO);
 			q1 = minAbs(tl, bl);
@@ -240,9 +240,9 @@ abstract class QuadTree {
 			break;
 
 		case T0110:
-			pts[0] = new MyPoint(GeoImplicitCurve.interpolate(tl, tr, x1, x2),
+			pts[0] = new PathPoint(GeoImplicitCurve.interpolate(tl, tr, x1, x2),
 					y1, SegmentType.MOVE_TO);
-			pts[1] = new MyPoint(GeoImplicitCurve.interpolate(bl, br, x1, x2),
+			pts[1] = new PathPoint(GeoImplicitCurve.interpolate(bl, br, x1, x2),
 					y2, SegmentType.LINE_TO);
 			q1 = minAbs(tl, tr);
 			q2 = minAbs(bl, br);
@@ -333,11 +333,11 @@ abstract class QuadTree {
 	public abstract void updatePath();
 
 	static class PointList {
-		MyPoint start;
-		MyPoint end;
-		LinkedList<MyPoint> pts = new LinkedList<>();
+		PathPoint start;
+		PathPoint end;
+		LinkedList<PathPoint> pts = new LinkedList<>();
 
-		public PointList(MyPoint start, MyPoint end) {
+		public PointList(PathPoint start, PathPoint end) {
 			this.start = start;
 			this.end = end;
 			this.start.setLineTo(false);
@@ -347,7 +347,7 @@ abstract class QuadTree {
 		public void mergeTo(PointList pl) {
 			this.pts.addLast(this.end);
 			if (pl == this) {
-				MyPoint startCopy = new MyPoint(this.start.x, this.start.y,
+				PathPoint startCopy = new PathPoint(this.start.x, this.start.y,
 						SegmentType.LINE_TO);
 				this.pts.addLast(startCopy);
 				return;
@@ -362,27 +362,27 @@ abstract class QuadTree {
 			}
 
 			if (s1 < s2) {
-				ListIterator<MyPoint> itr = this.pts.listIterator(s1 - 1);
+				ListIterator<PathPoint> itr = this.pts.listIterator(s1 - 1);
 				while (itr.hasPrevious()) {
 					pl.pts.addFirst(itr.previous());
 				}
 				this.pts = pl.pts;
 			} else {
-				ListIterator<MyPoint> itr = pl.pts.listIterator();
+				ListIterator<PathPoint> itr = pl.pts.listIterator();
 				while (itr.hasNext()) {
 					this.pts.addLast(itr.next());
 				}
 			}
 		}
 
-		public void extendBack(MyPoint p) {
+		public void extendBack(PathPoint p) {
 			p.setLineTo(false);
 			this.start.setLineTo(true);
 			this.pts.addFirst(start);
 			this.start = p;
 		}
 
-		public void extendFront(MyPoint p) {
+		public void extendFront(PathPoint p) {
 			p.setLineTo(true);
 			this.pts.addLast(this.end);
 			this.end = p;

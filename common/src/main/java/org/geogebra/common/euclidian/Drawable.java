@@ -42,7 +42,7 @@ import org.geogebra.common.euclidian.draw.DrawDynamicCaption;
 import org.geogebra.common.euclidian.draw.DrawText;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.gui.EdgeInsets;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoText;
 import org.geogebra.common.kernel.geos.properties.FillType;
@@ -971,8 +971,8 @@ public abstract class Drawable extends DrawableND {
 			return Collections.emptyList();
 		}
 		List<GPoint2D> ret = new ArrayList<>(2);
-		ret.add(new MyPoint(bounds.getMinX(), bounds.getMinY()));
-		ret.add(new MyPoint(bounds.getMaxX(), bounds.getMaxY()));
+		ret.add(new PathPoint(bounds.getMinX(), bounds.getMinY()));
+		ret.add(new PathPoint(bounds.getMaxX(), bounds.getMaxY()));
 		return ret;
 	}
 

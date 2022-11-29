@@ -1,6 +1,6 @@
 package org.geogebra.common.kernel.kernelND;
 
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.geos.ChangeableParent;
 import org.geogebra.common.kernel.geos.FromMeta;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -78,7 +78,7 @@ public interface GeoSegmentND extends GeoLineND, LimitedPath, GeoNumberValue,
 	 * @param locusPoint2
 	 *            second point
 	 */
-	public void setCoords(MyPoint locusPoint, MyPoint locusPoint2);
+	public void setCoords(PathPoint locusPoint, PathPoint locusPoint2);
 
 	/**
 	 * 

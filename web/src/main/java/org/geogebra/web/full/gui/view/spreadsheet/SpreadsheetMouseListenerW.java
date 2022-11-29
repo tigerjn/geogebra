@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.gui.view.spreadsheet.CellRange;
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
 import org.geogebra.common.gui.view.spreadsheet.RelativeCopy;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoElementSpreadsheet;
 import org.geogebra.common.main.App;
@@ -57,7 +57,7 @@ public class SpreadsheetMouseListenerW implements MouseDownHandler,
 
 	private final AppW app;
 	private SpreadsheetViewW view;
-	private MyTableW table;
+	private SpreadsheetTableW table;
 	private SpreadsheetTableModel model;
 	private MyCellEditorW editor;
 
@@ -88,7 +88,7 @@ public class SpreadsheetMouseListenerW implements MouseDownHandler,
 	/*************************************************
 	 * Constructor
 	 */
-	public SpreadsheetMouseListenerW(AppW app, MyTableW table) {
+	public SpreadsheetMouseListenerW(AppW app, SpreadsheetTableW table) {
 		this.app = app;
 		this.table = table;
 		view = (SpreadsheetViewW) table.getView();
@@ -253,8 +253,8 @@ public class SpreadsheetMouseListenerW implements MouseDownHandler,
 	}
 
 	private void changeSelection(GPoint point, boolean extend) {
-		if (table.getSelectionType() != MyTableInterface.CELL_SELECT) {
-			table.setSelectionType(MyTableInterface.CELL_SELECT);
+		if (table.getSelectionType() != SpreadsheetTableInterface.CELL_SELECT) {
+			table.setSelectionType(SpreadsheetTableInterface.CELL_SELECT);
 		}
 		table.changeSelection(point, extend);
 	}
@@ -342,7 +342,7 @@ public class SpreadsheetMouseListenerW implements MouseDownHandler,
 		event.preventDefault();
 		GPoint point = getIndexFromEvent(event);
 
-		if (table.getTableMode() == MyTable.TABLE_MODE_AUTOFUNCTION) {
+		if (table.getTableMode() == SpreadsheetTable.TABLE_MODE_AUTOFUNCTION) {
 			table.getSpreadsheetModeProcessor().stopAutoFunction();
 			return;
 		}
@@ -509,8 +509,8 @@ public class SpreadsheetMouseListenerW implements MouseDownHandler,
 		GPoint point = table.getIndexFromPixel(mouseX, mouseY, -1);
 
 		if (pointerIsDown) {
-			if (table.getTableMode() == MyTable.TABLE_MODE_AUTOFUNCTION
-			        || table.getTableMode() == MyTable.TABLE_MODE_DROP) {
+			if (table.getTableMode() == SpreadsheetTable.TABLE_MODE_AUTOFUNCTION
+			        || table.getTableMode() == SpreadsheetTable.TABLE_MODE_DROP) {
 				return;
 			}
 
@@ -639,7 +639,7 @@ public class SpreadsheetMouseListenerW implements MouseDownHandler,
 		if (maxPoint != null) {
 			int dotX = maxPoint.getX();
 			int dotY = maxPoint.getY();
-			int s = MyTableW.DOT_SIZE + 2;
+			int s = SpreadsheetTableW.DOT_SIZE + 2;
 			if (touch) {
 				s += 4;
 			}

@@ -12,10 +12,10 @@ the Free Software Foundation.
 
 package org.geogebra.common.geogebra3D.kernel3D.geos;
 
-import org.geogebra.common.geogebra3D.kernel3D.MyPoint3D;
+import org.geogebra.common.geogebra3D.kernel3D.PathPoint3D;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.arithmetic.ValueType;
 import org.geogebra.common.kernel.geos.GeoLocusND;
@@ -28,7 +28,7 @@ import org.geogebra.common.kernel.matrix.Coords;
  * 
  * @author Markus
  */
-public class GeoLocus3D extends GeoLocusND<MyPoint3D> {
+public class GeoLocus3D extends GeoLocusND<PathPoint3D> {
 	private GeoPointND changingPoint;
 	private Coords changingCoords;
 
@@ -49,7 +49,7 @@ public class GeoLocus3D extends GeoLocusND<MyPoint3D> {
 
 	@Override
 	public void insertPoint(double x, double y, double z, boolean lineTo) {
-		myPointList.add(new MyPoint3D(x, y, z, lineTo ? SegmentType.LINE_TO
+		myPointList.add(new PathPoint3D(x, y, z, lineTo ? SegmentType.LINE_TO
 				: SegmentType.MOVE_TO));
 	}
 
@@ -70,7 +70,7 @@ public class GeoLocus3D extends GeoLocusND<MyPoint3D> {
 		setChangingPoint(P);
 
 		// this updates closestPointParameter and closestPointIndex
-		MyPoint closestPoint = getClosestPoint();
+		PathPoint closestPoint = getClosestPoint();
 
 		PathParameter pp = P.getPathParameter();
 		// Application.debug(pp.t);

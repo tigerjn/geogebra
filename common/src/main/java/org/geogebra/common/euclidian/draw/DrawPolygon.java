@@ -30,7 +30,7 @@ import org.geogebra.common.euclidian.event.PointerEventType;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.ConstructionDefaults;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.geos.GeoLine;
 import org.geogebra.common.kernel.geos.GeoPoint;
 import org.geogebra.common.kernel.geos.GeoPolygon;
@@ -409,7 +409,7 @@ public class DrawPolygon extends Drawable implements Previewable {
 		List<GPoint2D> ret = new ArrayList<>(this.poly.getNumPoints());
 		for (GeoPointND pt : this.poly.getPoints()) {
 			pt.updateCoords2D();
-			MyPoint screenPt = new MyPoint(view.toScreenCoordXd(pt.getX2D()),
+			PathPoint screenPt = new PathPoint(view.toScreenCoordXd(pt.getX2D()),
 					view.toScreenCoordYd(pt.getY2D()));
 			ret.add(screenPt);
 		}

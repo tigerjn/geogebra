@@ -15,8 +15,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -37,8 +35,6 @@ import javax.swing.JToolBar;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.geogebra.common.gui.view.data.DataAnalysisModel;
 import org.geogebra.common.gui.view.data.DataDisplayModel;
@@ -50,7 +46,7 @@ import org.geogebra.common.main.App;
 import org.geogebra.common.util.Validation;
 import org.geogebra.common.util.debug.Log;
 import org.geogebra.desktop.gui.inputfield.AutoCompleteTextFieldD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.GeoGebraIconD;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
@@ -115,8 +111,8 @@ public class DataDisplayPanelD extends JPanel implements ActionListener,
 
 	private JLabel lblTitleX;
 	private JLabel lblTitleY;
-	private MyTextFieldD fldTitleX;
-	private MyTextFieldD fldTitleY;
+	private MathTextFieldBase fldTitleX;
+	private MathTextFieldBase fldTitleY;
 	private FrequencyTablePanel frequencyTable;
 	private JToggleButton btnExport;
 	private JTextField fldNumClasses;
@@ -235,8 +231,8 @@ public class DataDisplayPanelD extends JPanel implements ActionListener,
 		plotPanelSouth.setBackground(bgColor);
 		lblTitleX = new JLabel();
 		lblTitleY = new JLabel();
-		fldTitleX = new MyTextFieldD(app, 20);
-		fldTitleY = new MyTextFieldD(app, 20);
+		fldTitleX = new MathTextFieldBase(app, 20);
+		fldTitleY = new MathTextFieldBase(app, 20);
 		fldTitleX.setEditable(false);
 		fldTitleX.setBorder(BorderFactory.createEmptyBorder());
 		fldTitleY.setEditable(false);

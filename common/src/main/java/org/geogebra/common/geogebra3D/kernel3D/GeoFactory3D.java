@@ -22,7 +22,7 @@ import org.geogebra.common.geogebra3D.kernel3D.geos.GeoVector3D;
 import org.geogebra.common.geogebra3D.kernel3D.implicit3D.GeoImplicitCurve3D;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.GeoFactory;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.FunctionNVar;
 import org.geogebra.common.kernel.geos.GeoConic;
@@ -229,7 +229,7 @@ public class GeoFactory3D extends GeoFactory {
 	}
 
 	@Override
-	public GeoLocusND<? extends MyPoint> newLocus(int dimension, Construction cons) {
+	public GeoLocusND<? extends PathPoint> newLocus(int dimension, Construction cons) {
 		return dimension == 3 ? new GeoLocus3D(cons) : new GeoLocus(cons);
 	}
 }

@@ -6,7 +6,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.geogebra.common.euclidian.EuclidianConstants;
-import org.geogebra.common.euclidian.MyModeChangedListener;
+import org.geogebra.common.euclidian.ModeChangedListener;
 import org.geogebra.common.euclidian.event.PointerEventType;
 import org.geogebra.common.gui.SetLabels;
 import org.geogebra.common.gui.view.table.TableValuesView;
@@ -66,7 +66,7 @@ import elemental2.dom.EventListener;
  * @author Laszlo Gal
  */
 public class ToolbarPanel extends FlowPanel
-		implements MyModeChangedListener, SideBarAccessibilityAdapter {
+		implements ModeChangedListener, SideBarAccessibilityAdapter {
 
 	/** Closed width of header in landscape mode */
 	public static final int CLOSED_WIDTH_LANDSCAPE = 72;

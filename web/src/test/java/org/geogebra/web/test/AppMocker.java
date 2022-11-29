@@ -26,7 +26,7 @@ import com.himamis.retex.renderer.web.FactoryProviderGWT;
 
 public class AppMocker {
 
-	private static class MyLog extends Log {
+	private static class TestLogger extends Log {
 
 		@Override
 		public void print(Level level, Object logEntry) {
@@ -87,7 +87,7 @@ public class AppMocker {
 	}
 
 	private static void setTestLogger() {
-		Log.setLogger(new MyLog());
+		Log.setLogger(new TestLogger());
 	}
 
 	private static void setAppDefaults(App app) {

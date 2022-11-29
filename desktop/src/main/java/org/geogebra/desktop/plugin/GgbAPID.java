@@ -37,7 +37,7 @@ import org.geogebra.desktop.awt.GBufferedImageD;
 import org.geogebra.desktop.euclidianND.EuclidianViewInterfaceD;
 import org.geogebra.desktop.export.GraphicExportDialog;
 import org.geogebra.desktop.gui.util.ImageSelection;
-import org.geogebra.desktop.io.MyImageIO;
+import org.geogebra.desktop.io.ImageFileUtil;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.util.UtilD;
 
@@ -211,7 +211,7 @@ public class GgbAPID extends GgbAPIJre {
 						}
 
 						// write image to file
-						MyImageIO.write(
+						ImageFileUtil.write(
 								GBufferedImageD.getAwtBufferedImage(img),
 								"png", (float) DPI, file);
 
@@ -278,7 +278,7 @@ public class GgbAPID extends GgbAPIJre {
 
 			writer.setOutput(ios);
 
-			MyImageIO.writeImage(writer, img, DPI);
+			ImageFileUtil.writeImage(writer, img, DPI);
 
 			String ret = Base64.encodeToString(baos.toByteArray(), false);
 

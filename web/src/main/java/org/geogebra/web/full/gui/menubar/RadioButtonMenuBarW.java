@@ -1,6 +1,7 @@
 package org.geogebra.web.full.gui.menubar;
 
-import org.geogebra.common.gui.menubar.MyActionListener;
+import java.util.function.Consumer;
+
 import org.geogebra.common.main.Localization;
 import org.geogebra.web.full.gui.components.radiobutton.ComponentRadioButton;
 import org.geogebra.web.full.gui.components.radiobutton.RadioButtonData;
@@ -16,9 +17,9 @@ import com.google.gwt.user.client.Command;
 public class RadioButtonMenuBarW extends AriaMenuBar {
 	private String[] texts;
 	/** item commands */
-	String[] commands;
+	Double[] commands;
 	/** listener */
-	MyActionListener listener;
+	Consumer<Double> listener;
 	private final Localization loc;
 	/** action side effect */
 	Scheduler.ScheduledCommand itemSideEffect = null;
@@ -47,8 +48,8 @@ public class RadioButtonMenuBarW extends AriaMenuBar {
 	 * @param actionCommands commands
 	 * @param selectedPos initial selected position
 	 */
-	public void addRadioButtonMenuItems(MyActionListener al,
-			String[] items, final String[] actionCommands, int selectedPos) {
+	public void addRadioButtonMenuItems(Consumer<Double> al,
+			String[] items, final Double[] actionCommands, int selectedPos) {
 		texts = items;
 		commands = actionCommands;
 		listener = al;
@@ -64,7 +65,7 @@ public class RadioButtonMenuBarW extends AriaMenuBar {
 				final int j = i;
 				addItem(texts[i], () -> {
 					setSelected(j);
-					listener.actionPerformed(commands[j]);
+					listener.accept(commands[j]);
 					if (itemSideEffect != null) {
 						itemSideEffect.execute();
 					}

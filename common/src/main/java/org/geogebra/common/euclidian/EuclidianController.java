@@ -53,8 +53,8 @@ import org.geogebra.common.gui.view.data.PlotPanelEuclidianViewInterface;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.ModeSetter;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.Path;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.Region;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.algos.AlgoCirclePointRadius;
@@ -417,7 +417,7 @@ public abstract class EuclidianController implements SpecialPointsListener {
 	private final List<CoordSystemListener> zoomerListeners = new LinkedList<>();
 	private final HashMap<GeoElement, CoordSystemAnimationListener> zoomerAnimationListeners =
 			new HashMap<>();
-	private MyModeChangedListener modeChangeListener = null;
+	private ModeChangedListener modeChangeListener = null;
 
 	private SelectionToolPressResult lastSelectionPressResult = SelectionToolPressResult.DEFAULT;
 	private GeoElement lastSelectionToolGeoToRemove;
@@ -7721,7 +7721,7 @@ public abstract class EuclidianController implements SpecialPointsListener {
 			ArrayList<GPoint2D> transformedPts = new ArrayList<>();
 			for (GPoint2D pt : pts) {
 				transformedPts.add(
-						new MyPoint(bbMinX + pt.getX() * bbWidth, bbMinY + pt.getY() * bbHeight));
+						new PathPoint(bbMinX + pt.getX() * bbWidth, bbMinY + pt.getY() * bbHeight));
 			}
 			dr.fromPoints(transformedPts);
 
@@ -12116,11 +12116,11 @@ public abstract class EuclidianController implements SpecialPointsListener {
 		}
 	}
 
-	public MyModeChangedListener getModeChangeListener() {
+	public ModeChangedListener getModeChangeListener() {
 		return modeChangeListener;
 	}
 
-	public void setModeChangeListener(MyModeChangedListener modeChangeListener) {
+	public void setModeChangeListener(ModeChangedListener modeChangeListener) {
 		this.modeChangeListener = modeChangeListener;
 	}
 

@@ -25,7 +25,7 @@ import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.euclidian.plot.CurvePlotterUtils;
 import org.geogebra.common.euclidian.plot.GeneralPathClippedForCurvePlotter;
 import org.geogebra.common.factories.AwtFactory;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.geos.GeoLocusND;
 import org.geogebra.common.kernel.geos.GeoLocusStroke;
@@ -42,7 +42,7 @@ import org.geogebra.common.util.debug.Log;
 public class DrawLocus extends Drawable {
 	private static final int BITMAP_PADDING = 20;
 
-	private GeoLocusND<? extends MyPoint> locus;
+	private GeoLocusND<? extends PathPoint> locus;
 
 	private boolean isVisible;
 	private boolean labelVisible;
@@ -63,7 +63,7 @@ public class DrawLocus extends Drawable {
 	 * @param locus locus
 	 * @param transformSys coord system of trnsformed locus
 	 */
-	public DrawLocus(EuclidianView view, GeoLocusND<? extends MyPoint> locus,
+	public DrawLocus(EuclidianView view, GeoLocusND<? extends PathPoint> locus,
 			CoordSys transformSys) {
 		this.view = view;
 		this.locus = locus;
@@ -199,7 +199,7 @@ public class DrawLocus extends Drawable {
 				(int) rectangle.getHeight() + 2 * BITMAP_PADDING);
 	}
 
-	private void buildGeneralPath(ArrayList<? extends MyPoint> pointList) {
+	private void buildGeneralPath(ArrayList<? extends PathPoint> pointList) {
 		if (gp == null) {
 			gp = new GeneralPathClippedForCurvePlotter(view);
 		}
@@ -348,9 +348,9 @@ public class DrawLocus extends Drawable {
 	@Override
 	public ArrayList<GPoint2D> toPoints() {
 		ArrayList<GPoint2D> points = new ArrayList<>();
-		for (MyPoint pt : locus.getPoints()) {
+		for (PathPoint pt : locus.getPoints()) {
 			points.add(
-					new MyPoint(view.toScreenCoordXd(pt.getX()), view.toScreenCoordYd(pt.getY())));
+					new PathPoint(view.toScreenCoordXd(pt.getX()), view.toScreenCoordYd(pt.getY())));
 		}
 		return points;
 	}
@@ -358,7 +358,7 @@ public class DrawLocus extends Drawable {
 	@Override
 	public void fromPoints(ArrayList<GPoint2D> points) {
 		int i = 0;
-		for (MyPoint pt : locus.getPoints()) {
+		for (PathPoint pt : locus.getPoints()) {
 			pt.setLocation(view.toRealWorldCoordX(points.get(i).getX()),
 					view.toRealWorldCoordY(points.get(i).getY()));
 			i++;

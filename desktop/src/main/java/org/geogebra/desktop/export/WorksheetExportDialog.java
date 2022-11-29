@@ -13,7 +13,6 @@ package org.geogebra.desktop.export;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -30,7 +29,7 @@ import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.desktop.gui.TitlePanel;
 import org.geogebra.desktop.gui.dialog.Dialog;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.HelpAction;
 import org.geogebra.desktop.gui.view.algebra.InputPanelD;
 import org.geogebra.desktop.main.AppD;
@@ -63,7 +62,7 @@ public class WorksheetExportDialog extends Dialog {
 	JButton uploadButton;
 
 	boolean kernelChanged = false;
-	MyTextFieldD titleField;
+	MathTextFieldBase titleField;
 
 	private LocalizationD loc;
 
@@ -158,7 +157,7 @@ public class WorksheetExportDialog extends Dialog {
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		// title textfield
-		titleField = new MyTextFieldD(app);
+		titleField = new MathTextFieldBase(app);
 
 		titleField.addActionListener(e -> {
 			Construction cons = kernel.getConstruction();

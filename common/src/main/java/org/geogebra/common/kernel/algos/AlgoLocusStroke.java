@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.factories.FormatFactory;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoBoolean;
@@ -43,7 +43,7 @@ public class AlgoLocusStroke extends AlgoElement {
 	 * @param points
 	 *            vertices of the polygon
 	 */
-	public AlgoLocusStroke(Construction cons, ArrayList<MyPoint> points) {
+	public AlgoLocusStroke(Construction cons, ArrayList<PathPoint> points) {
 		super(cons);
 		poly = new GeoLocusStroke(this.cons);
 		poly.appendPointArray(points);
@@ -129,10 +129,10 @@ public class AlgoLocusStroke extends AlgoElement {
 	private void appendPoints(final StringBuilder sb) {
 		final ScientificFormatAdapter formatter = FormatFactory.getPrototype()
 				.getFastScientificFormat(5);
-		poly.processPointsWithoutControl(new AsyncOperation<MyPoint>() {
+		poly.processPointsWithoutControl(new AsyncOperation<PathPoint>() {
 
 				@Override
-				public void callback(MyPoint m) {
+				public void callback(PathPoint m) {
 					sb.append("(");
 					sb.append(formatter.format(m.getX()));
 					sb.append(",");

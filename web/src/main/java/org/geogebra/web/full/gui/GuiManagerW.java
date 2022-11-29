@@ -103,8 +103,8 @@ import org.geogebra.web.full.gui.view.consprotocol.ConstructionProtocolNavigatio
 import org.geogebra.web.full.gui.view.data.DataAnalysisViewW;
 import org.geogebra.web.full.gui.view.probcalculator.ProbabilityCalculatorViewW;
 import org.geogebra.web.full.gui.view.probcalculator.TabbedProbCalcView;
-import org.geogebra.web.full.gui.view.spreadsheet.MyTableW;
 import org.geogebra.web.full.gui.view.spreadsheet.SpreadsheetContextMenuW;
+import org.geogebra.web.full.gui.view.spreadsheet.SpreadsheetTableW;
 import org.geogebra.web.full.gui.view.spreadsheet.SpreadsheetViewW;
 import org.geogebra.web.full.html5.AttachedToDOM;
 import org.geogebra.web.full.main.AppWFull;
@@ -272,7 +272,7 @@ public class GuiManagerW extends GuiManager
 	 *            spreadsheet table
 	 * @return spreadsheet context menu
 	 */
-	public SpreadsheetContextMenuW getSpreadsheetContextMenu(final MyTableW mt) {
+	public SpreadsheetContextMenuW getSpreadsheetContextMenu(final SpreadsheetTableW mt) {
 		removePopup();
 		final SpreadsheetContextMenuW contextMenu = new SpreadsheetContextMenuW(
 				mt);

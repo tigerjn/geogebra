@@ -8,7 +8,7 @@ import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.ListValue;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.variable.Variable;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoFunction;
@@ -74,7 +74,7 @@ public class CmdDataFunction extends CommandProcessor {
 			arg = arg0;
 		}
 		return new ExpressionNode(kernelA, arg, Operation.DATA,
-				new MyNumberPair(kernelA, xlist, ylist));
+				new NumberPair(kernelA, xlist, ylist));
 
 	}
 

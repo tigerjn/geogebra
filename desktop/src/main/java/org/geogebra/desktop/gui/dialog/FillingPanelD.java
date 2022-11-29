@@ -55,7 +55,7 @@ import org.geogebra.desktop.gui.util.GeoGebraIconD;
 import org.geogebra.desktop.gui.util.PopupMenuButtonD;
 import org.geogebra.desktop.gui.util.SelectionTableD;
 import org.geogebra.desktop.gui.util.SliderUtil;
-import org.geogebra.desktop.gui.view.spreadsheet.MyTableD;
+import org.geogebra.desktop.gui.view.spreadsheet.SpreadsheetTableD;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.util.GuiResourcesD;
 import org.geogebra.desktop.util.ImageResourceD;
@@ -719,7 +719,7 @@ class FillingPanelD extends JPanel
 			this.setGridColor(GColorD
 					.getAwtColor(GeoGebraColorConstants.TABLE_GRID_COLOR));
 			this.setBorder(
-					BorderFactory.createLineBorder(MyTableD.TABLE_GRID_COLOR));
+					BorderFactory.createLineBorder(SpreadsheetTableD.TABLE_GRID_COLOR));
 			this.setShowSelection(false);
 		}
 

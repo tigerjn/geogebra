@@ -23,10 +23,10 @@ import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.PathMover;
 import org.geogebra.common.kernel.PathMoverGeneric;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.Region;
 import org.geogebra.common.kernel.RegionParameters;
 import org.geogebra.common.kernel.StringTemplate;
@@ -36,6 +36,7 @@ import org.geogebra.common.kernel.algos.AlgoDistancePointObject;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.algos.AlgoFunctionFreehand;
 import org.geogebra.common.kernel.algos.AlgoMacroInterface;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.Evaluate2Var;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionNodeConstants.StringType;
@@ -46,7 +47,6 @@ import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.Functional;
 import org.geogebra.common.kernel.arithmetic.FunctionalNVar;
 import org.geogebra.common.kernel.arithmetic.IneqTree;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
@@ -548,7 +548,7 @@ public class GeoFunction extends GeoElement implements VarString, Translateable,
 	 */
 	@Override
 	public void setUsingCasCommand(String ggbCasCmd, CasEvaluableFunction f,
-			boolean symbolic, MyArbitraryConstant arbconst) {
+			boolean symbolic, ArbitraryConstant arbconst) {
 		GeoFunction ff = (GeoFunction) f;
 
 		if (ff.isDefined()) {
@@ -2931,7 +2931,7 @@ public class GeoFunction extends GeoElement implements VarString, Translateable,
 	 * from GeoLocusable interface
 	 */
 	@Override
-	public ArrayList<MyPoint> getPoints() {
+	public ArrayList<PathPoint> getPoints() {
 		return ((AlgoFunctionFreehand) getParentAlgorithm()).getPoints();
 	}
 

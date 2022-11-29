@@ -26,7 +26,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.geogebra.common.awt.GPoint;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.main.App;
 import org.geogebra.desktop.gui.layout.LayoutD;
 import org.geogebra.desktop.main.AppD;
@@ -37,8 +37,8 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 	private static final long serialVersionUID = 1L;
 	private AppD app;
 	private SpreadsheetViewD view;
-	private MyTableD table;
-	private MyListModel listModel;
+	private SpreadsheetTableD table;
+	private RowHeaderListModel listModel;
 
 	// note: MyTable uses its own minSelectionRow and maxSelectionRow.
 	// The selection listener keeps them in sync.
@@ -58,13 +58,13 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 	/***************************************************
 	 * Constructor
 	 */
-	public SpreadsheetRowHeaderD(AppD app, MyTableD table) {
+	public SpreadsheetRowHeaderD(AppD app, SpreadsheetTableD table) {
 
 		this.app = app;
 		this.table = table;
 		this.view = table.getView();
 
-		listModel = new MyListModel((DefaultTableModel) table.getModel());
+		listModel = new RowHeaderListModel((DefaultTableModel) table.getModel());
 		this.setModel(listModel);
 
 		setFocusable(true);
@@ -80,12 +80,12 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 
 	}
 
-	public static class MyListModel extends AbstractListModel {
+	public static class RowHeaderListModel extends AbstractListModel {
 
 		private static final long serialVersionUID = 1L;
 		protected DefaultTableModel model;
 
-		public MyListModel(DefaultTableModel model) {
+		public RowHeaderListModel(DefaultTableModel model) {
 			this.model = model;
 		}
 
@@ -124,10 +124,10 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 		protected RowHeaderRenderer(JTable table, JList rowHeader) {
 			super("", SwingConstants.CENTER);
 			setOpaque(true);
-			defaultBackground = MyTableD.BACKGROUND_COLOR_HEADER;
+			defaultBackground = SpreadsheetTableD.BACKGROUND_COLOR_HEADER;
 			this.rowHeader = rowHeader;
 			setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1,
-					MyTableD.HEADER_GRID_COLOR));
+					SpreadsheetTableD.HEADER_GRID_COLOR));
 		}
 
 		@Override
@@ -143,13 +143,13 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 
 			setText((value == null) ? "" : value.toString());
 
-			if (table.getSelectionType() == MyTableInterface.COLUMN_SELECT) {
+			if (table.getSelectionType() == SpreadsheetTableInterface.COLUMN_SELECT) {
 				setBackground(defaultBackground);
 			} else {
 				if (table.selectedRowSet.contains(index)
 						|| (index >= minSelectionRow
 								&& index <= maxSelectionRow)) {
-					setBackground(MyTableD.SELECTED_BACKGROUND_COLOR_HEADER);
+					setBackground(SpreadsheetTableD.SELECTED_BACKGROUND_COLOR_HEADER);
 				} else {
 					setBackground(defaultBackground);
 				}
@@ -257,8 +257,8 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 			GPoint point = table.getIndexFromPixel(x, y);
 			if (point != null) {
 				// G.STURR 2010-1-29
-				if (table.getSelectionType() != MyTableInterface.ROW_SELECT) {
-					table.setSelectionType(MyTableInterface.ROW_SELECT);
+				if (table.getSelectionType() != SpreadsheetTableInterface.ROW_SELECT) {
+					table.setSelectionType(SpreadsheetTableInterface.ROW_SELECT);
 					requestFocusInWindow();
 				}
 
@@ -302,8 +302,8 @@ public class SpreadsheetRowHeaderD extends JList implements MouseListener,
 					|| p.getX() > table.maxSelectionColumn) {
 
 				// switch to row selection mode and select row
-				if (table.getSelectionType() != MyTableInterface.ROW_SELECT) {
-					table.setSelectionType(MyTableInterface.ROW_SELECT);
+				if (table.getSelectionType() != SpreadsheetTableInterface.ROW_SELECT) {
+					table.setSelectionType(SpreadsheetTableInterface.ROW_SELECT);
 				}
 
 				table.setRowSelectionInterval(p.getY(), p.getY());

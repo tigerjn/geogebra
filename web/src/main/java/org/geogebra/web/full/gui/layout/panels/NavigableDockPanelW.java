@@ -95,7 +95,7 @@ public abstract class NavigableDockPanelW extends DockPanelW {
 	}
 
 	@Override
-	protected void addZoomPanel(MyDockLayoutPanel dockLayoutPanel,
+	protected void addZoomPanel(MainContentDockLayoutPanel dockLayoutPanel,
 			InsertPanel controls) {
 		if (zoomPanel != null) {
 			// This causes EV overlap toolbar

@@ -336,7 +336,7 @@ public class MyVecNode extends ValidExpression
 	@Override
 	public ExpressionValue evaluate(StringTemplate tpl) {
 		// MyNumberPair used for datafunction -- don't simplify
-		if (!(this instanceof MyNumberPair)
+		if (!(this instanceof NumberPair)
 				&& (x.evaluatesToList() || y.evaluatesToList())) {
 			MyList result = new MyList(kernel);
 			ExpressionValue xEval = x.evaluate(tpl);

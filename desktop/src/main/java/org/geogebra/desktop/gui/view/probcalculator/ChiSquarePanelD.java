@@ -26,7 +26,7 @@ import org.geogebra.common.gui.view.probcalculator.StatisticsCollection;
 import org.geogebra.common.main.GeoGebraColorConstants;
 import org.geogebra.common.main.Localization;
 import org.geogebra.desktop.awt.GColorD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.main.AppD;
 
@@ -268,7 +268,7 @@ public class ChiSquarePanelD extends ChiSquarePanel
 
 		private final JPanel wrappedCellPanel;
 
-		private final MyTextFieldD fldInput;
+		private final MathTextFieldBase fldInput;
 		private final JLabel[] label;
 
 		/**
@@ -295,7 +295,7 @@ public class ChiSquarePanelD extends ChiSquarePanel
 			wrappedCellPanel.setLayout(
 					new BoxLayout(this.wrappedCellPanel, BoxLayout.Y_AXIS));
 
-			fldInput = new MyTextFieldD((AppD) statCalc.getApp());
+			fldInput = new MathTextFieldBase((AppD) statCalc.getApp());
 			fldInput.addActionListener(this);
 			fldInput.addFocusListener(this);
 			wrappedCellPanel.add(LayoutUtil.flowPanelCenter(0, 0, 0, fldInput));
@@ -341,7 +341,7 @@ public class ChiSquarePanelD extends ChiSquarePanel
 		/**
 		 * @return input field
 		 */
-		public MyTextFieldD getInputField() {
+		public MathTextFieldBase getInputField() {
 			return fldInput;
 		}
 
@@ -394,8 +394,8 @@ public class ChiSquarePanelD extends ChiSquarePanel
 
 		@Override
 		public void focusGained(FocusEvent e) {
-			if (e.getSource() instanceof MyTextFieldD) {
-				((MyTextFieldD) e.getSource()).selectAll();
+			if (e.getSource() instanceof MathTextFieldBase) {
+				((MathTextFieldBase) e.getSource()).selectAll();
 			}
 		}
 

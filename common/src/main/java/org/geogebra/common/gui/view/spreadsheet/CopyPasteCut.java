@@ -25,7 +25,7 @@ public abstract class CopyPasteCut {
 	private SpreadsheetTableModel tableModel;
 
 	private SpreadsheetViewInterface view;
-	private MyTableInterface table;
+	private SpreadsheetTableInterface table;
 
 	/**
 	 * Stores copied cell geo values as a tab-delimited string.
@@ -73,7 +73,7 @@ public abstract class CopyPasteCut {
 		return view;
 	}
 
-	protected MyTableInterface getTable() {
+	protected SpreadsheetTableInterface getTable() {
 		if (table == null) {
 			table = getView().getSpreadsheetTable();
 		}
@@ -583,7 +583,7 @@ public abstract class CopyPasteCut {
 
 		// Let the trace manager know about the delete
 		// TODO add SelectAll
-		if (selectionType == MyTableInterface.COLUMN_SELECT) {
+		if (selectionType == SpreadsheetTableInterface.COLUMN_SELECT) {
 			app.getTraceManager().handleColumnDelete(column1, column2);
 		} else {
 			app.getTraceManager().handleColumnDelete(column1, row1, column2,

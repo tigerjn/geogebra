@@ -18,16 +18,16 @@ public class GeoGebraToPgfW extends GeoGebraToPgf {
 	protected GGraphics2DW createGraphics(FunctionalNVar ef,
 			Inequality inequality) {
 		try {
-			return new MyGraphicsPgfW(ef, inequality);
+			return new InequalityPlotGraphicsPgfW(ef, inequality);
 		} catch (Exception ex) {
 			Log.debug(ex);
 			return null;
 		}
 	}
 
-	class MyGraphicsPgfW extends MyGraphicsW {
+	class InequalityPlotGraphicsPgfW extends InequalityPlotGraphicsW {
 
-		public MyGraphicsPgfW(FunctionalNVar geo, Inequality ineq) {
+		public InequalityPlotGraphicsPgfW(FunctionalNVar geo, Inequality ineq) {
 
 			super(geo, ineq);
 		}

@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 import org.geogebra.common.awt.GPoint2D;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.discrete.delaunay.DelaunayTriangulation;
@@ -114,7 +114,7 @@ public class AlgoVoronoi extends AlgoDiscrete {
 		}
 
 		// add to TreeSet to remove duplicates (from touching triangles)
-		TreeSet<MyLine> tree = new TreeSet<>(
+		TreeSet<DiagramLine> tree = new TreeSet<>(
 				AlgoDelauneyTriangulation.getComparator());
 
 		while (it.hasNext()) {
@@ -131,7 +131,7 @@ public class AlgoVoronoi extends AlgoDiscrete {
 
 					if (voronoiCell != null) {
 						for (int i = 0; i < voronoiCell.length - 1; i++) {
-							tree.add(new MyLine(
+							tree.add(new DiagramLine(
 									new GPoint2D(voronoiCell[i].x(),
 											voronoiCell[i].y()),
 									new GPoint2D(
@@ -148,13 +148,13 @@ public class AlgoVoronoi extends AlgoDiscrete {
 
 		}
 
-		Iterator<MyLine> it2 = tree.iterator();
+		Iterator<DiagramLine> it2 = tree.iterator();
 
 		while (it2.hasNext()) {
-			MyLine line = it2.next();
-			al.add(new MyPoint(line.p1.getX(), line.p1.getY(),
+			DiagramLine line = it2.next();
+			al.add(new PathPoint(line.p1.getX(), line.p1.getY(),
 					SegmentType.MOVE_TO));
-			al.add(new MyPoint(line.p2.getX(), line.p2.getY(),
+			al.add(new PathPoint(line.p2.getX(), line.p2.getY(),
 					SegmentType.LINE_TO));
 		}
 

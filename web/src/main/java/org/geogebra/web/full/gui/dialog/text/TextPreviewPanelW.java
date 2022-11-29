@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TextPreviewPanelW extends TextPreviewer {
 
-	private MyEuclidianViewPanelForTextPreviewPanelW evPanel;
+	private EuclidianViewPanelForTextPreviewPanelW evPanel;
 
 	/**
 	 * @param kernel
@@ -105,15 +105,15 @@ public class TextPreviewPanelW extends TextPreviewer {
 	@Override
 	protected EuclidianViewW getEuclidianView() {
 		if (ev == null) {
-			ev = new MyEuclidianView(getEVPanel(), new EuclidianControllerW(
+			ev = new TextPreviewEuclidianView(getEVPanel(), new EuclidianControllerW(
 					kernel), EuclidianView.EVNO_GENERAL, null);
 		}
 		return (EuclidianViewW) ev;
 	}
 
-	private MyEuclidianViewPanelForTextPreviewPanelW getEVPanel() {
+	private EuclidianViewPanelForTextPreviewPanelW getEVPanel() {
 		if (evPanel == null) {
-			evPanel = new MyEuclidianViewPanelForTextPreviewPanelW();
+			evPanel = new EuclidianViewPanelForTextPreviewPanelW();
 		}
 		return evPanel;
 	}
@@ -129,9 +129,9 @@ public class TextPreviewPanelW extends TextPreviewer {
 	 * Extension of EuclidianViewD for displaying preview text strings
 	 * 
 	 */
-	private static class MyEuclidianView extends EuclidianViewW {
+	private static class TextPreviewEuclidianView extends EuclidianViewW {
 
-		public MyEuclidianView(MyEuclidianViewPanelForTextPreviewPanelW panel,
+		public TextPreviewEuclidianView(EuclidianViewPanelForTextPreviewPanelW panel,
 				EuclidianController ec, 
 		        int evno, EuclidianSettings settings) {
 			super(panel, ec, evno, settings);
@@ -166,12 +166,12 @@ public class TextPreviewPanelW extends TextPreviewer {
 	 * Panel for EuclidianView
 	 * 
 	 */
-	private class MyEuclidianViewPanelForTextPreviewPanelW extends AbsolutePanel implements
+	private class EuclidianViewPanelForTextPreviewPanelW extends AbsolutePanel implements
 	        EuclidianPanelWAbstract {
 
 		private Canvas canvas;
 
-		public MyEuclidianViewPanelForTextPreviewPanelW() {
+		public EuclidianViewPanelForTextPreviewPanelW() {
 			super();
 			canvas = Canvas.createIfSupported();
 			canvas.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);

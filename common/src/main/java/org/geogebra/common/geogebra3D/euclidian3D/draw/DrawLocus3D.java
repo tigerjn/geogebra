@@ -5,7 +5,7 @@ import org.geogebra.common.geogebra3D.euclidian3D.EuclidianView3D;
 import org.geogebra.common.geogebra3D.euclidian3D.openGL.PlotterBrush;
 import org.geogebra.common.geogebra3D.euclidian3D.openGL.Renderer;
 import org.geogebra.common.geogebra3D.euclidian3D.printer3D.ExportToPrinter3D;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoLocusND;
 import org.geogebra.common.kernel.matrix.CoordSys;
@@ -18,7 +18,7 @@ import org.geogebra.common.kernel.matrix.CoordSys;
  */
 public class DrawLocus3D extends Drawable3DCurves {
 
-	private GeoLocusND<? extends MyPoint> locus;
+	private GeoLocusND<? extends PathPoint> locus;
 	private CoordSys transformCoordSys;
 
 	/**
@@ -31,7 +31,7 @@ public class DrawLocus3D extends Drawable3DCurves {
 	 * @param transformSys
 	 *            transformation coord sys for implicit curves
 	 */
-	public DrawLocus3D(EuclidianView3D a_view3d, GeoLocusND<? extends MyPoint> locus,
+	public DrawLocus3D(EuclidianView3D a_view3d, GeoLocusND<? extends PathPoint> locus,
 			GeoElement geo, CoordSys transformSys) {
 		super(a_view3d, geo);
 		this.locus = locus;
@@ -70,7 +70,7 @@ public class DrawLocus3D extends Drawable3DCurves {
 		return true;
 	}
 
-	protected GeoLocusND<? extends MyPoint> getLocus() {
+	protected GeoLocusND<? extends PathPoint> getLocus() {
 		return locus;
 	}
 

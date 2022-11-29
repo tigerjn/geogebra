@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Rectangle;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -19,7 +18,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
@@ -34,7 +32,7 @@ import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoText;
 import org.geogebra.common.util.StringUtil;
 import org.geogebra.desktop.gui.dialog.TextInputDialogD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 
 import com.himamis.retex.editor.share.util.Unicode;
@@ -369,38 +367,6 @@ public class DynamicTextInputPane extends JTextPane implements FocusListener {
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	/**
-	 * Custom caret with damage area set to a thin width. This allows the caret
-	 * to appear next to a DynamicTextField without destroying the field's
-	 * border.
-	 */
-	static class MyCaret extends DefaultCaret {
-
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * 
-		 */
-		public MyCaret() {
-			super();
-			this.setBlinkRate(500);
-		}
-
-		@Override
-		protected synchronized void damage(Rectangle r) {
-			if (r == null) {
-				return;
-			}
-			x = r.x;
-			y = r.y;
-			width = 4;
-			height = r.height;
-			repaint();
-
-		}
 	}
 
 	/*********************************************************************
@@ -408,7 +374,7 @@ public class DynamicTextInputPane extends JTextPane implements FocusListener {
 	 * 
 	 */
 	@SuppressWarnings("javadoc")
-	public class DynamicTextField extends MyTextFieldD {
+	public class DynamicTextField extends MathTextFieldBase {
 
 		private static final long serialVersionUID = 1L;
 

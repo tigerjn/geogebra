@@ -14,8 +14,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import org.geogebra.common.gui.view.spreadsheet.MyTable;
 import org.geogebra.common.gui.view.spreadsheet.SpreadsheetContextMenu;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTable;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.util.GuiResourcesD;
 import org.geogebra.desktop.util.ImageResourceD;
@@ -41,7 +41,7 @@ public class SpreadsheetContextMenuD extends SpreadsheetContextMenu<JMenu> {
 	 * @param table
 	 *            spreadsheet table
 	 */
-	public SpreadsheetContextMenuD(MyTable table) {
+	public SpreadsheetContextMenuD(SpreadsheetTable table) {
 		super(table);
 	}
 

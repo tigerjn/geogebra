@@ -13,6 +13,7 @@ import org.geogebra.common.kernel.EuclidianViewCE;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.VarString;
 import org.geogebra.common.kernel.algos.AlgoElement;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.AssignmentType;
 import org.geogebra.common.kernel.arithmetic.Command;
 import org.geogebra.common.kernel.arithmetic.Equation;
@@ -27,7 +28,6 @@ import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.Functional;
 import org.geogebra.common.kernel.arithmetic.Inspecting;
 import org.geogebra.common.kernel.arithmetic.ListValue;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
 import org.geogebra.common.kernel.arithmetic.MyVecNDNode;
@@ -64,7 +64,7 @@ public class GeoSymbolic extends GeoElement
 	private int pointStyle;
 	private int pointSize;
 	private boolean symbolicMode;
-	private MyArbitraryConstant constant;
+	private ArbitraryConstant constant;
 	private boolean wrapInNumeric = false;
 
 	@Nullable
@@ -239,7 +239,7 @@ public class GeoSymbolic extends GeoElement
 	}
 
 	private String calculateCasResult(Command casInput) {
-		MyArbitraryConstant constant = getArbitraryConstant();
+		ArbitraryConstant constant = getArbitraryConstant();
 		constant.setSymbolic(!shouldBeEuclidianVisible(casInput));
 
 		if (isUndefined(casInput)) {
@@ -342,7 +342,7 @@ public class GeoSymbolic extends GeoElement
 		return casInput;
 	}
 
-	private String evaluateGeoGebraCAS(Command command, MyArbitraryConstant constant) {
+	private String evaluateGeoGebraCAS(Command command, ArbitraryConstant constant) {
 		return kernel.getGeoGebraCAS().evaluateGeoGebraCAS(
 				command.wrap(), constant, getStringTemplate(command), null, kernel);
 	}
@@ -1024,15 +1024,15 @@ public class GeoSymbolic extends GeoElement
 	}
 
 	@Override
-	public MyArbitraryConstant getArbitraryConstant() {
+	public ArbitraryConstant getArbitraryConstant() {
 		if (constant == null) {
-			constant = new MyArbitraryConstant(this);
+			constant = new ArbitraryConstant(this);
 		}
 		return constant;
 	}
 
 	@Override
-	public void setArbitraryConstant(MyArbitraryConstant constant) {
+	public void setArbitraryConstant(ArbitraryConstant constant) {
 		this.constant = constant;
 	}
 

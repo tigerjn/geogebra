@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 import org.geogebra.common.BaseUnitTest;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.matrix.Coords;
 import org.geogebra.test.UndoRedoTester;
@@ -38,12 +38,12 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 		double arg3 = atan(0.5) + PI / 3;
 		double arg4 = PI / 2 + PI / 3;
 
-		MyPoint[] rotatedPoints = new MyPoint[] {
-				new MyPoint(r2 * cos(arg1), r2 * sin(arg1)),
-				new MyPoint(r2 * cos(arg2), r2 * sin(arg2)),
-				new MyPoint(r5 * cos(arg3), r5 * sin(arg3)),
-				new MyPoint(cos(arg4), sin(arg4)),
-				new MyPoint(0, 0)
+		PathPoint[] rotatedPoints = new PathPoint[] {
+				new PathPoint(r2 * cos(arg1), r2 * sin(arg1)),
+				new PathPoint(r2 * cos(arg2), r2 * sin(arg2)),
+				new PathPoint(r5 * cos(arg3), r5 * sin(arg3)),
+				new PathPoint(cos(arg4), sin(arg4)),
+				new PathPoint(0, 0)
 		};
 
 		assertPointsEqual(rotatedPoints, stroke.getPoints());
@@ -62,12 +62,12 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 		double arg4 = PI + PI / 6;
 		double arg5 = -3 * PI / 4 + PI / 6;
 
-		MyPoint[] rotatedPoints = new MyPoint[] {
-				new MyPoint(r8 * cos(arg1) + 1, r8 * sin(arg1) + 1),
-				new MyPoint(2 * cos(arg2) + 1, 2 * sin(arg2) + 1),
-				new MyPoint(cos(arg3) + 1, sin(arg3) + 1),
-				new MyPoint(cos(arg4) + 1, sin(arg4) + 1),
-				new MyPoint(r2 * cos(arg5) + 1, r2 * sin(arg5) + 1)
+		PathPoint[] rotatedPoints = new PathPoint[] {
+				new PathPoint(r8 * cos(arg1) + 1, r8 * sin(arg1) + 1),
+				new PathPoint(2 * cos(arg2) + 1, 2 * sin(arg2) + 1),
+				new PathPoint(cos(arg3) + 1, sin(arg3) + 1),
+				new PathPoint(cos(arg4) + 1, sin(arg4) + 1),
+				new PathPoint(r2 * cos(arg5) + 1, r2 * sin(arg5) + 1)
 		};
 
 		assertPointsEqual(rotatedPoints, stroke.getPoints());
@@ -79,12 +79,12 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 
 		stroke.mirror(new Coords(3, 2));
 
-		MyPoint[] mirroredPoints = new MyPoint[] {
-				new MyPoint(7, 5),
-				new MyPoint(5, 5),
-				new MyPoint(4, 3),
-				new MyPoint(6, 3),
-				new MyPoint(6, 4)
+		PathPoint[] mirroredPoints = new PathPoint[] {
+				new PathPoint(7, 5),
+				new PathPoint(5, 5),
+				new PathPoint(4, 3),
+				new PathPoint(6, 3),
+				new PathPoint(6, 4)
 		};
 
 		assertPointsEqual(mirroredPoints, stroke.getPoints());
@@ -102,12 +102,12 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 
 		stroke.mirror(line);
 
-		MyPoint[] mirroredPoints = new MyPoint[] {
-				new MyPoint(1, -3),
-				new MyPoint(1, -1),
-				new MyPoint(3, 0),
-				new MyPoint(3, -2),
-				new MyPoint(2, -2)
+		PathPoint[] mirroredPoints = new PathPoint[] {
+				new PathPoint(1, -3),
+				new PathPoint(1, -1),
+				new PathPoint(3, 0),
+				new PathPoint(3, -2),
+				new PathPoint(2, -2)
 		};
 
 		assertPointsEqual(mirroredPoints, stroke.getPoints());
@@ -119,12 +119,12 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 
 		stroke.dilate(new MyDouble(getKernel(), 2.0), new Coords(1, 0));
 
-		MyPoint[] dilatedPoints = new MyPoint[] {
-				new MyPoint(-3, -2),
-				new MyPoint(1, -2),
-				new MyPoint(3, 2),
-				new MyPoint(-1, 2),
-				new MyPoint(-1, 0)
+		PathPoint[] dilatedPoints = new PathPoint[] {
+				new PathPoint(-3, -2),
+				new PathPoint(1, -2),
+				new PathPoint(3, 2),
+				new PathPoint(-1, 2),
+				new PathPoint(-1, 0)
 		};
 
 		assertPointsEqual(dilatedPoints, stroke.getPoints());
@@ -153,12 +153,12 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 	}
 
 	private GeoLocusStroke getInitialStroke() {
-		ArrayList<MyPoint> initialPoints = new ArrayList<>(Arrays.asList(
-				new MyPoint(-1, -1),
-				new MyPoint(1, -1),
-				new MyPoint(2, 1),
-				new MyPoint(0, 1),
-				new MyPoint(0, 0)
+		ArrayList<PathPoint> initialPoints = new ArrayList<>(Arrays.asList(
+				new PathPoint(-1, -1),
+				new PathPoint(1, -1),
+				new PathPoint(2, 1),
+				new PathPoint(0, 1),
+				new PathPoint(0, 0)
 		));
 
 		GeoLocusStroke stroke = new GeoLocusStroke(getConstruction());
@@ -167,7 +167,7 @@ public class GeoLocusStrokeTest extends BaseUnitTest {
 		return stroke;
 	}
 
-	private void assertPointsEqual(MyPoint[] expected, ArrayList<MyPoint> actual) {
+	private void assertPointsEqual(PathPoint[] expected, ArrayList<PathPoint> actual) {
 		for (int i = 0; i < expected.length; i++) {
 			Assert.assertEquals("differ at element " + i + ".x", expected[i].x,
 					actual.get(i).x, Kernel.MAX_PRECISION);

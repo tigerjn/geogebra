@@ -29,7 +29,7 @@ import org.geogebra.common.kernel.arithmetic.FunctionalNVar;
 import org.geogebra.common.kernel.arithmetic.ListValue;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.kernel.geos.GeoCasCell;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -364,11 +364,11 @@ public class AlgoDependentFunction extends AlgoElement
 						expandFunctionDerivativeNodes(node.getRight(), fast));
 				return node;
 			}
-		} else if (ev instanceof MyNumberPair) {
-			((MyNumberPair) ev).setX(expandFunctionDerivativeNodes(
-					((MyNumberPair) ev).getX(), fast));
-			((MyNumberPair) ev).setY(expandFunctionDerivativeNodes(
-					((MyNumberPair) ev).getY(), fast));
+		} else if (ev instanceof NumberPair) {
+			((NumberPair) ev).setX(expandFunctionDerivativeNodes(
+					((NumberPair) ev).getX(), fast));
+			((NumberPair) ev).setY(expandFunctionDerivativeNodes(
+					((NumberPair) ev).getY(), fast));
 			// for f,g,h functions make sure f(g,h) expands to f(g(x),h(x))
 		} else if (ev.unwrap() instanceof FunctionalNVar) {
 			return ((FunctionalNVar) ev.unwrap()).getFunctionExpression()

@@ -25,7 +25,7 @@ public class TableCanvasExporter {
 
 	private static final int CELL_PADDING_X = 4;
 	private static final int CELL_PADDING_Y = 2;
-	private final MyTableW table;
+	private final SpreadsheetTableW table;
 	private final AppW app;
 	private final Grid ssGrid;
 	private final int rowCount;
@@ -39,7 +39,7 @@ public class TableCanvasExporter {
 	 * @param offsetHeight parent panel height
 	 * @param context2d context
 	 */
-	public TableCanvasExporter(MyTableW table, AppW app, int offsetWidth, int offsetHeight, 
+	public TableCanvasExporter(SpreadsheetTableW table, AppW app, int offsetWidth, int offsetHeight,
 			CanvasRenderingContext2D context2d) {
 		this.table = table;
 		this.app = app;

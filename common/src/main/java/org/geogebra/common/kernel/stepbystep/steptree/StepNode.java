@@ -11,7 +11,7 @@ import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.variable.Variable;
 import org.geogebra.common.kernel.parser.Parser;
 import org.geogebra.common.kernel.stepbystep.solution.HasLaTeX;
@@ -70,7 +70,7 @@ public abstract class StepNode implements HasLaTeX {
 				case MINUS:
 					return add(left, StepNode.minus(right));
 				case PLUSMINUS:
-					if (en.getRight() instanceof MyNumberPair) {
+					if (en.getRight() instanceof NumberPair) {
 						return plusminus(left);
 					}
 					return add(left, plusminus(right));

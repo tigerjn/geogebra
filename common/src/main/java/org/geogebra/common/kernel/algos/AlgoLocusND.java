@@ -23,9 +23,9 @@ import org.geogebra.common.geogebra3D.kernel3D.algos.AlgoPoint3DOnPath;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Macro;
 import org.geogebra.common.kernel.MacroKernel;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.Path;
 import org.geogebra.common.kernel.PathMover;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
@@ -39,7 +39,7 @@ import org.geogebra.common.util.debug.Log;
 /**
  * locus line for Q dependent on P
  */
-public abstract class AlgoLocusND<T extends MyPoint> extends AlgoElement {
+public abstract class AlgoLocusND<T extends PathPoint> extends AlgoElement {
 
 	// TODO: update locus algorithm
 	// * locus of Q=(x(B), a) with a= integral[f(x), 0, x(B)] and B is point on

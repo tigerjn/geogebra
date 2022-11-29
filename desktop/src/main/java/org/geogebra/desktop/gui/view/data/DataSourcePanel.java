@@ -47,7 +47,7 @@ import org.geogebra.common.main.GeoGebraColorConstants;
 import org.geogebra.common.plugin.GeoClass;
 import org.geogebra.common.util.Validation;
 import org.geogebra.desktop.awt.GColorD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.LayoutUtil;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
@@ -82,12 +82,12 @@ public class DataSourcePanel extends JPanel
 	private JLabel lblTitle;
 	private JLabel lblStart;
 	private JLabel lblWidth;
-	private MyButton btnAdd;
-	private MyButton btnClear;
-	private MyButton btnDelete;
-	private MyButton btnOptions;
-	private MyTextFieldD fldStart;
-	private MyTextFieldD fldWidth;
+	private IconButton btnAdd;
+	private IconButton btnClear;
+	private IconButton btnDelete;
+	private IconButton btnOptions;
+	private MathTextFieldBase fldStart;
+	private MathTextFieldBase fldWidth;
 
 	// flags and other fields
 	/** current mode */
@@ -163,23 +163,23 @@ public class DataSourcePanel extends JPanel
 
 		lblTitle = new JLabel();
 
-		btnAdd = new MyButton(app.getScaledIcon(GuiResourcesD.LIST_ADD));
+		btnAdd = new IconButton(app.getScaledIcon(GuiResourcesD.LIST_ADD));
 		btnAdd.addActionListener(this);
 
-		btnClear = new MyButton(app.getScaledIcon(GuiResourcesD.EDIT_CLEAR));
+		btnClear = new IconButton(app.getScaledIcon(GuiResourcesD.EDIT_CLEAR));
 		btnClear.addActionListener(this);
 
-		btnDelete = new MyButton(app.getScaledIcon(GuiResourcesD.LIST_REMOVE));
+		btnDelete = new IconButton(app.getScaledIcon(GuiResourcesD.LIST_REMOVE));
 		btnDelete.addActionListener(this);
 
-		btnOptions = new MyButton(
+		btnOptions = new IconButton(
 				app.getScaledIcon(GuiResourcesD.VIEW_PROPERTIES_16));
 		btnOptions.addActionListener(this);
 
 		lblStart = new JLabel();
 		lblWidth = new JLabel();
 
-		fldStart = new MyTextFieldD(app, 4);
+		fldStart = new MathTextFieldBase(app, 4);
 		Dimension d = fldStart.getMaximumSize();
 		d.height = fldStart.getPreferredSize().height;
 		fldStart.setMaximumSize(d);
@@ -187,7 +187,7 @@ public class DataSourcePanel extends JPanel
 		fldStart.setText("" + 0.0);
 		fldStart.addFocusListener(this);
 
-		fldWidth = new MyTextFieldD(app, 4);
+		fldWidth = new MathTextFieldBase(app, 4);
 		fldWidth.setMaximumSize(d);
 		fldStart.setColumns(4);
 		fldWidth.setColumns(4);
@@ -450,7 +450,7 @@ public class DataSourcePanel extends JPanel
 
 	private void setColumnHeaders(JTable table) {
 
-		MyTableHeaderRenderer headerRenderer = new MyTableHeaderRenderer();
+		SourceTableHeaderRenderer headerRenderer = new SourceTableHeaderRenderer();
 
 		for (int vColIndex = 0; vColIndex < table.getColumnModel()
 				.getColumnCount(); vColIndex++) {
@@ -477,7 +477,7 @@ public class DataSourcePanel extends JPanel
 			// adjust mouseLoc to the coordinate space of this column header
 			mouseLoc.x = mouseLoc.x - table().getCellRect(0, column, true).x;
 
-			boolean isOver = ((MyTableHeaderRenderer) table().getColumnModel()
+			boolean isOver = ((SourceTableHeaderRenderer) table().getColumnModel()
 					.getColumn(column).getHeaderRenderer()).isOverTraceButton(
 					mouseLoc);
 
@@ -560,7 +560,7 @@ public class DataSourcePanel extends JPanel
 	 * button for a selected column.
 	 * 
 	 */
-	public class MyTableHeaderRenderer extends JPanel
+	public class SourceTableHeaderRenderer extends JPanel
 			implements TableCellRenderer {
 
 		private static final long serialVersionUID = 1L;
@@ -576,7 +576,7 @@ public class DataSourcePanel extends JPanel
 		private final ImageIcon importIcon;
 		private final ImageIcon importIconRollover;
 
-		protected MyTableHeaderRenderer() {
+		protected SourceTableHeaderRenderer() {
 			setLayout(new BorderLayout());
 			setOpaque(true);
 			setBorder(headerBorder);
@@ -812,14 +812,14 @@ public class DataSourcePanel extends JPanel
 		return menu;
 	}
 
-	private static class MyButton extends JButton {
+	private static class IconButton extends JButton {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public MyButton(ImageIcon imageIcon) {
+		public IconButton(ImageIcon imageIcon) {
 			super(imageIcon);
 			setMargin(new Insets(0, 0, 0, 0));
 			setBorderPainted(false);

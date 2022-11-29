@@ -14,7 +14,7 @@ package org.geogebra.common.kernel.algos;
 
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.geos.GeoLocus;
 import org.geogebra.common.kernel.geos.GeoLocusND;
@@ -26,7 +26,7 @@ import org.geogebra.common.util.MyMath;
 /**
  * locus line for Q dependent on P where P is a slider
  */
-public class AlgoLocusSlider extends AlgoLocusSliderND<MyPoint> {
+public class AlgoLocusSlider extends AlgoLocusSliderND<PathPoint> {
 
 	/**
 	 * @param cons
@@ -44,7 +44,7 @@ public class AlgoLocusSlider extends AlgoLocusSliderND<MyPoint> {
 	}
 
 	@Override
-	protected GeoLocusND<MyPoint> newGeoLocus(Construction cons2) {
+	protected GeoLocusND<PathPoint> newGeoLocus(Construction cons2) {
 		return new GeoLocus(cons2);
 	}
 
@@ -142,13 +142,13 @@ public class AlgoLocusSlider extends AlgoLocusSliderND<MyPoint> {
 	}
 
 	@Override
-	protected MyPoint newCache() {
-		return new MyPoint();
+	protected PathPoint newCache() {
+		return new PathPoint();
 	}
 
 	@Override
-	protected MyPoint[] createQCopyCache() {
-		return new MyPoint[paramCache.length];
+	protected PathPoint[] createQCopyCache() {
+		return new PathPoint[paramCache.length];
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class AlgoLocusSlider extends AlgoLocusSliderND<MyPoint> {
 	}
 
 	@Override
-	protected void setQCopyCache(MyPoint t, GeoPointND qCopy2) {
+	protected void setQCopyCache(PathPoint t, GeoPointND qCopy2) {
 		t.setLocation(((GeoPoint) qCopy2).inhomX, ((GeoPoint) qCopy2).inhomY);
 	}
 

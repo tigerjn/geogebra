@@ -8,7 +8,7 @@ import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 import org.apache.commons.math3.ode.sampling.StepHandler;
 import org.apache.commons.math3.ode.sampling.StepInterpolator;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.commands.Commands;
@@ -35,7 +35,7 @@ public class AlgoSolveODE2 extends AlgoElement {
 	// output
 	private GeoLocus locus;
 	/** points of the locus */
-	ArrayList<MyPoint> al;
+	ArrayList<PathPoint> al;
 
 	/**
 	 * SolveODE[ &lt;b(x)>, &lt;c(x)>, &lt;f(x)>, &lt;Start x>, &lt;Start y>,
@@ -138,7 +138,7 @@ public class AlgoSolveODE2 extends AlgoElement {
 		// boolean oldState = cons.isSuppressLabelsActive();
 		// cons.setSuppressLabelCreation(true);
 		// g.add(new GeoPoint(cons, null, x.getDouble(), y.getDouble(), 1.0));
-		al.add(new MyPoint(x.getDouble(), y.getDouble(), SegmentType.MOVE_TO));
+		al.add(new PathPoint(x.getDouble(), y.getDouble(), SegmentType.MOVE_TO));
 		// cons.setSuppressLabelCreation(oldState);
 
 		double[] yy2 = new double[] { y.getDouble(), yDot.getDouble() }; // initial
@@ -170,7 +170,7 @@ public class AlgoSolveODE2 extends AlgoElement {
 			// System.out.println(t + " " + y[0]+ " "+y[1]);
 
 			// g.add(new GeoPoint(cons, null, t, y[0], 1.0));
-			al.add(new MyPoint(t, y1[0], SegmentType.LINE_TO));
+			al.add(new PathPoint(t, y1[0], SegmentType.LINE_TO));
 		}
 	};
 

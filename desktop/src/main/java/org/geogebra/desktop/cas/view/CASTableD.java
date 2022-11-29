@@ -35,7 +35,7 @@ import javax.swing.table.TableCellRenderer;
 
 import org.geogebra.common.cas.view.CASTable;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
 import org.geogebra.common.kernel.geos.GeoCasCell;
 import org.geogebra.common.kernel.geos.GeoNumeric;
 import org.geogebra.common.main.App;
@@ -120,7 +120,7 @@ public class CASTableD extends JTable implements CASTable {
 		}
 
 		// listen to mouse pressed on table cells, make sure to start editing
-		addMouseListener(new MyMouseListener());
+		addMouseListener(new CasTableMouseListener());
 
 		// add listener for mouse roll over
 		RollOverListener rollOverListener = new RollOverListener();
@@ -191,7 +191,7 @@ public class CASTableD extends JTable implements CASTable {
 	 * listen to mouse pressed on table cells, make sure to start editing
 	 * 
 	 */
-	protected class MyMouseListener extends MouseAdapter {
+	protected class CasTableMouseListener extends MouseAdapter {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -459,7 +459,7 @@ public class CASTableD extends JTable implements CASTable {
 			Integer max = Collections.max(
 					kernel.getConstruction().getArbitraryConsTable().keySet());
 			for (int key = max; key >= selectedRow; key--) {
-				MyArbitraryConstant myArbConst = kernel.getConstruction()
+				ArbitraryConstant myArbConst = kernel.getConstruction()
 						.getArbitraryConsTable().get(key);
 				if (myArbConst != null
 						&& !kernel.getConstruction().isCasCellUpdate()
@@ -630,7 +630,7 @@ public class CASTableD extends JTable implements CASTable {
 	 *            row index (starting from 0) where cell is deleted
 	 */
 	private void updateAfterDeleteArbConstTable(int row) {
-		MyArbitraryConstant arbConst = kernel.getConstruction()
+		ArbitraryConstant arbConst = kernel.getConstruction()
 				.getArbitraryConsTable().remove(row);
 		if (arbConst != null) {
 			for (GeoNumeric geoNum : arbConst.getConstList()) {
@@ -644,7 +644,7 @@ public class CASTableD extends JTable implements CASTable {
 			Integer max = Collections.max(
 					kernel.getConstruction().getArbitraryConsTable().keySet());
 			for (int key = row + 1; key <= max; key++) {
-				MyArbitraryConstant myArbConst = kernel.getConstruction()
+				ArbitraryConstant myArbConst = kernel.getConstruction()
 						.getArbitraryConsTable().get(key);
 				if (myArbConst != null) {
 					kernel.getConstruction().getArbitraryConsTable()

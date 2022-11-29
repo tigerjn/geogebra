@@ -15,7 +15,7 @@ import org.geogebra.common.gui.SetLabels;
 import org.geogebra.common.gui.UpdateFonts;
 import org.geogebra.common.gui.dialog.options.model.ITextFieldListener;
 import org.geogebra.common.gui.dialog.options.model.TextPropertyModel;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.properties.UpdateablePropertiesPanel;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
@@ -32,7 +32,7 @@ class TextPropertyPanel extends JPanel
 
 	private TextPropertyModel model;
 	private JLabel label;
-	private MyTextFieldD tfTextfieldSize;
+	private MathTextFieldBase tfTextfieldSize;
 
 	private LocalizationD loc;
 
@@ -45,7 +45,7 @@ class TextPropertyPanel extends JPanel
 		model.setListener(this);
 		// text field for textfield size
 		label = new JLabel();
-		tfTextfieldSize = new MyTextFieldD(app, 5);
+		tfTextfieldSize = new MathTextFieldBase(app, 5);
 		label.setLabelFor(tfTextfieldSize);
 		tfTextfieldSize.addActionListener(this);
 		tfTextfieldSize.addFocusListener(this);

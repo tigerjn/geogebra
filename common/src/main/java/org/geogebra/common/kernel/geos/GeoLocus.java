@@ -13,8 +13,8 @@ the Free Software Foundation.
 package org.geogebra.common.kernel.geos;
 
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.advanced.AlgoSlopeField;
 import org.geogebra.common.kernel.arithmetic.ValueType;
@@ -27,7 +27,7 @@ import org.geogebra.common.kernel.matrix.Coords;
  * 
  * @author Markus
  */
-public class GeoLocus extends GeoLocusND<MyPoint> {
+public class GeoLocus extends GeoLocusND<PathPoint> {
 	private Coords changingPoint;
 	private boolean drawArrows = false;
 
@@ -51,12 +51,12 @@ public class GeoLocus extends GeoLocusND<MyPoint> {
 	 * @param segmentType used segment type
 	 */
 	public void insertPoint(double x, double y, SegmentType segmentType) {
-		myPointList.add(new MyPoint(x, y, segmentType));
+		myPointList.add(new PathPoint(x, y, segmentType));
 	}
 
 	@Override
 	public void insertPoint(double x, double y, double z, boolean lineTo) {
-		myPointList.add(new MyPoint(x, y, lineTo ? SegmentType.LINE_TO
+		myPointList.add(new PathPoint(x, y, lineTo ? SegmentType.LINE_TO
 				: SegmentType.MOVE_TO));
 	}
 
@@ -67,7 +67,7 @@ public class GeoLocus extends GeoLocusND<MyPoint> {
 	public void pointChanged(Coords coords, PathParameter pp) {
 		changingPoint = coords;
 		// this updates closestPointParameter and closestPointIndex
-		MyPoint closestPoint = getClosestPoint();
+		PathPoint closestPoint = getClosestPoint();
 
 		// Application.debug(pp.t);
 		if (closestPoint != null) {

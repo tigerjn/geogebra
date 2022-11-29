@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.FixedPathRegionAlgo;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.Path;
 import org.geogebra.common.kernel.PathMover;
 import org.geogebra.common.kernel.PathMoverLocus;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.algos.AlgoElement;
@@ -39,7 +39,7 @@ import org.geogebra.common.util.ExtendedBoolean;
  * @param <T>
  *            2D or 3D point type
  */
-public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
+public abstract class GeoLocusND<T extends PathPoint> extends GeoElement
 		implements Path, Traceable, GeoLocusNDInterface {
 
 	/** maximal number of runs through the path when computing */
@@ -98,7 +98,7 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 			defined = locus.defined;
 
 			myPointList.clear();
-			for (MyPoint pt : locus.myPointList) {
+			for (PathPoint pt : locus.myPointList) {
 				myPointList.add((T) pt.copy());
 			}
 		}
@@ -194,8 +194,8 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 	@Override
 	public boolean isClosedPath() {
 		if (myPointList.size() > 0) {
-			MyPoint first = myPointList.get(0);
-			MyPoint last = myPointList.get(myPointList.size() - 1);
+			PathPoint first = myPointList.get(0);
+			PathPoint last = myPointList.get(myPointList.size() - 1);
 			return first.isEqual(last);
 		}
 		return false;
@@ -205,7 +205,7 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 	public boolean isOnPath(GeoPointND P, double eps) {
 
 		setChangingPoint(P);
-		MyPoint closestPoint = getClosestPoint();
+		PathPoint closestPoint = getClosestPoint();
 		if (closestPoint != null) {
 			return closestPointDist < eps;
 		}
@@ -231,7 +231,7 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 	/**
 	 * @return closest point to changing point
 	 */
-	protected MyPoint getClosestPoint() {
+	protected PathPoint getClosestPoint() {
 		getClosestLine();
 
 		GeoSegmentND closestSegment = newGeoSegment();
@@ -240,8 +240,8 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 			return null;
 		}
 
-		MyPoint locusPoint = myPointList.get(closestPointIndex);
-		MyPoint locusPoint2 = myPointList.get(closestPointIndex + 1);
+		PathPoint locusPoint = myPointList.get(closestPointIndex);
+		PathPoint locusPoint2 = myPointList.get(closestPointIndex + 1);
 
 		closestSegment.setCoords(locusPoint, locusPoint2);
 
@@ -298,8 +298,8 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 
 		// search for closest point
 		for (int i = 0; i < size - 1; i++) {
-			MyPoint locusPoint = myPointList.get(i);
-			MyPoint locusPoint2 = myPointList.get(i + 1);
+			PathPoint locusPoint = myPointList.get(i);
+			PathPoint locusPoint2 = myPointList.get(i + 1);
 
 			// not a line, just a move (eg Voronoi Diagram)
 			if (locusPoint2.getSegmentType() == SegmentType.MOVE_TO) {
@@ -351,14 +351,14 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 			P.setUndefined();
 			return;
 		} else if (myPointList.size() == 1) {
-			MyPoint p0 = myPointList.get(0);
+			PathPoint p0 = myPointList.get(0);
 			P.set(1, 0, p0, p0);
 			return;
 		} else if (n >= myPointList.size() || n < 0) {
 			n = (n < 0) ? 0 : myPointList.size() - 1;
 		}
-		MyPoint locusPoint = myPointList.get(n);
-		MyPoint locusPoint2 = myPointList.get((n + 1) % myPointList.size());
+		PathPoint locusPoint = myPointList.get(n);
+		PathPoint locusPoint2 = myPointList.get((n + 1) % myPointList.size());
 		P.set(t, 1 - t, locusPoint, locusPoint2);
 	}
 
@@ -385,8 +385,8 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 			n = (n < 0) ? 0 : myPointList.size() - 1;
 		}
 
-		MyPoint locusPoint = myPointList.get(n);
-		MyPoint locusPoint2 = myPointList.get((n + 1) % myPointList.size());
+		PathPoint locusPoint = myPointList.get(n);
+		PathPoint locusPoint2 = myPointList.get((n + 1) % myPointList.size());
 
 		P.set(t, 1 - t, locusPoint, locusPoint2);
 	}
@@ -465,7 +465,7 @@ public abstract class GeoLocusND<T extends MyPoint> extends GeoElement
 	}
 
 	@Override
-	public GeoLocusND<? extends MyPoint> getLocus() {
+	public GeoLocusND<? extends PathPoint> getLocus() {
 		return this;
 	}
 }

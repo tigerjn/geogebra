@@ -23,8 +23,8 @@ import org.geogebra.common.util.CopyPaste;
 import org.geogebra.common.util.FileExtensions;
 import org.geogebra.desktop.euclidian.EuclidianViewD;
 import org.geogebra.desktop.gui.GuiManagerD;
+import org.geogebra.desktop.gui.app.ExtensionFileFilter;
 import org.geogebra.desktop.gui.app.GeoGebraFrame;
-import org.geogebra.desktop.gui.app.MyFileFilter;
 import org.geogebra.desktop.gui.inputbar.AlgebraInputD;
 import org.geogebra.desktop.gui.layout.LayoutD;
 import org.geogebra.desktop.gui.menubar.GeoGebraMenuBar;
@@ -289,7 +289,7 @@ public class GlobalKeyDispatcherD extends GlobalKeyDispatcher
 
 			// ask if OK to discard current file
 			if (app.isSaved() || ((AppD) app).saveCurrentFile()) {
-				MyFileFilter fileFilter = new MyFileFilter();
+				ExtensionFileFilter fileFilter = new ExtensionFileFilter();
 				fileFilter.addExtension(FileExtensions.GEOGEBRA);
 				File[] options = ((AppD) app).getCurrentPath()
 						.listFiles(fileFilter);

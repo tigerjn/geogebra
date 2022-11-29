@@ -35,12 +35,12 @@ import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.Locateable;
 import org.geogebra.common.kernel.LocateableList;
 import org.geogebra.common.kernel.MatrixTransformable;
-import org.geogebra.common.kernel.MyPoint;
 import org.geogebra.common.kernel.Path;
 import org.geogebra.common.kernel.PathMover;
 import org.geogebra.common.kernel.PathNormalizer;
 import org.geogebra.common.kernel.PathOrPoint;
 import org.geogebra.common.kernel.PathParameter;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.Region;
 import org.geogebra.common.kernel.RegionParameters;
 import org.geogebra.common.kernel.StringTemplate;
@@ -2766,8 +2766,8 @@ public class GeoPoint extends GeoVec3D implements VectorValue, PathOrPoint,
 	}
 
 	@Override
-	public void set(double param1, double param2, MyPoint leftPoint,
-			MyPoint rightPoint) {
+	public void set(double param1, double param2, PathPoint leftPoint,
+			PathPoint rightPoint) {
 		x = param2 * leftPoint.x + param1 * rightPoint.x;
 		y = param2 * leftPoint.y + param1 * rightPoint.y;
 		z = 1.0;

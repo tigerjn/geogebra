@@ -16,14 +16,14 @@ import org.geogebra.common.kernel.CASException;
 import org.geogebra.common.kernel.CASGenericInterface;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.StringTemplate;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant.ArbconstReplacer;
 import org.geogebra.common.kernel.arithmetic.AssignmentType;
 import org.geogebra.common.kernel.arithmetic.Command;
 import org.geogebra.common.kernel.arithmetic.Equation;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.FunctionNVar;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant.ArbconstReplacer;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
 import org.geogebra.common.kernel.arithmetic.MyVecNDNode;
@@ -580,7 +580,7 @@ public abstract class CASgiac implements CASGenericInterface {
 
 	@Override
 	final public synchronized String evaluateGeoGebraCAS(
-			final ValidExpression inputExpression, MyArbitraryConstant arbconst,
+			final ValidExpression inputExpression, ArbitraryConstant arbconst,
 			StringTemplate tpl, GeoCasCell cell, Kernel kernel)
 			throws CASException {
 
@@ -671,7 +671,7 @@ public abstract class CASgiac implements CASGenericInterface {
 
 	@Override
 	final public synchronized ExpressionValue evaluateToExpression(
-			final ValidExpression inputExpression, MyArbitraryConstant arbconst,
+			final ValidExpression inputExpression, ArbitraryConstant arbconst,
 			Kernel kernel) throws CASException {
 		String result = getPlainResult(inputExpression, kernel);
 		// standard case
@@ -785,7 +785,7 @@ public abstract class CASgiac implements CASGenericInterface {
 	 *             Throws if the underlying CAS produces an error
 	 */
 	final public synchronized String toGeoGebraString(String giacString,
-													  MyArbitraryConstant arbconst,
+													  ArbitraryConstant arbconst,
 													  final StringTemplate tpl,
 													  final Kernel kernel) throws CASException {
 
@@ -827,7 +827,7 @@ public abstract class CASgiac implements CASGenericInterface {
 	}
 
 	private static ExpressionValue replaceRoots(ExpressionValue ve0,
-			MyArbitraryConstant arbconst, Kernel kernel) {
+			ArbitraryConstant arbconst, Kernel kernel) {
 		ExpressionValue ve = ve0;
 		if (ve != null) {
 			boolean toRoot = kernel.getApplication().getSettings()

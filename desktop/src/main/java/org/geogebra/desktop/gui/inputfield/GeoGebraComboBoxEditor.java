@@ -15,7 +15,7 @@ import org.geogebra.desktop.main.AppD;
  */
 public class GeoGebraComboBoxEditor implements ComboBoxEditor {
 
-	private final MyTextFieldD tf;
+	private final MathTextFieldBase tf;
 
 	/**
 	 * Constructor with a specified column width.
@@ -25,7 +25,7 @@ public class GeoGebraComboBoxEditor implements ComboBoxEditor {
 	 */
 	public GeoGebraComboBoxEditor(AppD app, int columns) {
 		super();
-		tf = new MyTextFieldD(app, columns);
+		tf = new MathTextFieldBase(app, columns);
 		tf.setShowSymbolTableIcon(true);
 		tf.enableColoring(false);
 	}

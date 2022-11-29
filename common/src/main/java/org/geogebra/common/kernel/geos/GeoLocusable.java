@@ -14,7 +14,7 @@ package org.geogebra.common.kernel.geos;
 
 import java.util.ArrayList;
 
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.kernelND.GeoElementND;
 
 /**
@@ -33,5 +33,5 @@ public interface GeoLocusable extends GeoElementND {
 	/**
 	 * @return list of points
 	 */
-	public ArrayList<? extends MyPoint> getPoints();
+	public ArrayList<? extends PathPoint> getPoints();
 }

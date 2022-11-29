@@ -21,7 +21,7 @@ public interface SpreadsheetViewInterface extends View {
 	// Y <- X
 	static final String Y_FROM_X = "Y " + Unicode.IMPLIED_FROM + " X";
 
-	public MyTableInterface getSpreadsheetTable();
+	public SpreadsheetTableInterface getSpreadsheetTable();
 
 	public void rowHeaderRevalidate();
 

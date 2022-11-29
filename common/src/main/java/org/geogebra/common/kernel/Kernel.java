@@ -19,7 +19,7 @@ import org.geogebra.common.gui.SetOrientation;
 import org.geogebra.common.gui.dialog.options.OptionsCAS;
 import org.geogebra.common.gui.inputfield.InputHelper;
 import org.geogebra.common.gui.view.table.TableValuesView;
-import org.geogebra.common.io.MyXMLHandler;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.kernel.algos.AlgoCasBase;
 import org.geogebra.common.kernel.algos.AlgoDependentFunction;
 import org.geogebra.common.kernel.algos.AlgoDependentFunctionNVar;
@@ -31,12 +31,12 @@ import org.geogebra.common.kernel.algos.AlgoPointVector;
 import org.geogebra.common.kernel.algos.AlgoVectorPoint;
 import org.geogebra.common.kernel.algos.ConstructionElement;
 import org.geogebra.common.kernel.algos.DependentAlgo;
+import org.geogebra.common.kernel.arithmetic.ArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.ArithmeticFactory;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionNodeConstants.StringType;
 import org.geogebra.common.kernel.arithmetic.ExpressionNodeEvaluator;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
-import org.geogebra.common.kernel.arithmetic.MyArbitraryConstant;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyDoubleDegreesMinutesSeconds;
 import org.geogebra.common.kernel.arithmetic.MySpecialDouble;
@@ -531,7 +531,7 @@ public class Kernel implements SpecialPointsListener, ConstructionStepper {
 	 *            construction used in MyXMLHandler constructor
 	 * @return a new MyXMLHandler
 	 */
-	public MyXMLHandler newMyXMLHandler(Construction cons1) {
+	public ConstructionXmlHandler newMyXMLHandler(Construction cons1) {
 		return newMyXMLHandler(this, cons1);
 	}
 
@@ -544,8 +544,8 @@ public class Kernel implements SpecialPointsListener, ConstructionStepper {
 	 *            construction
 	 * @return a new MyXMLHandler
 	 */
-	public MyXMLHandler newMyXMLHandler(Kernel kernel, Construction cons1) {
-		return new MyXMLHandler(kernel, cons1);
+	public ConstructionXmlHandler newMyXMLHandler(Kernel kernel, Construction cons1) {
+		return new ConstructionXmlHandler(kernel, cons1);
 	}
 
 	/**
@@ -2620,7 +2620,7 @@ public class Kernel implements SpecialPointsListener, ConstructionStepper {
 	 *             on CAS error
 	 */
 	public String evaluateGeoGebraCAS(String casString,
-			MyArbitraryConstant arbconst) throws Throwable {
+			ArbitraryConstant arbconst) throws Throwable {
 		return evaluateGeoGebraCAS(casString, arbconst,
 				StringTemplate.numericNoLocal);
 	}
@@ -2640,7 +2640,7 @@ public class Kernel implements SpecialPointsListener, ConstructionStepper {
 	 *             on CAS error
 	 */
 	final public String evaluateGeoGebraCAS(String exp,
-			MyArbitraryConstant arbconst, StringTemplate tpl)
+			ArbitraryConstant arbconst, StringTemplate tpl)
 			throws CASException {
 		return evaluateGeoGebraCAS(exp, false, arbconst, tpl);
 	}
@@ -2660,7 +2660,7 @@ public class Kernel implements SpecialPointsListener, ConstructionStepper {
 	 *             on CAS error
 	 */
 	final public String evaluateCachedGeoGebraCAS(String exp,
-			MyArbitraryConstant arbconst) throws CASException {
+			ArbitraryConstant arbconst) throws CASException {
 		return evaluateGeoGebraCAS(exp, true, arbconst,
 				StringTemplate.numericNoLocal);
 	}
@@ -2676,7 +2676,7 @@ public class Kernel implements SpecialPointsListener, ConstructionStepper {
 	 *             when CAS failed
 	 */
 	private String evaluateGeoGebraCAS(String exp, boolean useCaching,
-			MyArbitraryConstant arbconst, StringTemplate tpl)
+			ArbitraryConstant arbconst, StringTemplate tpl)
 			throws CASException {
 		String result = null;
 		if (useCaching && hasCasCache()) {

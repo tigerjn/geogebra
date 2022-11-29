@@ -26,7 +26,7 @@ public class SpreadsheetBorders {
 	 * @param g2 graphics
 	 * @param table table
 	 */
-	public static void drawFormatBorders(Graphics2D g2, MyTableD table) {
+	public static void drawFormatBorders(Graphics2D g2, SpreadsheetTableD table) {
 
 		g2.setColor(GColorD.getAwtColor(GColor.BLACK));
 		g2.setStroke(new BasicStroke(1));
@@ -65,7 +65,7 @@ public class SpreadsheetBorders {
 	 * @param v line type
 	 */
 	public static void handleRowOrColumnGridFormat(Graphics2D g2,
-			MyTableD table, int col, int row, byte v) {
+			SpreadsheetTableD table, int col, int row, byte v) {
 
 		// row
 		if (col == -1) {
@@ -138,7 +138,7 @@ public class SpreadsheetBorders {
 	 * @param row2 end row
 	 * @param v border type
 	 */
-	public static void drawPartialBorder(Graphics2D g2, MyTableD table,
+	public static void drawPartialBorder(Graphics2D g2, SpreadsheetTableD table,
 			int col1, int row1, int col2, int row2, byte v) {
 
 		Rectangle rect1 = table.getCellRect(row1, col1, true);
@@ -180,7 +180,7 @@ public class SpreadsheetBorders {
 	 * @param table table
 	 * @param row row
 	 */
-	public static void drawRowBorder(Graphics2D g2, MyTableD table, int row) {
+	public static void drawRowBorder(Graphics2D g2, SpreadsheetTableD table, int row) {
 
 		Rectangle rect1 = table.getCellRect(row, 0, true);
 		int r1 = rect1.x - 1;
@@ -200,7 +200,7 @@ public class SpreadsheetBorders {
 	 * @param table table
 	 * @param column column
 	 */
-	public static void drawColumnBorder(Graphics2D g2, MyTableD table,
+	public static void drawColumnBorder(Graphics2D g2, SpreadsheetTableD table,
 			int column) {
 
 		Rectangle rect1 = table.getCellRect(0, column, true);

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import org.geogebra.common.util.StringUtil;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 
 import com.himamis.retex.editor.share.util.Unicode;
@@ -18,7 +18,7 @@ import com.himamis.retex.editor.share.util.Unicode;
  * Ctrl-o Ctrl-p on Mac OSX
  */
 
-public class AngleTextField extends MyTextFieldD implements KeyListener {
+public class AngleTextField extends MathTextFieldBase implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
 

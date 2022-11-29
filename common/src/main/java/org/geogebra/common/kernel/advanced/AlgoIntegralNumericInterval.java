@@ -21,7 +21,7 @@ import org.geogebra.common.kernel.arithmetic.Function;
 import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.cas.AlgoIntegralDefinite;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -112,7 +112,7 @@ public class AlgoIntegralNumericInterval extends AlgoElement {
 	private ExpressionNode numericIntegral(Function inFun) {
 		MyList xVal = new MyList(kernel);
 		MyList yVal = new MyList(kernel);
-		MyNumberPair xyVal = new MyNumberPair(kernel, xVal, yVal);
+		NumberPair xyVal = new NumberPair(kernel, xVal, yVal);
 		ExpressionNode node = new ExpressionNode(kernel, inFun.getFunctionVariable(),
 				Operation.DATA, xyVal);
 		double value = startY.evaluateDouble();

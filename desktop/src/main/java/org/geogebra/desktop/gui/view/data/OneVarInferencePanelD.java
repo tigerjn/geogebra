@@ -27,7 +27,7 @@ import org.geogebra.common.gui.view.data.OneVarModel;
 import org.geogebra.common.gui.view.data.StatisticsModel;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoList;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.main.LocalizationD;
 
@@ -55,9 +55,9 @@ public class OneVarInferencePanelD extends JPanel
 	private JLabel lblSigma;
 	private JLabel lblResultHeader;
 	private JButton btnCalculate;
-	private MyTextFieldD fldNullHyp;
-	private MyTextFieldD fldConfLevel;
-	private MyTextFieldD fldSigma;
+	private MathTextFieldBase fldNullHyp;
+	private MathTextFieldBase fldConfLevel;
+	private MathTextFieldBase fldSigma;
 	private JComboBox cbAltHyp;
 	private JPanel testPanel;
 	private JPanel intPanel;
@@ -117,7 +117,7 @@ public class OneVarInferencePanelD extends JPanel
 		lblHypParameter = new JLabel();
 		lblTailType = new JLabel();
 
-		fldNullHyp = new MyTextFieldD(app);
+		fldNullHyp = new MathTextFieldBase(app);
 		int fieldWidth = 6;
 		fldNullHyp.setColumns(fieldWidth);
 		fldNullHyp.setText("" + 0);
@@ -125,13 +125,13 @@ public class OneVarInferencePanelD extends JPanel
 		fldNullHyp.addFocusListener(this);
 
 		lblConfLevel = new JLabel();
-		fldConfLevel = new MyTextFieldD(app);
+		fldConfLevel = new MathTextFieldBase(app);
 		fldConfLevel.setColumns(fieldWidth);
 		fldConfLevel.addActionListener(this);
 		fldConfLevel.addFocusListener(this);
 
 		lblSigma = new JLabel();
-		fldSigma = new MyTextFieldD(app);
+		fldSigma = new MathTextFieldBase(app);
 		fldSigma.setColumns(fieldWidth);
 		fldSigma.addActionListener(this);
 		fldSigma.addFocusListener(this);

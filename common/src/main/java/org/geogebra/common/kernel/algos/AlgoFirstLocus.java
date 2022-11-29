@@ -3,7 +3,7 @@ package org.geogebra.common.kernel.algos;
 import java.util.ArrayList;
 
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoLocusable;
 import org.geogebra.common.kernel.geos.GeoNumeric;
@@ -35,7 +35,7 @@ public class AlgoFirstLocus extends AlgoFirst {
 	@Override
 	public final void compute() {
 
-		ArrayList<? extends MyPoint> points = ((GeoLocusable) inputList)
+		ArrayList<? extends PathPoint> points = ((GeoLocusable) inputList)
 				.getPoints();
 
 		size = points.size();
@@ -66,7 +66,7 @@ public class AlgoFirstLocus extends AlgoFirst {
 		// avoid label creation
 
 		for (int i = 0; i < outsize; i++) {
-			MyPoint mp = points.get(i);
+			PathPoint mp = points.get(i);
 
 			if (i < outputList.size()) {
 				// recycle existing GeoPoint

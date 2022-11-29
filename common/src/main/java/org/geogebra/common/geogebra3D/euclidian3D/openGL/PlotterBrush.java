@@ -6,7 +6,7 @@ import org.geogebra.common.euclidian.plot.Gap;
 import org.geogebra.common.euclidian.plot.PathPlotter;
 import org.geogebra.common.geogebra3D.euclidian3D.openGL.PlotterBrushSection.TickStep;
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.matrix.CoordSys;
@@ -1250,7 +1250,7 @@ public class PlotterBrush implements PathPlotter {
 	}
 
 	@Override
-	public boolean copyCoords(MyPoint point, double[] ret,
+	public boolean copyCoords(PathPoint point, double[] ret,
 			CoordSys transformSys) {
 
 		ret[0] = point.x;

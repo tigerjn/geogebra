@@ -3,7 +3,7 @@ package org.geogebra.common.main;
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.gui.view.spreadsheet.CellFormat;
 import org.geogebra.common.gui.view.spreadsheet.CellFormatInterface;
-import org.geogebra.common.gui.view.spreadsheet.MyTableInterface;
+import org.geogebra.common.gui.view.spreadsheet.SpreadsheetTableInterface;
 import org.geogebra.common.kernel.ModeSetter;
 import org.geogebra.common.kernel.UpdateLocationView;
 import org.geogebra.common.kernel.geos.GProperty;
@@ -356,7 +356,7 @@ public abstract class SpreadsheetTableModel implements UpdateLocationView {
 	 *            table
 	 * @return cell formatter
 	 */
-	public CellFormatInterface getCellFormat(MyTableInterface table) {
+	public CellFormatInterface getCellFormat(SpreadsheetTableInterface table) {
 		if (formatHandler == null) {
 			formatHandler = new CellFormat(table, app);
 		} else if (table != null) {

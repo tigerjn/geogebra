@@ -19,7 +19,7 @@ import org.geogebra.common.kernel.arithmetic.GetItem;
 import org.geogebra.common.kernel.arithmetic.Inspecting;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.Traversing.VariablePolyReplacer;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -62,7 +62,7 @@ public class CmdIf extends CommandProcessor {
 		int num = c.getLength();
 		if (num == 3) {
 			return new ExpressionNode(kernelA,
-					new MyNumberPair(kernelA, c.getItem(0), c.getItem(1)),
+					new NumberPair(kernelA, c.getItem(0), c.getItem(1)),
 					Operation.IF_ELSE, c.getItem(2));
 		}
 		for (int i = 0; i < num - 1; i += 2) {
@@ -267,7 +267,7 @@ public class CmdIf extends CommandProcessor {
 					wrap(functions.get(0), fv, mayUseIndependent));
 		} else if (functions.size() == 2 && conditions.size() == 1) {
 			expr = new ExpressionNode(kernel,
-					new MyNumberPair(kernel,
+					new NumberPair(kernel,
 							wrap(conditions.get(0), fv, mayUseIndependent),
 							wrap(functions.get(0), fv, mayUseIndependent)),
 					Operation.IF_ELSE,

@@ -3,6 +3,8 @@ package org.geogebra.common.main.settings;
 import org.geogebra.common.awt.GFont;
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.euclidian3D.EuclidianView3DInterface;
+import org.geogebra.common.geogebra3D.io.ConstructionXmlHandler3D;
+import org.geogebra.common.io.ConstructionXmlHandler;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.arithmetic.NumberValue;
 import org.geogebra.common.kernel.geos.GeoNumeric;
@@ -613,8 +615,8 @@ public class EuclidianSettings3D extends EuclidianSettings {
 	 * @param asPreference
 	 *            whether this is for preferences
 	 *
-	 * @see org.geogebra.common.io.MyXMLHandler
-	 * @see org.geogebra.common.geogebra3D.io.MyXMLHandler3D
+	 * @see ConstructionXmlHandler
+	 * @see ConstructionXmlHandler3D
 	 */
 	public void getXML(StringBuilder sb, boolean asPreference) {
 

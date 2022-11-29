@@ -69,7 +69,7 @@ import org.geogebra.desktop.awt.GFontD;
 import org.geogebra.desktop.awt.GGraphics2DD;
 import org.geogebra.desktop.euclidianND.EuclidianViewInterfaceD;
 import org.geogebra.desktop.export.GraphicExportDialog;
-import org.geogebra.desktop.io.MyImageIO;
+import org.geogebra.desktop.io.ImageFileUtil;
 import org.geogebra.desktop.main.AppD;
 import org.geogebra.desktop.util.GuiResourcesD;
 import org.geogebra.desktop.util.ImageResourceD;
@@ -439,7 +439,7 @@ public class EuclidianViewD extends EuclidianView
 		try {
 			GBufferedImage img = getExportImage(scale, transparency,
 					exportType);
-			MyImageIO.write(GBufferedImageD.getAwtBufferedImage(img), "png",
+			ImageFileUtil.write(GBufferedImageD.getAwtBufferedImage(img), "png",
 					dpi, file);
 			if (exportToClipboard) {
 				GraphicExportDialog.sendToClipboard(file);
@@ -892,8 +892,8 @@ public class EuclidianViewD extends EuclidianView
 	}
 
 	@Override
-	protected MyZoomerD newZoomer() {
-		return new MyZoomerD(this);
+	protected CoordSystemAnimationD newZoomer() {
+		return new CoordSystemAnimationD(this);
 	}
 
 	/**

@@ -1234,7 +1234,7 @@ ExpressionValue enunary():
         |
    <PLUSMINUS> e = enpower()
         { // +e  = e
-          ret = new ExpressionNode(kernel,e,Operation.PLUSMINUS,new MyNumberPair(kernel));
+          ret = new ExpressionNode(kernel,e,Operation.PLUSMINUS,new NumberPair(kernel));
         }
 |
     e = enpower()

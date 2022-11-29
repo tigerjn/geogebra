@@ -40,8 +40,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -58,7 +56,7 @@ import org.geogebra.common.util.debug.Log;
 import org.geogebra.desktop.awt.GColorD;
 import org.geogebra.desktop.gui.GuiManagerD;
 import org.geogebra.desktop.gui.dialog.Dialog;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.gui.util.GeoGebraIconD;
 import org.geogebra.desktop.gui.util.PopupMenuButtonD;
 import org.geogebra.desktop.gui.util.SpecialNumberFormat;
@@ -100,9 +98,9 @@ public class FunctionInspectorD extends FunctionInspector
 	private JLabel lblGeoName;
 	private JLabel lblStep;
 	private JLabel lblInterval;
-	private MyTextFieldD fldStep;
-	private MyTextFieldD fldLow;
-	private MyTextFieldD fldHigh;
+	private MathTextFieldBase fldStep;
+	private MathTextFieldBase fldLow;
+	private MathTextFieldBase fldHigh;
 	private JButton btnRemoveColumn;
 	private JButton btnHelp;
 	private JToggleButton btnOscCircle;
@@ -499,8 +497,8 @@ public class FunctionInspectorD extends FunctionInspector
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		if (e.getSource() instanceof MyTextFieldD) {
-			((MyTextFieldD) e.getSource()).selectAll();
+		if (e.getSource() instanceof MathTextFieldBase) {
+			((MathTextFieldBase) e.getSource()).selectAll();
 		}
 	}
 
@@ -595,7 +593,7 @@ public class FunctionInspectorD extends FunctionInspector
 		wrappedDialog.setFont(font);
 		tableXY.setFont(font);
 		tableInterval.setFont(font);
-		MyTextFieldD dummyField = makeTextField(app);
+		MathTextFieldBase dummyField = makeTextField(app);
 		tableXY.setRowHeight(dummyField.getPreferredSize().height);
 		tableInterval.setRowHeight(dummyField.getPreferredSize().height);
 		updateIcons();
@@ -603,8 +601,8 @@ public class FunctionInspectorD extends FunctionInspector
 		GuiManagerD.setFontRecursive(wrappedDialog, font);
 	}
 
-	private static MyTextFieldD makeTextField(App app) {
-		return new MyTextFieldD((AppD) app);
+	private static MathTextFieldBase makeTextField(App app) {
+		return new MathTextFieldBase((AppD) app);
 	}
 
 	@Override

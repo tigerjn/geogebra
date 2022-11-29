@@ -11,8 +11,8 @@ import org.geogebra.common.kernel.arithmetic.FunctionVariable;
 import org.geogebra.common.kernel.arithmetic.GetItem;
 import org.geogebra.common.kernel.arithmetic.MyDouble;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
 import org.geogebra.common.kernel.arithmetic.MyVecNode;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.arithmetic.ValidExpression;
 import org.geogebra.common.kernel.arithmetic3D.MyVec3DNode;
 import org.geogebra.common.kernel.commands.CmdIf;
@@ -276,9 +276,9 @@ public class CommandDispatcherGiac {
 
 			case sum:
 				ret = new ExpressionNode(kernel,
-						new MyNumberPair(kernel, args.getItem(0),
+						new NumberPair(kernel, args.getItem(0),
 								args.getItem(1)),
-						Operation.SUM, new MyNumberPair(kernel, args.getItem(2),
+						Operation.SUM, new NumberPair(kernel, args.getItem(2),
 								args.getItem(3)));
 
 				break;
@@ -557,7 +557,7 @@ public class CommandDispatcherGiac {
 					} else {
 
 						ret = new ExpressionNode(kernel, args.getItem(0),
-								Operation.IF_ELSE, new MyNumberPair(kernel,
+								Operation.IF_ELSE, new NumberPair(kernel,
 										args.getItem(1), Else));
 					}
 				} else {
@@ -601,7 +601,7 @@ public class CommandDispatcherGiac {
 					break;
 
 				case 3:
-					MyNumberPair np = new MyNumberPair(kernel, args.getItem(1),
+					NumberPair np = new NumberPair(kernel, args.getItem(1),
 							args.getItem(2));
 					ret = new ExpressionNode(kernel, args.getItem(0),
 							Operation.BETA_INCOMPLETE, np);
@@ -610,7 +610,7 @@ public class CommandDispatcherGiac {
 
 				case 4:
 					// 4th argument is dummy to flag "regularized"
-					np = new MyNumberPair(kernel, args.getItem(1),
+					np = new NumberPair(kernel, args.getItem(1),
 							args.getItem(2));
 					ret = new ExpressionNode(kernel, args.getItem(0),
 							Operation.BETA_INCOMPLETE_REGULARIZED, np);
@@ -654,7 +654,7 @@ public class CommandDispatcherGiac {
 
 				if (deg > 1 && DoubleUtil.isInteger(deg)) {
 					return new ExpressionNode(kernel,
-							new MyNumberPair(kernel, args.getItem(0),
+							new NumberPair(kernel, args.getItem(0),
 									args.getItem(1)),
 							Operation.DIFF, args.getItem(2));
 				}

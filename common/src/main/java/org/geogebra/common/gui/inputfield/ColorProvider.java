@@ -193,13 +193,13 @@ public class ColorProvider {
 	}
 
 	private void getIntervalsRecursively(String text1, int startIndex) {
-		MyLabelParamRegExp labelParam = new MyLabelParamRegExp(text1);
-		MyMatchResult res = null;
+		LabelParamRegExp labelParam = new LabelParamRegExp(text1);
+		LabelParamMatch res = null;
 		// While we get matches against text
 		while ((res = labelParam.exec()) != null) {
-			String label = res.getGroup(0);
+			String label = res.getLabel();
 			// Params is null if we got a label
-			String params = res.getGroup(1);
+			String params = res.getParams();
 			// We don't color commands
 			if (!res.isCommand()) {
 				addToInterval(label, startIndex + res.getIndex(),
@@ -248,50 +248,50 @@ public class ColorProvider {
 		}
 	}
 
-	// MyMatchResult and MyLabelParamRegExp are
-	// inner classes used for matching labels/functions/commands
-	private static class MyMatchResult {
+	private static class LabelParamMatch {
 
-		int index;
-		List<String> groups;
-		private boolean isCommand;
+		private final int index;
+		private final String label;
+		private final String params;
+		private final boolean isCommand;
 
-		public MyMatchResult(int index, List<String> groups,
+		public LabelParamMatch(int index, String label, String params,
 				boolean isCommand) {
 			this.index = index;
-			this.groups = groups;
-			setCommand(isCommand);
+			this.label = label;
+			this.params = params;
+			this.isCommand = isCommand;
 		}
 
 		public boolean isCommand() {
 			return isCommand;
 		}
 
-		public void setCommand(boolean isCommand) {
-			this.isCommand = isCommand;
-		}
-
 		public int getIndex() {
 			return index;
 		}
 
-		public String getGroup(int i) {
-			return groups.get(i);
+		public String getLabel() {
+			return label;
+		}
+
+		public String getParams() {
+			return params;
 		}
 
 	}
 
-	private static class MyLabelParamRegExp {
+	private static class LabelParamRegExp {
 
 		RegExp regExp = RegExp.compile(LABEL_PARAM);
 		String text;
 		int index;
 
-		public MyLabelParamRegExp(String text) {
+		public LabelParamRegExp(String text) {
 			setText(text);
 		}
 
-		public MyMatchResult exec() {
+		public LabelParamMatch exec() {
 			MatchResult res = regExp.exec(text);
 			if (res == null) {
 				return null;
@@ -299,9 +299,7 @@ public class ColorProvider {
 
 			String label = res.getGroup(1);
 			String openingBracket = res.getGroup(8);
-			List groups = new ArrayList(2);
-			groups.add(label);
-			MyMatchResult ret;
+			LabelParamMatch ret;
 			int step = 0;
 			String params = null;
 
@@ -326,8 +324,7 @@ public class ColorProvider {
 				step = paramsStart + params.length();
 			}
 			// Set the second parameter and create return value
-			groups.add(params);
-			ret = new MyMatchResult(index + res.getIndex(), groups,
+			ret = new LabelParamMatch(index + res.getIndex(), label, params,
 					"[".equals(openingBracket));
 
 			index += step;

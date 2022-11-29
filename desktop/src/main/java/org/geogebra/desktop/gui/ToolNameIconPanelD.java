@@ -15,8 +15,6 @@ package org.geogebra.desktop.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -36,7 +34,7 @@ import org.geogebra.common.kernel.Macro;
 import org.geogebra.common.main.Localization;
 import org.geogebra.common.util.Util;
 import org.geogebra.desktop.gui.dialog.ToolManagerDialogD;
-import org.geogebra.desktop.gui.inputfield.MyTextFieldD;
+import org.geogebra.desktop.gui.inputfield.MathTextFieldBase;
 import org.geogebra.desktop.main.AppD;
 
 /**
@@ -134,7 +132,7 @@ public class ToolNameIconPanelD extends JPanel {
 			}
 		};
 		{
-			tfToolName = new MyTextFieldD(app);
+			tfToolName = new MathTextFieldBase(app);
 			int n = app.getKernel().getMacroNumber() + 1;
 			tfToolName.setText(loc.getMenu("Tool") + n);
 			add(tfToolName, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
@@ -143,7 +141,7 @@ public class ToolNameIconPanelD extends JPanel {
 			tfToolName.addKeyListener(kl);
 		}
 		{
-			tfCmdName = new MyTextFieldD(app);
+			tfCmdName = new MathTextFieldBase(app);
 			tfCmdName.setText(tfToolName.getText());
 			add(tfCmdName, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
@@ -162,7 +160,7 @@ public class ToolNameIconPanelD extends JPanel {
 			tfCmdName.addFocusListener(fl);
 		}
 		{
-			tfToolHelp = new MyTextFieldD(app);
+			tfToolHelp = new MathTextFieldBase(app);
 			add(tfToolHelp, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
 					new Insets(0, 0, 0, 0), 0, 0));

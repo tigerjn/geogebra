@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.geogebra.common.kernel.Kernel;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.util.DoubleUtil;
 
 public class ClipAlgoSutherlandHodogman {
@@ -15,10 +15,10 @@ public class ClipAlgoSutherlandHodogman {
 	private double maxValue = Float.MAX_VALUE;
 
 	static class Edge {
-		private final MyPoint start;
-		private final MyPoint end;
+		private final PathPoint start;
+		private final PathPoint end;
 
-		public Edge(MyPoint start, MyPoint end) {
+		public Edge(PathPoint start, PathPoint end) {
 			this.start = start;
 			this.end = end;
 		}
@@ -37,8 +37,8 @@ public class ClipAlgoSutherlandHodogman {
 	 * @param clipPoints vertices of clipping polygon
 	 * @return clipped points
 	 */
-	public List<MyPoint> process(List<MyPoint> input, double[][] clipPoints) {
-		List<MyPoint> output = input;
+	public List<PathPoint> process(List<PathPoint> input, double[][] clipPoints) {
+		List<PathPoint> output = input;
 		limitYValues(output);
 		for (int i = 0; i < EDGE_COUNT; i++) {
 			output = clipWithEdge(createEdge(clipPoints, i), output);
@@ -47,7 +47,7 @@ public class ClipAlgoSutherlandHodogman {
 		return output;
 	}
 
-	private void limitYValues(List<MyPoint> input) {
+	private void limitYValues(List<PathPoint> input) {
 		input.stream().filter(pt -> pt.y > Y_LIMIT)
 				.forEach(pt -> pt.y = Math.signum(pt.y) * Y_LIMIT);
 	}
@@ -57,24 +57,24 @@ public class ClipAlgoSutherlandHodogman {
 				createPoint(clipPoints[i]));
 	}
 
-	private MyPoint createPoint(double[] value) {
-		return new MyPoint(value[0], value[1]);
+	private PathPoint createPoint(double[] value) {
+		return new PathPoint(value[0], value[1]);
 	}
 
-	private List<MyPoint> clipWithEdge(Edge edge, List<MyPoint> input) {
+	private List<PathPoint> clipWithEdge(Edge edge, List<PathPoint> input) {
 
-		List<MyPoint> output = new ArrayList<>();
+		List<PathPoint> output = new ArrayList<>();
 
 		for (int i = 0; i < input.size(); i++) {
-			MyPoint prev = input.get((i > 0 ? i : input.size()) - 1);
-			MyPoint current = input.get(i);
+			PathPoint prev = input.get((i > 0 ? i : input.size()) - 1);
+			PathPoint current = input.get(i);
 			addClippedOutput(edge, prev, current, output);
 		}
 		return output;
 	}
 
 	private void addClippedOutput(Edge edge,
-			MyPoint prev, MyPoint current, List<MyPoint> output) {
+			PathPoint prev, PathPoint current, List<PathPoint> output) {
 		if (isInside(edge, current)) {
 			if (!isInside(edge, prev)) {
 				handleIntersectionPoint(edge, prev, current, output);
@@ -87,9 +87,9 @@ public class ClipAlgoSutherlandHodogman {
 		}
 	}
 
-	private void handleIntersectionPoint(Edge edge, MyPoint prev,
-			MyPoint current, List<MyPoint> output) {
-		MyPoint intersection = intersection(edge, prev, current);
+	private void handleIntersectionPoint(Edge edge, PathPoint prev,
+			PathPoint current, List<PathPoint> output) {
+		PathPoint intersection = intersection(edge, prev, current);
 		if (intersection == null) {
 			current.setLineTo(false);
 		} else {
@@ -97,13 +97,13 @@ public class ClipAlgoSutherlandHodogman {
 		}
 	}
 
-	private static boolean isInside(Edge edge, MyPoint c) {
+	private static boolean isInside(Edge edge, PathPoint c) {
 		return (edge.start.x - c.x) * (edge.end.y - c.y)
 				< (edge.start.y - c.y) * (edge.end.x - c.x);
 	}
 
-	private MyPoint intersection(Edge edge, MyPoint p,
-			MyPoint q) {
+	private PathPoint intersection(Edge edge, PathPoint p,
+			PathPoint q) {
 		double a1 = edge.end.y - edge.start.y;
 		double b1 = edge.start.x - edge.end.x;
 		double c1 = a1 * edge.start.x + b1 * edge.start.y;
@@ -126,7 +126,7 @@ public class ClipAlgoSutherlandHodogman {
 		}
 
 		// add 0.0 to avoid -0.0 problem.
-		return new MyPoint(x + 0.0, y + 0.0, q.getSegmentType());
+		return new PathPoint(x + 0.0, y + 0.0, q.getSegmentType());
 	}
 
 	private double getSafeNumber(double value) {

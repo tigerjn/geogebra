@@ -48,7 +48,7 @@ public class InputBarHelpPanelW extends VerticalPanel implements SetLabels, Bool
 	private LocaleSensitiveComparator comparator;
 	private SplitLayoutPanel sp;
 	private InlineLabel lblSyntax;
-	private MyTreeItem itmFunction;
+	private CommandTreeItem itmFunction;
 	private AutoCompleteW inputField;
 	private InputBarHelpPanel hp;
 
@@ -245,13 +245,13 @@ public class InputBarHelpPanelW extends VerticalPanel implements SetLabels, Bool
 
 		indexTree.clear();
 
-		itmFunction = new MyTreeItem();
+		itmFunction = new CommandTreeItem();
 		itmFunction.setWidget(new TreeItemButton(
 				app.getLocalization().getMenu("MathematicalFunctions"),
 				itmFunction, false));
 		indexTree.addItem(itmFunction);
 
-		MyTreeItem itmAllCommands = new MyTreeItem();
+		CommandTreeItem itmAllCommands = new CommandTreeItem();
 		itmAllCommands.setWidget(new TreeItemButton(app.getLocalization()
 		        .getMenu("AllCommands"), itmAllCommands, false));
 
@@ -265,7 +265,7 @@ public class InputBarHelpPanelW extends VerticalPanel implements SetLabels, Bool
 			if (cmdNames != null) {
 				String cmdSetName = app.getKernel().getAlgebraProcessor()
 						.getSubCommandSetName(index);
-				TreeItem itmCmdSet = new MyTreeItem();
+				TreeItem itmCmdSet = new CommandTreeItem();
 				itmCmdSet.setWidget(
 						new TreeItemButton(cmdSetName, itmCmdSet, false));
 				// add command set branch to tree
@@ -279,7 +279,7 @@ public class InputBarHelpPanelW extends VerticalPanel implements SetLabels, Bool
 	private void addCmdNames(TreeItem item, TreeSet<String> names) {
 		for (String cmdName : names) {
 			if (cmdName != null && cmdName.length() > 0) {
-				MyTreeItem cmd = new MyTreeItem();
+				CommandTreeItem cmd = new CommandTreeItem();
 				cmd.setWidget(new TreeItemButton(cmdName, cmd, true));
 				item.addItem(cmd);
 			}
@@ -304,9 +304,9 @@ public class InputBarHelpPanelW extends VerticalPanel implements SetLabels, Bool
 		}
 	}
 
-	private static class MyTreeItem extends TreeItem {
+	private static class CommandTreeItem extends TreeItem {
 
-		protected MyTreeItem() {
+		protected CommandTreeItem() {
 			// avoid synth access warning
 		}
 

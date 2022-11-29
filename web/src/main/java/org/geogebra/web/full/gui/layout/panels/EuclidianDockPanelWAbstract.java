@@ -235,7 +235,7 @@ public abstract class EuclidianDockPanelWAbstract extends DockPanelW
 	}
 
 	@Override
-	protected void addZoomPanel(MyDockLayoutPanel dockLayoutPanel,
+	protected void addZoomPanel(MainContentDockLayoutPanel dockLayoutPanel,
 			InsertPanel controls) {
 		if (allowZoomPanel()) {
 			dockLayoutPanel.addSouth(zoomPanel, 0);

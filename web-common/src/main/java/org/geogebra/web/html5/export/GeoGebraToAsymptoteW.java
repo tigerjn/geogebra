@@ -19,16 +19,16 @@ public class GeoGebraToAsymptoteW extends GeoGebraToAsymptote {
 			Inequality inequality) {
 
 		try {
-			return new MyGraphicsAs(ef, inequality);
+			return new InequalityPlotGraphicsAs(ef, inequality);
 		} catch (RuntimeException e) {
 			Log.debug(e);
 			return null;
 		}
 	}
 
-	class MyGraphicsAs extends MyGraphicsW {
+	class InequalityPlotGraphicsAs extends InequalityPlotGraphicsW {
 
-		public MyGraphicsAs(FunctionalNVar geo, Inequality ineq) {
+		public InequalityPlotGraphicsAs(FunctionalNVar geo, Inequality ineq) {
 			super(geo, ineq);
 		}
 

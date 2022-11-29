@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import org.apache.commons.collections15.Transformer;
 import org.geogebra.common.kernel.Construction;
-import org.geogebra.common.kernel.MyPoint;
+import org.geogebra.common.kernel.PathPoint;
 import org.geogebra.common.kernel.SegmentType;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoList;
@@ -28,9 +28,10 @@ public class AlgoMinimumSpanningTree extends AlgoDiscrete {
 	/** number of edges */
 	protected int edgeCount;
 
-	private static Transformer<MyLink, Double> wtTransformer = new Transformer<MyLink, Double>() {
+	private static Transformer<GraphEdge, Double> wtTransformer =
+			new Transformer<GraphEdge, Double>() {
 		@Override
-		public Double transform(MyLink link) {
+		public Double transform(GraphEdge link) {
 			return link.weight;
 		}
 	};
@@ -64,9 +65,9 @@ public class AlgoMinimumSpanningTree extends AlgoDiscrete {
 
 		edgeCount = 0;
 
-		HashMap<GeoPointND, MyNode> nodes = new HashMap<>();
-		MyNode node1, node2;
-		UndirectedSparseMultigraph<MyNode, MyLink> g = new UndirectedSparseMultigraph<>();
+		HashMap<GeoPointND, GraphNode> nodes = new HashMap<>();
+		GraphNode node1, node2;
+		UndirectedSparseMultigraph<GraphNode, GraphEdge> g = new UndirectedSparseMultigraph<>();
 
 		for (int i = 0; i < size - 1; i++) {
 			GeoPointND p1 = (GeoPointND) inputList.get(i);
@@ -76,28 +77,28 @@ public class AlgoMinimumSpanningTree extends AlgoDiscrete {
 				node1 = nodes.get(p1);
 				node2 = nodes.get(p2);
 				if (node1 == null) {
-					node1 = new MyNode(p1);
+					node1 = new GraphNode(p1);
 					nodes.put(p1, node1);
 				}
 				if (node2 == null) {
-					node2 = new MyNode(p2);
+					node2 = new GraphNode(p2);
 					nodes.put(p2, node2);
 				}
 
 				g.addEdge(
-						new MyLink(p1.distance(p2), node1, node2, edgeCount++),
+						new GraphEdge(p1.distance(p2), node1, node2, edgeCount++),
 						node1,
 						node2, EdgeType.UNDIRECTED);
 
 			}
 
-			MinimumSpanningForest2<MyNode, MyLink> prim = new MinimumSpanningForest2<>(
-					g, new DelegateForest<MyNode, MyLink>(),
-					DelegateTree.<MyNode, MyLink> getFactory(), wtTransformer);
+			MinimumSpanningForest2<GraphNode, GraphEdge> prim = new MinimumSpanningForest2<>(
+					g, new DelegateForest<GraphNode, GraphEdge>(),
+					DelegateTree.<GraphNode, GraphEdge> getFactory(), wtTransformer);
 
-			Forest<MyNode, MyLink> tree = prim.getForest();
+			Forest<GraphNode, GraphEdge> tree = prim.getForest();
 
-			Iterator<MyLink> it = tree.getEdges().iterator();
+			Iterator<GraphEdge> it = tree.getEdges().iterator();
 
 			if (al == null) {
 				al = new ArrayList<>();
@@ -106,13 +107,13 @@ public class AlgoMinimumSpanningTree extends AlgoDiscrete {
 			}
 
 			while (it.hasNext()) {
-				MyLink edge = it.next();
+				GraphEdge edge = it.next();
 
 				Coords coords = edge.n1.id.getInhomCoordsInD2();
-				al.add(new MyPoint(coords.get(1), coords.get(2),
+				al.add(new PathPoint(coords.get(1), coords.get(2),
 						SegmentType.MOVE_TO));
 				coords = edge.n2.id.getInhomCoordsInD2();
-				al.add(new MyPoint(coords.get(1), coords.get(2),
+				al.add(new PathPoint(coords.get(1), coords.get(2),
 						SegmentType.LINE_TO));
 
 			}
@@ -125,11 +126,11 @@ public class AlgoMinimumSpanningTree extends AlgoDiscrete {
 	}
 
 	/** Graph edge */
-	static class MyLink {
+	static class GraphEdge {
 		/** start point */
-		protected MyNode n1;
+		protected GraphNode n1;
 		/** end point */
-		protected MyNode n2;
+		protected GraphNode n2;
 		/** length */
 		double weight;
 		/** identifier */
@@ -145,7 +146,7 @@ public class AlgoMinimumSpanningTree extends AlgoDiscrete {
 		 * @param id
 		 *            identifier
 		 */
-		public MyLink(double weight, MyNode n1, MyNode n2, int id) {
+		public GraphEdge(double weight, GraphNode n1, GraphNode n2, int id) {
 			this.id = id; // This is defined in the outer class.
 			this.weight = weight;
 			this.n1 = n1;

@@ -16,7 +16,7 @@ import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.ExpressionValue;
 import org.geogebra.common.kernel.arithmetic.ListValue;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoFunction;
@@ -78,7 +78,7 @@ public class AlgoLastFunction extends AlgoElement {
 		if (exp.getOperation() != Operation.DATA) {
 			return;
 		}
-		ExpressionValue ev = ((MyNumberPair) exp.getRight()).getY();
+		ExpressionValue ev = ((NumberPair) exp.getRight()).getY();
 		if (!(ev instanceof ListValue) || ((ListValue) ev).size() < 1) {
 			return;
 		}

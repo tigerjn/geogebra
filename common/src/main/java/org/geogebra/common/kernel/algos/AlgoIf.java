@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.arithmetic.ExpressionNode;
 import org.geogebra.common.kernel.arithmetic.MyList;
-import org.geogebra.common.kernel.arithmetic.MyNumberPair;
+import org.geogebra.common.kernel.arithmetic.NumberPair;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -178,7 +178,7 @@ public class AlgoIf extends AlgoElement {
 							this.alternatives.get(0)));
 		} else if (this.conditions.size() == 1) {
 			return new ExpressionNode(kernel,
-					new MyNumberPair(kernel,
+					new NumberPair(kernel,
 							kernel.convertNumberValueToExpressionNode(
 									this.conditions.get(0)),
 							kernel.convertNumberValueToExpressionNode(
