@@ -344,6 +344,9 @@ public class MyCellEditorW implements BaseCellEditor {
 	 *            key press event
 	 */
 	public void sendKeyPressEvent(KeyPressEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
 		autoCompleteTextField.getTextField().setFocus(true);
 		keyListener.onKeyPress(e);
 	}
@@ -355,6 +358,9 @@ public class MyCellEditorW implements BaseCellEditor {
 	 *            key down event
 	 */
 	public void sendKeyDownEvent(KeyDownEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
 		autoCompleteTextField.getTextField().setFocus(true);
 		keyListener.onKeyDown(e);
 	}
@@ -404,6 +410,11 @@ public class MyCellEditorW implements BaseCellEditor {
 		public void onKeyPress(KeyPressEvent e) {
 			// iOS: we do receive the event but nothing is actually printed
 			// because focus moved from dummy textarea into editor
+
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
+				e.getNativeEvent().preventDefault();
+			}
+
 			if (MathFieldW.checkCode(e.getNativeEvent(), "NumpadDecimal")) {
 				autoCompleteTextField.insertString(".");
 				e.preventDefault();
@@ -434,6 +445,9 @@ public class MyCellEditorW implements BaseCellEditor {
 			// this also makes sure no top-level action is done on keyUp
 			// but the default action of the event should have already been
 			// expired
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
+				e.getNativeEvent().preventDefault();
+			}
 			autoCompleteTextField.onKeyUp(e);
 			GlobalKeyDispatcherW.setDownKeys(e);
 			e.stopPropagation();

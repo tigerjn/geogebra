@@ -659,6 +659,10 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyPress(KeyPressEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
+
 		if (GlobalKeyDispatcherW.isBadKeyEvent(e)) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -771,6 +775,10 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyDown(KeyDownEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
+
 		if (!isTabEnabled()) {
 			return;
 		}
@@ -839,6 +847,9 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyUp(KeyUpEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
 		GlobalKeyDispatcherW.setDownAltKeys(e, false);
 		int keyCode = e.getNativeKeyCode();
 		// we don't want to trap AltGr

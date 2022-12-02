@@ -57,6 +57,9 @@ public class SpreadsheetKeyListenerW
 		e.stopPropagation();
 		GlobalKeyDispatcherW.setDownKeys(e);
 		GlobalKeyDispatcherW.setDownAltKeys(e, true);
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
 		// cancel as this may prevent the keyPress in some browsers
 		// hopefully it is enough to preventDefault in onKeyPress
 		// e.preventDefault();
@@ -537,6 +540,9 @@ public class SpreadsheetKeyListenerW
 		// make sure e.g. SHIFT+ doesn't trigger default browser action
 		e.stopPropagation();
 
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			e.getNativeEvent().preventDefault();
+		}
 		// prevent default action in all cases here except CTRL+V
 		// but how to detect CTRL+V? Just detect "V" and "v", and
 		// check e.ctrlKeyDown! This is only needed in Firefox, to
@@ -633,6 +639,9 @@ public class SpreadsheetKeyListenerW
 
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			event.getNativeEvent().preventDefault();
+		}
 		GlobalKeyDispatcherW.setDownKeys(event);
 		GlobalKeyDispatcherW.setDownAltKeys(event, false);
 	}
