@@ -138,7 +138,7 @@ public class AltKeys {
 			lookupLower.put((char) 85, Unicode.INFINITY + "");
 
 			// on Chrome (mac), Alt n. gives character 78 (3/4)
-			lookupUpper.put((char) 78, Unicode.nu + "");
+			lookupUpper.put((char) 78, Unicode.Nu + "");
 			lookupLower.put((char) 78, Unicode.nu + "");
 		}
 
@@ -174,9 +174,8 @@ public class AltKeys {
 			return AltKeys.lookupLower.get((char) (keyCode + 'A' - 'a'));
 		}
 
-		if(keyCode == 229 || keyCode == 192) {
+		if(keyCode == 229 || keyCode == 192) { //special bindings for the n & u keys on mac
 			return specialMacKeyCodeBindings.get(code);
-
 		}
 
 		return AltKeys.lookupLower.get((char) keyCode);

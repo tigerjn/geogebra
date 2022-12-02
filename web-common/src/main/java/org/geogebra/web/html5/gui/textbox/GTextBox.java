@@ -2,11 +2,16 @@ package org.geogebra.web.html5.gui.textbox;
 
 import org.geogebra.common.util.TextObject;
 import org.geogebra.web.html5.gui.util.MathKeyboardListener;
+import org.geogebra.web.html5.main.GlobalKeyDispatcherW;
 import org.geogebra.web.html5.util.GlobalHandlerRegistry;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -61,6 +66,24 @@ public class GTextBox extends TextBox
 		}
 	}
 
+
+	@Override
+	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+		final KeyDownHandler finalHandler = handler;
+		return super.addKeyDownHandler(new KeyDownHandler() {
+
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+				if (GlobalKeyDispatcherW.isLeftAltDown())
+					event.getNativeEvent().preventDefault();
+
+				finalHandler.onKeyDown(event);
+			}
+		});
+	}
+
+
+
 	@Override
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
 		final KeyUpHandler finalHandler = handler;
@@ -89,6 +112,8 @@ public class GTextBox extends TextBox
 			isShiftKeyDown = nativeEvent.getShiftKey();
 			isControlKeyDown = nativeEvent.getCtrlKey();
 			isMetaKeyDown = nativeEvent.getMetaKey();
+			if (GlobalKeyDispatcherW.isLeftAltDown())
+				nativeEvent.preventDefault();
 		}
 	}
 
