@@ -66,7 +66,7 @@ public class GTextBox extends TextBox
 		}
 	}
 
-
+/*
 	@Override
 	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
 		final KeyDownHandler finalHandler = handler;
@@ -82,7 +82,7 @@ public class GTextBox extends TextBox
 		});
 	}
 
-
+ */
 
 	@Override
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
@@ -112,8 +112,9 @@ public class GTextBox extends TextBox
 			isShiftKeyDown = nativeEvent.getShiftKey();
 			isControlKeyDown = nativeEvent.getCtrlKey();
 			isMetaKeyDown = nativeEvent.getMetaKey();
-			if (GlobalKeyDispatcherW.isLeftAltDown())
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
 				nativeEvent.preventDefault();
+			}
 		}
 	}
 
