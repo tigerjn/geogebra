@@ -1,5 +1,9 @@
 package org.geogebra.web.html5.gui.inputfield;
 
+import static com.himamis.retex.editor.share.util.AltKeys.getAltKeyMac;
+import static com.himamis.retex.editor.share.util.AltKeys.isAltKeyMac;
+import static com.himamis.retex.editor.web.MathFieldW.getCode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -657,6 +661,7 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyPress(KeyPressEvent e) {
+
 		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.getNativeEvent().preventDefault();
 		}
@@ -773,9 +778,7 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyDown(KeyDownEvent e) {
-		if (e.getNativeKeyCode() == 229) {
-			return;
-		}
+
 		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.getNativeEvent().preventDefault();
 		}
@@ -849,7 +852,9 @@ public class AutoCompleteTextFieldW extends FlowPanel
 	@Override
 	public void onKeyUp(KeyUpEvent e) {
 
-		if (e.getNativeKeyCode() == 229) {
+		if (MathFieldW.checkKey(e.getNativeEvent(), "Dead")) {
+			handleDeadKey(e);
+			e.stopPropagation();
 			return;
 		}
 
@@ -1536,6 +1541,16 @@ public class AutoCompleteTextFieldW extends FlowPanel
 				return Style.TextAlign.CENTER;
 		case RIGHT:
 				return Style.TextAlign.RIGHT;
+		}
+	}
+
+	private void handleDeadKey(KeyUpEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			String code = getCode(e.getNativeEvent());
+			if (isAltKeyMac(code, e.isShiftKeyDown(), true)) {
+				String s = getAltKeyMac(code, e.isShiftKeyDown(), true);
+				insertString(s);
+			}
 		}
 	}
 }

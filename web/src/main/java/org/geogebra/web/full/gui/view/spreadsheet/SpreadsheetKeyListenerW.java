@@ -1,5 +1,9 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
+import static com.himamis.retex.editor.share.util.AltKeys.getAltKeyMac;
+import static com.himamis.retex.editor.share.util.AltKeys.isAltKeyMac;
+import static com.himamis.retex.editor.web.MathFieldW.getCode;
+
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -20,6 +24,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.himamis.retex.editor.share.util.AltKeys;
 import com.himamis.retex.editor.share.util.GWTKeycodes;
+import com.himamis.retex.editor.web.MathFieldW;
 
 /**
  * Key event handler for spreadsheet
@@ -52,6 +57,13 @@ public class SpreadsheetKeyListenerW
 
 	@Override
 	public void onKeyDown(KeyDownEvent e) {
+
+		if (MathFieldW.checkKey(e.getNativeEvent(), "Dead")) {
+			handleDeadKey(e);
+			e.stopPropagation();
+			return;
+		}
+
 		e.stopPropagation();
 		GlobalKeyDispatcherW.setDownKeys(e);
 		GlobalKeyDispatcherW.setDownAltKeys(e, true);
@@ -233,6 +245,25 @@ public class SpreadsheetKeyListenerW
 					e.preventDefault();
 				}
 				letterOrDigitTyped();
+			}
+		}
+	}
+
+	private void handleDeadKey(KeyDownEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			String code = getCode(e.getNativeEvent());
+			if (isAltKeyMac(code, e.isShiftKeyDown(), true)) {
+				String s = getAltKeyMac(code, e.isShiftKeyDown(), true);
+				table.insertString(s, table.getSelectedRow(),
+						table.getSelectedColumn());
+
+				table.positionEditorPanel(true, table.getSelectedRow(),
+						table.getSelectedColumn());
+
+				// give it the focus
+				//table.textField.requestFocus();
+				table.renderSelection();
+
 			}
 		}
 	}

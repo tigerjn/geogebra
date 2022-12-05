@@ -2566,7 +2566,7 @@ public class MyTableW implements /* FocusListener, */MyTable {
 		}
 	}
 
-	private void positionEditorPanel(boolean visible, int row, int column) {
+	public void positionEditorPanel(boolean visible, int row, int column) {
 		if (editorPanel == null) {
 			return;
 		}
@@ -2668,5 +2668,15 @@ public class MyTableW implements /* FocusListener, */MyTable {
 
 	public void addResizeHeight(GPoint gPoint) {
 		cellResizeHeightSet.add(gPoint);
+	}
+
+	public void insertString(String code, int row, int col) {
+		Object ob = tableModel.getValueAt(row, col);
+
+		AutoCompleteTextFieldW textField = ((MyCellEditorW) getCellEditor())
+				.getTableCellEditorWidget(this, ob, false,
+						row, col);
+
+		textField.insertString(code);
 	}
 }

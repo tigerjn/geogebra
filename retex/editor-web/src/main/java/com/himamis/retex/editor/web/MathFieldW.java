@@ -478,6 +478,19 @@ public class MathFieldW implements MathField, IsWidget, MathFieldAsync, BlurHand
 		return check.equals(Js.<KeyboardEvent>uncheckedCast(evt).code);
 	}
 
+
+	public static String getCode(Object evt) {
+		return Js.<KeyboardEvent>uncheckedCast(evt).code;
+	}
+	/***
+	 *
+	 * @param evt - native event
+	 * @param check - key name
+	 * @return whether the event key matches
+	 */
+	public static boolean checkKey(Object evt, String check) {
+		return check.equals(Js.<KeyboardEvent>uncheckedCast(evt).key);
+	}
 	/**
 	 * @param nativeEvent
 	 *            native event

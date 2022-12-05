@@ -7,12 +7,20 @@ public class AltKeys {
 	private static HashMap<Character, String> lookupLower = null;
 	private static HashMap<Character, String> lookupUpper = null;
 
-	private static HashMap<KeyCodes, String> specialMacKeyCodeBindings = null;
+	private static HashMap<Codes, String> deadKeysUpper = null;
+	private static HashMap<Codes, String> deadKeysLower = null;
 
 	private static void init(boolean chromeApp) {
+
 		lookupLower = new HashMap<>();
 		lookupUpper = new HashMap<>();
-		specialMacKeyCodeBindings = new HashMap<>();
+		deadKeysUpper = new HashMap<>();
+		deadKeysLower = new HashMap<>();
+
+		deadKeysLower.put(Codes.N, Unicode.nu + "");
+		deadKeysLower.put(Codes.U, Unicode.INFINITY + "");
+		deadKeysUpper.put(Codes.N, Unicode.Nu + "");
+		deadKeysUpper.put(Codes.U, Unicode.INFINITY + "");
 
 		lookupLower.put('A', Unicode.alpha + "");
 		lookupUpper.put('A', Unicode.Alpha + "");
@@ -142,9 +150,11 @@ public class AltKeys {
 			lookupLower.put((char) 78, Unicode.nu + "");
 		}
 
+		/*
 		specialMacKeyCodeBindings.put(KeyCodes.MAC_N, Unicode.nu + "");
 		specialMacKeyCodeBindings.put(KeyCodes.APOSTROPHE, Unicode.nu + "");
 		specialMacKeyCodeBindings.put(KeyCodes.MAC_U, Unicode.INFINITY + "");
+		 */
 	}
 
 	/**
@@ -174,10 +184,6 @@ public class AltKeys {
 			return AltKeys.lookupLower.get((char) (keyCode + 'A' - 'a'));
 		}
 
-		if (keyCode == 229 || keyCode == 192) {
-			return specialMacKeyCodeBindings.get(code);
-		}
-
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
 
@@ -201,7 +207,33 @@ public class AltKeys {
 			return AltKeys.lookupLower.containsKey((char) (keyCode + 'A' - 'a'));
 		}
 
-		return AltKeys.lookupLower.containsKey((char) keyCode)
-				|| keyCode == 229 || keyCode == 192;
+		return AltKeys.lookupLower.containsKey((char) keyCode);
+	}
+
+	public static Boolean isAltKeyMac(String code, boolean isShiftDown,
+			boolean webApp) {
+		Codes gwtCode = Codes.translateGWTcode(code);
+		if (lookupUpper == null) {
+			init(webApp);
+		}
+		if (isShiftDown) {
+			return deadKeysUpper.containsKey(gwtCode);
+		}
+
+		return AltKeys.deadKeysLower.containsKey(gwtCode);
+	}
+
+	public static String getAltKeyMac(String code, boolean isShiftDown,
+			boolean webApp) {
+		Codes gwtCode = Codes.translateGWTcode(code);
+
+		if (lookupUpper == null) {
+			init(webApp);
+		}
+		if (isShiftDown) {
+			return deadKeysUpper.get(gwtCode);
+		}
+
+		return AltKeys.deadKeysLower.get(gwtCode);
 	}
 }
