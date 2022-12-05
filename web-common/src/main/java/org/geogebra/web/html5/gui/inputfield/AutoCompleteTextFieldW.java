@@ -779,6 +779,13 @@ public class AutoCompleteTextFieldW extends FlowPanel
 	@Override
 	public void onKeyDown(KeyDownEvent e) {
 
+		if (MathFieldW.checkKey(e.getNativeEvent(), "Dead")) {
+			e.preventDefault();
+			handleDeadKey(e);
+			e.stopPropagation();
+			return;
+		}
+
 		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.getNativeEvent().preventDefault();
 		}
@@ -853,6 +860,7 @@ public class AutoCompleteTextFieldW extends FlowPanel
 	public void onKeyUp(KeyUpEvent e) {
 
 		if (MathFieldW.checkKey(e.getNativeEvent(), "Dead")) {
+			e.preventDefault();
 			handleDeadKey(e);
 			e.stopPropagation();
 			return;
@@ -1545,6 +1553,16 @@ public class AutoCompleteTextFieldW extends FlowPanel
 	}
 
 	private void handleDeadKey(KeyUpEvent e) {
+		if (GlobalKeyDispatcherW.isLeftAltDown()) {
+			String code = getCode(e.getNativeEvent());
+			if (isAltKeyMac(code, e.isShiftKeyDown(), true)) {
+				String s = getAltKeyMac(code, e.isShiftKeyDown(), true);
+				insertString(s);
+			}
+		}
+	}
+
+	private void handleDeadKey(KeyDownEvent e) {
 		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			String code = getCode(e.getNativeEvent());
 			if (isAltKeyMac(code, e.isShiftKeyDown(), true)) {

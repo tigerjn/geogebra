@@ -7,6 +7,10 @@ public enum Codes {
 
 	U("KeyU"),
 
+	I("KeyI"),
+
+	E("KeyE"),
+
 	UNKNOWN("unknown");
 	private String code;
 

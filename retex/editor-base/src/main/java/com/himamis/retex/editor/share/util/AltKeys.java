@@ -18,9 +18,13 @@ public class AltKeys {
 		deadKeysLower = new HashMap<>();
 
 		deadKeysLower.put(Codes.N, Unicode.nu + "");
-		deadKeysLower.put(Codes.U, Unicode.INFINITY + "");
 		deadKeysUpper.put(Codes.N, Unicode.Nu + "");
+		deadKeysLower.put(Codes.U, Unicode.INFINITY + "");
 		deadKeysUpper.put(Codes.U, Unicode.INFINITY + "");
+		deadKeysLower.put(Codes.I, Unicode.IMAGINARY + "");
+		deadKeysUpper.put(Codes.I, Unicode.IMAGINARY + "");
+		deadKeysLower.put(Codes.E, Unicode.EULER_STRING + "");
+		deadKeysUpper.put(Codes.E, Unicode.EULER_STRING + "");
 
 		lookupLower.put('A', Unicode.alpha + "");
 		lookupUpper.put('A', Unicode.Alpha + "");
