@@ -328,7 +328,7 @@ final public class DockPanelData {
 	}
 
 	/**
-	 * Clone this object. Required as dock panels would change the loaded
+	 * Clone this object. Require	d as dock panels would change the loaded
 	 * perspective automatically otherwise.
 	 * 
 	 * @return clone

@@ -230,10 +230,8 @@ public class SpreadsheetKeyListenerW
 			}
 			//$FALL-THROUGH$
 		default:
-			int nativeKeyCode = e.getNativeKeyCode();
-			com.himamis.retex.editor.share.util.KeyCodes keycode = translateJavacode(nativeKeyCode);
-			if (!editor.isEditing() && isValidKeyCombination(e, keycode)) {
-				if (GlobalKeyDispatcherW.isLeftAltDown()) { //preventDefaultAction(e, keycode)) {
+			if (!editor.isEditing() && isValidKeyCombination(e)) {
+				if (GlobalKeyDispatcherW.isLeftAltDown() && preventDefaultAction(e)) {
 					e.preventDefault();
 				}
 				letterOrDigitTyped();
@@ -646,8 +644,7 @@ public class SpreadsheetKeyListenerW
 		GlobalKeyDispatcherW.setDownAltKeys(event, false);
 	}
 
-	private boolean isValidKeyCombination(KeyDownEvent e,
-			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+	private boolean isValidKeyCombination(KeyDownEvent e) {
 		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e));
 	}
 
@@ -655,8 +652,7 @@ public class SpreadsheetKeyListenerW
 		return AltKeys.isGeoGebraShortcut(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
 
-	private boolean preventDefaultAction(KeyDownEvent e,
-			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+	private boolean preventDefaultAction(KeyDownEvent e) {
 		return e.isAltKeyDown()
 				&& AltKeys.isGeoGebraShortcut(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}

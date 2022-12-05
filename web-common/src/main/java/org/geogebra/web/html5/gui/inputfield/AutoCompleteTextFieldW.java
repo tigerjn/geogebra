@@ -127,8 +127,6 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	private @CheckForNull CursorOverlay cursorOverlay;
 
-    private boolean rightAltDown;
-	private boolean leftAltDown;
 	private final AutocompleteProviderClassic inputSuggestions;
 	private final FlowPanel main = new FlowPanel();
 	private boolean keyboardButtonEnabled = true;

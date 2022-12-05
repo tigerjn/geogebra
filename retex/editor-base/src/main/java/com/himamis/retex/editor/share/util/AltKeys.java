@@ -174,7 +174,7 @@ public class AltKeys {
 			return AltKeys.lookupLower.get((char) (keyCode + 'A' - 'a'));
 		}
 
-		if(keyCode == 229 || keyCode == 192) { //special bindings for the n & u keys on mac
+		if (keyCode == 229 || keyCode == 192) {
 			return specialMacKeyCodeBindings.get(code);
 		}
 
@@ -203,14 +203,5 @@ public class AltKeys {
 
 		return AltKeys.lookupLower.containsKey((char) keyCode)
 				|| keyCode == 229 || keyCode == 192;
-	}
-
-	/**
-	 * key bindings for alt u & alt n are the same on MAC, so we check by key instead
-	 * @param code the typed key
-	 * @return returns true if the key is u or n
-	 */
-	public static boolean hasDifferentMacBinding(KeyCodes code) {
-		return specialMacKeyCodeBindings.containsKey(code);
 	}
 }
