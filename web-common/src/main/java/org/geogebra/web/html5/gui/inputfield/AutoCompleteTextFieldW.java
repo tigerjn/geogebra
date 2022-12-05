@@ -773,6 +773,9 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyDown(KeyDownEvent e) {
+		if (e.getNativeKeyCode() == 229) {
+			return;
+		}
 		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.getNativeEvent().preventDefault();
 		}
@@ -845,6 +848,11 @@ public class AutoCompleteTextFieldW extends FlowPanel
 
 	@Override
 	public void onKeyUp(KeyUpEvent e) {
+
+		if (e.getNativeKeyCode() == 229) {
+			return;
+		}
+
 		if (GlobalKeyDispatcherW.isLeftAltDown()) {
 			e.getNativeEvent().preventDefault();
 		}

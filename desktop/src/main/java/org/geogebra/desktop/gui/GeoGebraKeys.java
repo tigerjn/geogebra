@@ -65,6 +65,10 @@ public class GeoGebraKeys implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 
+		if (e.getKeyCode() == 229) {
+			return;
+		}
+
 		// when decimal comma typed on numeric keypad on eg German keyboard,
 		// replace with .
 

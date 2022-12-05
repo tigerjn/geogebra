@@ -1,7 +1,5 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
-import static com.himamis.retex.editor.share.util.KeyCodes.translateJavacode;
-
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
