@@ -439,6 +439,9 @@ public class ConsElementXMLHandler {
 			((GeoAngle) geo).setEmphasizeRightAngle(true);
 		} else if (geo instanceof GeoText) {
 			geo.setBackgroundColor(null);
+		} else if (geo instanceof GeoButton) {
+			geo.setBackgroundColor(GColor.WHITE);
+			geo.setObjColor(GColor.BLACK);
 		}
 	}
 
