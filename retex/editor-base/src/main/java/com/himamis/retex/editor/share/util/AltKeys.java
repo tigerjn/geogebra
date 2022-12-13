@@ -79,7 +79,6 @@ public class AltKeys {
 
 		// alt-/ for backslash (not on all keyboards eg Dutch)
 		lookupLower.put('/', "\\");
-
 		lookupUpper.put('=', Unicode.XOR + "");
 		lookupLower.put('=', Unicode.XOR + "");
 
@@ -130,8 +129,15 @@ public class AltKeys {
 			// on Chrome, Alt-. gives character 190 (3/4)
 			lookupUpper.put((char) 190, Unicode.GREATER_EQUAL + "");
 			lookupLower.put((char) 190, Unicode.GREATER_EQUAL + "");
-		}
 
+			// on Chrome (mac), Alt u. gives character 85 (3/4)
+			lookupUpper.put((char) 85, Unicode.INFINITY + "");
+			lookupLower.put((char) 85, Unicode.INFINITY + "");
+
+			// on Chrome (mac), Alt n. gives character 78 (3/4)
+			lookupUpper.put((char) 78, Unicode.Nu + "");
+			lookupLower.put((char) 78, Unicode.nu + "");
+		}
 	}
 
 	/**
@@ -148,6 +154,7 @@ public class AltKeys {
 	 */
 	public static String getAltSymbols(int keyCode, boolean isShiftDown,
 			boolean webApp) {
+		
 		if (lookupUpper == null) {
 			init(webApp);
 		}
@@ -157,6 +164,7 @@ public class AltKeys {
 		if (keyCode >= 'a' && keyCode <= 'z') {
 			return AltKeys.lookupLower.get((char) (keyCode + 'A' - 'a'));
 		}
+
 		return AltKeys.lookupLower.get((char) keyCode);
 	}
 
@@ -179,6 +187,7 @@ public class AltKeys {
 		if (keyCode >= 'a' && keyCode <= 'z') {
 			return AltKeys.lookupLower.containsKey((char) (keyCode + 'A' - 'a'));
 		}
-		return AltKeys.lookupLower.containsKey((char) keyCode);
+
+		return AltKeys.lookupLower.containsKey((char) keyCode) || keyCode == 229;
 	}
 }

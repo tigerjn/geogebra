@@ -11,6 +11,7 @@ import org.geogebra.common.util.debug.Log;
 import org.geogebra.web.html5.event.KeyEventsHandler;
 import org.geogebra.web.html5.gui.inputfield.AutoCompleteTextFieldW;
 import org.geogebra.web.html5.main.AppW;
+import org.geogebra.web.html5.main.GlobalKeyDispatcherW;
 
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -371,10 +372,14 @@ public class MyCellEditorW implements BaseCellEditor {
 		public void onKeyDown(KeyDownEvent e) {
 
 			// stopping propagation is needed to prevent duplicate events
-			e.stopPropagation();
+			//e.stopPropagation();
 
 			checkCursorKeys(e);
 			int keyCode = e.getNativeKeyCode();
+
+			if (GlobalKeyDispatcherW.isLeftAltDown()) {
+				e.preventDefault();
+			}
 
 			if (keyCode == KeyCodes.KEY_ESCAPE) {
 				e.preventDefault();
@@ -391,6 +396,8 @@ public class MyCellEditorW implements BaseCellEditor {
 				// update the formula bar after escape
 				// ?//table.getView().updateFormulaBar();
 			}
+			autoCompleteTextField.onKeyDown(e);
+			e.stopPropagation();
 		}
 
 		@Override
@@ -428,6 +435,7 @@ public class MyCellEditorW implements BaseCellEditor {
 			// but the default action of the event should have already been
 			// expired
 			autoCompleteTextField.onKeyUp(e);
+			GlobalKeyDispatcherW.setDownKeys(e);
 			e.stopPropagation();
 		}
 
@@ -558,7 +566,7 @@ public class MyCellEditorW implements BaseCellEditor {
 				break;
 
 			default:
-				if (e.isAltKeyDown()) {
+				if (GlobalKeyDispatcherW.isLeftAltDown()) {
 					if (AltKeys.isGeoGebraShortcut(
 							e.getNativeKeyCode(), e.isShiftKeyDown(), true)) {
 						e.preventDefault();

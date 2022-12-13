@@ -1,7 +1,5 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
-import static com.himamis.retex.editor.share.util.KeyCodes.translateJavacode;
-
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -56,6 +54,7 @@ public class SpreadsheetKeyListenerW
 	public void onKeyDown(KeyDownEvent e) {
 		e.stopPropagation();
 		GlobalKeyDispatcherW.setDownKeys(e);
+		GlobalKeyDispatcherW.setDownAltKeys(e, true);
 		// cancel as this may prevent the keyPress in some browsers
 		// hopefully it is enough to preventDefault in onKeyPress
 		// e.preventDefault();
@@ -153,7 +152,6 @@ public class SpreadsheetKeyListenerW
 				letterOrDigitTyped();
 			}
 			break;
-
 		case GWTKeycodes.KEY_DELETE:
 		case GWTKeycodes.KEY_BACKSPACE:
 			if (!editor.isEditing()) {
@@ -223,10 +221,8 @@ public class SpreadsheetKeyListenerW
 			}
 			//$FALL-THROUGH$
 		default:
-			int nativeKeyCode = e.getNativeKeyCode();
-			com.himamis.retex.editor.share.util.KeyCodes keycode = translateJavacode(nativeKeyCode);
-			if (!editor.isEditing() && isValidKeyCombination(e, keycode)) {
-				if (preventDefaultAction(e, keycode)) {
+			if (!editor.isEditing() && isValidKeyCombination(e)) {
+				if (GlobalKeyDispatcherW.isLeftAltDown() && preventDefaultAction(e)) {
 					e.preventDefault();
 				}
 				letterOrDigitTyped();
@@ -630,10 +626,10 @@ public class SpreadsheetKeyListenerW
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
 		GlobalKeyDispatcherW.setDownKeys(event);
+		GlobalKeyDispatcherW.setDownAltKeys(event, false);
 	}
 
-	private boolean isValidKeyCombination(KeyDownEvent e,
-			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+	private boolean isValidKeyCombination(KeyDownEvent e) {
 		return !e.isControlKeyDown() && (!e.isAltKeyDown() || isSpecialCharacter(e));
 	}
 
@@ -641,8 +637,7 @@ public class SpreadsheetKeyListenerW
 		return AltKeys.isGeoGebraShortcut(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
 
-	private boolean preventDefaultAction(KeyDownEvent e,
-			com.himamis.retex.editor.share.util.KeyCodes keycode) {
+	private boolean preventDefaultAction(KeyDownEvent e) {
 		return e.isAltKeyDown()
 				&& AltKeys.isGeoGebraShortcut(e.getNativeKeyCode(), e.isShiftKeyDown(), true);
 	}
