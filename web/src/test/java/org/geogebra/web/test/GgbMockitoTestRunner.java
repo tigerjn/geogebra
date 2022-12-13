@@ -26,7 +26,6 @@ import org.gwtproject.touch.client.TouchScroller;
 import org.gwtproject.user.cellview.client.CellBasedWidgetImplStandard;
 import org.gwtproject.user.cellview.client.CellList;
 import org.gwtproject.user.cellview.client.CellTable;
-import org.gwtproject.user.cellview.client.DataGrid;
 import org.gwtproject.user.client.DOM;
 import org.gwtproject.user.client.impl.DOMImplStandard;
 import org.gwtproject.user.client.impl.DOMImplStandardBase;
@@ -148,7 +147,6 @@ public class GgbMockitoTestRunner extends GwtMockitoTestRunner {
         classes.add(Composite.class);
         classes.add(DOM.class);
         classes.add(UIObject.class);
-        classes.add(DataGrid.class);
         classes.add(HTMLTable.class);
         classes.add(Image.class);
         classes.add(AbsolutePanel.class);
