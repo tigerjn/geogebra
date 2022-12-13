@@ -10,6 +10,7 @@ import org.geogebra.common.gui.layout.DockManager;
 import org.geogebra.common.javax.swing.SwingConstants;
 import org.geogebra.common.main.App;
 import org.geogebra.common.main.App.InputPosition;
+import org.geogebra.common.move.ggtapi.models.Material;
 import org.geogebra.common.util.debug.Log;
 import org.geogebra.gwtutil.JsConsumer;
 import org.geogebra.gwtutil.NavigatorUtil;
@@ -754,7 +755,11 @@ public class GeoGebraFrameFull
 		if (notesLayout.getToolbar() != null) {
 			add(notesLayout.getToolbar());
 		}
-		if (app.getAppletParameters().getDataParamEnableUndoRedo()) {
+		Material mat = app.getActiveMaterial();
+		boolean isMultiuserMat = mat != null && mat.isMultiuser();
+		if (app.getAppletParameters().getDataParamEnableUndoRedo()
+			&& (app.getAppletParameters().getParamMultiplayerUrl().isEmpty()
+			|| !isMultiuserMat)) {
 			add(notesLayout.getUndoRedoButtons());
 		}
 		setPageControlButtonVisible(app.isMultipleSlidesOpen()
@@ -799,6 +804,18 @@ public class GeoGebraFrameFull
 	private void initNotesLayoutIfNull(AppW app) {
 		if (notesLayout == null) {
 			notesLayout = new NotesLayout(app);
+		}
+	}
+
+	/**
+	 * show/hide visibility depending on multiuser status
+	 * @param add - add undo/redo when not multiuser, remove otherwise
+	 */
+	public void updateUndoRedoButtonVisibility(boolean add) {
+		if (add) {
+			add(notesLayout.getUndoRedoButtons());
+		} else {
+			remove(notesLayout.getUndoRedoButtons());
 		}
 	}
 
