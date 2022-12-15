@@ -56,8 +56,36 @@ public class MathFormulaConverterTest {
 	}
 
 	@Test
-	public void testConvertEmptyPoint() {
+	public void testConvertEmpty2DPoint() {
 		assertEquals("\\left({" + PLACEHOLDER1
 				+ "," + PLACEHOLDER1 + "}\\right)", converter.convert("(,)"));
+	}
+
+	@Test
+	public void testConvertEmpty3DPoint() {
+		assertEquals("\\left({" + PLACEHOLDER1
+				+ "," + PLACEHOLDER1 + "," + PLACEHOLDER1
+				+ "}\\right)", converter.convert("(,,)"));
+	}
+
+	@Test
+	public void testConvertSemiEmptyPointNumberInLeft() {
+		assertEquals("\\left({4," + PLACEHOLDER1 + ","
+						+ PLACEHOLDER1 + "}\\right)",
+				converter.convert("(4,,)"));
+	}
+
+	@Test
+	public void testConvertSemiEmptyPointNumberInMiddle() {
+		assertEquals("\\left({" + PLACEHOLDER1 + ",4,"
+						+ PLACEHOLDER1 + "}\\right)",
+				converter.convert("(,4,)"));
+	}
+
+	@Test
+	public void testConvertSemiEmptyPointNumberInRight() {
+		assertEquals("\\left({" + PLACEHOLDER1 + ","
+						+ PLACEHOLDER1 + ",4}\\right)",
+				converter.convert("(,,4)"));
 	}
 }

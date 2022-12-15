@@ -856,4 +856,13 @@ public class GeoInputBoxTest extends BaseUnitTest {
 		input.updateLinkedGeo("3,4");
 		assertEquals(updated, linked.toString(StringTemplate.defaultTemplate));
 	}
+
+	@Test
+	public void linesShouldPreserveQuestionMarkOnBadInput() {
+		add("a(x, y) = ?x + ?y");
+		GeoInputBox input = add("InputBox(a)");
+		String updated = "?x + ?y +";
+		input.updateLinkedGeo(updated);
+		assertEquals(updated, input.getTempUserEvalInput());
+	}
 }

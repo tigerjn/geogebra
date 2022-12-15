@@ -592,11 +592,11 @@ public class GeoInputBoxLinkedGeoTest extends BaseUnitTest {
 		add("m1 = {{1}, {2}}");
 		GeoInputBox inputBox = add("InputBox(m1)");
 		inputBox.setSymbolicMode(false);
-		inputBox.updateLinkedGeo("{{" + Unicode.IMAGINARY + "}, {3}}");
+		inputBox.updateLinkedGeo("{{" + Unicode.IMAGINARY + "},{3}}");
 		assertEquals("{{i},{3}}", inputBox.getTextForEditor());
 
 		inputBox.setSymbolicMode(true);
-		inputBox.updateLinkedGeo("{{" + Unicode.IMAGINARY + "}, {3}}");
+		inputBox.updateLinkedGeo("{{" + Unicode.IMAGINARY + "},{3}}");
 		assertEquals("{{i},{3}}", inputBox.getTextForEditor());
 	}
 
@@ -617,4 +617,35 @@ public class GeoInputBoxLinkedGeoTest extends BaseUnitTest {
 				inputBox.getText());
 	}
 
+	@Test
+	public void testEmpty2DPointShouldNotRaiseError() {
+		add("A = (?, ?)");
+		GeoInputBox inputBox = add("InputBox(A)");
+		inputBox.updateLinkedGeo("(,)");
+		assertFalse(inputBox.hasError());
+	}
+
+	@Test
+	public void testEmpty3DPointShouldNotRaiseError() {
+		add("m1 = {{?},{?},{?}}");
+		GeoInputBox inputBox = add("InputBox(m1)");
+		inputBox.updateLinkedGeo("{,,}");
+		assertFalse(inputBox.hasError());
+	}
+
+	@Test
+	public void testEmpty2DMatrixShouldNotRaiseError() {
+		add("m1 = {{1,2},{3,4}}");
+		GeoInputBox inputBox = add("InputBox(m1)");
+		inputBox.updateLinkedGeo("{{,,},{,,}}");
+		assertFalse(inputBox.hasError());
+	}
+
+	@Test
+	public void testEmptyVectorShouldNotRaiseError() {
+		add("u = (?,?,?)");
+		GeoInputBox inputBox = add("InputBox(u)");
+		inputBox.updateLinkedGeo("(,,)");
+		assertFalse(inputBox.hasError());
+	}
 }

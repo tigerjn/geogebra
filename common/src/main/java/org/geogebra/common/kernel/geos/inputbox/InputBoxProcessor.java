@@ -13,6 +13,7 @@ import org.geogebra.common.kernel.commands.redefinition.RuleCollection;
 import org.geogebra.common.kernel.commands.redefinition.RuleCollectionSymbolic;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoInputBox;
+import org.geogebra.common.kernel.geos.GeoList;
 import org.geogebra.common.kernel.geos.GeoNumeric;
 import org.geogebra.common.kernel.geos.GeoPoint;
 import org.geogebra.common.kernel.geos.GeoText;
@@ -30,10 +31,12 @@ import org.geogebra.common.util.debug.Log;
  */
 public class InputBoxProcessor {
 
-	private GeoInputBox inputBox;
+	private final GeoInputBox inputBox;
 	private GeoElementND linkedGeo;
 	private final Kernel kernel;
-	private AlgebraProcessor algebraProcessor;
+	private final AlgebraProcessor algebraProcessor;
+
+	private final UserInputConverter userInputConverter = new UserInputConverter();
 
 	/**
 	 * @param inputBox
@@ -71,6 +74,7 @@ public class InputBoxProcessor {
 				inputBox.setTempUserInput(eraseQuestionMark(inputText),
 						eraseQuestionMark(content.getLaTeX()));
 			}
+
 			linkedGeo.setUndefined();
 			makeGeoIndependent();
 			linkedGeo.resetDefinition(); // same as SetValue(linkedGeo, ?)
@@ -82,7 +86,12 @@ public class InputBoxProcessor {
 		if (text == null) {
 			return "";
 		}
-		return text.replace("?,", ",").replace(",?", ",");
+
+		return shouldReplaceQuestionMark() ? text.replace("?", "") : text;
+	}
+
+	private boolean shouldReplaceQuestionMark() {
+		return linkedGeo.hasSpecialEditor();
 	}
 
 	private String maybeClampInputForNumeric(String inputText, StringTemplate tpl) {
@@ -202,7 +211,20 @@ public class InputBoxProcessor {
 			defineText = defineText.replace('I', 'i');
 		}
 
-		return defineText;
+		return emptyToUndefined(defineText);
+	}
+
+	private String emptyToUndefined(String text) {
+		if (!linkedGeo.hasSpecialEditor()) {
+			return text;
+		}
+		if (linkedGeo.isGeoPoint() || linkedGeo.isGeoVector()) {
+			return userInputConverter.pointToUndefined(text);
+		}
+		if (linkedGeo.isGeoList() && ((GeoList) linkedGeo).isMatrix()) {
+			return userInputConverter.matrixToUndefined(text);
+		}
+		return text;
 	}
 
 	private String buildListText(EditorContent content) {

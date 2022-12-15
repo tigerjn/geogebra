@@ -13,6 +13,7 @@ import com.himamis.retex.editor.share.meta.MetaFunction;
 import com.himamis.retex.editor.share.meta.MetaModel;
 import com.himamis.retex.editor.share.meta.Tag;
 import com.himamis.retex.editor.share.model.MathArray;
+import com.himamis.retex.editor.share.model.MathCharPlaceholder;
 import com.himamis.retex.editor.share.model.MathCharacter;
 import com.himamis.retex.editor.share.model.MathComponent;
 import com.himamis.retex.editor.share.model.MathContainer;
@@ -884,13 +885,37 @@ public class InputController {
 	private void deleteSingleArg(EditorState editorState) {
 		int currentOffset = editorState.getCurrentOffsetOrSelection();
 		MathSequence currentField = editorState.getCurrentField();
-		if (!currentField.isArgumentProtected(currentOffset - 1)) {
-			currentField.delArgument(currentOffset - 1);
-			editorState.decCurrentOffset();
-			MathComponent component = currentField.getArgument(editorState.getCurrentOffset());
-			if (component instanceof MathFunction) {
-				RemoveContainer.fuseMathFunction(editorState, (MathFunction) component);
-			}
+		if (currentField.isArgumentProtected(currentOffset - 1)) {
+			return;
+		}
+
+		currentField.delArgument(currentOffset - 1);
+		editorState.decCurrentOffset();
+		onDelete(editorState, currentField);
+	}
+
+	private void onDelete(EditorState editorState, MathSequence currentField) {
+		int offset = editorState.getCurrentOffset();
+		MathComponent component = currentField.getArgument(offset);
+		if (isCommaOrNull(component)) {
+			addPlaceholderIfNeeded(currentField, offset);
+		}
+
+		if (component instanceof MathFunction) {
+			RemoveContainer.fuseMathFunction(editorState, (MathFunction) component);
+		}
+	}
+
+	private boolean isCommaOrNull(MathComponent component) {
+		return component == null
+				|| (component instanceof MathCharacter
+						&& ((MathCharacter) component).isUnicode(','));
+	}
+
+	private void addPlaceholderIfNeeded(MathSequence currentField, int offset) {
+		MathComponent prev = currentField.getArgument(offset - 1);
+		if (isCommaOrNull(prev)) {
+			currentField.addArgument(offset, new MathCharPlaceholder());
 		}
 	}
 
