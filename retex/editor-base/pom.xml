@@ -56,19 +56,19 @@
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <artifactId>javacc-maven-plugin</artifactId>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
-                        <id>add-source</id>
+                        <id>jjt2</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>add-source</goal>
+                            <goal>javacc</goal>
                         </goals>
                         <configuration>
-                            <sources>
-                                <source>build/generated/javacc</source>
-                            </sources>
+                            <jdkVersion>1.8</jdkVersion>
+                            <isStatic>false</isStatic>
+                            <sourceDirectory>src/main/javacc</sourceDirectory>
                         </configuration>
                     </execution>
                 </executions>
