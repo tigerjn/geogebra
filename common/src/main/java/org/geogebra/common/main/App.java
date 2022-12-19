@@ -3948,7 +3948,9 @@ public abstract class App implements UpdateSelection, AppInterface, EuclidianHos
 				}
 
 			} else {
+				ScreenReader.readSpacePressed(geo);
 				geo.runClickScripts(null);
+				return true;
 			}
 
 			// read *after* state changed!
