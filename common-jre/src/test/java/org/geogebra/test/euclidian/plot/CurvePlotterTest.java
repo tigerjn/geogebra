@@ -79,4 +79,14 @@ public class CurvePlotterTest extends BaseUnitTest {
 		assertEquals(gpExpected, gp);
 		assertEquals(pointExpected, pointActual);
 	}
+
+	@Test
+	public void testStuckPlotting() {
+		CurveEvaluable curve = add("sin(x^2)");
+		PathPlotterMock gp = new PathPlotterMock();
+		EuclidianView view = getApp().getActiveEuclidianView();
+		CurvePlotter.plotCurve(curve, -10, 10, view,
+				gp, true, Gap.MOVE_TO);
+		assertEquals(0, gp.result().length());
+	}
 }

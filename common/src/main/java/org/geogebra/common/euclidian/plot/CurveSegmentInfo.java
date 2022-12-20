@@ -116,4 +116,5 @@ public class CurveSegmentInfo {
 			return det < bend * innerProduct;
 		}
 	}
+
 }

@@ -183,7 +183,7 @@ public class CurveSegmentPlotter {
 
 				evalRight = Cloner.clone(eval);
 				params.updateDiff(evalLeft, evalRight);
-				params.countDiffZeros = isDiffZero(params.diff) ? params.countDiffZeros + 1 : 0;
+				params.countDiffZeros += isDiffZero(params.diff) ? 1 : 0;
 
 				info.update(evalLeft, evalRight, params.diff, params.prevDiff);
 
