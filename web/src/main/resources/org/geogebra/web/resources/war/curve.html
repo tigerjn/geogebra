@@ -1,15 +1,9 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 </head>
 <body>
-
-<canvas id="ggbCanvas" width="1920" height="1024">
-
+<canvas id="ggbCanvas" width="1920" height="1024"></canvas>
 <script src="ParametricCurve.js"></script>
 <script>
-
-    var canvas = document.getElementById("ggbCanvas");
-    var ctx = canvas.getContext("2d");
-
 
 function testFun1(a) {
 	return a*a/1000;
@@ -19,8 +13,7 @@ function testFun2(a) {
 	return 300+200*Math.sin(Math.pow(a/100,a/100));
 }
 
-function parabola() {}
-
+    function parabola() {};
     parabola.evaluateCurve = function(a, b) {
         b[0] = a;
         b[1] = testFun2(a);
@@ -32,18 +25,12 @@ return (function(a) { return a; });
 
 }
 
-parabola.getRealRootFunctionY = function() {
-
-return (function(a) { return testFun2(a); });
-
-}
-
 var count = 0;
 
 function view() {};
 
 view.real2viewCoords = function(a,b) {
-	return {x: a/10, y: b/10};
+	return {x: a/3, y: b/3};
 };
 
 function gp() {
@@ -71,32 +58,14 @@ function gp() {
         return [this.currentX, this.currentY];
     }
 
-function draw(y) {
 
-	count = 0;
-	ctx.translate(y,y);
-    ctx.beginPath();
+var canvas = document.getElementById("ggbCanvas");
+const offscreen = canvas.transferControlToOffscreen();
+const worker = new Worker("offscreenPlotting.js");
 
-    geogebra_src_DrawParametricCurve_plotInterval__Lgeogebra_src_ParametricCurve_2DDIDLgeogebra_src_EuclidianView_2Lgeogebra_src_GeneralPathClipped_2ZLgeogebra_src_DrawParametricCurve$Gap_2Lgeogebra_src_GPoint_2(parabola, 0, 1920, 0, 1, view, gp, true, 1);
-
-    ctx.stroke();
-	
-	console.log(count);
-	
-	count = 0;
-
-    ctx.beginPath();
-    ctx.stroke();
-}
-
-  for (let i=0; i < 1000; i = i+10) {
-      draw(i);
-     }
-	console.log(count);
-
-
+worker.postMessage({canvas: offscreen,view: view}, [offscreen, view]);
 </script>
 
-</canvas>
+
 </body>
 </html>

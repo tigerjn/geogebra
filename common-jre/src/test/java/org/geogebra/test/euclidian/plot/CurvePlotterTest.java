@@ -82,7 +82,7 @@ public class CurvePlotterTest extends BaseUnitTest {
 
 	@Test
 	public void testStuckPlotting() {
-		CurveEvaluable curve = add("sin(x^2)");
+		CurveEvaluable curve = add("sin(x^x)");
 		PathPlotterMock gp = new PathPlotterMock();
 		EuclidianView view = getApp().getActiveEuclidianView();
 		CurvePlotter.plotCurve(curve, -10, 10, view,
