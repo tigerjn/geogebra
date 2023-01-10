@@ -67,8 +67,8 @@ public class UploadRequest implements Request {
 	public UploadRequest(Material mat) {
 		this.consTitle = mat.getTitle();
 		this.type = typeString(mat.getType());
-		if (mat.getId() != 0) {
-			this.uniqueID = mat.getId() + "";
+		if (!mat.getSharingKeyOrId().isEmpty() && !"0".equals(mat.getSharingKeyOrId())) {
+			this.uniqueID = mat.getSharingKeyOrId();
 		}
 		this.base64 = mat.getBase64();
 		this.visibility = "P";
