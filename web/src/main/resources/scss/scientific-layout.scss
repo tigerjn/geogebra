@@ -3,6 +3,10 @@
 
 .GeoGebraFrame {
 
+	.tab.scientific {
+		background-color: colors.$gray-background;
+	}
+
     .algebraPanelScientificSmallScreen {
         padding-top: 8px;
         box-sizing: border-box;
@@ -14,8 +18,6 @@
 
     .undoRedoCntScientific {
         margin: 6px;
-        margin-top: 4px;
-        padding-top: 4px;
         float: left;
         position: relative;
      }
@@ -61,8 +63,10 @@
         margin-right: auto;
     }
 
-    .algebraPanelScientificDefaults {
+    .panelScientificDefaults {
         @extend %sheetOfPaper;
+        position: absolute;
+        top: 0;
         &>div {
             margin-bottom: 0;
             border-bottom-right-radius: 0px;
@@ -134,6 +138,10 @@
             animation-name: fadeOutOpacity;
             animation-timing-function: ease-out;
         }
+    }
+
+    .avNameLogo {
+    	margin-bottom: 0;
     }
 }
 
