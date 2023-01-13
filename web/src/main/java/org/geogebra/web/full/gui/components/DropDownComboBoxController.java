@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.geogebra.common.gui.SetLabels;
 import org.geogebra.common.properties.EnumerableProperty;
+import org.geogebra.common.properties.GroupedEnumerableProperty;
 import org.geogebra.web.html5.gui.util.AriaMenuItem;
 import org.geogebra.web.html5.main.AppW;
 
@@ -16,7 +17,7 @@ public class DropDownComboBoxController implements SetLabels {
 	private ComponentDropDownPopup dropDown;
 	private List<AriaMenuItem> dropDownElementsList;
 	private List<String> items;
-	private Runnable changeHandler;
+	private List<Runnable> changeHandlers = new ArrayList<>();
 	private EnumerableProperty property;
 
 	/**
@@ -83,16 +84,15 @@ public class DropDownComboBoxController implements SetLabels {
 
 		for (int i = 0; i < dropDownList.size(); ++i) {
 			final int currentIndex = i;
-			AriaMenuItem item = new AriaMenuItem(dropDownList.get(i), true,
-					() -> {
+			AriaMenuItem item = new AriaMenuItem(dropDownList.get(i), true, () -> {
 				setSelectedOption(currentIndex);
 				if (property != null) {
 					property.setIndex(currentIndex);
 				}
-				if (changeHandler != null) {
-					changeHandler.run();
+				for (Runnable handler: changeHandlers) {
+					handler.run();
 				}
-					});
+			});
 
 			item.setStyleName("dropDownElement");
 			dropDownElementsList.add(item);
@@ -109,7 +109,11 @@ public class DropDownComboBoxController implements SetLabels {
 	private void setupDropDownMenu(List<AriaMenuItem> menuItems) {
 		dropDown.clear();
 		for (AriaMenuItem menuItem : menuItems) {
-			dropDown.addItem(menuItem);
+			if (!menuItem.getText().equals(GroupedEnumerableProperty.DIVIDER)) {
+				dropDown.addItem(menuItem);
+			} else {
+				dropDown.addDivider();
+			}
 		}
 	}
 
@@ -144,7 +148,7 @@ public class DropDownComboBoxController implements SetLabels {
 	 * @return selected text
 	 */
 	public String getSelectedText() {
-		if (getSelectedIndex() < 0) {
+		if (getSelectedIndex() < 0 || getSelectedIndex() >= dropDownElementsList.size()) {
 			return "";
 		}
 		return dropDownElementsList.get(getSelectedIndex()).getText();
@@ -168,8 +172,8 @@ public class DropDownComboBoxController implements SetLabels {
 		}
 	}
 
-	public void setChangeHandler(Runnable changeHandler) {
-		this.changeHandler = changeHandler;
+	public void addChangeHandler(Runnable changeHandler) {
+		this.changeHandlers.add(changeHandler);
 	}
 
 	public void setProperty(EnumerableProperty property) {
@@ -190,8 +194,8 @@ public class DropDownComboBoxController implements SetLabels {
 	 */
 	public void onInputChange() {
 		dropDown.setSelectedIndex(-1);
-		if (changeHandler != null) {
-			changeHandler.run();
+		for (Runnable handler: changeHandlers) {
+			handler.run();
 		}
 	}
 }

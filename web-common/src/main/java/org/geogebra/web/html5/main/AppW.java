@@ -3615,16 +3615,16 @@ public abstract class AppW extends App implements SetLabels, HasLanguage {
 	}
 
 	@Override
-	public void resetCommandDict() {
-		super.resetCommandDict();
-		setLabels(); // rebuilds input help panel
+	public StringTemplate getScreenReaderTemplate() {
+		return getAppletParameters().getParamScreenReaderMode(NavigatorUtil.isMobile()
+				|| NavigatorUtil.isMacOS())
+				? StringTemplate.screenReaderAscii
+				: StringTemplate.screenReaderUnicode;
 	}
 
 	@Override
-	public StringTemplate getScreenReaderTemplate() {
-		return getAppletParameters().getParamScreenReaderMode(NavigatorUtil.isMobile()
-					|| NavigatorUtil.isMacOS())
-				? StringTemplate.screenReaderAscii
-				: StringTemplate.screenReaderUnicode;
+	public void resetCommandDict() {
+		super.resetCommandDict();
+		setLabels(); // rebuilds input help panel
 	}
 }
