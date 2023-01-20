@@ -140,5 +140,8 @@ public abstract class SerializerAdapter implements Serializer {
 
 	abstract void serialize(MathPlaceholder placeholder, StringBuilder stringBuilder);
 
-	abstract void serialize(MathCharPlaceholder placeholder, StringBuilder stringBuilder);
+
+	void serialize(MathCharPlaceholder placeholder, StringBuilder stringBuilder) {
+		// only in LaTeX
+	}
 }
