@@ -28,7 +28,7 @@ public class TooltipProperty extends AbstractEnumerableProperty {
 		super(localization, "Labeling");
 		this.settings = settings;
 		this.view = view;
-		setValuesAndLocalize(new String[]{
+		setValues(new String[]{
 				"On",
 				"Automatic",
 				"Off"

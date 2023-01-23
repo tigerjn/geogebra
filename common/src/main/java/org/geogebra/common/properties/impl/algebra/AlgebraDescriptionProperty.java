@@ -31,7 +31,7 @@ public class AlgebraDescriptionProperty extends AbstractEnumerableProperty {
     public AlgebraDescriptionProperty(Kernel kernel, Localization localization) {
         super(localization, "AlgebraDescriptions");
         this.kernel = kernel;
-        setValuesAndLocalize(new String[]{
+        setValues(new String[]{
                 "DefinitionAndValue",
                 "Value",
                 "Definition",

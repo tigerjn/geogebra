@@ -23,7 +23,7 @@ public class RightAngleProperty extends AbstractEnumerableProperty {
 	public RightAngleProperty(Localization localization, App app) {
 		super(localization, "Labeling");
 		this.app = app;
-		setValuesAndLocalize(new String[]{
+		setValues(new String[]{
 				"Off",
 				"\u25a1",
 				"\u25CF",
