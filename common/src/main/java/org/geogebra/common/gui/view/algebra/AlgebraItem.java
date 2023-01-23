@@ -11,6 +11,7 @@ import org.geogebra.common.kernel.cas.AlgoSolve;
 import org.geogebra.common.kernel.commands.Commands;
 import org.geogebra.common.kernel.geos.DescriptionMode;
 import org.geogebra.common.kernel.geos.GeoElement;
+import org.geogebra.common.kernel.geos.GeoFunction;
 import org.geogebra.common.kernel.geos.GeoLine;
 import org.geogebra.common.kernel.geos.GeoList;
 import org.geogebra.common.kernel.geos.GeoNumeric;
@@ -98,7 +99,8 @@ public class AlgebraItem {
 		if (text1 == null) {
 			return text2 != null;
 		}
-		return !text1.equals(text2);
+		return !text1.equals(text2)
+				&& !GeoFunction.isUndefined(text1) && !GeoFunction.isUndefined(text2);
 	}
 
 	private static boolean allRHSareIntegers(GeoList geo) {
@@ -228,6 +230,45 @@ public class AlgebraItem {
 			}
 		}
 		return outputText;
+	}
+
+	/**
+	 * Returns the definition string for the geo element in the input row of the Algebra View.
+	 * @param element geo element
+	 * @return definition text in LaTeX
+	 */
+	public static String getDefinitionLatexForGeoElement(GeoElement element) {
+		return element.isAlgebraLabelVisible() ? element.getDefinitionForEditor() : element
+				.getDefinitionNoLabel(StringTemplate.editorTemplate);
+	}
+
+	/**
+	 * Returns the preview string for the geo element in the input row of the Algebra View.
+	 * @param element geo element
+	 * @return input preview string in LaTeX
+	 */
+	public static String getPreviewLatexForGeoElement(GeoElement element) {
+		String latex = getPreviewFormula(element, StringTemplate.numericLatex);
+
+		if (latex != null) {
+			return latex;
+		}
+
+		//APPS-4553 Logic from RadioTreeItem.getTextForEditing() for consistency
+		if (needsPacking(element)) {
+			return element.getLaTeXDescriptionRHS(false, StringTemplate.numericLatex);
+		} else if (!element.isAlgebraLabelVisible()) {
+			if (isTextItem(element)) {
+				return element.getLaTeXdescription();
+			}
+			return element.getDefinition(StringTemplate.numericLatex);
+		}
+
+		boolean substituteNumbers = element instanceof GeoNumeric && element.isSimple();
+		return element.getLaTeXAlgebraDescriptionWithFallback(
+				substituteNumbers
+						|| (element instanceof GeoNumeric && element.isSimple()),
+				StringTemplate.numericLatex, true);
 	}
 
 	/**
@@ -560,7 +601,7 @@ public class AlgebraItem {
 	 *            the GeoElement for what we need to get the preview for AV
 	 * @return the preview string for the given geoelement if there is any
 	 */
-	public static String getPreviewFormula(GeoElement element,
+	private static String getPreviewFormula(GeoElement element,
 			StringTemplate stringTemplate) {
 		Settings settings = element.getApp().getSettings();
 		int algebraStyle = settings.getAlgebra().getStyle();

@@ -1712,7 +1712,10 @@ public class CommandsTest {
 
 	@Test
 	public void cmdFractionText() {
-		t("FractionText[ 42 ]", "42");
+		t("FractionText[ 4/6 ]", " \\frac{ 2 }{ 3 } ");
+		t("FractionText[ -4/6 ]", " \\frac{ -2 }{ 3 } ");
+		t("FractionText[ 4/6, false ]", " \\frac{ 2 }{ 3 } ");
+		t("FractionText[ -4/6 , false ]", "- \\frac{ 2 }{ 3 } ");
 		t("FractionText[ (1,1) ]", "{ \\left( 1,1 \\right) }");
 	}
 
@@ -3556,6 +3559,7 @@ public class CommandsTest {
 				get("A").getObjectColor().toString());
 		Assert.assertEquals("A,A1",
 				StringUtil.join(",", app.getGgbApi().getAllObjectNames()));
+		Assert.assertEquals(2, app.getKernel().getConstruction().steps());
 	}
 
 	@Test
@@ -4332,6 +4336,7 @@ public class CommandsTest {
 		t("Zip[ i, i, {1, 2} ]", "{1, 2}");
 		t("Zip[ i + j, i, {1, 2}, j, {3, 4} ]", "{4, 6}");
 		t("Zip[ i + j, j, {1, 2}, i, {3, 4} ]", "{4, 6}");
+		t("Zip(2*A,A,{(1,1),(2,3),(4,5,6)})", "{(2, 2, 0), (4, 6, 0), (8, 10, 12)}");
 	}
 
 	@Test

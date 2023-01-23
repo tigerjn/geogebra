@@ -170,7 +170,6 @@ import org.geogebra.common.plugin.GeoClass;
 import org.geogebra.common.plugin.Operation;
 import org.geogebra.common.util.AsyncOperation;
 import org.geogebra.common.util.DoubleUtil;
-import org.geogebra.common.util.GPredicate;
 import org.geogebra.common.util.MyMath;
 import org.geogebra.common.util.StringUtil;
 import org.geogebra.common.util.debug.Log;
@@ -6546,6 +6545,7 @@ public abstract class EuclidianController implements SpecialPointsListener {
 				} else if (!geo0.isProtected(EventType.UPDATE)
 						&& !(geo0.isGeoBoolean() && geo0.isIndependent()) && geo0.isRedefineable()
 						&& !geo0.isGeoButton()
+						&& !view.isPlotPanel()
 						&& !(geo0.isGeoList() && ((GeoList) geo0).drawAsComboBox())) {
 					getDialogManager().showRedefineDialog(hits.get(0), true);
 				}
@@ -10833,12 +10833,8 @@ public abstract class EuclidianController implements SpecialPointsListener {
 			if (view != kernel.getLastAttachedEV()) {
 				return previewDrawable;
 			}
-			app.deleteSelectedObjects(false, new GPredicate<GeoElement>() {
-				@Override
-				public boolean test(GeoElement geo) {
-					return !app.isApplet() || !geo.isLockedPosition();
-				}
-			});
+			app.deleteSelectedObjects(false,
+					geo -> !app.isApplet() || !geo.isLockedPosition());
 			break;
 
 		default:
