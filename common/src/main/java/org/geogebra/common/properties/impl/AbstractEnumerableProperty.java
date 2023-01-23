@@ -50,7 +50,12 @@ public abstract class AbstractEnumerableProperty extends AbstractProperty
 
     @Override
     public String[] getValues() {
-        return values;
+        Localization localization = getLocalization();
+        String[] localizedValues = new String[values.length];
+        for (int i = 0; i < values.length; i++) {
+            localizedValues[i] = localization.getMenu(values[i]);
+        }
+        return localizedValues;
     }
 
     @Override
