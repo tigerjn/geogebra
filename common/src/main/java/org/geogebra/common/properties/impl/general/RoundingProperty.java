@@ -51,6 +51,12 @@ public class RoundingProperty extends AbstractEnumerableProperty {
     }
 
     @Override
+    public String[] getValues() {
+        setupValues(app.getLocalization());
+        return super.getValues();
+    }
+
+    @Override
     public int getIndex() {
         return optionsMenu.getMenuDecimalPosition(app.getKernel(), true);
     }
