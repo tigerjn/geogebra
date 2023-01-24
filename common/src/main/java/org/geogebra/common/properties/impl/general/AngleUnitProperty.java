@@ -23,7 +23,7 @@ public class AngleUnitProperty extends AbstractEnumerableProperty {
     public AngleUnitProperty(Kernel kernel, Localization localization) {
         super(localization, "AngleUnit");
         this.kernel = kernel;
-        setValuesAndLocalize(new String[]{"Degree", "Radiant",
+        setValues(new String[]{"Degree", "Radiant",
                 "DegreesMinutesSeconds"});
 
     }

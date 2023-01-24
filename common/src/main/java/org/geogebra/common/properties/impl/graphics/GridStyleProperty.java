@@ -36,7 +36,7 @@ public class GridStyleProperty extends AbstractEnumerableProperty
 			EuclidianSettings euclidianSettings) {
 		super(localization, "GridType");
 		this.euclidianSettings = euclidianSettings;
-		setValuesAndLocalize(new String[] { "Grid.Major", "Grid.MajorAndMinor",
+		setValues(new String[] { "Grid.Major", "Grid.MajorAndMinor",
 				"Polar", "Isometric" });
 	}
 
