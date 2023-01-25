@@ -27,25 +27,8 @@ public abstract class AbstractEnumerableProperty extends AbstractProperty
      *
      * @param values localized values of this property
      */
-    protected void setValues(String[] values) {
+    protected void setValues(String... values) {
         this.values = values;
-    }
-
-    /**
-     * This method sets and localizes the values.
-     *
-     * @param values values of this property
-     */
-    protected void setValuesAndLocalize(String... values) {
-        setValues(values);
-        localizeValues();
-    }
-
-    private void localizeValues() {
-        Localization localization = getLocalization();
-        for (int i = 0; i < values.length; i++) {
-            values[i] = localization.getMenu(values[i]);
-        }
     }
 
     @Override

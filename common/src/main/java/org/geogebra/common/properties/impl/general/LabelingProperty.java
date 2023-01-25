@@ -26,11 +26,7 @@ public class LabelingProperty extends AbstractEnumerableProperty {
     public LabelingProperty(Localization localization, LabelSettings labelSettings) {
         super(localization, "Labeling");
         this.labelSettings = labelSettings;
-        setValues(new String[]{
-                "Labeling.on",
-                "Labeling.off",
-                "Labeling.pointsOnly"
-        });
+        setValues("Labeling.on", "Labeling.off", "Labeling.pointsOnly");
     }
 
     @Override
