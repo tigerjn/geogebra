@@ -70,6 +70,7 @@ public class OpenFileView extends HeaderFileView
 		if (app.enableFileFeatures()) {
 			buttonPanel.add(openFileBtn);
 		}
+
 		addGoogleDriveButton(buttonPanel);
 		common.addToContent(buttonPanel);
 	}

@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 
 public class ComponentInfoErrorPanel extends FlowPanel {
-	private Localization loc;
+	private final Localization loc;
 	private StandardButton actionButton;
 
 	/**
