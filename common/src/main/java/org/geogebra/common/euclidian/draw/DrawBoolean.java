@@ -15,16 +15,19 @@ package org.geogebra.common.euclidian.draw;
 import org.geogebra.common.awt.GBasicStroke;
 import org.geogebra.common.awt.GColor;
 import org.geogebra.common.awt.GDimension;
+import org.geogebra.common.awt.GGeneralPath;
 import org.geogebra.common.awt.GGraphics2D;
 import org.geogebra.common.awt.GRectangle;
 import org.geogebra.common.awt.font.GTextLayout;
 import org.geogebra.common.euclidian.Drawable;
+import org.geogebra.common.euclidian.EuclidianConstants;
 import org.geogebra.common.euclidian.EuclidianStatic;
 import org.geogebra.common.euclidian.EuclidianView;
 import org.geogebra.common.factories.AwtFactory;
 import org.geogebra.common.kernel.StringTemplate;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.main.App;
+import org.geogebra.common.main.GeoGebraColorConstants;
 import org.geogebra.common.util.StringUtil;
 
 /**
@@ -43,6 +46,8 @@ public final class DrawBoolean extends Drawable {
 
 	public static final int LABEL_MARGIN_TEXT = 9;
 	public static final int LABEL_MARGIN_LATEX = 5;
+
+	private static final int CHECKBOX_SIZE = EuclidianConstants.DEFAULT_CHECKBOX_SIZE;
 
 	private final GeoBoolean geoBool;
 
@@ -107,8 +112,7 @@ public final class DrawBoolean extends Drawable {
 	private void updateLabel() {
 		xLabel = geoBool.getAbsoluteScreenLocX();
 		yLabel = geoBool.getAbsoluteScreenLocY();
-		int size = view.getBooleanSize();
-		int prefSize = size + 12;
+		int prefSize = CHECKBOX_SIZE + 12;
 		labelRectangle.setBounds(xLabel, yLabel,
 				prefSize + textWidth, prefSize);
 	}
@@ -120,7 +124,7 @@ public final class DrawBoolean extends Drawable {
 
 			CheckBoxIcon.paintIcon(geoBool.getBoolean(),
 					isHighlighted(), g2, geoBool.getAbsoluteScreenLocX() + LEGACY_OFFSET,
-					geoBool.getAbsoluteScreenLocY() + LEGACY_OFFSET, view.getBooleanSize());
+					geoBool.getAbsoluteScreenLocY() + LEGACY_OFFSET);
 
 			if (getDynamicCaption() != null && getDynamicCaption().isEnabled()) {
 				getDynamicCaption().draw(g2);
@@ -217,9 +221,10 @@ public final class DrawBoolean extends Drawable {
 	 */
 	public static class CheckBoxIcon {
 
+		private static final int BORDER_RADIUS = 2;
 		private final EuclidianView ev;
-		private static GBasicStroke stroke13 = null;
 		private static GBasicStroke stroke26 = null;
+		private static GGeneralPath gp;
 
 		/**
 		 * Creates new checkbox icon
@@ -247,11 +252,9 @@ public final class DrawBoolean extends Drawable {
 		 *            x coordinate (left edge)
 		 * @param y
 		 *            y coordinate (upper edge)
-		 * @param csize
-		 *            size in px
 		 */
 		static public void paintIcon(boolean checked, boolean highlighted,
-				GGraphics2D g, int x, int y, int csize) {
+				GGraphics2D g, int x, int y) {
 
 			if (highlighted) {
 				// outline
@@ -259,46 +262,38 @@ public final class DrawBoolean extends Drawable {
 				g.setStroke(AwtFactory.getPrototype()
 						.newMyBasicStroke(Drawable.UI_ELEMENT_HIGHLIGHT_WIDTH));
 
-				g.drawRoundRect(x, y, csize, csize, csize / 5, csize / 5);
+				g.drawRoundRect(x, y, CHECKBOX_SIZE, CHECKBOX_SIZE, BORDER_RADIUS, BORDER_RADIUS);
 			}
 
-			g.setStroke(EuclidianStatic.getDefaultStroke());
-			g.setColor(GColor.WHITE);
-			g.fillRoundRect(x, y, csize, csize, csize / 5,
-					csize / 5);
+			g.setStroke(AwtFactory.getPrototype().newBasicStroke(2.0));
+			g.setColor(checked ? GeoGebraColorConstants.GGB_PURPLE : GColor.WHITE);
+			g.fillRoundRect(x, y, CHECKBOX_SIZE, CHECKBOX_SIZE, BORDER_RADIUS,
+					BORDER_RADIUS);
 			// outer bevel
 			// Draw rounded border
-			g.setColor(GColor.BLACK);
-			g.drawRoundRect(x, y, csize, csize, csize / 5, csize / 5);
-			g.setColor(GColor.DARK_GRAY);
+			if (!checked) {
+				g.setColor(GColor.newColorRGB(0x757575));
+				g.drawRoundRect(x + 1, y + 1, CHECKBOX_SIZE - 2, CHECKBOX_SIZE - 2, BORDER_RADIUS, BORDER_RADIUS);
+			}
+			g.setColor(GColor.WHITE);
 
 			// paint check
 
 			if (checked) {
-				if (csize == 13) {
-
-					if (stroke13 == null) {
-						stroke13 = AwtFactory.getPrototype().newBasicStroke(2f,
-								GBasicStroke.CAP_ROUND,
-								GBasicStroke.JOIN_ROUND);
-					}
-
-					g.setStroke(stroke13);
-					g.drawLine(x + 2, y + 7, x + 5, y + 10);
-					g.drawLine(x + 5, y + 10, x + 10, y + 3);
-
-				} else { // csize == 26
-
-					if (stroke26 == null) {
-						stroke26 = AwtFactory.getPrototype().newBasicStroke(4f,
-								GBasicStroke.CAP_ROUND,
-								GBasicStroke.JOIN_ROUND);
-					}
-					g.setStroke(stroke26);
-					g.drawLine(x + 5, y + 15, x + 10, y + 20);
-					g.drawLine(x + 10, y + 20, x + 20, y + 6);
-
+				if (stroke26 == null) {
+					stroke26 = AwtFactory.getPrototype().newBasicStroke(2.6,
+							GBasicStroke.CAP_SQUARE,
+							GBasicStroke.JOIN_MITER);
+					gp = AwtFactory.getPrototype().newGeneralPath();
+					double q = 20.0 / 24;
+					gp.moveTo(1.73 * q, 12.91 * q);
+					gp.lineTo(8.1 * q, 19.28 * q);
+					gp.lineTo(22.79 * q, 4.59 * q);
 				}
+				g.setStroke(stroke26);
+				g.translate(x + 3, y + 3);
+				g.draw(gp);
+				g.translate(-x - 3, -y -3);
 			}
 		}
 
@@ -306,14 +301,14 @@ public final class DrawBoolean extends Drawable {
 		 * @return checkbox width
 		 */
 		public int getIconWidth() {
-			return ev.getBooleanSize();
+			return CHECKBOX_SIZE;
 		}
 
 		/**
 		 * @return checkbox height
 		 */
 		public int getIconHeight() {
-			return ev.getBooleanSize();
+			return CHECKBOX_SIZE;
 		}
 	}
 

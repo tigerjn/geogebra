@@ -139,9 +139,8 @@ public class DataPanelD extends JPanel
 		scrollPane.setRowHeaderView(rowHeader);
 
 		// create enableAll button and put it in the upper left corner
-		DataCheckBoxIcon cbIcon = new DataCheckBoxIcon(13);
-		ImageIcon iconUnChecked = cbIcon.createCheckBoxImageIcon(false, false);
-		ImageIcon iconChecked = cbIcon.createCheckBoxImageIcon(true, false);
+		ImageIcon iconUnChecked = DataCheckBoxIcon.createCheckBoxImageIcon(false);
+		ImageIcon iconChecked = DataCheckBoxIcon.createCheckBoxImageIcon(true);
 
 		btnEnableAll = new JButton();
 		btnEnableAll.setIcon(iconUnChecked);
@@ -479,10 +478,8 @@ public class DataPanelD extends JPanel
 			private ImageIcon iconUnChecked;
 
 			RowHeaderRenderer(JTable table) {
-
-				DataCheckBoxIcon cbIcon = new DataCheckBoxIcon(13);
-				iconUnChecked = cbIcon.createCheckBoxImageIcon(false, false);
-				iconChecked = cbIcon.createCheckBoxImageIcon(true, false);
+				iconUnChecked = DataCheckBoxIcon.createCheckBoxImageIcon(false);
+				iconChecked = DataCheckBoxIcon.createCheckBoxImageIcon(true);
 
 				setOpaque(true);
 
@@ -595,17 +592,14 @@ public class DataPanelD extends JPanel
 			this.csize = csize;
 		}
 
-		protected ImageIcon createCheckBoxImageIcon(boolean checked,
-				boolean highlighted) {
-
-			DataCheckBoxIcon cbIcon = new DataCheckBoxIcon(13);
+		protected static ImageIcon createCheckBoxImageIcon(boolean checked) {
 			BufferedImage image = new BufferedImage(13, 13,
 					BufferedImage.TYPE_INT_ARGB);
 			ImageIcon icon = new ImageIcon(image);
 			Graphics2D g2d = image.createGraphics();
-
-			CheckBoxIcon.paintIcon(checked, highlighted, new GGraphics2DD(g2d),
-					0, 0, cbIcon.csize);
+			g2d.scale(0.5, 0.5);
+			CheckBoxIcon.paintIcon(checked, false, new GGraphics2DD(g2d),
+					0, 0);
 
 			return icon;
 		}
