@@ -1,8 +1,7 @@
 package org.geogebra.web.editor;
 
 import org.geogebra.keyboard.web.TabbedKeyboard;
-import org.geogebra.web.html5.GeoGebraGlobal;
-import org.geogebra.web.html5.gui.GeoGebraFrameW;
+import org.geogebra.web.html5.bridge.RenderGgbElement;
 import org.geogebra.web.resources.StyleInjector;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -14,20 +13,33 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.himamis.retex.editor.web.JlmEditorLib;
 import com.himamis.retex.editor.web.MathFieldW;
+import com.himamis.retex.renderer.web.CreateLibrary;
+import com.himamis.retex.renderer.web.JlmApi;
+import com.himamis.retex.renderer.web.font.opentype.Opentype;
 
 import elemental2.dom.DomGlobal;
+import jsinterop.base.Js;
 
 public class EditorEntry implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		new StyleInjector(GWT.getModuleBaseURL())
+		elemental2.dom.Element script = DomGlobal.document
+				.querySelector("[src$=\"editor.nocache.js\"]");
+		String baseUrl = GWT.getModuleBaseURL();
+		if (script != null && !isSuperDev()) {
+			baseUrl = script.getAttribute("src");
+			baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf("/") + 1);
+		}
+		new StyleInjector(baseUrl)
 				.inject("css", "editor");
-		GeoGebraGlobal.setRenderGGBElement((el, callback) -> {
+		Opentype.setFontBaseUrl(baseUrl);
+		CreateLibrary.exportLibrary(new JlmApi(new JlmEditorLib()));
+		RenderGgbElement.setRenderGGBElement((el, callback) -> {
 			EditorListener listener = new EditorListener();
 
-			EditorStubFragments.load();
 			MathFieldW mf = initMathField(el, listener);
 			TabbedKeyboard tabbedKeyboard = initKeyboard(mf, el);
 			StyleInjector.onStylesLoaded(tabbedKeyboard::show);
@@ -44,7 +56,11 @@ public class EditorEntry implements EntryPoint {
 				callback.accept(editorApi);
 			}
 		});
-		GeoGebraFrameW.renderGGBElementReady();
+		RenderGgbElement.renderGGBElementReady();
+	}
+
+	private boolean isSuperDev() {
+		return Js.asPropertyMap(DomGlobal.window).has("__gwt_sdm");
 	}
 
 	private TabbedKeyboard initKeyboard(MathFieldW mf, Element el) {
