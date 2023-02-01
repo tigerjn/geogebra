@@ -4767,7 +4767,7 @@ public abstract class EuclidianView implements EuclidianViewInterfaceCommon,
 				sbxml.append("/>\n");
 			}
 
-			if (app.getSaveController().savedAsTemplate()) {
+			if (app.getSaveController() != null && app.getSaveController().savedAsTemplate()) {
 				// size of pen
 				sbxml.append("\t<penSize val=\"");
 				sbxml.append(settings.getLastPenThickness());
