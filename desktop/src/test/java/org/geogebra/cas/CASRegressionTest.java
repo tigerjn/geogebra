@@ -88,6 +88,11 @@ public class CASRegressionTest extends BaseCASIntegrationTest {
 	}
 
 	@Test
+	public void cmdSolveODETidyCas() {
+		t("SolveODE(2 x sqrt(y),(0,1))", "y = 1 / 4 * x^(4) + x^(2) + 1");
+	}
+
+	@Test
 	public void redefineShouldKeepTwinGeo() {
 		CASViewNoGui view = new CASViewNoGui(getApp(), "plane(p,q):=(p,q,p+q)");
 		CASInputHandler cih = new CASInputHandler(view);
