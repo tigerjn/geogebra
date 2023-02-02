@@ -1311,12 +1311,20 @@ public class Ggb2giac {
 							 					+ "]"
 											+ ",x,y),"
 									// one point
-						+ "[[[odeans:=desolve(y'=%0,x,y,%1)],when(size(odeans)==0,?,when(size(odeans)==1,normal(y=odeans[0]),"
-						+ "[[diff0:=evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))],"
+						+ "["
+							+ "["
+								+ "[odeans:=desolve(y'=%0,x,y,%1)],when(size(odeans)==0"
+									+ ",?,"
+									+ "when(size(odeans)==1,"
+										+ "normal(y=odeans[0]),"
+										+ "["
+											+ "[diff0:=evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))],"
 						// compare 2 solutions, pick one closest to point
 						// note: both could go through, pick just one
-						+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),normal(y=odeans[0]),normal(y=odeans[1]))"
-						+ "][-1]))][-1]]"
+											+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),"
+												+ "normal(y=odeans[0]),"
+												+ "normal(y=odeans[1]))"
+												+ "][-1]))][-1]]"
 						+ "[0])"
 		);
 
