@@ -1301,13 +1301,19 @@ public class Ggb2giac {
 		// goes through 2 points
 		// SolveODE[y''=x,{(1,1),(2,2)}]
 		// can't do [solveodearg0:=%0] as y' is immediately simplified to 1
-		p("SolveODE.2", "" + "normal(y=when(type(%1)==DOM_LIST," +
-		// list of 2 points
-				"desolve([%0,y(xcoord(%1[0]))=ycoord(%1[0]),y(xcoord(%1[1]))=ycoord(%1[1])],x,y)"
-				+ "," +
-				// one point
-				"desolve(when((%0)[0]==equal,%0,y'=%0),x,y,%1)" + ")" + ""
-				+ "[0])");
+		p("SolveODE.2",
+				"normal("
+						+ "y="
+							+ "when(type(%1)==DOM_LIST," // list of 2 points
+									+ "desolve([%0,"
+							 					+ "y(xcoord(%1[0]))=ycoord(%1[0]),"
+							 					+ "y(xcoord(%1[1]))=ycoord(%1[1])"
+							 					+ "]"
+											+ ",x,y),"
+									// one point
+									+ "desolve(when((%0)[0]==equal,%0,y'=%0),x,y,%1)"
+								+ ")[0])"
+		);
 
 		// used by AlgoSolveODECAS.java
 		p("SolveODEPoint.2", ""

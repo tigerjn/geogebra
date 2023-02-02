@@ -2747,7 +2747,6 @@ var problems = [
 { cat:"Evaluate", cmd:"Evaluate[sqrt((26188440946629826703822309)/(26942840480072343408400))]", result:"(1 / 26942840480072343408400 * sqrt(705590986846842175569890001809124163141017995600))", notes:"#4611" },
 { cat:"SolveTrig", cmd:"Element(Solve({a_{r} ^(2) - a_{y} ^(2) - 25 = 0, - a_{r} * cos(a_{t}) + 5 = 0, - a_{r} * sin(a_{t}) + a_{y} = 0, b_{r} ^(2) - b_{y} ^(2) - 25 = 0, - b_{r} * sin(b_{t}) + b_{y} = 0, a_{y} - b_{y} = 0},{a_{y}, a_{r}, a_{t}, b_{y}, b_{r}, b_{t}}),1)", result:"{a_{y} = 0, a_{r} = 5, a_{t} = 0, b_{y} = 0, b_{r} = -5, b_{t} = 0}|OR|{a_{y}=a_{r}sin(2tan⁻¹(sqrt(a_{r}²-25)/(a_{r}+5))),a_{r}=a_{r},a_{t}=2tan⁻¹(sqrt(a_{r}²-25)/(a_{r}+5)),b_{y}=a_{r}sin(2tan⁻¹(sqrt(a_{r}²-25)/(a_{r}-5))),b_{r}=a_{r},b_{t}=2tan⁻¹(sqrt(a_{r}²-25)/(a_{r}-5))}"},
 
-
 ];
 export default __giac;
 
