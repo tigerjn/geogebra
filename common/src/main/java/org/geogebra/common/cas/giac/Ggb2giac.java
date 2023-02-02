@@ -1322,10 +1322,11 @@ public class Ggb2giac {
 						// compare 2 solutions, pick one closest to point
 						// note: both could go through, pick just one
 											+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),"
-												+ "normal(y=odeans[0]),"
-												+ "normal(y=odeans[1]))"
-												+ "][-1]))][-1]]"
-						+ "[0])"
+												+ "normal(odeans[0]),"
+												+ "normal(odeans[1]))"
+												+ "][-1]))][-1]"
+						 + "]"
+						+ ")[0]"
 		);
 
 		// used by AlgoSolveODECAS.java
