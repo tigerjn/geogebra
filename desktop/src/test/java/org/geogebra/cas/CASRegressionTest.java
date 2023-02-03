@@ -107,8 +107,8 @@ public class CASRegressionTest extends BaseCASIntegrationTest {
 
 	@Test
 	public void testSolveODE() {
-//		t("SolveODE(2 x sqrt(y),(0,1))", "y = 1 / 4 * x^(4) + x^(2) + 1");
-
-		t("SolveODE(y'+y=2 exp(-x), (0,3))","y = 2 * x  * \u212F^(-x) + 3 * \u212F^(-x)");
+		t("SolveODE(2 x sqrt(y),(0,1))", "y = 1 / 4 * x^(4) + x^(2) + 1");
+		t("SolveODE(y'+y=2 exp(-x), (0,3))","y = 2 * x  * \u212F^(-x)"
+				+ " + 3 * \u212F^(-x)");
 	}
 }
