@@ -26,16 +26,19 @@ public final class ScientificDockPanelDecorator implements DockPanelDecorator {
 	public static final int TABLE_HEIGHT_DIFFERENCE = 64;
 	private FlowPanel main;
 	private Widget tableTab;
-	private StickyTable<?> table;
+	private StickyValuesTable table;
+	private Widget algebraTab;
 	private AppW app;
 
 	@Override
-	public Panel decorate(Panel wrapper, AppW appW) {
+	public Panel decorate(Widget algebraTab, Panel wrapper, AppW appW) {
+		this.algebraTab = algebraTab;
 		this.app = appW;
 		main = new FlowPanel();
 		main.setWidth("100%");
 		main.add(wrapper);
 		main.addStyleName("algebraPanel");
+		algebraTab.setStyleName("scientific");
 		return buildAndStylePanel();
 	}
 
@@ -65,6 +68,7 @@ public final class ScientificDockPanelDecorator implements DockPanelDecorator {
 	private void toggleSmallScreen(Widget w, boolean smallScreen) {
 		Dom.toggleClass(w, "algebraPanelScientificSmallScreen",
 				"panelScientificDefaults", smallScreen);
+		Dom.toggleClass(algebraTab, "scientific", !smallScreen);
 	}
 
 	@Override
@@ -88,11 +92,16 @@ public final class ScientificDockPanelDecorator implements DockPanelDecorator {
 	}
 
 	@Override
+	public void reset() {
+		table.resetDialog();
+	}
+
+	@Override
 	public void decorateTableTab(Widget tab, StickyTable<?> table) {
 		tableTab = tab;
-		this.table = table;
+		this.table = (StickyValuesTable) table;
 		tab.addStyleName("panelScientificDefaults");
-		disableShadedColumns((StickyValuesTable) table);
+		disableShadedColumns(this.table);
 		table.addStyleName("scientific");
 
 		SimplePanel btnHolder = new SimplePanel();
