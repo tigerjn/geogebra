@@ -27,15 +27,31 @@ public class GiacMacro {
 		return "type(" + arg + ") == DOM_LIST";
 	}
 
+	static String nth(String arg, int index) {
+		return arg + "[" + index + "]";
+	}
+
 	static String first(String arg) {
-		return arg + "[0]";
+		return nth(arg, 0);
 	}
 
 	static String last(String arg) {
-		return arg + "[-1]";
+		return nth(arg, -1);
 	}
 
 	public static String desolve(String l, String x, String y, String w) {
 		return "desolve(" + l + "," + x + "," + y + "," +w+" )";
+	}
+
+	public static String desolve(String l, String x, String y) {
+		return "desolve(" + l + "," + x + "," + y + ")";
+	}
+
+	public static String define(String variable, String value) {
+		return variable + ":=" + value;
+	}
+
+	public static String sizeEquals(String variable, int size) {
+		return "size(" + variable + ")=="+size;
 	}
 }
