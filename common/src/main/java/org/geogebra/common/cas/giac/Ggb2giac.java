@@ -1,5 +1,11 @@
 package org.geogebra.common.cas.giac;
 
+import static org.geogebra.common.cas.giac.CASMacro.L;
+import static org.geogebra.common.cas.giac.CASMacro.first;
+import static org.geogebra.common.cas.giac.CASMacro.isListType;
+import static org.geogebra.common.cas.giac.CASMacro.last;
+import static org.geogebra.common.cas.giac.CASMacro.when;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -23,18 +29,21 @@ public class Ggb2giac {
 	public static final String ELEMENT_2 = "when(%1>0&&%1<=size(%0),(%0)[%1-when(type(%0)==DOM_LIST,1,0)],?)";
 	private static final String GGBVECT_TYPE = "27";
 	private static final Map<String, String> commandMap = new TreeMap<>();
+	private static final String DESOLVE_TWO_POINTS = "desolve([%0,"
+			+ "y(xcoord(%1[0]))=ycoord(%1[0]), y(xcoord(%1[1]))=ycoord(%1[1])]"
+			+ ",x,y)";
 	private static final String DESOLVE_STRIP_Y =
 			"desolve(when((%0)[0]==equal,%0,y'=%0),x,y,%1)";
 	private static final String DESOLVE_WITH_DIFF =
 			"["
-			+ "[diff0:=evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))],"
-			// compare 2 solutions, pick one closest to point
-			// note: both could go through, pick just one
-			+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),"
-			+ "normal(odeans[0]),"
-			+ "normal(odeans[1])"
-			+ ")"
-			+ "]";
+					+ "[diff0:=evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))],"
+					// compare 2 solutions, pick one closest to point
+					// note: both could go through, pick just one
+					+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),"
+					+ "normal(odeans[0]),"
+					+ "normal(odeans[1])"
+					+ ")"
+					+ "]";
 
 	/**
 	 * @param signature
@@ -1314,24 +1323,23 @@ public class Ggb2giac {
 		// SolveODE[y''=x,{(1,1),(2,2)}]
 		// can't do [solveodearg0:=%0] as y' is immediately simplified to 1
 		p("SolveODE.2",
-				"normal("
+				first("normal("
 						+ "y="
-						+ "when(type(%1)==DOM_LIST," // list of 2 points
-						+ "desolve([%0,"
-						+ "y(xcoord(%1[0]))=ycoord(%1[0]),"
-						+ "y(xcoord(%1[1]))=ycoord(%1[1])"
-						+ "]"
-						+ ",x,y),"
+						+ when(isListType("%1"), // list of 2 points
+						DESOLVE_TWO_POINTS,
 						// one point
-						+ "["
-						+ "["
-						+ "[odeans:=desolve(y'=%0,x,y,%1)],when(size(odeans)==0"
-						+ "," + DESOLVE_STRIP_Y + "[0],"
-						+ "when(size(odeans) == 1,"
-						+ "normal(y=odeans[0]), " + DESOLVE_WITH_DIFF + "[-1])),"
-						+ "," + DESOLVE_STRIP_Y + "[-1]][-1]"
-						+ "]"
-						+ ")[0]"
+						L(
+						   last(L(
+								L("odeans:=desolve(y'=%0,x,y,%1)"),
+						        when("size(odeans)==0", first(DESOLVE_STRIP_Y),
+		         		           when("size(odeans) == 1",
+						                "normal(y=odeans[0])",
+										last(DESOLVE_WITH_DIFF)
+										)
+								)
+						,last(DESOLVE_STRIP_Y)))
+					      	)
+						 ))
 		);
 
 		// used by AlgoSolveODECAS.java
