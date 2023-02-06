@@ -35,7 +35,7 @@ public class GiacMacro {
 		return arg + "[-1]";
 	}
 
-	public static String desolve(String l, String x, String y) {
-		return "desolve(l,"  + x + "," + y + ")";
+	public static String desolve(String l, String x, String y, String w) {
+		return "desolve(" + l + "," + x + "," + y + "," +w+" )";
 	}
 }
