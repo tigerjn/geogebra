@@ -23,6 +23,18 @@ public class Ggb2giac {
 	public static final String ELEMENT_2 = "when(%1>0&&%1<=size(%0),(%0)[%1-when(type(%0)==DOM_LIST,1,0)],?)";
 	private static final String GGBVECT_TYPE = "27";
 	private static final Map<String, String> commandMap = new TreeMap<>();
+	private static final String DESOLVE_STRIP_Y =
+			"desolve(when((%0)[0]==equal,%0,y'=%0),x,y,%1)";
+	private static final String DESOLVE_WITH_DIFF =
+			"["
+			+ "[diff0:=evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))],"
+			// compare 2 solutions, pick one closest to point
+			// note: both could go through, pick just one
+			+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),"
+			+ "normal(odeans[0]),"
+			+ "normal(odeans[1])"
+			+ ")"
+			+ "]";
 
 	/**
 	 * @param signature
@@ -1304,31 +1316,21 @@ public class Ggb2giac {
 		p("SolveODE.2",
 				"normal("
 						+ "y="
-							+ "when(type(%1)==DOM_LIST," // list of 2 points
-									+ "desolve([%0,"
-							 					+ "y(xcoord(%1[0]))=ycoord(%1[0]),"
-							 					+ "y(xcoord(%1[1]))=ycoord(%1[1])"
-							 					+ "]"
-											+ ",x,y),"
-									// one point
+						+ "when(type(%1)==DOM_LIST," // list of 2 points
+						+ "desolve([%0,"
+						+ "y(xcoord(%1[0]))=ycoord(%1[0]),"
+						+ "y(xcoord(%1[1]))=ycoord(%1[1])"
+						+ "]"
+						+ ",x,y),"
+						// one point
 						+ "["
-							+ "["
-								+ "[odeans:=desolve(y'=%0,x,y,%1)],when(size(odeans)==0"
-									+ ",desolve(when((%0)[0]==equal,%0,y'=%0),x,y,%1)[0],"
-									+ "when(size(odeans) == 1,"
-										+ "normal(y=odeans[0]),"
-										+ "["
-											+ "[diff0:=evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))],"
-						// compare 2 solutions, pick one closest to point
-						// note: both could go through, pick just one
-											+ "when(abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1)),"
-												+ "normal(odeans[0]),"
-												+ "normal(odeans[1])"
-						+ ")"
-												+ "][-1])),"
-												+ "[xx:=[desolve(when((%0)[0]==equal,%0,y'=%0),x,y,%1)]"
-						+ "],xx[0][-1]][-1]"
-						 + "]"
+						+ "["
+						+ "[odeans:=desolve(y'=%0,x,y,%1)],when(size(odeans)==0"
+						+ "," + DESOLVE_STRIP_Y + "[0],"
+						+ "when(size(odeans) == 1,"
+						+ "normal(y=odeans[0]), " + DESOLVE_WITH_DIFF + "[-1])),"
+						+ "," + DESOLVE_STRIP_Y + "[-1]][-1]"
+						+ "]"
 						+ ")[0]"
 		);
 
