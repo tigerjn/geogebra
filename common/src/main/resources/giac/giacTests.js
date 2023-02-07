@@ -1671,6 +1671,7 @@ var __giac = [
 { cat:"SolveODE", cmd:"SolveODE[y''=x, (1,1)]", result:"y = -c_1 x + c_1 + 1 / 6 x\u00B3 + 5 / 6 x" },
 { cat:"SolveODE", cmd:"SolveODE[x,(1, 1)]", result:"y = 1 / 2 x\u00B2 + 1 / 2" },
 { cat:"SolveODE", cmd:"SolveODE[y''=x, {(1,1),(2,2)}]", result:"y = 1 / 6 x\u00B3 - 1 / 6 x + 1" },
+{ cat:"SolveODE", cmd:"SolveODE[2x sqrt(y), (0,1)]", result: "y = 1 / 4  x\u2074 + x\u00B2 + 1"},
 { cat:"Numerator", cmd:"Numerator[(x^2-1)/(x+1)]", result:"x\u00B2 - 1", notes:"cancelled down" },
 { cat:"Denominator", cmd:"Denominator[(x^2-1)/(x+1)]", result:"x+1", notes:"cancelled down" },
 { cat:"Numerator", cmd:"Numerator[Simplify[1/x+x^2]]", result:"x\u00B3+1" },

@@ -104,13 +104,4 @@ public class CASRegressionTest extends BaseCASIntegrationTest {
 				lookup("plane").getValueForInputBar());
 		assertArrayEquals(new String[]{"plane"}, getApp().getGgbApi().getAllObjectNames());
 	}
-
-	@Test
-	public void testSolveODE() {
-		t("SolveODE(2 x sqrt(y),(0,1))", "y = 1 / 4 * x^(4) + x^(2) + 1");
-		t("SolveODE(y'+y=2 exp(-x), (0,3))","y = 2 * x  * \u212F^(-x)"
-				+ " + 3 * \u212F^(-x)");
-		t("SolveODE[y''=x, (1,1)]", "y = -c_{1} * x + c_{1} + 1 / 6 * x^(3) "
-				+ "+ 5 / 6 * x");
-	}
 }
