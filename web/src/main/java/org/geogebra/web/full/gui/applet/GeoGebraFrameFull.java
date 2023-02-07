@@ -818,10 +818,9 @@ public class GeoGebraFrameFull
 	 * @param add - add undo/redo when not multiuser, remove otherwise
 	 */
 	public void updateUndoRedoButtonVisibility(boolean add) {
-		if (add) {
-			add(notesLayout.getUndoRedoButtons());
-		} else {
-			remove(notesLayout.getUndoRedoButtons());
+		app.getAppletParameters().setAttribute("allowUndoCheckpoints", String.valueOf(add));
+		if (notesLayout != null) {
+			notesLayout.updateUndoRedoActions();
 		}
 	}
 
