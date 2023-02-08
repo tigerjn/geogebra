@@ -3,12 +3,13 @@ package org.geogebra.common.cas.giac;
 import static org.geogebra.common.cas.giac.GiacMacro.L;
 import static org.geogebra.common.cas.giac.GiacMacro.define;
 import static org.geogebra.common.cas.giac.GiacMacro.desolve;
+import static org.geogebra.common.cas.giac.GiacMacro.evalf;
 import static org.geogebra.common.cas.giac.GiacMacro.first;
 import static org.geogebra.common.cas.giac.GiacMacro.isListType;
 import static org.geogebra.common.cas.giac.GiacMacro.last;
 import static org.geogebra.common.cas.giac.GiacMacro.normal;
-import static org.geogebra.common.cas.giac.GiacMacro.nth;
 import static org.geogebra.common.cas.giac.GiacMacro.sizeEquals;
+import static org.geogebra.common.cas.giac.GiacMacro.subst;
 import static org.geogebra.common.cas.giac.GiacMacro.when;
 
 public class SolveODEGiac {
@@ -28,31 +29,30 @@ public class SolveODEGiac {
 				last(L(
 						L(define(ODE_ANSWER, desolve("y'=%0", X, Y, "%1")
 						)),
-						when(sizeEquals(ODE_ANSWER, 0), first(desolveStripY()),
+						when(sizeEquals(ODE_ANSWER, 0), first(desolve(stripY(), X, Y, "%1")),
 								when(sizeEquals(ODE_ANSWER, 1),
 										normal("y=" + first(ODE_ANSWER)),
-										last(pickClosestToPoint())
+										last(pickClosest())
 								)
 						)
-						, last(desolveStripY())))
+						, last(desolve(stripY(), X, Y, "%1"))))
 		);
 	}
 
 	// compare 2 solutions, pick one closest to point
 	// note: both could go through, pick just one
-	private static String pickClosestToPoint() {
+	private static String pickClosest() {
 		return L(
 				L(define("diff0",
-						"evalf(subst(odeans,{x=xcoord(%1),y=ycoord(%1)}))")),
-				when("abs(diff0[0]-ycoord(%1))<abs(diff0[1]-ycoord(%1))",
-	 				normal(first(ODE_ANSWER)), normal(nth(ODE_ANSWER, 1))
+						evalf(subst(stripY(), "y=" + ODE_ANSWER)))),
+				when("diff0[0] < diff0[1]",
+	 				normal(first("diff0")), normal(last("diff0"))
 				)
 		);
 	}
 
-	private static String desolveStripY() {
-		return desolve(when("(%0)[0]==equal","%0","y'=%0"),
-				X, Y, "%1");
+	private static String stripY() {
+		return when("(%0)[0]==equal", "%0", "y'=%0");
 	}
 
 	private static String desolveTwoPoints() {

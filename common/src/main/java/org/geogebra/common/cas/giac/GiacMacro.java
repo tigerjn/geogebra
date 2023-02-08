@@ -22,6 +22,13 @@ public class GiacMacro {
 	static String normal(String arg) {
 		return "normal(" + arg + ")";
 	}
+	static String evalf(String arg) {
+		return "evalf(" + arg + ")";
+	}
+
+	static String subst(String arg, String replacement) {
+		return "evalf(" + arg + "," + replacement + ")";
+	}
 
 	static String isListType(String arg) {
 		return "type(" + arg + ") == DOM_LIST";
